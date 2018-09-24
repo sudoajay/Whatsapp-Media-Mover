@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context="com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle">
+
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.0"-->
+    <!--app:layout_constraintHorizontal_bias="0.0">-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="horizontal"-->
+    <!--tools:layout_editor_absoluteX="16dp"-->
+    <!--tools:layout_editor_absoluteY="16dp">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/back_Image_View"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:onClick="On_Click_Process"-->
+    <!--android:paddingRight="5dp"-->
+    <!--android:paddingTop="2dp"-->
+    <!--app:srcCompat="@drawable/back" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/toolbar_title"-->
+    <!--style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="left"-->
+    <!--android:layout_marginRight="30dp"-->
+    <!--android:fontFamily="serif"-->
+    <!--android:paddingBottom="0dp"-->
+    <!--android:paddingRight="50dp"-->
+    <!--android:text="Transfer "-->
+    <!--android:textAllCaps="false"-->
+    <!--android:textSize="21sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView15"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView14"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/refresh_Image_View"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:onClick="On_Click_Process"-->
+    <!--app:srcCompat="@drawable/refresh"-->
+    <!--tools:layout_editor_absoluteX="43dp"-->
+    <!--tools:layout_editor_absoluteY="16dp" />-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/share_ImageView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:onClick="On_Click_Process"-->
+    <!--app:srcCompat="@drawable/share"-->
+    <!--tools:layout_editor_absoluteX="43dp"-->
+    <!--tools:layout_editor_absoluteY="16dp" />-->
+    <!--</LinearLayout>-->
+
+
+    <!--</android.support.v7.widget.Toolbar>-->
+
+
+    <Button
+        android:id="@+id/file_Size_text"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="219dp"
+        android:layout_height="100dp"
+        android:background="@drawable/activity_my_blank_button"
+        android:drawableLeft="@drawable/files"
+        android:enabled="false"
+        android:fontFamily="sans-serif-smallcaps"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Data Size - 0 mb"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.192" />
+
+    <Button
+        android:id="@+id/restore_Button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.5"
+        android:background="@drawable/activity_my_restore_button"
+        android:drawableLeft="@drawable/restore"
+        android:fontFamily="sans-serif-smallcaps"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:text="Restore"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/file_Size_text"
+        app:layout_constraintVertical_bias="0.511" />
+
+    <Button
+        android:id="@+id/remove_Button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.5"
+        android:background="@drawable/activity_my_remove_button"
+        android:drawableLeft="@drawable/remove"
+        android:fontFamily="sans-serif-smallcaps"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:text="Remove"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/file_Size_text"
+        app:layout_constraintVertical_bias="0.511" />
+
+    <Button
+        android:id="@+id/copy_Button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.5"
+        android:background="@drawable/activity_my_copy_button"
+        android:drawableLeft="@drawable/copy"
+        android:fontFamily="sans-serif-smallcaps"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="Copy"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/file_Size_text"
+        app:layout_constraintVertical_bias="0.177" />
+
+    <Button
+        android:id="@+id/move_Button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:alpha="0.5"
+        android:background="@drawable/activity_my_move_button"
+        android:drawableLeft="@drawable/move"
+        android:fontFamily="sans-serif-smallcaps"
+        android:paddingLeft="25dp"
+        android:paddingRight="20dp"
+        android:text="Move"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/file_Size_text"
+        app:layout_constraintVertical_bias="0.177" />
+
+</android.support.constraint.ConstraintLayout>

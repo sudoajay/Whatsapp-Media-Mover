@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Main_Navigation"
+    android:id="@+id/linear"
+    tools:showIn="@layout/app_bar_main_navigation">
+
+<TextView
+    android:id="@+id/textView18"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Internal Storage"
+    android:textColor="#95000000"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.033"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.01999998"
+    tools:text="Internal Storage" />
+
+<TextView
+    android:id="@+id/text_View_External_Storage"
+    android:layout_width="wrap_content"
+    android:layout_height="27dp"
+    android:text="External Storage"
+    android:textColor="#95000000"
+    android:textSize="20sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.04"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<com.sudoajay.whatapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle
+    android:id="@+id/internal_Draw_Bar"
+    android:layout_width="0dp"
+    android:layout_height="20dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.318"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.13999999" />
+
+<com.sudoajay.whatapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle
+    android:id="@+id/external_Draw_Bar"
+    android:layout_width="0dp"
+    android:layout_height="20dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="10dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.318"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.62" />
+
+<TextView
+    android:id="@+id/internal_Storage_Total"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif"
+    android:text="Total : 0.0 GB"
+    android:textColor="#000"
+    android:textSize="15sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.62"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.110000014" />
+
+<TextView
+    android:id="@+id/external_Storage_Total"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif"
+    android:text="Total : 0.0 GB"
+    android:textColor="#000"
+    android:textSize="15sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.62"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.58000004" />
+
+<TextView
+    android:id="@+id/internal_Storage_Available"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif"
+    android:text="Available : 0.0 GB"
+    android:textColor="#000"
+    android:textSize="15sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.110000014" />
+
+<TextView
+    android:id="@+id/external_Storage_Available"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif"
+    android:text="Available : 0.0 GB"
+    android:textColor="#000"
+    android:textSize="15sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.58000004" />
+
+<ImageView
+    android:id="@+id/imageView2"
+    android:layout_width="7dp"
+    android:layout_height="8dp"
+    android:layout_marginTop="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.07"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.22000003"
+    app:srcCompat="@drawable/circle_dot_whatsapp" />
+
+<ImageView
+    android:id="@+id/external_Storage_WhatsApp_Dot"
+    android:layout_width="7dp"
+    android:layout_height="8dp"
+    android:layout_marginTop="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.07"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.7"
+    app:srcCompat="@drawable/circle_dot_whatsapp" />
+
+<ImageView
+    android:id="@+id/imageView3"
+    android:layout_width="7dp"
+    android:layout_height="8dp"
+    android:layout_marginTop="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.07"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.31"
+    app:srcCompat="@drawable/circle_dot_other" />
+
+<ImageView
+    android:id="@+id/external_Storage_Other_Dot"
+    android:layout_width="7dp"
+    android:layout_height="8dp"
+    android:layout_marginTop="20dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.07"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.8"
+    app:srcCompat="@drawable/circle_dot_other" />
+
+<TextView
+    android:id="@+id/internal_Storage_Other_Size"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="65dp"
+    android:layout_marginTop="30dp"
+    android:text="Calcu....."
+    android:textAllCaps="false"
+    android:textColor="#67000000"
+    android:textSize="14sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.209"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.32" />
+
+<TextView
+    android:id="@+id/external_Storage_Other_Size"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="65dp"
+    android:layout_marginTop="30dp"
+    android:text="Calcu....."
+    android:textAllCaps="false"
+    android:textColor="#67000000"
+    android:textSize="14sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.209"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.82" />
+
+<TextView
+    android:id="@+id/internal_Storage_WhatsApp_Size"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="65dp"
+    android:layout_marginTop="40dp"
+    android:text="Calcu....."
+    android:textAllCaps="false"
+    android:textColor="#67000000"
+    android:textSize="14sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.209"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.19999999" />
+
+<TextView
+    android:id="@+id/external_Storage_WhatsApp_Size"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="65dp"
+    android:layout_marginTop="40dp"
+    android:text="Calcu....."
+    android:textAllCaps="false"
+    android:textColor="#67000000"
+    android:textSize="14sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.209"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.71000004" />
+
+<TextView
+    android:id="@+id/textView20"
+    android:layout_width="0dp"
+    android:layout_height="27dp"
+    android:layout_marginLeft="65dp"
+    android:text="WhatsApp Data"
+    android:textColor="#d4000000"
+    android:textSize="18sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.275"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.22000003" />
+
+<TextView
+    android:id="@+id/external_Storage_WhatsApp_Data"
+    android:layout_width="0dp"
+    android:layout_height="27dp"
+    android:layout_marginLeft="65dp"
+    android:layout_marginTop="10dp"
+    android:text="WhatsApp Data"
+    android:textColor="#d4000000"
+    android:textSize="18sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.275"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.7" />
+
+<TextView
+    android:id="@+id/internal_Storage_Other_Data"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="65dp"
+    android:text="Other Data"
+    android:textColor="#d4000000"
+    android:textSize="18sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.23"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.32" />
+
+<TextView
+    android:id="@+id/external_Storage_Other_Data"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="65dp"
+    android:text="Other Data"
+    android:textColor="#d4000000"
+    android:textSize="18sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.23"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.8" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Home"
+            android:icon="@drawable/home"
+            android:title="@string/nav_Home" />
+        <item
+            android:id="@+id/nav_Transfer_Data"
+            android:icon="@drawable/transfer_file"
+            android:title="@string/nav_Transfer_Data" />
+        <item
+            android:id="@+id/nav_Duplicate_Data"
+            android:icon="@drawable/scan"
+            android:title="@string/nav_Duplicate_Data" />
+        <item
+            android:id="@+id/nav_Timer"
+            android:icon="@drawable/timer_icon"
+            android:title="@string/nav_Timer" />
+        <item
+            android:id="@+id/nav_Whatsapp_Setting"
+            android:icon="@drawable/setting"
+            android:title="@string/nav_Whatsapp_Setting" />
+
+    </group>
+
+    <group android:id="@+id/grp1" android:checkableBehavior="single" >
+
+    <item
+        android:id="@+id/nav_share"
+        android:icon="@drawable/ic_menu_share"
+        android:title="@string/nav_share" />
+    <item
+        android:id="@+id/nav_Rate_Us"
+        android:icon="@drawable/rate_us"
+        android:title="@string/nav_Rate_Us" />
+
+        <item
+            android:id="@+id/nav_Contact_Me"
+            android:icon="@drawable/contact_me"
+            android:title="@string/nav_Contact_Me" />
+
+
+
+    </group>
+
+</menu>

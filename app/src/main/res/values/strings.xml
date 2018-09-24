@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Media Mover (WhatsApp)</string>
+    <string name="home">Home</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Data Moving</string>
+    <string name="slide_1_desc">From One Click You Can Move Your Data To SD Card</string>
+
+    <string name="slide_2_title">Data Copying</string>
+    <string name="slide_2_desc">From One Click You Can Copy Your Data To SD Card</string>
+
+    <string name="slide_3_title">Data Remove</string>
+    <string name="slide_3_desc">From One Click You Can Remove Your Data </string>
+
+    <string name="slide_4_title">Data Restore</string>
+    <string name="slide_4_desc">From One Click You Can Restore Your Data To Main Storage</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main__navigation__class">Main_Navigation_Class</string>
+    <string name="title_activity_main__navigation">Home</string>
+    <string name="nav_header_title">Media Mover</string>
+    <string name="share_info">Hey check This App which help you to move your Whatsapp data to Sd Card(No Rooted Required) fast and easy way - </string>
+
+    // changes options
+    <string name="normal_Changes">Normal</string>
+    <string name="deep_Changes">Deep</string>
+    <string name="changes_Options">Changes Option</string>
+    <string name="make_A_Change">Make a Change</string>
+    <string name="select_The_Time">Select The Time</string>
+
+    // Spinner
+    <string name="spinner_title">Select The Time</string>
+
+    //setting heading
+    <string name="Choose_Your_Whatsapp">Choose Your Whatsapp</string>
+    <string name="Choose_Ok">OK</string>
+    <string name="Choose_Cancel">Cancel</string>
+    <string name="setting_Heading">Setting</string>
+
+    // menu navigation heading
+    <string name="nav_Home">Home</string>
+    <string name="nav_Transfer_Data">Transfer Data</string>
+    <string name="nav_Duplicate_Data">Duplicate Data</string>
+    <string name="nav_Timer">Timer</string>
+    <string name="nav_Whatsapp_Setting">Whatsapp Setting</string>
+    <string name="nav_share">share</string>
+    <string name="nav_Rate_Us">Rate Us</string>
+    <string name="nav_Contact_Me">Contact Me</string>
+
+
+</resources>

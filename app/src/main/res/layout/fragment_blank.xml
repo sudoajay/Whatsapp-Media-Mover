@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    tools:context="com.sudoajay.whatapp_media_mover_to_sdcard.Fragments.Audio_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ExpandableListView
+        android:id="@+id/lvExp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </ExpandableListView>
+
+    <TextView
+        android:id="@+id/text_View_Nothing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:alpha="0.5"
+        android:fontFamily="sans-serif"
+        android:text="        Nothing to Show :)"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:visibility="invisible" />
+</LinearLayout>
