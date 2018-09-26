@@ -58,5 +58,11 @@
     <string name="nav_Rate_Us">Rate Us</string>
     <string name="nav_Contact_Me">Contact Me</string>
 
+    // Notfication CHannel Name
+    <string name="transfer_title">Transfer</string>
+    <string name="transfer_Id">Transfer Id </string>
+    <string name="transfer_Done_title">Transfer Done</string>
+    <string name="transfer_Done_Id">Transfer Done Id </string>
+
 
 </resources>

@@ -155,6 +155,7 @@ public class MainTransferFIle extends Fragment {
                     }else {
                         sd_card_dataBase.Update_The_Table("1",sd_Card_Path_URL , sdCard_Uri.toString());
                     }
+        Toast.makeText(main_navigation, sd_Card_Path_URL+" --  " ,Toast.LENGTH_LONG).show();
             if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
             android_external_writeable_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
             android_external_writeable_permission.setString_URI(string_URI);

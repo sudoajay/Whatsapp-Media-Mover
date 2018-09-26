@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -848,7 +849,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
                     tick_Profile_ImageView.getVisibility(), tick_Sticker_ImageView.getVisibility());
         } else {
-            default_Notification(2);
+             default_Notification(2);
         }
     }
 
@@ -966,7 +967,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
             notificationManager.cancel(1);
             if (!stop_The_Process)
-                default_Notification(1);
+                 default_Notification(1);
             super.onPostExecute(s);
         }
     }
@@ -981,6 +982,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void Notification() {
 
+        String id = this.getString(R.string.transfer_Id); // default_channel_id
+        String title = this.getString(R.string.transfer_title); // Default Channel
+        NotificationCompat.Builder builder;
+
         save_Exact_Size = storage_Info.Convert_It(get_File_Size);
         contentView = new RemoteViews(getPackageName(), R.layout.activity_custom_notification);
         contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
@@ -990,48 +995,33 @@ public class After_MainTransferFIle extends AppCompatActivity {
         contentView.setTextViewText(R.id.size_Title, " Folder.....");
         contentView.setTextViewText(R.id.percent_Text, "00%");
 
-
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.media_mover_logo)
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setContent(contentView)
-                .setOngoing(true)
-                .setChannelId("Data Folder")
-                .setLights(Color.parseColor("#075e54"), 3000, 3000);
-
-
-        notification = mBuilder.build();
+        if (notificationManager == null) {
+            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            assert notificationManager != null;
+            NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
+            if (mChannel == null) {
+                mChannel = new NotificationChannel(id, title, importance);
+                notificationManager.createNotificationChannel(mChannel);
+            }
+        }
+            builder = new NotificationCompat.Builder(this, id)// required
+                    .setSmallIcon(R.drawable.ic_launcher)   // required
+                   .setVibrate(new long[]{0L}) // Passing null here silently fails
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setAutoCancel(false)
+                    .setOngoing(true)
+                    .setContent(contentView)
+                    .setLights(Color.parseColor("#075e54"), 3000, 3000);
+        notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
-
-        notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        assert notificationManager != null;
         notificationManager.notify(1, notification);
 
     }
-    private void createNotificationChannel(String channel_Id , ) {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            String channelId = "some_channel_id";
-            CharSequence channelName = "Some Channel";
-            int importance = NotificationManager.IMPORTANCE_LOW;
-            NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            notificationChannel.enableVibration(true);
-            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-    }
-
     public String get_Current_Time() {
         Date currentTime = Calendar.getInstance().getTime();
 
@@ -1112,33 +1102,53 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     }
 
-    public void default_Notification(int type) {
+    public void  default_Notification(int type) {
+        String id = this.getString(R.string.transfer_Done_Id); // default_channel_id
+        String title = this.getString(R.string.transfer_Done_title); // Default Channel
+        NotificationCompat.Builder builder;
+
+
         String get = "Transfer";
         if (which_Option_To_Do.equals("remove"))
             get = "Remove";
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this,"")
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(after_Notification)
-                        .setAutoCancel(true)
-                        .setChannelId(get)
-                        .setPriority(Notification.PRIORITY_DEFAULT)
-                        .setLights(Color.parseColor("#075e54"), 3000, 3000);
+
+
+        if (notificationManager == null) {
+            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            assert notificationManager != null;
+            NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
+            if (mChannel == null) {
+                mChannel = new NotificationChannel(id, title, importance);
+                notificationManager.createNotificationChannel(mChannel);
+            }
+        }
+            builder =
+                    new NotificationCompat.Builder(this,id)
+                            .setSmallIcon(R.drawable.ic_launcher)
+                            .setOngoing(true)
+                            .setContentTitle(after_Notification)
+                            .setAutoCancel(true)
+                            .setPriority(Notification.PRIORITY_DEFAULT)
+                            .setLights(Color.parseColor("#075e54"), 3000, 3000);
+
         if (type == 1) {
             builder.setContentText("Successfully Data " + get);
         } else {
             builder.setContentText("Error : No Space Left ");
         }
-
-
         Intent notificationIntent = new Intent(this, MainTransferFIle.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
 
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        notification = builder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.defaults |= Notification.DEFAULT_LIGHTS;
+
+        notificationManager.notify(1, notification);
     }
     public void Call_Custom_Dailog_Option_Changes() {
 

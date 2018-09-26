@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
@@ -68,6 +69,7 @@ public class Android_External_Writeable_Permission {
         }else{
             home.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
         }
+
     }
 
     public void Call_Custom_Dailog_Changes() {
@@ -87,6 +89,7 @@ public class Android_External_Writeable_Permission {
             cursor.moveToNext();
             sd_Card_Path_URL = cursor.getString(1);
             string_URI =cursor.getString(2);
+
 
         }
     }
