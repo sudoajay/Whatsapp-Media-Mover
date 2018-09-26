@@ -1128,7 +1128,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             builder =
                     new NotificationCompat.Builder(this,id)
                             .setSmallIcon(R.drawable.ic_launcher)
-                            .setOngoing(true)
+                            .setOngoing(false)
                             .setContentTitle(after_Notification)
                             .setAutoCancel(true)
                             .setPriority(Notification.PRIORITY_DEFAULT)
@@ -1139,7 +1139,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         } else {
             builder.setContentText("Error : No Space Left ");
         }
-        Intent notificationIntent = new Intent(this, MainTransferFIle.class);
+        Intent notificationIntent = new Intent(this, Main_Navigation.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);

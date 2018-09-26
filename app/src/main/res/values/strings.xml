@@ -63,6 +63,10 @@
     <string name="transfer_Id">Transfer Id </string>
     <string name="transfer_Done_title">Transfer Done</string>
     <string name="transfer_Done_Id">Transfer Done Id </string>
+    <string name="duplicate_title">Duplicate</string>
+    <string name="duplicate_Id">Duplicate Id </string>
+    <string name="duplicate_Done_title">Duplicate Done</string>
+    <string name="duplicate_Done_Id">Duplicate Done Id </string>
 
 
 </resources>

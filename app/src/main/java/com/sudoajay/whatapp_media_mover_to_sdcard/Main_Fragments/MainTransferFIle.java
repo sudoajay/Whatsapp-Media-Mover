@@ -1,5 +1,6 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Android_External_Writeable_Permission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Android_Permission_Required;
@@ -128,6 +128,7 @@ public class MainTransferFIle extends Fragment {
         }
     }
 //
+ @SuppressLint("SetTextI18n")
  public void Enter_Whats_App_Folder(){
         if(android_permission_required.isExternalStorageWritable())
             file_Size_Text.setText("Data Size - "+storage_info.getWhatsAppInternalMemorySize());
@@ -155,7 +156,6 @@ public class MainTransferFIle extends Fragment {
                     }else {
                         sd_card_dataBase.Update_The_Table("1",sd_Card_Path_URL , sdCard_Uri.toString());
                     }
-        Toast.makeText(main_navigation, sd_Card_Path_URL+" --  " ,Toast.LENGTH_LONG).show();
             if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
             android_external_writeable_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
             android_external_writeable_permission.setString_URI(string_URI);

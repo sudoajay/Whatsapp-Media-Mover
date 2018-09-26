@@ -4,12 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -23,6 +26,9 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -336,26 +342,49 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }, 2000);
     }
     public void default_Notification() {
-        NotificationCompat.Builder builder =
+
+        String id = this.getString(R.string.transfer_Done_Id); // default_channel_id
+        String title = this.getString(R.string.transfer_Done_title); // Default Channel
+        NotificationCompat.Builder builder;
+
+
+        if (notificationManager == null) {
+            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            assert notificationManager != null;
+            NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
+            if (mChannel == null) {
+                mChannel = new NotificationChannel(id, title, importance);
+                notificationManager.createNotificationChannel(mChannel);
+            }
+        }
+        builder =
                 new NotificationCompat.Builder(this,"")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Data Deleted")
                         .setAutoCancel(true)
+                        .setOngoing(false)
                         .setPriority(Notification.PRIORITY_DEFAULT)
                         .setLights(Color.parseColor("#075e54"), 3000, 3000);
+        builder.setContentText("You Have Saved " + Convert_It(total_Size) + " Of Data ");
 
-            builder.setContentText("You Have Saved " + Convert_It(total_Size) + " Of Data ");
         Intent notificationIntent = new Intent(this, Main_Navigation.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
 
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        notification = builder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.defaults |= Notification.DEFAULT_LIGHTS;
+
+        notificationManager.notify(1, notification);
     }
     public void Notification() {
-
+        String id = this.getString(R.string.duplicate_Id); // default_channel_id
+        String title = this.getString(R.string.duplicate_title); // Default Channel
+        NotificationCompat.Builder mBuilder;
 
         contentView = new RemoteViews(getPackageName(), R.layout.activity_custom_notification);
         contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
@@ -365,20 +394,30 @@ public class Show_Duplicate_File extends AppCompatActivity {
         contentView.setTextViewText(R.id.size_Title, "0/"+ list_Header.size());
         contentView.setTextViewText(R.id.percent_Text, "00%");
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, " ")
-                .setSmallIcon(R.drawable.media_mover_logo)
+        if (notificationManager == null) {
+            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            assert notificationManager != null;
+            NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
+            if (mChannel == null) {
+                mChannel = new NotificationChannel(id, title, importance);
+                notificationManager.createNotificationChannel(mChannel);
+            }
+        }
+        mBuilder = new NotificationCompat.Builder(this, id)
+                .setSmallIcon(R.drawable.ic_launcher)   // required
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setContent(contentView)
+                .setAutoCancel(false)
                 .setOngoing(true)
                 .setLights(Color.parseColor("#075e54"), 3000, 3000);
-
 
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.defaults |= Notification.DEFAULT_LIGHTS;
 
-
-        notificationManager = (android.app.NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1, notification);
     }
     public String get_Current_Time() {
