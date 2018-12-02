@@ -84,13 +84,18 @@ public class Android_External_Writeable_Permission {
     }
     public void Grab(){
         sd_card_dataBase = new Sd_Card_DataBase(context);
-        if(!sd_card_dataBase.check_For_Empty()){
-            Cursor cursor= sd_card_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            sd_Card_Path_URL = cursor.getString(1);
-            string_URI =cursor.getString(2);
+        try {
+            if (!sd_card_dataBase.check_For_Empty()) {
+                Cursor cursor = sd_card_dataBase.Get_All_Data();
+                cursor.moveToNext();
+                sd_Card_Path_URL = cursor.getString(1);
+                string_URI = cursor.getString(2);
 
 
+            }
+        }catch (Exception e){
+
+            
         }
     }
 

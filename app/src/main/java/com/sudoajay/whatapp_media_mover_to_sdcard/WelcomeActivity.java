@@ -23,6 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
+
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
