@@ -1,4 +1,4 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard;
+package com.sudoajay.whatapp_media_mover_to_sdcard.Permission;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,6 +14,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
 public class Android_Permission_Required {
 

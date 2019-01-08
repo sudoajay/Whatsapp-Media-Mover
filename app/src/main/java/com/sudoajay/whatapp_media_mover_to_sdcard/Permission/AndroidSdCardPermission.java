@@ -1,20 +1,21 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard;
+package com.sudoajay.whatapp_media_mover_to_sdcard.Permission;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
+import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_dialog;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 
 import java.io.File;
 
@@ -24,11 +25,12 @@ public class Android_External_Writeable_Permission {
     private Context context;
     private String sd_Card_Path_URL = "",string_URI;
     private final int REQUEST_CODE_OPEN_DOCUMENT_TREE =42;
-    private Sd_Card_DataBase sd_card_dataBase;
     private Duplication_Class duplication_class;
     private Handler handler;
     private MainTransferFIle mainTransferFIle;
     private Home home;
+    private SdCardPathSharedPreference sdCardPathSharedPreference;
+    private After_MainTransferFIle after_mainTransferFIle;
 
     public Android_External_Writeable_Permission(Activity activity , Context context, Duplication_Class duplication_class){
         this.activity= activity;
@@ -48,6 +50,17 @@ public class Android_External_Writeable_Permission {
         this.home=home;
         Grab();
     }
+    public Android_External_Writeable_Permission(Context context){
+        this.context =context;
+        Grab();
+    }
+    public Android_External_Writeable_Permission(Activity activity , Context context, After_MainTransferFIle after_mainTransferFIle){
+        this.activity= activity;
+        this.context =context;
+        this.after_mainTransferFIle=after_mainTransferFIle;
+        Grab();
+    }
+
 
     public void call_Thread(){
         handler = new Handler();
@@ -56,24 +69,26 @@ public class Android_External_Writeable_Permission {
             public void run() {
 
                     Call_Custom_Dailog_Changes();
-
-
             }
         },1800);
     }
     public void Storage_Access_FrameWork(){
-        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        if(mainTransferFIle != null) mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
-        else if(duplication_class != null) {
-            duplication_class.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
-        }else{
-            home.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
+        try {
+            final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            if(mainTransferFIle != null) mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
+            else if(duplication_class != null) {
+                duplication_class.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
+            }else if(home != null){
+                home.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
+            }else if( after_mainTransferFIle != null){
+                after_mainTransferFIle.startActivityForResult(intent,REQUEST_CODE_OPEN_DOCUMENT_TREE);
+            }
+        }catch (Exception e){
+            Toast.makeText(context,"There is Error Please Report It",Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public void Call_Custom_Dailog_Changes() {
-
         FragmentTransaction ft = ((FragmentActivity)activity).getSupportFragmentManager().beginTransaction();
         Sd_Card_dialog sd_card_dialog=new Sd_Card_dialog(this);
         sd_card_dialog.show(ft, "dialog");
@@ -83,16 +98,12 @@ public class Android_External_Writeable_Permission {
         return (sd_Card_Path_URL.equals(Environment.getExternalStorageDirectory().getAbsolutePath())) || (!new File(sd_Card_Path_URL).exists());
     }
     public void Grab(){
-        sd_card_dataBase = new Sd_Card_DataBase(context);
+        // gran the data from shared preference
+        sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
         try {
-            if (!sd_card_dataBase.check_For_Empty()) {
-                Cursor cursor = sd_card_dataBase.Get_All_Data();
-                cursor.moveToNext();
-                sd_Card_Path_URL = cursor.getString(1);
-                string_URI = cursor.getString(2);
 
-
-            }
+            sd_Card_Path_URL = sdCardPathSharedPreference.getSdCardPath();
+            string_URI = sdCardPathSharedPreference.getStringURI();
         }catch (Exception e){
 
             
@@ -110,9 +121,12 @@ public class Android_External_Writeable_Permission {
 
     public void setSd_Card_Path_URL(String sd_Card_Path_URL) {
         this.sd_Card_Path_URL = sd_Card_Path_URL;
+        sdCardPathSharedPreference.setSdCardPath(sd_Card_Path_URL);
     }
 
     public void setString_URI(String string_URI) {
         this.string_URI = string_URI;
+        sdCardPathSharedPreference.setStringURI(string_URI);
+
     }
 }
