@@ -14,12 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Android_External_Writeable_Permission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Android_Permission_Required;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
 
@@ -42,10 +41,9 @@ public class Home extends Fragment {
     private TextView internal_Storage_Available, internal_Storage_Total, internal_Storage_WhatsApp_Size, internal_Storage_Other_Size, external_Storage_Available, external_Storage_Total,
             external_Storage_WhatsApp_Size, external_Storage_Other_Size;
     private Draw_View_Canvas_Rectangle external_Draw_Bar, internal_Draw_Bar;
-    private Sd_Card_DataBase sd_card_dataBase;
     private String  sd_Card_Path_URL = "", string_URI;
-    private Android_Permission_Required android_permission_required;
-    private Android_External_Writeable_Permission android_external_writeable_permission;
+    private AndroidExternalStoragePermission androidExternalStoragepermission;
+    private AndroidSdCardPermission android_sdCard_permission;
     public Home() {
         // Required empty public constructor
     }
@@ -63,14 +61,13 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         layout =inflater.inflate(R.layout.fragment_home, container, false);
 
-        sd_card_dataBase = new Sd_Card_DataBase(main_navigation);
 
         LayoutInflater inflaters = getLayoutInflater();
         layouts = inflaters.inflate(R.layout.activity_custom_toast,
                 (ViewGroup) layout.findViewById(R.id.toastcustom));
         Reference();
-        if (!android_permission_required.isExternalStorageWritable())
-            android_permission_required.call_Thread();
+        if (!androidExternalStoragepermission.isExternalStorageWritable())
+            androidExternalStoragepermission.call_Thread();
 
         call_Thread();
 
@@ -91,8 +88,8 @@ public class Home extends Fragment {
         internal_Draw_Bar = layout.findViewById(R.id.internal_Draw_Bar);
         external_Draw_Bar = layout.findViewById(R.id.external_Draw_Bar);
 
-        android_permission_required = new Android_Permission_Required(main_navigation , main_navigation);
-        android_external_writeable_permission = new Android_External_Writeable_Permission(main_navigation,main_navigation,this);
+        androidExternalStoragepermission = new AndroidExternalStoragePermission(main_navigation , main_navigation);
+        android_sdCard_permission = new AndroidSdCardPermission(main_navigation,main_navigation,this);
 
         // onclick class call
         OnClick_Class onClick_class = new OnClick_Class();
@@ -125,21 +122,18 @@ public class Home extends Fragment {
 
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Sd_Card_DataBase sd_card_dataBase = new Sd_Card_DataBase(main_navigation);
+
         if (resultCode != Activity.RESULT_OK)
             return;
         sdCard_Uri = data.getData();
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
-        if(sd_card_dataBase.check_For_Empty()) {
-            sd_card_dataBase.Fill_It(sd_Card_Path_URL,sdCard_Uri.toString());
-        }else {
-            sd_card_dataBase.Update_The_Table("1",sd_Card_Path_URL , sdCard_Uri.toString());
-        }
+
+
         if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
-        android_external_writeable_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
-        android_external_writeable_permission.setString_URI(string_URI);
+        android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
+        android_sdCard_permission.setString_URI(string_URI);
 
     }
 
@@ -149,11 +143,11 @@ public class Home extends Fragment {
     }
 
     public boolean isSamePath(){
-        return android_permission_required.getExternal_Path().equals(android_external_writeable_permission.getSd_Card_Path_URL());
+        return androidExternalStoragepermission.getExternal_Path().equals(android_sdCard_permission.getSd_Card_Path_URL());
     }
 
     public void Find_External_Info(){
-        if(android_permission_required.isExternalStorageWritable()){
+        if(androidExternalStoragepermission.isExternalStorageWritable()){
 
             internal_Storage_WhatsApp_Size.setText(storage_info.getWhatsAppInternalMemorySize());
             internal_Storage_Other_Size.setText(storage_info.getOtherInternalMemorySize());
@@ -201,7 +195,7 @@ public class Home extends Fragment {
             public void run() {
 
                 Call_After_Get_Sd_Card_Selected();
-                if(android_permission_required.isExternalStorageWritable()) {
+                if(androidExternalStoragepermission.isExternalStorageWritable()) {
                     Find_External_Info();
                     Find_SDCard_Info();
                     Find_The_Actual_Percentage_of_Size();
@@ -229,14 +223,14 @@ public class Home extends Fragment {
                     external_Storage_Other_Size.setText("0.0 GB");
 
                 }
-                if((!android_permission_required.isExternalStorageWritable()) || (android_external_writeable_permission.isGetting())) call_Thread();
+                if((!androidExternalStoragepermission.isExternalStorageWritable()) || (android_sdCard_permission.isGetting())) call_Thread();
 
             }
         },1000);
     }
     @SuppressLint("SetTextI18n")
     public void Call_After_Get_Sd_Card_Selected(){
-        storage_info = new Storage_Info(android_external_writeable_permission.getSd_Card_Path_URL(),main_navigation);
+        storage_info = new Storage_Info(android_sdCard_permission.getSd_Card_Path_URL(),main_navigation);
 
         internal_Storage_Available.setText("Available : "+storage_info.getAvailableInternalMemorySize());
         internal_Storage_Total.setText("Total : "+storage_info.getTotalInternalMemorySize());
@@ -248,9 +242,9 @@ public class Home extends Fragment {
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            if (Build.VERSION.SDK_INT >= 23 && !android_permission_required.isExternalStorageWritable()) {
+            if (Build.VERSION.SDK_INT >= 23 && !androidExternalStoragepermission.isExternalStorageWritable()) {
                 Toast_It("No Permission Granted");
-                android_permission_required.call_Thread();
+                androidExternalStoragepermission.call_Thread();
                 call_Thread();
 
             } else if (id == R.id.text_View_External_Storage || id == R.id.external_Storage_Available || id == R.id.external_Draw_Bar || id == R.id.external_Storage_Other_Data ||
@@ -259,7 +253,7 @@ public class Home extends Fragment {
 
                 if (sd_card_permission()) {
                     Toast_It("Select The Sd Card  ");
-                    android_external_writeable_permission.call_Thread();
+                    android_sdCard_permission.call_Thread();
                     call_Thread();
                 } else if (id == R.id.external_Storage_WhatsApp_Data || id == R.id.external_Storage_WhatsApp_Size) {
                     main_navigation.getNavigationView().getMenu().getItem(1).setChecked(true);
@@ -274,7 +268,7 @@ public class Home extends Fragment {
         }
     }
     private boolean sd_card_permission(){
-        return android_external_writeable_permission.getSd_Card_Path_URL().equals("")  || isSamePath()
-                || android_external_writeable_permission.isGetting();
+        return android_sdCard_permission.getSd_Card_Path_URL().equals("")  || isSamePath()
+                || android_sdCard_permission.isGetting();
     }
 }

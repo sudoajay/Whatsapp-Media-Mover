@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:onClick="On_Click_Process"
             android:paddingRight="10dp"
-            app:srcCompat="@drawable/back" />
+            app:srcCompat="@drawable/back_arrow_icon" />
 
         <TextView
             android:id="@+id/toolbar_title"

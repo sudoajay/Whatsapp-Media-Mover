@@ -1,4 +1,4 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard;
+package com.sudoajay.whatapp_media_mover_to_sdcard.SplashScreen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
+import com.sudoajay.whatapp_media_mover_to_sdcard.PrefManager;
+import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 

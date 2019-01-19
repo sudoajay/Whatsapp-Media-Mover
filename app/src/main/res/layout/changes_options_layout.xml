@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:onClick="On_Click_Process"
                 android:paddingEnd="10dp"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/back_arrow_icon" />
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -90,7 +90,7 @@
             android:layout_marginRight="10dp"
             android:alpha="1"
             android:background="@drawable/activity_my_move_button"
-            android:drawableStart="@drawable/changes"
+            android:drawableStart="@drawable/changes_whatsapp_icon"
             android:fontFamily="sans-serif-smallcaps"
             android:onClick="On_Click_Process"
             android:paddingEnd="5dp"

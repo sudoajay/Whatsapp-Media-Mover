@@ -11,16 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
-
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Spin_adapter_For_Setting;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
-
+import org.angmarch.views.NiceSpinner;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,8 +26,8 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
     // globally variable
     private After_MainTransferFIle after_mainTransferFIle ;
     private ImageView back_Image_View_Change;
-    private Spinner time_Spinner;
     private int normal_change=0;
+    private NiceSpinner customSpinner;
     private Button ok_Button ,cancel_Button;
     public Custom_Dialog_For_Normal_Changes(){
 
@@ -45,10 +42,11 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
 
         View rootview = inflater.inflate(R.layout.normal_changes_layout,container,false);
 
-        time_Spinner = rootview.findViewById(R.id.type_Spinner);
+        // reference
         back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
         cancel_Button = rootview.findViewById(R.id.cancel_Button);
         ok_Button  =rootview.findViewById(R.id.ok_Button);
+        customSpinner = rootview.findViewById(R.id.customSpinner);
 
         // Spinner Drop down elements
         ArrayList<String> categories = new ArrayList<>();
@@ -60,17 +58,15 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
         categories.add("1 Month Before");
         categories.add("2 Month Before");
         categories.add("6 month Before");
+        List<String> dataset = new LinkedList<>(categories);
+        customSpinner.attachDataSource(dataset);
 
-
-        Custom_Spin_adapter_For_Setting customSpinnerAdapter=new Custom_Spin_adapter_For_Setting(after_mainTransferFIle,categories);
-        time_Spinner.setAdapter(customSpinnerAdapter);
-
-        if(normal_change != 0) time_Spinner.setSelection(normal_change-1);
-        time_Spinner.setOnItemSelectedListener(this);
+        if(normal_change != 0) customSpinner.setSelectedIndex(normal_change-1);
 
         ok_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                normal_change = customSpinner.getSelectedIndex()+1;
                 after_mainTransferFIle.setNormal_Changes(normal_change);
                 Dissmiss();
             }
@@ -133,7 +129,7 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
 
                 // Modify the layout
                 current.getLayoutParams().width = width-((10*width)/100);
-                current.getLayoutParams().height = height-((62*height)/100);
+                current.getLayoutParams().height = height-((13*height)/100);
 
             }
         } while (current.getParent() != null);

@@ -68,5 +68,30 @@
     <string name="duplicate_Done_title">Duplicate Done</string>
     <string name="duplicate_Done_Id">Duplicate Done Id </string>
 
+    <!-- shared Preference -->
+
+    <!--whatsApp path setting -->
+    <string name="MY_PREFS_NAME">WhatsApp Media Mover</string>
+    <string name="keyValue">WhatsApp_Path</string>
+
+     <!--first time check flash screen-->
+    <string name="isFirstTimeLaunch">Is First Time Launch</string>
+
+    <!-- tick_icon on button array -->
+    <string-array name="arrayTick">
+        <item>Tick Audio ImageView</item>
+        <item>Tick Video ImageView</item>
+        <item>Tick Document ImageView</item>
+        <item>Tick Image ImageView</item>
+        <item>Tick Gif ImageView</item>
+        <item>Tick Voice ImageView</item>
+        <item>Tick Profile ImageView</item>
+        <item>Tick Sticker ImageView</item>
+        <item>Tick Database ImageView</item>
+    </string-array>
+
+    <!--Sd Card Path-->
+    <string name="sdCardPath">Sd Card Path</string>
+    <string name="stringUri">String URI</string>
 
 </resources>

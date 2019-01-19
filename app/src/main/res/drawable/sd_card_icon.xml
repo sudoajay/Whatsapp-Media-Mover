@@ -1,0 +1,9 @@
+<!-- drawable/sd.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="100dp"
+    android:width="100dp"
+    android:tint="@color/xml_Dim_Black_Color"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="@color/xml_Dim_Black_Color" android:pathData="M18,8H16V4H18M15,8H13V4H15M12,8H10V4H12M18,2H10L4,8V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V4A2,2 0 0,0 18,2Z" />
+</vector>

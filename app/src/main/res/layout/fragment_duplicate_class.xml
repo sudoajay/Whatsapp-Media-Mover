@@ -15,7 +15,7 @@
         android:layout_width="219dp"
         android:layout_height="100dp"
         android:background="@drawable/activity_my_blank_button"
-        android:drawableLeft="@drawable/files"
+        android:drawableLeft="@drawable/multiple_data"
         android:enabled="false"
         android:fontFamily="sans-serif-smallcaps"
         android:paddingLeft="10dp"
@@ -42,10 +42,10 @@
         android:layout_height="50dp"
         android:alpha="1"
         android:background="@drawable/activity_my_scan_button"
-        android:drawableLeft="@drawable/scan"
+        android:drawableLeft="@drawable/scan_icon"
         android:fontFamily="sans-serif-smallcaps"
-        android:paddingLeft="110dp"
-        android:paddingRight="120dp"
+        android:paddingLeft="150dp"
+        android:paddingRight="130dp"
         android:text="Scan"
         android:textAllCaps="false"
         android:textColor="#000000"
@@ -84,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.886"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/sd_card" />
+        app:srcCompat="@drawable/sd_card_icon" />
 
     <TextView
         android:id="@+id/internal_Text_View"
@@ -125,7 +125,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.555"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/external_Check"
@@ -137,7 +137,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.555"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <dmax.dialog.ProgressLayout
         android:id="@+id/dmax_spots_progress"

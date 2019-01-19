@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
+
 /**
  * Created by sudoajay on 4/15/18.
  */
@@ -20,14 +22,14 @@ import android.widget.ImageView;
 public class Sd_Card_dialog extends DialogFragment
 {
 
-    private Android_External_Writeable_Permission android_external_writeable_permission;
+    private AndroidSdCardPermission android_sdCard_permission;
     public Sd_Card_dialog(){
 
     }
 
     @SuppressLint("ValidFragment")
-    public Sd_Card_dialog(Android_External_Writeable_Permission android_external_writeable_permission){
-        this.android_external_writeable_permission=android_external_writeable_permission;
+    public Sd_Card_dialog(AndroidSdCardPermission android_sdCard_permission){
+        this.android_sdCard_permission = android_sdCard_permission;
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class Sd_Card_dialog extends DialogFragment
                 @Override
                 public void onClick(View v) {
 
-                        android_external_writeable_permission.Storage_Access_FrameWork();
+                        android_sdCard_permission.Storage_Access_FrameWork();
 
                     dismiss();
 

@@ -17,12 +17,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Long> get_The_No_File;
     private List<File> file_Data;
     private List<Boolean> check_Array;
-    private List<File> selected_File=new ArrayList<>();
+    private List<File> selected_File;
     public ExpandableListAdapter(List<File> selected_File){
         this.selected_File=selected_File;
     }

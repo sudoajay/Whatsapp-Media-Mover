@@ -3,7 +3,6 @@ package com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -15,14 +14,16 @@ import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
-import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Spin_adapter_For_Setting;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
+
+import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragment implements AdapterView.OnItemSelectedListener {
@@ -30,59 +31,60 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
     // globally variable
     private Button cancel_Button , ok_Button;
     private Main_Navigation main_navigation ;
-    private Spinner type_Spinner;
     private String define;
     private ArrayList<String> whats_App_Path = new ArrayList<>();
     private ArrayList<String> types;
     private int position;
     private String whatsapp_Path;
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase;
     private ImageView back_Image_View_Change;
+    private NiceSpinner customSpinner;
+    private WhatsappPathSharedpreferences whatsappPathSharedpreferences;
+
+
+    // blank constructor
     public Custom_Dialog_For_Choose_Your_Whatsapp_Options(){
 
     }
-    @SuppressLint("ValidFragment")
+    @SuppressLint({"ValidFragment", "CommitPrefEdits"})
     public Custom_Dialog_For_Choose_Your_Whatsapp_Options(Main_Navigation main_navigation){
         this.main_navigation =main_navigation;
-
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(main_navigation);
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            whatsapp_Path = cursor.getString(1); // /Gbwhatsapp/
-
-        }else{
-            whatsapp_Path="/WhatsApp/";
-        }
     }
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootview = inflater.inflate(R.layout.setting_layout_design,container,false);
 
+
+        // setup and instalizition for getSharedPreferences
+        // configuration or setup the sharedPreferences
+        whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(Objects.requireNonNull(getContext()));
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+
         cancel_Button = rootview.findViewById(R.id.cancel_Button);
         ok_Button  =rootview.findViewById(R.id.ok_Button);
-        type_Spinner = rootview.findViewById(R.id.type_Spinner);
         back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
+        customSpinner = rootview.findViewById(R.id.customSpinner);
 
+        // array for shows in spinner
         types = new ArrayList<>();
         types.add("Original Whatsapp");
         types.add("GbWhatsapp (Modded)");
         types.add("OgWhatsapp(Modded)");
         types.add("Whatsapp Plus(Modded");
 
+        // array for whatsapp path
         whats_App_Path.add("/WhatsApp/");
         whats_App_Path.add("/GBWhatsApp/");
         whats_App_Path.add("/OGWhatsApp/");
 
+        // default value
         define = whats_App_Path.get(0);
 
-        // Spinner Drop down elements
-        Custom_Spin_adapter_For_Setting customSpinnerAdapter=new Custom_Spin_adapter_For_Setting(main_navigation,types);
-        type_Spinner.setAdapter(customSpinnerAdapter);
+        // spinner send items to linkedlist
+        List<String> dataSpinner = new LinkedList<>(types);
+        customSpinner.attachDataSource(dataSpinner);
 
-        type_Spinner.setSelection(setType_Selection());
-        type_Spinner.setOnItemSelectedListener(this);
+        customSpinner.setSelectedIndex(setType_Selection());
 
         back_Image_View_Change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,21 +96,18 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
         ok_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(position ==0 || position == 3){
+                if(customSpinner.getSelectedIndex() ==0 || customSpinner.getSelectedIndex() == 3){
                     define = whats_App_Path.get(0);
-                }else if(position ==1){
+                }else if(customSpinner.getSelectedIndex() ==1){
                     define =whats_App_Path.get(1);
                 }else{
                     define = whats_App_Path.get(2);
                 }
 
-                if(whatsapp_mode_dataBase.check_For_Empty()){
-                    whatsapp_mode_dataBase.Fill_It(define,"Yes");
+                // transfer to the string key
+                // after than save the  shared preference
+                whatsappPathSharedpreferences.setWhatsapp_Path(define);
 
-                }else{
-                    whatsapp_mode_dataBase.Update_The_Table("1",define ,"Yes");
-
-                }
                 Restart_The_Application();
 
             }
@@ -157,7 +156,7 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
 
                 // Modify the layout
                 current.getLayoutParams().width = width-((10*width)/100);
-                current.getLayoutParams().height = height-((62*height)/100);
+                current.getLayoutParams().height = height-((45 *height)/100);
             }
         } while (current.getParent() != null);
 
@@ -186,8 +185,8 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
 
     }
     public int setType_Selection(){
-        if(whatsapp_Path.equalsIgnoreCase(whats_App_Path.get(0))) return 0;
-        else if(whatsapp_Path.equalsIgnoreCase(whats_App_Path.get(1))) return 1;
+        if(whatsapp_Path.equals(whats_App_Path.get(0))) return 0;
+        else if(whatsapp_Path.equals(whats_App_Path.get(1))) return 1;
         else{
             return 2;
         }

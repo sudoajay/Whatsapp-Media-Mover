@@ -1,4 +1,4 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard;
+package com.sudoajay.whatapp_media_mover_to_sdcard.Permission;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -8,6 +8,10 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.TextView;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
+import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Show_Duplicate_File;
 
 public class Notification_Permission_Check {
 

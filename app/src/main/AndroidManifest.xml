@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".SplashScreen.WelcomeActivity"
             android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">

@@ -55,9 +55,6 @@ public final class Sd_Card_Path {
 
 
     private static String getVolumePath(final String volumeId, Context con) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return null;
-        }
 
         try {
             StorageManager mStorageManager =

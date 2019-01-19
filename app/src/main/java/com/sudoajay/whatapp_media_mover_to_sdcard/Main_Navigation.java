@@ -1,7 +1,6 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
@@ -31,13 +29,12 @@ public class Main_Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private boolean doubleBackToExitPressedOnce;
-    private String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatapp_media_mover_to_sdcard",is_Define;
+    private String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatapp_media_mover_to_sdcard";
     private Fragment fragment;
     private Home home = new Home();
     private MainTransferFIle mainTransferFIle= new MainTransferFIle();
     private Duplication_Class duplication_class = new Duplication_Class();
     private  NavigationView navigationView;
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase;
     private ArrayList<String> whats_App_Path = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,26 +60,6 @@ public class Main_Navigation extends AppCompatActivity
         navigationView.getMenu().getItem(1).setChecked(true);
         onNavigationItemSelected(navigationView.getMenu().getItem(1));
 
-
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(this);
-
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            is_Define = cursor.getString(2);
-        }
-        if(is_Define == null || !is_Define.equalsIgnoreCase("Yes") ) {
-            if (whatsapp_mode_dataBase.check_For_Empty()) {
-                whatsapp_mode_dataBase.Fill_It(Add_All_Whatsapp_Mode(),"No");
-
-
-            } else {
-                whatsapp_mode_dataBase.Update_The_Table("1", Add_All_Whatsapp_Mode() ,"No");
-
-            }
-        }
-
-
     }
 
     public void On_Click_Process (View view){
@@ -96,20 +73,6 @@ public class Main_Navigation extends AppCompatActivity
 
     }
 
-    public String Add_All_Whatsapp_Mode(){
-
-        // add Item to Array
-        whats_App_Path.add("/WhatsApp/");
-        whats_App_Path.add("/GBWhatsApp/");
-        whats_App_Path.add("/OGWhatsApp/");
-
-        if(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+whats_App_Path.get(0)).exists())return whats_App_Path.get(0);
-        else  if(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+whats_App_Path.get(1)).exists())return whats_App_Path.get(1);
-        else {
-            return whats_App_Path.get(2);
-        }
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

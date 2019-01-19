@@ -1,16 +1,15 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
 import android.content.Context;
-import android.database.Cursor;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
-import java.util.ArrayList;
-
-import static java.util.jar.Pack200.Packer.ERROR;
+import java.util.Objects;
+import static android.content.Context.MODE_PRIVATE;
 
 public class Storage_Info {
 
@@ -18,7 +17,6 @@ public class Storage_Info {
 
     private long internal_Available_Size , internal_Total_Size , internal_WhatsApp_Size , external_Available_Size , external_Total_Size,external_WhatsApp_Size
                     ,internal_Other_Size, external_Other_Size;
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase;
     private String whatsapp_Path;
 
     public  boolean externalMemoryAvailable() {
@@ -26,12 +24,11 @@ public class Storage_Info {
     }
     public Storage_Info(String sd_Card_Path_URL , Context context){
         this.sd_Card_Path_URL = sd_Card_Path_URL;
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(context);
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            whatsapp_Path = cursor.getString(1);
-        }
+
+        // Shared preferences use to grab the data
+        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+
 
     }
     public  String getAvailableInternalMemorySize() {

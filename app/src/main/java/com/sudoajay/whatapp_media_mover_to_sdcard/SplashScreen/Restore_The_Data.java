@@ -1,7 +1,9 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard;
+package com.sudoajay.whatapp_media_mover_to_sdcard.SplashScreen;
 
 import android.util.Log;
 import android.view.View;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -20,7 +20,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSh
 import java.io.File;
 
 @SuppressLint("Registered")
-public class Android_External_Writeable_Permission {
+public class AndroidSdCardPermission {
     private Activity activity;
     private Context context;
     private String sd_Card_Path_URL = "",string_URI;
@@ -32,29 +32,29 @@ public class Android_External_Writeable_Permission {
     private SdCardPathSharedPreference sdCardPathSharedPreference;
     private After_MainTransferFIle after_mainTransferFIle;
 
-    public Android_External_Writeable_Permission(Activity activity , Context context, Duplication_Class duplication_class){
+    public AndroidSdCardPermission(Activity activity , Context context, Duplication_Class duplication_class){
         this.activity= activity;
         this.context =context;
         this.duplication_class=duplication_class;
         Grab();
     }
-    public Android_External_Writeable_Permission(Activity activity , Context context, MainTransferFIle mainTransferFIle){
+    public AndroidSdCardPermission(Activity activity , Context context, MainTransferFIle mainTransferFIle){
         this.activity= activity;
         this.context =context;
         this.mainTransferFIle=mainTransferFIle;
         Grab();
     }
-    public Android_External_Writeable_Permission(Activity activity , Context context, Home home){
+    public AndroidSdCardPermission(Activity activity , Context context, Home home){
         this.activity= activity;
         this.context =context;
         this.home=home;
         Grab();
     }
-    public Android_External_Writeable_Permission(Context context){
+    public AndroidSdCardPermission(Context context){
         this.context =context;
         Grab();
     }
-    public Android_External_Writeable_Permission(Activity activity , Context context, After_MainTransferFIle after_mainTransferFIle){
+    public AndroidSdCardPermission(Activity activity , Context context, After_MainTransferFIle after_mainTransferFIle){
         this.activity= activity;
         this.context =context;
         this.after_mainTransferFIle=after_mainTransferFIle;

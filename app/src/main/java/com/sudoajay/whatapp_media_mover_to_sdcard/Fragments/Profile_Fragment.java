@@ -1,8 +1,8 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,10 +18,10 @@ import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.BuildConfig;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.ExpandableListAdapter;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Make_Changes;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,25 +41,21 @@ public class Profile_Fragment extends Fragment {
     private List<Boolean> check_Array = new ArrayList<>();
     private ExpandableListAdapter listAdapter;
     private List<File> selected_List,selected_File=new ArrayList<>();
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase;
     private String whatsapp_Path,whats_App_Media_Path;
     public Profile_Fragment() {
         // Required empty public constructor
     }
-    public  Profile_Fragment createInstance(After_MainTransferFIle after_main_transferFIle, String which_Option_To_Do, List<File> selected_List)
+    public  Profile_Fragment createInstance(After_MainTransferFIle after_main_transferFIle, String which_Option_To_Do, List<File> selected_List
+    , Context context)
     {
         this.after_main_transferFIle = after_main_transferFIle;
         this.which_Option_To_Do= which_Option_To_Do;
         this.selected_List= selected_List;
 
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(after_main_transferFIle);
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            whatsapp_Path = cursor.getString(1); // /Gbwhatsapp/
-            whats_App_Media_Path =whatsapp_Path+"Media/";   // /gbwhatsapp/media/
-
-        }
+        // configuration or setup the sharedPreferences
+        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+        whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path();
 
         run_Selected();
         listAdapter = new ExpandableListAdapter(selected_File);
@@ -71,7 +67,6 @@ public class Profile_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_blank,container,false);
         final ExpandableListView expListView =v.findViewById(R.id.lvExp);
-
 
         prepareListData();
         if(make_changes.getSave_Data().isEmpty()){

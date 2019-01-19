@@ -1,11 +1,10 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.provider.DocumentFile;
 
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,20 +20,18 @@ public class Delete_Duplicate_Data {
     private Uri sd_Card_URL;
     private String step_Into[];
     private DocumentFile sd_Card_documentFile;
+    private AndroidSdCardPermission android_SdCard_Permission;
     private int steps_Into;
     public Delete_Duplicate_Data(List<String> list_Header , HashMap<String , List<String>> list_Header_Child,Show_Duplicate_File show_duplicate_file){
         this.list_Header = list_Header;
         this.list_Header_Child = list_Header_Child;
         this.show_duplicate_file = show_duplicate_file;
 
-        Sd_Card_DataBase sd_card_dataBase = new Sd_Card_DataBase(show_duplicate_file.getApplicationContext());
+        // garb and store the data from shared preference
+        android_SdCard_Permission = new AndroidSdCardPermission(show_duplicate_file.getApplicationContext());
+        sd_Card_Path_URL= android_SdCard_Permission.getSd_Card_Path_URL();
+        string_URI = android_SdCard_Permission.getString_URI();
 
-        if(!sd_card_dataBase.check_For_Empty()){
-            Cursor cursor= sd_card_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            sd_Card_Path_URL = cursor.getString(1);
-            string_URI =cursor.getString(2);
-        }
         if(string_URI != null ) {
             sd_Card_Uri = Split_The_URI(string_URI.toString());
             sd_Card_URL = Uri.parse(sd_Card_Uri);

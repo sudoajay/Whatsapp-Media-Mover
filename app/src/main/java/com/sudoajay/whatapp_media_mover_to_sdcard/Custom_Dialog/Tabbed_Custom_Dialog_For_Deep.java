@@ -139,28 +139,28 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
 
         if(tick_Audio_ImageView)
             adapter.addFragment("Audio",audio_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Video_ImageView)
             adapter.addFragment("Video",video_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Document_ImageView)
             adapter.addFragment("Document", document_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Image_ImageView)
             adapter.addFragment("Image",image_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Gif_ImageView)
             adapter.addFragment("Gif",gif_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Voice_ImageView)
             adapter.addFragment("Voice",voice_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Profile_ImageView)
             adapter.addFragment("Profile",profile_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
         if(tick_Sticker_ImageView)
             adapter.addFragment("Sticker",sticker_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
-                    after_main_transferFIle.getOnly_Selected_File()));
+                    after_main_transferFIle.getOnly_Selected_File(),getContext()));
 
         if(adapter.getCount() <=3)
         tabLayout.setTabMode(TabLayout.MODE_FIXED);

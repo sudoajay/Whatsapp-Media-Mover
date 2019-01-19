@@ -1,8 +1,8 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,10 +18,10 @@ import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.BuildConfig;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.ExpandableListAdapter;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Make_Changes;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Image_Fragment extends Fragment {
-    private static After_MainTransferFIle after_main_transferFIle;
-    private static Make_Changes make_changes = new Make_Changes();
+    private After_MainTransferFIle after_main_transferFIle;
+    private Make_Changes make_changes = new Make_Changes();
     private List<String> listDataHeader, send_Data_Path;
     private HashMap<String, List<String>> listDataChild;
     private List<Integer> arrow_Image_Resource = new ArrayList<>(), count_The_Size = new ArrayList<>();
@@ -41,25 +41,21 @@ public class Image_Fragment extends Fragment {
     private List<Boolean> check_Array = new ArrayList<>();
     private ExpandableListAdapter listAdapter;
     private List<File> selected_List,selected_File=new ArrayList<>();
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase;
     private String whatsapp_Path,whats_App_Media_Path;
     public Image_Fragment() {
         // Required empty public constructor
     }
 
-    public Image_Fragment createInstance(After_MainTransferFIle after_main_transferFIle, String which_Option_To_Do, List<File> selected_List) {
+    public Image_Fragment createInstance(After_MainTransferFIle after_main_transferFIle, String which_Option_To_Do, List<File> selected_List
+    , Context context) {
         this.after_main_transferFIle = after_main_transferFIle;
         this.which_Option_To_Do= which_Option_To_Do;
         this.selected_List=selected_List;
 
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(after_main_transferFIle);
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            whatsapp_Path = cursor.getString(1); // /Gbwhatsapp/
-            whats_App_Media_Path =whatsapp_Path+"Media/";   // /gbwhatsapp/media/
-
-        }
+        // configuration or setup the sharedPreferences
+        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+        whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path();
 
         run_Selected();
         listAdapter = new ExpandableListAdapter(selected_File);
@@ -187,16 +183,6 @@ public class Image_Fragment extends Fragment {
             }
             count_The_Size.add(counts);
         }
-
-//        for (int i = 0; i < make_changes.getSave_Data().size(); i++) {
-//            check_Close_Image_Resource.add(R.drawable.check);
-//            for (File data2 : after_main_transferFIle.getOnly_Selected_File()) {
-//                if (make_changes.getSave_Data().get(i).equals(data2)) {
-//                    check_Close_Image_Resource.set(i, R.drawable.close);
-//                    selected_File.add(data2);
-//                }
-//            }
-//        }
 
         for (String s : listDataHeader)
             arrow_Image_Resource.add(R.drawable.arrow_down);

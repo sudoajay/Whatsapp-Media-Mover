@@ -1,11 +1,11 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File;
 
-import android.database.Cursor;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ import java.util.List;
  */
 
 public class Delete_The_File {
+
     private String external_Path_URL;
     private After_MainTransferFIle after_main_transferFIle;
     private String whats_App_Media_Path;
@@ -25,21 +26,19 @@ public class Delete_The_File {
     private int get_Data_Count;
     private List<File> only_Selected_File ;
     private int normal_Changes;
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase ;
     private String whatsapp_Path;
-    public Delete_The_File(String external_Path_URL,String whats_App_Media_Path, After_MainTransferFIle after_main_transferFIle, List<File> only_Selected_File ,int normal_Changes){
+
+    public Delete_The_File(String external_Path_URL, String whats_App_Media_Path, After_MainTransferFIle after_main_transferFIle
+            , List<File> only_Selected_File , int normal_Changes , Context context){
         this.external_Path_URL=external_Path_URL;
         this.whats_App_Media_Path = whats_App_Media_Path;
         this.after_main_transferFIle = after_main_transferFIle;
         this.only_Selected_File= only_Selected_File;
         this.normal_Changes =normal_Changes;
-        
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(after_main_transferFIle);
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            whatsapp_Path = cursor.getString(1);// /Gbwhatsapp/
-        }
+
+        // shared preferences use to grab the data
+        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
     }
     public void get_File_Path(int databases , int audio , int video ,int document ,int images , int gif ,int voice
             ,int profile , int sticker   ){

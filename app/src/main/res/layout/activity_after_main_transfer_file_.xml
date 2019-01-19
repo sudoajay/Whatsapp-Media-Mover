@@ -32,21 +32,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingRight="5dp"
-                app:srcCompat="@drawable/back"
-                android:onClick="On_Click_Process" />
+                android:onClick="On_Click_Process"
+                app:srcCompat="@drawable/back_arrow_icon" />
 
             <TextView
                 android:id="@+id/toolbar_title"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="left"
                 android:layout_marginRight="50dp"
                 android:fontFamily="serif"
+                android:paddingTop="1dp"
                 android:paddingRight="30dp"
                 android:text="Select Folder"
-                android:textSize="18sp" />
+                android:textColor="@android:color/white"
+                android:textSize="19sp" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:onClick="On_Click_Process"
-                app:srcCompat="@drawable/refresh"
+                app:srcCompat="@drawable/refresh_arrow_icon"
                 tools:layout_editor_absoluteX="43dp"
                 tools:layout_editor_absoluteY="16dp" />
 
@@ -71,7 +72,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:onClick="On_Click_Process"
-                app:srcCompat="@drawable/share"
+                app:srcCompat="@drawable/share_icon"
                 tools:layout_editor_absoluteX="43dp"
                 tools:layout_editor_absoluteY="16dp" />
         </LinearLayout>
@@ -85,14 +86,14 @@
         android:layout_width="219dp"
         android:layout_height="60dp"
         android:background="@drawable/activity_my_blank_button"
-        android:drawableLeft="@drawable/files"
+        android:drawableStart="@drawable/multiple_data"
         android:enabled="false"
         android:fontFamily="sans-serif-smallcaps"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="Data Size : 00 mb"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="visible"
@@ -110,14 +111,14 @@
         android:layout_height="50dp"
         android:alpha="1"
         android:background="@drawable/activity_my_copy_button"
-        android:drawableLeft="@drawable/do_it"
+        android:drawableLeft="@drawable/start_whatsapp_icon"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="On_Click_Process"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="Start"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.96"
@@ -133,14 +134,14 @@
         android:layout_height="50dp"
         android:alpha="1"
         android:background="@drawable/activity_my_move_button"
-        android:drawableLeft="@drawable/changes"
+        android:drawableLeft="@drawable/changes_whatsapp_icon"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="On_Click_Process"
         android:paddingLeft="12dp"
         android:paddingRight="5dp"
         android:text="Changes"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.04"
@@ -153,13 +154,14 @@
         android:id="@+id/video_ImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="On_Click_Process"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="On_Click_Process"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.295"
-        app:srcCompat="@drawable/video_whatsapp" />
+        app:srcCompat="@drawable/video_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/document_ImageView"
@@ -172,7 +174,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.295"
-        app:srcCompat="@drawable/document_whatsapp" />
+        app:srcCompat="@drawable/document_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/image_ImageView"
@@ -185,7 +188,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.479"
-        app:srcCompat="@drawable/image_whatsapp" />
+        app:srcCompat="@drawable/image_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/profile_ImageView"
@@ -198,7 +202,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.665"
-        app:srcCompat="@drawable/profile_photo_whatsapp" />
+        app:srcCompat="@drawable/profile_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/sticker_ImageView"
@@ -210,7 +215,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.665"
-        app:srcCompat="@drawable/sticker_whatsapp" />
+        app:srcCompat="@drawable/sticker_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/gif_ImageView"
@@ -222,7 +228,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.479"
-        app:srcCompat="@drawable/animated_gif_whatsapp" />
+        app:srcCompat="@drawable/gif_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/database_ImageView"
@@ -235,7 +242,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.665"
-        app:srcCompat="@drawable/database" />
+        app:srcCompat="@drawable/database_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <ImageView
         android:id="@+id/audio_ImageView"
@@ -248,7 +256,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.295"
-        app:srcCompat="@drawable/audio_whatsapp" />
+        app:srcCompat="@drawable/audio_whatsapp_icon"
+        tools:ignore="VectorDrawableCompat"
+        android:tint="@color/dim_Black_Color" />
 
     <ImageView
         android:id="@+id/voice_ImageView"
@@ -261,7 +271,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.477"
-        app:srcCompat="@drawable/voice_note_whatsapp" />
+        app:srcCompat="@drawable/voice_whatsapp_icon"
+        android:tint="@color/dim_Black_Color"/>
 
     <TextView
         android:id="@+id/video_TextView"
@@ -271,7 +282,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="Video"
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/gif_ImageView"
@@ -289,7 +300,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="Document"
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/database_ImageView"
@@ -306,7 +317,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="Image"
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/profile_ImageView"
@@ -321,13 +332,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Profile "
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:text="Profile "
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_ImageView" />
 
@@ -338,7 +349,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="Sticker"
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -353,7 +364,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:text="Gif"
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/sticker_ImageView"
@@ -373,7 +384,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="On_Click_Process"
         android:text="Database"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -388,7 +399,7 @@
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="On_Click_Process"
         android:text="Voice"
-        android:textColor="#000000"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -401,9 +412,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Audio"
         android:onClick="On_Click_Process"
-        android:textColor="#000000"
+        android:text="Audio"
+        android:textColor="@color/dim_Black_Color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/image_ImageView"
@@ -420,11 +431,11 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335"
-        app:srcCompat="@drawable/tick" />
+        app:layout_constraintVertical_bias="0.329"
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Video_ImageView"
@@ -437,7 +448,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.335"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Document_ImageView"
@@ -450,7 +461,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.335"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Image_ImageView"
@@ -463,7 +474,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.51"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Gif_ImageView"
@@ -472,11 +483,11 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51"
-        app:srcCompat="@drawable/tick" />
+        app:layout_constraintVertical_bias="0.501"
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Voice_ImageView"
@@ -485,11 +496,11 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.49"
-        app:srcCompat="@drawable/tick" />
+        app:layout_constraintVertical_bias="0.51"
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Profile_ImageView"
@@ -502,7 +513,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.68"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Sticker_ImageView"
@@ -515,7 +526,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.68"
-        app:srcCompat="@drawable/tick" />
+        app:srcCompat="@drawable/tick_icon" />
 
     <ImageView
         android:id="@+id/tick_Database_ImageView"
@@ -523,11 +534,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.89"
+        app:layout_constraintHorizontal_bias="0.892"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68"
-        app:srcCompat="@drawable/tick" />
+        app:layout_constraintVertical_bias="0.683"
+        app:srcCompat="@drawable/tick_icon" />
 
 
 </android.support.constraint.ConstraintLayout>

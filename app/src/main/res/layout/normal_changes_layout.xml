@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:onClick="On_Click_Process"
                 android:paddingEnd="10dp"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/back_arrow_icon" />
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -68,16 +68,15 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.04" />
 
-    <Spinner
-        android:id="@+id/type_Spinner"
+    <org.angmarch.views.NiceSpinner
+        android:id="@+id/customSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="15dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:prompt="@string/spinner_title"
-        android:spinnerMode="dropdown"
+        app:textTint="@color/textColorOnCustomSpinner"
+        app:dropDownListPaddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.399"
@@ -102,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/type_Spinner"
+        app:layout_constraintTop_toBottomOf="@+id/customSpinner"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
@@ -122,6 +121,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/cancel_Button"
-        app:layout_constraintTop_toBottomOf="@+id/type_Spinner"
+        app:layout_constraintTop_toBottomOf="@+id/customSpinner"
         app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_Home"
-            android:icon="@drawable/home"
+            android:icon="@drawable/home_icon"
             android:title="@string/nav_Home" />
         <item
             android:id="@+id/nav_Transfer_Data"
@@ -14,7 +14,7 @@
             android:title="@string/nav_Transfer_Data" />
         <item
             android:id="@+id/nav_Duplicate_Data"
-            android:icon="@drawable/scan"
+            android:icon="@drawable/scan_icon"
             android:title="@string/nav_Duplicate_Data" />
         <item
             android:id="@+id/nav_Timer"
@@ -22,7 +22,7 @@
             android:title="@string/nav_Timer" />
         <item
             android:id="@+id/nav_Whatsapp_Setting"
-            android:icon="@drawable/setting"
+            android:icon="@drawable/settings_icon"
             android:title="@string/nav_Whatsapp_Setting" />
 
     </group>
@@ -31,19 +31,17 @@
 
     <item
         android:id="@+id/nav_share"
-        android:icon="@drawable/ic_menu_share"
+        android:icon="@drawable/share_icon"
         android:title="@string/nav_share" />
     <item
         android:id="@+id/nav_Rate_Us"
-        android:icon="@drawable/rate_us"
+        android:icon="@drawable/rate_us_icon"
         android:title="@string/nav_Rate_Us" />
 
         <item
             android:id="@+id/nav_Contact_Me"
-            android:icon="@drawable/contact_me"
+            android:icon="@drawable/contact_me_icon"
             android:title="@string/nav_Contact_Me" />
-
-
 
     </group>
 

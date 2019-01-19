@@ -27,7 +27,7 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
 
 import java.io.File;
 import java.util.ArrayList;

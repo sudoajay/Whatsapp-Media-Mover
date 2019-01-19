@@ -7,9 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +17,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Android_External_Writeable_Permission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Android_Permission_Required;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
 
@@ -37,10 +36,9 @@ public class MainTransferFIle extends Fragment {
     private Toast toast;
     private Handler handler;
     private boolean whats_App_File_Exist_Internal,whats_App_File_Exist_External ;
-    private Sd_Card_DataBase sd_card_dataBase;
     private Main_Navigation main_navigation;
-    private Android_Permission_Required android_permission_required;
-    private Android_External_Writeable_Permission android_external_writeable_permission;
+    private AndroidExternalStoragePermission androidExternalStorage_permission;
+    private AndroidSdCardPermission androidSdCardPermission;
     private Storage_Info storage_info;
 
 
@@ -56,13 +54,11 @@ public class MainTransferFIle extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        sd_card_dataBase = new Sd_Card_DataBase(main_navigation);
-
         layout =inflater.inflate(R.layout.fragment_main_transfer_file, container, false);
 
         Reference();
-        if (!android_permission_required.isExternalStorageWritable())
-            android_permission_required.call_Thread();
+        if (!androidExternalStorage_permission.isExternalStorageWritable())
+            androidExternalStorage_permission.call_Thread();
 
         LayoutInflater inflaters = getLayoutInflater();
         layouts = inflaters.inflate(R.layout.activity_custom_toast,
@@ -88,16 +84,16 @@ public class MainTransferFIle extends Fragment {
 
         // create object classes
 
-        android_permission_required = new Android_Permission_Required(main_navigation ,main_navigation);
-        android_external_writeable_permission = new Android_External_Writeable_Permission(main_navigation,main_navigation,this);
-        storage_info = new Storage_Info(android_external_writeable_permission.getSd_Card_Path_URL(),main_navigation);
+        androidExternalStorage_permission = new AndroidExternalStoragePermission(main_navigation ,main_navigation);
+        androidSdCardPermission = new AndroidSdCardPermission(main_navigation,main_navigation,this);
+        storage_info = new Storage_Info(androidSdCardPermission.getSd_Card_Path_URL(),main_navigation);
 
     }
 
 
     public void checked_For_Not_Get_Error(){
-        File file = new File(android_permission_required.getExternal_Path()+storage_info.getWhatsapp_Path());
-        if(!file.exists() || !android_permission_required.isExternalStorageWritable() ){
+        File file = new File(androidExternalStorage_permission.getExternal_Path()+storage_info.getWhatsapp_Path());
+        if(!file.exists() || !androidExternalStorage_permission.isExternalStorageWritable() ){
             whats_App_File_Exist_Internal = false;
             move_Button.animate().alpha(0.5f);
             copy_Button.animate().alpha(0.5f);
@@ -109,7 +105,7 @@ public class MainTransferFIle extends Fragment {
             copy_Button.animate().alpha(1f);
         }
 
-        if(!(new File(android_external_writeable_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path())).exists()) {
+        if(!(new File(androidSdCardPermission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path())).exists()) {
             restore_Button.animate().alpha(0.5f);
             whats_App_File_Exist_External = false;
 
@@ -120,7 +116,7 @@ public class MainTransferFIle extends Fragment {
         }
 
 
-        if( android_external_writeable_permission.getSd_Card_Path_URL().equals("") || isSamePath() || android_external_writeable_permission.isGetting() ){
+        if( androidSdCardPermission.getSd_Card_Path_URL().equals("") || isSamePath() || androidSdCardPermission.isGetting() ){
             move_Button.animate().alpha(0.5f);
             copy_Button.animate().alpha(0.5f);
             restore_Button.animate().alpha(0.5f);
@@ -130,14 +126,9 @@ public class MainTransferFIle extends Fragment {
 //
  @SuppressLint("SetTextI18n")
  public void Enter_Whats_App_Folder(){
-        if(android_permission_required.isExternalStorageWritable())
+        if(androidExternalStorage_permission.isExternalStorageWritable())
             file_Size_Text.setText("Data Size - "+storage_info.getWhatsAppInternalMemorySize());
  }
-    public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu; this adds items to the action bar if it is present.
-        main_navigation.getMenuInflater().inflate(R.menu.menu_bar, menu);
-        return true;
-    }
     // Activity's overrided method used to perform click events on menu items
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,14 +142,13 @@ public class MainTransferFIle extends Fragment {
             main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
-                    if(sd_card_dataBase.check_For_Empty()) {
-                        sd_card_dataBase.Fill_It(sd_Card_Path_URL,sdCard_Uri.toString());
-                    }else {
-                        sd_card_dataBase.Update_The_Table("1",sd_Card_Path_URL , sdCard_Uri.toString());
-                    }
-            if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
-            android_external_writeable_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
-            android_external_writeable_permission.setString_URI(string_URI);
+
+            if(new File(sd_Card_Path_URL).exists())
+                string_URI  = Split_The_URI(sdCard_Uri.toString());
+
+
+            androidSdCardPermission.setSd_Card_Path_URL(sd_Card_Path_URL);
+            androidSdCardPermission.setString_URI(string_URI);
 
     }
 
@@ -182,7 +172,7 @@ public class MainTransferFIle extends Fragment {
     }
 
 
-    public boolean isSamePath(){ return android_permission_required.getExternal_Path().equals(android_external_writeable_permission.getSd_Card_Path_URL()); }
+    public boolean isSamePath(){ return androidExternalStorage_permission.getExternal_Path().equals(androidSdCardPermission.getSd_Card_Path_URL()); }
 
         public void call_Thread(){
         handler = new Handler();
@@ -215,68 +205,68 @@ public class MainTransferFIle extends Fragment {
             checked_For_Not_Get_Error();
             switch (v.getId()) {
                 case R.id.move_Button:
-                    if (!android_permission_required.isExternalStorageWritable()) {
+                    if (!androidExternalStorage_permission.isExternalStorageWritable()) {
                         Toast_It("No Permission Granted");
-                        android_permission_required.call_Thread();
+                        androidExternalStorage_permission.call_Thread();
                         call_Thread();
                     } else if (!whats_App_File_Exist_Internal)
                         Toast_It("No WhatsApp Data Present");
-                    else if(move_Button.getAlpha() == 0.5f && android_external_writeable_permission.isGetting()){
+                    else if(move_Button.getAlpha() == 0.5f && androidSdCardPermission.isGetting()){
                         Toast_It("Select The Sd Card  ");
-                        android_external_writeable_permission.call_Thread();
+                        androidSdCardPermission.call_Thread();
                         call_Thread();
                     }
                     else {
                         Intent move_Intent = new Intent(main_navigation.getApplicationContext(), After_MainTransferFIle.class);
                         move_Intent.putExtra("move_copy_remove_restore","move");
-                        move_Intent.putExtra("sd_card_path",android_external_writeable_permission.getSd_Card_Path_URL());
-                        move_Intent.putExtra("Sd_Card_URI" ,  android_external_writeable_permission.getString_URI());
+                        move_Intent.putExtra("sd_card_path", androidSdCardPermission.getSd_Card_Path_URL());
+                        move_Intent.putExtra("Sd_Card_URI" ,  androidSdCardPermission.getString_URI());
                         startActivity(move_Intent);
                     }
                     break;
                 case R.id.copy_Button :
-                    if(!android_permission_required.isExternalStorageWritable()) {
+                    if(!androidExternalStorage_permission.isExternalStorageWritable()) {
                         Toast_It("No Permission Granted");
-                        android_permission_required.call_Thread();
+                        androidExternalStorage_permission.call_Thread();
                         call_Thread();
                     } else if(!whats_App_File_Exist_Internal)
                         Toast_It("No WhatsApp Data Present");
-                    else if(copy_Button.getAlpha() == 0.5f && android_external_writeable_permission.isGetting()){
+                    else if(copy_Button.getAlpha() == 0.5f && androidSdCardPermission.isGetting()){
                         Toast_It("Select The Sd Card  ");
-                        android_external_writeable_permission.call_Thread();
+                        androidSdCardPermission.call_Thread();
                         call_Thread();
                     }
                     else {
                         Intent copy_Intent = new Intent(main_navigation.getApplicationContext(), After_MainTransferFIle.class);
                         copy_Intent.putExtra("move_copy_remove_restore","copy");
-                        copy_Intent.putExtra("sd_card_path",android_external_writeable_permission.getSd_Card_Path_URL());
-                        copy_Intent.putExtra("Sd_Card_URI" ,  android_external_writeable_permission.getString_URI());
+                        copy_Intent.putExtra("sd_card_path", androidSdCardPermission.getSd_Card_Path_URL());
+                        copy_Intent.putExtra("Sd_Card_URI" ,  androidSdCardPermission.getString_URI());
                         startActivity(copy_Intent);
                     }
                     break;
                 case R.id.remove_Button :
-                    if(!android_permission_required.isExternalStorageWritable()) {
+                    if(!androidExternalStorage_permission.isExternalStorageWritable()) {
                         Toast_It("No Permission Granted");
-                        android_permission_required.call_Thread();
+                        androidExternalStorage_permission.call_Thread();
                         call_Thread();
                     } else if(!whats_App_File_Exist_Internal)
                         Toast_It("No WhatsApp Data Present");
                     else {
                         Intent remove_Intent = new Intent(main_navigation.getApplicationContext(), After_MainTransferFIle.class);
                         remove_Intent.putExtra("move_copy_remove_restore","remove");
-                        remove_Intent.putExtra("sd_card_path",android_external_writeable_permission.getSd_Card_Path_URL());
+                        remove_Intent.putExtra("sd_card_path", androidSdCardPermission.getSd_Card_Path_URL());
                         startActivity(remove_Intent);
                     }
                     break;
                 case R.id.restore_Button:
-                    if(!android_permission_required.isExternalStorageWritable()) {
+                    if(!androidExternalStorage_permission.isExternalStorageWritable()) {
                         Toast_It("No Permission Granted");
-                        android_permission_required.call_Thread();
+                        androidExternalStorage_permission.call_Thread();
                         call_Thread();
                     }
-                    else if(restore_Button.getAlpha() == 0.5f && android_external_writeable_permission.isGetting()){
+                    else if(restore_Button.getAlpha() == 0.5f && androidSdCardPermission.isGetting()){
                         Toast_It("Select The Sd Card  ");
-                        android_external_writeable_permission.call_Thread();
+                        androidSdCardPermission.call_Thread();
                         call_Thread();
                     }
                     else if(!whats_App_File_Exist_External)
@@ -284,8 +274,8 @@ public class MainTransferFIle extends Fragment {
                     else {
                         Intent restore_Intent = new Intent(main_navigation.getApplicationContext(), After_MainTransferFIle.class);
                         restore_Intent.putExtra("move_copy_remove_restore","restore");
-                        restore_Intent.putExtra("sd_card_path",android_external_writeable_permission.getSd_Card_Path_URL());
-                        restore_Intent.putExtra("Sd_Card_URI" ,  android_external_writeable_permission.getString_URI());
+                        restore_Intent.putExtra("sd_card_path", androidSdCardPermission.getSd_Card_Path_URL());
+                        restore_Intent.putExtra("Sd_Card_URI" ,  androidSdCardPermission.getString_URI());
                         startActivity(restore_Intent);
                     }
                     break;

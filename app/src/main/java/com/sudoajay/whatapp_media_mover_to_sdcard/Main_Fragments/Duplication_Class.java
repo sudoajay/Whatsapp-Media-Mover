@@ -16,13 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.sudoajay.whatapp_media_mover_to_sdcard.Android_External_Writeable_Permission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Android_Permission_Required;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Show_Duplicate_File;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
@@ -34,8 +32,8 @@ import dmax.dialog.SpotsDialog;
 public class Duplication_Class extends Fragment {
     private ImageView internal_Check,external_Check,internal_Image_View,external_Image_View;
     private TextView internal_Text_View , external_Text_View;
-    private Android_Permission_Required android_permission_required;
-    private Android_External_Writeable_Permission android_external_writeable_permission;
+    private AndroidExternalStoragePermission androidExternalStorage_permission;
+    private AndroidSdCardPermission android_sdCard_permission;
     private Button file_Size_text;
     private String sd_Card_Path_URL ,string_URI;
     private Uri sdCard_Uri ;
@@ -66,22 +64,22 @@ public class Duplication_Class extends Fragment {
         LayoutInflater inflaters = getLayoutInflater();
         layouts = inflaters.inflate(R.layout.activity_custom_toast,
                 (ViewGroup) layout.findViewById(R.id.toastcustom));
-        if (!android_permission_required.isExternalStorageWritable()){
-            android_permission_required.call_Thread();
+        if (!androidExternalStorage_permission.isExternalStorageWritable()){
+            androidExternalStorage_permission.call_Thread();
                 internal_Check.setVisibility(View.INVISIBLE);
                 external_Check.setVisibility(View.INVISIBLE);
 
         }else {
-            if(!new File(android_permission_required.getExternal_Path()+storage_info.getWhatsapp_Path()+"/").exists()){
+            if(!new File(androidExternalStorage_permission.getExternal_Path()+storage_info.getWhatsapp_Path()+"/").exists()){
 
                 internal_Check.setVisibility(View.INVISIBLE);
             }
         }
 
-        if(android_external_writeable_permission.isGetting()) {
+        if(android_sdCard_permission.isGetting()) {
             external_Check.setVisibility(View.INVISIBLE);
         }else{
-            if(!new File(android_external_writeable_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/").exists()) {
+            if(!new File(android_sdCard_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/").exists()) {
                 external_Check.setVisibility(View.INVISIBLE);
             }
 
@@ -114,27 +112,23 @@ public class Duplication_Class extends Fragment {
         external_Text_View.setOnClickListener(onClick_class);
 
         // create new clas object
-        android_external_writeable_permission = new Android_External_Writeable_Permission(main_navigation,main_navigation ,this);
-        android_permission_required = new Android_Permission_Required(main_navigation, main_navigation);
-        storage_info= new Storage_Info(android_external_writeable_permission.getSd_Card_Path_URL(),main_navigation);
+        android_sdCard_permission = new AndroidSdCardPermission(main_navigation,main_navigation ,this);
+        androidExternalStorage_permission = new AndroidExternalStoragePermission(main_navigation, main_navigation);
+        storage_info= new Storage_Info(android_sdCard_permission.getSd_Card_Path_URL(),main_navigation);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Sd_Card_DataBase sd_card_dataBase = new Sd_Card_DataBase(main_navigation);
+
         if (resultCode != Activity.RESULT_OK)
             return;
         sdCard_Uri = data.getData();
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
-        if(sd_card_dataBase.check_For_Empty()) {
-            sd_card_dataBase.Fill_It(sd_Card_Path_URL,sdCard_Uri.toString());
-        }else {
-            sd_card_dataBase.Update_The_Table("1",sd_Card_Path_URL , sdCard_Uri.toString());
-        }
+
         if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
-        android_external_writeable_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
-        android_external_writeable_permission.setString_URI(string_URI);
+        android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
+        android_sdCard_permission.setString_URI(string_URI);
 
     }
 
@@ -148,19 +142,19 @@ public class Duplication_Class extends Fragment {
     public void Show_Size(){
         size=0;
         if(internal_Check.getVisibility() == View.VISIBLE && external_Check.getVisibility() == View.VISIBLE) {
-            size +=storage_info.getFileSizeInBytes(android_permission_required.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
-            size+=storage_info.getFileSizeInBytes(android_external_writeable_permission.getSd_Card_Path_URL()+
+            size +=storage_info.getFileSizeInBytes(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
+            size+=storage_info.getFileSizeInBytes(android_sdCard_permission.getSd_Card_Path_URL()+
                     storage_info.getWhatsapp_Path()+"/");
             file_Size_text.setText("Data Size - " + storage_info.Convert_It(size));
         }
         else if(external_Check.getVisibility() == View.VISIBLE) {
-                        size+=storage_info.getFileSizeInBytes(android_external_writeable_permission.getSd_Card_Path_URL()+
+                        size+=storage_info.getFileSizeInBytes(android_sdCard_permission.getSd_Card_Path_URL()+
                     storage_info.getWhatsapp_Path()+"/");
             file_Size_text.setText("Data Size - " + storage_info.Convert_It(size));
 
         }
         else  if(internal_Check.getVisibility() == View.VISIBLE) {
-            size +=storage_info.getFileSizeInBytes(android_permission_required.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
+            size +=storage_info.getFileSizeInBytes(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
             file_Size_text.setText("Data Size - " + storage_info.Convert_It(size));
 
         }
@@ -183,8 +177,8 @@ public class Duplication_Class extends Fragment {
         }
         @Override
         protected String doInBackground(String... strings) {
-            duplication_data.Duplication(new File(android_permission_required.getExternal_Path()+storage_info.getWhatsapp_Path()+"/") ,
-                    new File(android_external_writeable_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/"),
+            duplication_data.Duplication(new File(androidExternalStorage_permission.getExternal_Path()+storage_info.getWhatsapp_Path()+"/") ,
+                    new File(android_sdCard_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/"),
                     internal_Check.getVisibility(),external_Check.getVisibility());
 
     return null;
@@ -235,19 +229,19 @@ public class Duplication_Class extends Fragment {
                 case R.id.internal_Text_View :
                     if(internal_Check.getVisibility() == View.VISIBLE) {
                         internal_Check.setVisibility(View.INVISIBLE);
-                        size -= storage_info.getFileSizeInBytes(android_permission_required.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
+                        size -= storage_info.getFileSizeInBytes(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
                     }
                     else{
-                        if(!android_permission_required.isExternalStorageWritable()) {
+                        if(!androidExternalStorage_permission.isExternalStorageWritable()) {
                             Toast_It("No Permission Granted");
-                            android_permission_required.call_Thread();
+                            androidExternalStorage_permission.call_Thread();
                         }
-                        else if(!new File(android_permission_required.getExternal_Path()+storage_info.getWhatsapp_Path()).exists()){
+                        else if(!new File(androidExternalStorage_permission.getExternal_Path()+storage_info.getWhatsapp_Path()).exists()){
                             Toast_It("No WhatsApp Data Present");
                         }
                         else {
                             internal_Check.setVisibility(View.VISIBLE);
-                            size +=storage_info.getFileSizeInBytes(android_permission_required.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
+                            size +=storage_info.getFileSizeInBytes(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
 
                         }
 
@@ -259,32 +253,33 @@ public class Duplication_Class extends Fragment {
                 case R.id.external_Text_View :
                     if(external_Check.getVisibility() == View.VISIBLE) {
                         external_Check.setVisibility(View.INVISIBLE);
-                        size-=storage_info.getFileSizeInBytes(android_external_writeable_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/");
-
+                        size-=storage_info.getFileSizeInBytes(android_sdCard_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/");
+                        Toast.makeText(getContext(),"Happy there",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        android_external_writeable_permission.Grab();
+                        android_sdCard_permission.Grab();
 
-                        if(android_external_writeable_permission.isGetting()) {
+                        if(android_sdCard_permission.isGetting()) {
                             Toast_It("Select The Sd Card  ");
-                            android_external_writeable_permission.call_Thread();
-                        }  else if(!new File(android_external_writeable_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/").exists()){
+                            android_sdCard_permission.call_Thread();
+                        }  else if(!new File(android_sdCard_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/").exists()){
                             Toast_It("No WhatsApp Data Present");
                         }
 
                         else {
                             external_Check.setVisibility(View.VISIBLE);
-                            size+=storage_info.getFileSizeInBytes(android_external_writeable_permission.getSd_Card_Path_URL()+
+                            size+=storage_info.getFileSizeInBytes(android_sdCard_permission.getSd_Card_Path_URL()+
                                     storage_info.getWhatsapp_Path()+"/");
 
                         }
-
-
                     }
                     break;
                 case R.id.scan_Button:
                     if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE)
                         multiThreading_task.execute();
+                    else{
+                        Toast_It("You Supposed To Select Something");
+                    }
                     break;
 
             }

@@ -8,7 +8,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,7 +17,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,17 +32,16 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Copy_The_File;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Delete_The_File;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Changes_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Normal_Changes;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Tabbed_Custom_Dialog_For_Deep;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Sd_Card_DataBase;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Tick_On_Button_DataBase;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.Whatsapp_Mode_DataBase;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
-
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
+import com.sudoajay.whatapp_media_mover_to_sdcard.SplashScreen.Restore_The_Data;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TickOnButtonSharedPreference;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,9 +63,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private File get_File_path;
     private boolean whats_App_File_Exist_Internal, checking_Folder, whats_App_File_Exist_External;
     private View layout;
-    private Tick_On_Button_DataBase tick_on_button_dataBase;
     private Toast toast;
-    private final int value_Of_visible = 1;
     private  String whats_App_Media_Path;
     private Delete_The_File delete_the_fIle;
     private Copy_The_File copy_the_file;
@@ -77,7 +72,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private Handler handler = new Handler();
     private final int requestCode = 42;
     private Uri sd_Card_URL;
-    private Sd_Card_DataBase sd_card_dataBase;
     private RemoteViews contentView;
     private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
     private NotificationManager notificationManager;
@@ -87,11 +81,11 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private boolean stop_The_Process;
     private Notification_Permission_Check notification_permission_check;
     private int normal_Changes=0 ;
-    private Whatsapp_Mode_DataBase whatsapp_mode_dataBase;
-    private String whatsapp_Path;
+    private String whatsapp_Path,string_URI;
     private Storage_Info storage_Info;
-
-
+    private WhatsappPathSharedpreferences whatsappPathSharedpreferences;
+    private TickOnButtonSharedPreference tickOnButtonSharedPreference;
+    private AndroidSdCardPermission android_sdCard_permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,35 +98,21 @@ public class After_MainTransferFIle extends AppCompatActivity {
         get_File_path = Environment.getExternalStorageDirectory();
         external_Path_Url = get_File_path.getAbsolutePath();
 
-        tick_on_button_dataBase = new Tick_On_Button_DataBase(this);
-        if (tick_on_button_dataBase.check_For_Empty()) {
-            tick_on_button_dataBase.Fill_It(value_Of_visible, value_Of_visible, value_Of_visible, value_Of_visible
-                    , value_Of_visible, value_Of_visible, value_Of_visible, value_Of_visible, value_Of_visible);
-        } else {
-            Cursor cursor = tick_on_button_dataBase.Get_All_Data();
-            int get, no = 1;
-            if (cursor.moveToFirst()) {
-                while (no < 10) {
-                    get = cursor.getInt(no);
-                    if (get == 0) {
-                        return_Id(no).setVisibility(View.GONE);
-                    }
-                    no++;
+        // setup and instalization of sharedprefernece
+        tickOnButtonSharedPreference = new TickOnButtonSharedPreference(getApplicationContext());
+        int no = 0;
+            while (no < 9) {
+                if (!tickOnButtonSharedPreference.getTickArray(no)) {
+                    return_Id(no).setVisibility(View.GONE);
                 }
+                no++;
             }
 
+        whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(getApplicationContext());
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+        whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path() ;
 
-        }
-        whatsapp_mode_dataBase = new Whatsapp_Mode_DataBase(this);
-        if(!whatsapp_mode_dataBase.check_For_Empty()){
-            Cursor cursor= whatsapp_mode_dataBase.Get_All_Data();
-            cursor.moveToNext();
-            whatsapp_Path = cursor.getString(1); // /Gbwhatsapp/
-            whats_App_Media_Path =whatsapp_Path+"Media";   // /gbwhatsapp/media
-            
-        }
         setSupportActionBar(toolbar);
-
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         LayoutInflater inflater = getLayoutInflater();
@@ -146,7 +126,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public void Reference() {
         toolbar = findViewById(R.id.toolbar);
         toolbar_Title = toolbar.findViewById(R.id.toolbar_title);
-
 
         file_Size_TextView = findViewById(R.id.file_Size_TextView);
         refresh_Image_View = toolbar.findViewById(R.id.refresh_Image_View);
@@ -171,6 +150,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
         // create class object
         notification_permission_check = new Notification_Permission_Check(this,this);
         storage_Info = new Storage_Info(sd_Card_Path_URL , this);
+
+        // create and instalization of sd card permission
+        android_sdCard_permission = new AndroidSdCardPermission(After_MainTransferFIle.this
+                ,getApplicationContext(),this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -201,7 +184,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     Toast_It("No WhatsApp Data Present");
                 else if (doit_Button.getAlpha() == 0.6) {
                     Toast_It("Select The Sd Card");
-                    call_Thread();
+                    android_sdCard_permission.call_Thread();
                 } else if (doit_Button.getAlpha() == 0.5)
                     Toast_It("You Supposed To Select Something");
                 else {
@@ -549,18 +532,18 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
     public void Save_In_Database() {
-        int no = 1;
-        int get[] = new int[9];
-        while (no < 10) {
+        int no = 0;
+        boolean get[] = new boolean[9];
+        while (no < 9) {
             if (return_Id(no).getVisibility() == View.VISIBLE) {
-                get[no - 1] = 1;
+                get[no] = true;
             } else {
-                get[no - 1] = 0;
+                get[no] = false;
             }
             no++;
         }
-        tick_on_button_dataBase.Update_The_Table("1", get[0], get[1], get[2], get[3], get[4]
-                , get[5], get[6], get[7], get[8]);
+        tickOnButtonSharedPreference.setTickArray(get);
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -624,23 +607,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
         }
     }
 
-    public void call_Thread() {
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Storage_Access_FrameWork();
-            }
-        }, 1800);
-    }
-
-    public void Storage_Access_FrameWork() {
-
-        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        startActivityForResult(intent, requestCode);
-
-    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
         if (resultCode != RESULT_OK)
             return;
@@ -649,12 +615,11 @@ public class After_MainTransferFIle extends AppCompatActivity {
         grantUriPermission(getPackageName(), sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         getContentResolver().takePersistableUriPermission(sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sd_Card_URL, this);
-        sd_card_dataBase = new Sd_Card_DataBase(this);
-        if (sd_card_dataBase.check_For_Empty()) {
-            sd_card_dataBase.Fill_It(sd_Card_Path_URL, sd_Card_URL.toString());
-        } else {
-            sd_card_dataBase.Update_The_Table("1", sd_Card_Path_URL, sd_Card_URL.toString());
-        }
+
+        if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sd_Card_URL.toString());
+        android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
+        android_sdCard_permission.setString_URI(string_URI);
+
         File file = new File(sd_Card_Path_URL);
         if (!isSamePath() && file.exists()) {
             sd_Card_Path_URL = Split_The_URI(sd_Card_URL.toString());
@@ -831,7 +796,8 @@ public class After_MainTransferFIle extends AppCompatActivity {
         Check_For_WhatsApp_Folder();
         transFer_File_Changes();
         checking_Folder = false;
-        copy_the_file = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile, this, only_Selected_File,convert_To_Days());
+        copy_the_file = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile, this, only_Selected_File,convert_To_Days()
+        ,getApplicationContext());
         copy_the_file.Copy_Folder_As_Per_Tick(tick_Database_ImageView.getVisibility(), tick_Audio_ImageView.getVisibility(), tick_Video_ImageView.getVisibility(),
                 tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                 tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
@@ -843,7 +809,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public void Remove_The_File() {
         checking_Folder = false;
         if (!stop_The_Process) {
-            delete_the_fIle = new Delete_The_File(external_Path_Url,whats_App_Media_Path, this, only_Selected_File,convert_To_Days());
+            delete_the_fIle = new Delete_The_File(external_Path_Url,whats_App_Media_Path, this, only_Selected_File,convert_To_Days(),getApplicationContext());
             delete_the_fIle.get_File_Path(tick_Database_ImageView.getVisibility(), tick_Audio_ImageView.getVisibility(), tick_Video_ImageView.getVisibility(),
                     tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                     tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),

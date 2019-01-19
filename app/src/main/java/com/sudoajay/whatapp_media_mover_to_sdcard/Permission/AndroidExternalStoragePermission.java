@@ -17,14 +17,14 @@ import android.widget.Button;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
-public class Android_Permission_Required {
+public class AndroidExternalStoragePermission {
 
     private final int My_Permission_Request = 1;
     private Context context;
     private Activity activity;
     private Handler handler;
     private String external_Path;
-    public Android_Permission_Required(Context context , Activity activity){
+    public AndroidExternalStoragePermission(Context context , Activity activity){
        this.context = context;
        this.activity = activity;
        external_Path = Environment.getExternalStorageDirectory().getAbsolutePath();
