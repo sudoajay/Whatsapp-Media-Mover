@@ -26,6 +26,8 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Fragments.Sticker_Fragment;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Fragments.Video_Fragment;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Fragments.Voice_Fragment;
 
+import java.util.Objects;
+
 /**
  * Created by Olakunmi on 21/01/2017.
  */
@@ -108,7 +110,7 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
         // Start with the provided view
         View current = v;
         DisplayMetrics  dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         // Travel up the tree until fail, modifying the LayoutParams

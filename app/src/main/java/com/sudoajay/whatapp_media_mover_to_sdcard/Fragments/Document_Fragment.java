@@ -49,7 +49,7 @@ public class Document_Fragment extends Fragment {
 
     public Document_Fragment createInstance(After_MainTransferFIle after_main_transferFIle, String which_Option_To_Do, List<File> selected_List
     , Context context) {
-        this.after_main_transferFIle = after_main_transferFIle;
+        Document_Fragment.after_main_transferFIle = after_main_transferFIle;
         this.which_Option_To_Do= which_Option_To_Do;
         this.selected_List= selected_List;
 

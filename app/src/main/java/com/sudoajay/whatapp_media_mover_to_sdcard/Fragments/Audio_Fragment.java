@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Audio_Fragment extends Fragment {
     private After_MainTransferFIle after_main_transferFIle;
@@ -257,7 +259,7 @@ public class Audio_Fragment extends Fragment {
         MimeTypeMap myMime = MimeTypeMap.getSingleton();
         Intent newIntent = new Intent(Intent.ACTION_VIEW);
 
-        String mimeType = myMime.getMimeTypeFromExtension(fileExt(file.getAbsolutePath()).substring(1));
+        String mimeType = myMime.getMimeTypeFromExtension(Objects.requireNonNull(fileExt(file.getAbsolutePath())).substring(1));
         Uri URI = FileProvider.getUriForFile(after_main_transferFIle,
                 BuildConfig.APPLICATION_ID + ".provider",
                 file);

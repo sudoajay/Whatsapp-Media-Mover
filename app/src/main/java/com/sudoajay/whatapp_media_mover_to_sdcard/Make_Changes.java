@@ -15,7 +15,8 @@ public class Make_Changes  {
     private ArrayList<String> arrayList = new ArrayList<>();
     public Make_Changes(){
 
-    };
+    }
+
     public Make_Changes(String path){
         Get_All_File(path);
     }
@@ -75,13 +76,10 @@ public class Make_Changes  {
         if (i > 0) {
             extension = path.substring(i+1);
         }
-        if(extension.equals("jpg") ||extension.equals("mp3")||extension.equals("mp4")
-                ||extension.equals("pptx")||extension.equals("pdf")||extension.equals("docx")
-                ||extension.equals("opus")|| extension.equals("jpeg") || extension.equals("txt")
-                ||extension.equals("m4a") || extension.equals("amr") || extension.equals("aac"))
-            return true;
-        else
-            return false;
+        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
+                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
+                || extension.equals("opus") || extension.equals("jpeg") || extension.equals("txt")
+                || extension.equals("m4a") || extension.equals("amr") || extension.equals("aac");
 
     }
 

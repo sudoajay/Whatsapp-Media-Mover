@@ -438,11 +438,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
     public void Checked_The_Main_Thing() {
-        if (!(new File(external_Path_Url + whats_App_Media_Path).exists())) {
-            whats_App_File_Exist_Internal = false;
-        } else {
-            whats_App_File_Exist_Internal = true;
-        }
+        whats_App_File_Exist_Internal = new File(external_Path_Url + whats_App_Media_Path).exists();
         File file1 = new File(sd_Card_Path_URL);
         if (!which_Option_To_Do.equalsIgnoreCase("remove")) {
 
@@ -451,11 +447,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
         }
 
-        if (!(new File(sd_Card_Path_URL + whats_App_Media_Path)).exists()) {
-            whats_App_File_Exist_External = false;
-        } else {
-            whats_App_File_Exist_External = true;
-        }
+        whats_App_File_Exist_External = (new File(sd_Card_Path_URL + whats_App_Media_Path)).exists();
     }
     
 
@@ -535,11 +527,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         int no = 0;
         boolean get[] = new boolean[9];
         while (no < 9) {
-            if (return_Id(no).getVisibility() == View.VISIBLE) {
-                get[no] = true;
-            } else {
-                get[no] = false;
-            }
+            get[no] = return_Id(no).getVisibility() == View.VISIBLE;
             no++;
         }
         tickOnButtonSharedPreference.setTickArray(get);
@@ -1058,13 +1046,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
         if (i > 0) {
             extension = path.substring(i + 1);
         }
-        if (extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
+        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
                 || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
-                || extension.equals("opus")||extension.equals("m4a")
-                || extension.equals("amr") || extension.equals("aac"))
-            return true;
-        else
-            return false;
+                || extension.equals("opus") || extension.equals("m4a")
+                || extension.equals("amr") || extension.equals("aac");
 
     }
 
@@ -1140,9 +1125,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
     public boolean return_Value(int views) {
-        if (views == View.VISIBLE)
-            return true;
-        return false;
+        return views == View.VISIBLE;
     }
 
     public String getExternal_Path_Url() {

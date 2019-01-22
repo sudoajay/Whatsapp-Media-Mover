@@ -83,7 +83,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 if(groupPosition != 0) {
-                    if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition) == true) {
+                    if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)) {
                         check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition, false);
                         check_Image_View.setImageResource(R.drawable.close);
                         check_Image_View.setAlpha(0.5f);
@@ -103,7 +103,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     }
 
                 }else {
-                    if(check_Array.get( childPosition) == true) {
+                    if(check_Array.get( childPosition)) {
                         check_Array.set(childPosition, false);
                         check_Image_View.setImageResource(R.drawable.close);
                         check_Image_View.setAlpha(0.5f);
@@ -130,7 +130,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
 
         if(groupPosition != 0) {
-            if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition) == true){
+            if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)){
                 check_Image_View.setImageResource(R.drawable.check);
                 check_Image_View.setAlpha(1f);
                 thumbnail_Image_View.setAlpha(1f);

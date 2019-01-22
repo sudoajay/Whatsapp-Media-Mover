@@ -33,7 +33,7 @@ public class Delete_Duplicate_Data {
         string_URI = android_SdCard_Permission.getString_URI();
 
         if(string_URI != null ) {
-            sd_Card_Uri = Split_The_URI(string_URI.toString());
+            sd_Card_Uri = Split_The_URI(string_URI);
             sd_Card_URL = Uri.parse(sd_Card_Uri);
             sd_Card_documentFile = DocumentFile.fromTreeUri(show_duplicate_file.getApplicationContext(), sd_Card_URL);
         }

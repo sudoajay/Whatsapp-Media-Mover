@@ -180,13 +180,10 @@ public class Copy_The_File {
         if (i > 0) {
             extension = path.substring(i+1);
         }
-        if(extension.equals("jpg") ||extension.equals("mp3")||extension.equals("mp4")
-                ||extension.equals("pptx")||extension.equals("pdf")||extension.equals("docx")
-                ||extension.equals("opus") || extension.equals("crypt12")||extension.equals("m4a")
-                || extension.equals("amr") || extension.equals("aac"))
-            return true;
-        else
-            return false;
+        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
+                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
+                || extension.equals("opus") || extension.equals("crypt12") || extension.equals("m4a")
+                || extension.equals("amr") || extension.equals("aac");
 
     }
 
@@ -363,7 +360,6 @@ public class Copy_The_File {
         days += ((current_Date-last_Modified_Current_Time));
 
 
-        if(days >= normal_Changes) return true;
-        return false;
+        return days >= normal_Changes;
     }
 }

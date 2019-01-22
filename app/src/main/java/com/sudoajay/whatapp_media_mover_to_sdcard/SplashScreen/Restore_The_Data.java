@@ -186,12 +186,9 @@ public class Restore_The_Data {
         if (i > 0) {
             extension = path.substring(i+1);
         }
-        if(extension.equals("jpg") ||extension.equals("mp3")||extension.equals("mp4")
-                ||extension.equals("pptx")||extension.equals("pdf")||extension.equals("docx")
-                ||extension.equals("opus")|| extension.equals("crypt12"))
-            return true;
-        else
-            return false;
+        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
+                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
+                || extension.equals("opus") || extension.equals("crypt12");
 
     }
 
