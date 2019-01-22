@@ -99,7 +99,7 @@ public class Voice_Fragment extends Fragment {
                 public void onGroupExpand(int groupPosition) {
 
 
-                    arrow_Image_Resource.set(groupPosition, R.drawable.arrow_up);
+                    arrow_Image_Resource.set(groupPosition, R.drawable.arrow_up_icon);
                 }
             });
 
@@ -109,7 +109,7 @@ public class Voice_Fragment extends Fragment {
                 @Override
                 public void onGroupCollapse(int groupPosition) {
 
-                    arrow_Image_Resource.set(groupPosition, R.drawable.arrow_down);
+                    arrow_Image_Resource.set(groupPosition, R.drawable.arrow_down_icon);
                 }
             });
 
@@ -194,7 +194,7 @@ public class Voice_Fragment extends Fragment {
 //        }
 
         for (String s : listDataHeader)
-            arrow_Image_Resource.add(R.drawable.arrow_down);
+            arrow_Image_Resource.add(R.drawable.arrow_down_icon);
 
     }
 

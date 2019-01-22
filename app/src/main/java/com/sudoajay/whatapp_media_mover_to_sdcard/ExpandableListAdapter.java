@@ -85,7 +85,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 if(groupPosition != 0) {
                     if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)) {
                         check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition, false);
-                        check_Image_View.setImageResource(R.drawable.close);
+                        check_Image_View.setImageResource(R.drawable.close_icon);
                         check_Image_View.setAlpha(0.5f);
                         thumbnail_Image_View.setAlpha(0.5f);
                         name_Text_View.setAlpha(0.5f);
@@ -93,7 +93,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                         find_And_Remove(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition));
                     }else {
                         check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition,true);
-                        check_Image_View.setImageResource(R.drawable.check);
+                        check_Image_View.setImageResource(R.drawable.check_icon);
                         check_Image_View.setAlpha(1f);
                         thumbnail_Image_View.setAlpha(1f);
                         name_Text_View.setAlpha(0.8f);
@@ -105,7 +105,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 }else {
                     if(check_Array.get( childPosition)) {
                         check_Array.set(childPosition, false);
-                        check_Image_View.setImageResource(R.drawable.close);
+                        check_Image_View.setImageResource(R.drawable.close_icon);
                         check_Image_View.setAlpha(0.5f);
                         thumbnail_Image_View.setAlpha(0.5f);
                         name_Text_View.setAlpha(0.5f);
@@ -114,7 +114,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     }
                     else {
                         check_Array.set(childPosition,true);
-                        check_Image_View.setImageResource(R.drawable.check);
+                        check_Image_View.setImageResource(R.drawable.check_icon);
                         check_Image_View.setAlpha(1f);
                         thumbnail_Image_View.setAlpha(1f);
                         name_Text_View.setAlpha(0.8f);
@@ -131,14 +131,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         if(groupPosition != 0) {
             if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)){
-                check_Image_View.setImageResource(R.drawable.check);
+                check_Image_View.setImageResource(R.drawable.check_icon);
                 check_Image_View.setAlpha(1f);
                 thumbnail_Image_View.setAlpha(1f);
                 name_Text_View.setAlpha(0.8f);
                 size_Text_View.setAlpha(0.5f);
 
             }else {
-                check_Image_View.setImageResource(R.drawable.close);
+                check_Image_View.setImageResource(R.drawable.close_icon);
                 check_Image_View.setAlpha(0.5f);
                 thumbnail_Image_View.setAlpha(0.5f);
                 name_Text_View.setAlpha(0.5f);
@@ -150,14 +150,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }else {
             if (check_Array.size() >  childPosition) {
                 if (check_Array.get(childPosition)) {
-                    check_Image_View.setImageResource(R.drawable.check);
+                    check_Image_View.setImageResource(R.drawable.check_icon);
                     check_Image_View.setAlpha(1f);
                     thumbnail_Image_View.setAlpha(1f);
                     name_Text_View.setAlpha(0.8f);
                     size_Text_View.setAlpha(0.5f);
 
                 } else {
-                    check_Image_View.setImageResource(R.drawable.close);
+                    check_Image_View.setImageResource(R.drawable.close_icon);
                     check_Image_View.setAlpha(0.5f);
                     thumbnail_Image_View.setAlpha(0.5f);
                     name_Text_View.setAlpha(0.5f);

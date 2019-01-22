@@ -129,8 +129,8 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
                 }
 
                 // Modify the layout
-                current.getLayoutParams().width = width-((15*width)/100);
-                current.getLayoutParams().height = height-((25*height)/100);
+                current.getLayoutParams().width = width-((10*width)/100);
+                current.getLayoutParams().height = height-((13*height)/100);
             }
         } while (current.getParent() != null);
 

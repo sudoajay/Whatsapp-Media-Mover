@@ -115,7 +115,7 @@
             android:layout_marginLeft="10dp"
             android:alpha="1"
             android:background="@drawable/activity_my_copy_button"
-            android:drawableStart="@drawable/deep_changes"
+            android:drawableStart="@drawable/deep_changes_icon"
             android:fontFamily="sans-serif-smallcaps"
             android:onClick="On_Click_Process"
             android:paddingEnd="20dp"

@@ -79,7 +79,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             if (get.equalsIgnoreCase("And")) {
                 i++;
                 list_Header.add("Group " + i);
-                arrow_Image_Resource.add(R.drawable.arrow_up);
+                arrow_Image_Resource.add(R.drawable.arrow_up_icon);
             }
         }
         i = 0;
@@ -117,7 +117,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                arrow_Image_Resource.set(groupPosition, R.drawable.arrow_up);
+                arrow_Image_Resource.set(groupPosition, R.drawable.arrow_up_icon);
 
             }
         });
@@ -127,7 +127,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                arrow_Image_Resource.set(groupPosition, R.drawable.arrow_down);
+                arrow_Image_Resource.set(groupPosition, R.drawable.arrow_down_icon);
             }
         });
 

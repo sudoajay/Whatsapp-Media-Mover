@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_down" />
+        app:srcCompat="@drawable/arrow_down_icon" />
 
     <TextView
         android:id="@+id/group_Heading_Text_View"

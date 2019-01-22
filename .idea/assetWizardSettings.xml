@@ -33,9 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="contact_me_icon" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="deep_changes_icon" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/check-circle-regular.svg" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/repeat.svg" />
                           </map>
                         </option>
                       </PersistentState>
