@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
@@ -110,8 +112,8 @@ public class Main_Navigation extends AppCompatActivity
             setTitle("Duplicate Data");
             fragment = duplication_class.createInstance(Main_Navigation.this);
 
-        } else if (id == R.id.nav_Timer)
-            Toast.makeText(this, "New Feature - Coming Soon", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.nav_Timer) CallCustomDailogBackgroundTimer();
+
         else if(id == R.id.nav_Whatsapp_Setting) Call_Custom_Dailog_Setting();
 
         else if (id == R.id.nav_share) Share();
@@ -133,6 +135,14 @@ public class Main_Navigation extends AppCompatActivity
         Custom_Dialog_For_Choose_Your_Whatsapp_Options custom_dialog_for_changes_options
                 = new Custom_Dialog_For_Choose_Your_Whatsapp_Options(this);
         custom_dialog_for_changes_options.show(ft, "dialog");
+    }
+
+    public void CallCustomDailogBackgroundTimer() {
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        CustomDialogForBackgroundTimer customDialogForBackgroundTimer
+                = new CustomDialogForBackgroundTimer();
+        customDialogForBackgroundTimer.show(ft, "dialog");
     }
     // Replace Fragments
     public void Replace_Fragments() {

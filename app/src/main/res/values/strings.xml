@@ -52,7 +52,7 @@
     <string name="nav_Home">Home</string>
     <string name="nav_Transfer_Data">Transfer Data</string>
     <string name="nav_Duplicate_Data">Duplicate Data</string>
-    <string name="nav_Timer">Timer</string>
+    <string name="nav_background_Timer">Background Timer</string>
     <string name="nav_Whatsapp_Setting">Whatsapp Setting</string>
     <string name="nav_share">share</string>
     <string name="nav_Rate_Us">Rate Us</string>

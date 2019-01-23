@@ -11,7 +11,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,23 +77,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="15dp"
-        app:textTint="@color/textColorOnCustomSpinner"
+        android:layout_marginRight="40dp"
         app:dropDownListPaddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.399"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/head_Text_View"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.069"
+        app:textTint="@color/textColorOnCustomSpinner" />
 
     <Button
         android:id="@+id/cancel_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:paddingBottom="0dp"
@@ -108,9 +112,9 @@
         android:id="@+id/ok_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="52dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
         android:text="@string/Choose_Ok"

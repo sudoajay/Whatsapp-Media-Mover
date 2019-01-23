@@ -3,6 +3,8 @@ package com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +27,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
 
 import java.io.File;
+import java.util.Objects;
 
 public class MainTransferFIle extends Fragment {
     private TextView toast_TextView;
@@ -56,6 +59,7 @@ public class MainTransferFIle extends Fragment {
 
         layout =inflater.inflate(R.layout.fragment_main_transfer_file, container, false);
 
+
         Reference();
         if (!androidExternalStorage_permission.isExternalStorageWritable())
             androidExternalStorage_permission.call_Thread();
@@ -81,6 +85,24 @@ public class MainTransferFIle extends Fragment {
         copy_Button.setOnClickListener(onClick_class);
         remove_Button.setOnClickListener(onClick_class);
         restore_Button.setOnClickListener(onClick_class);
+
+        // Setting scaled drawable in code
+
+        Drawable img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.copy_intro_icon );
+        img.setBounds( 0, 0, 80, 80 );
+        copy_Button.setCompoundDrawables( img, null, null, null );
+
+        img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.restore_intro_icon );
+        img.setBounds( 0, 0, 80, 80 );
+        restore_Button.setCompoundDrawables( img, null, null, null );
+
+        img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.remove_intro_icon );
+        img.setBounds( 0, 0, 80, 80 );
+        remove_Button.setCompoundDrawables( img, null, null, null );
+
+        img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.move_intro_icon );
+        img.setBounds( 0, 0, 80, 80 );
+        move_Button.setCompoundDrawables( img, null, null, null );
 
         // create object classes
 

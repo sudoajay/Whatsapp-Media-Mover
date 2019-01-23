@@ -101,7 +101,7 @@
         android:layout_height="50dp"
         android:alpha="1"
         android:background="#c45257"
-        android:drawableLeft="@drawable/remove"
+        android:drawableLeft="@drawable/restore_intro_icon"
         android:fontFamily="sans-serif-smallcaps"
         android:onClick="On_Click_Process"
         android:paddingLeft="75dp"

@@ -19,7 +19,7 @@
         <item
             android:id="@+id/nav_Timer"
             android:icon="@drawable/timer_icon"
-            android:title="@string/nav_Timer" />
+            android:title="@string/nav_background_Timer" />
         <item
             android:id="@+id/nav_Whatsapp_Setting"
             android:icon="@drawable/settings_icon"

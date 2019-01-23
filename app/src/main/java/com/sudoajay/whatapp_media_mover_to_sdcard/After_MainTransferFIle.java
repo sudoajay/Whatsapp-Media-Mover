@@ -962,7 +962,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
         }
             builder = new NotificationCompat.Builder(this, id)// required
-                    .setSmallIcon(R.drawable.ic_launcher)   // required
+                    .setSmallIcon(R.mipmap.ic_launcher)   // required
                    .setVibrate(new long[]{0L}) // Passing null here silently fails
                     .setPriority(Notification.PRIORITY_DEFAULT)
                     .setAutoCancel(false)
@@ -1078,7 +1078,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         }
             builder =
                     new NotificationCompat.Builder(this,id)
-                            .setSmallIcon(R.drawable.ic_launcher)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                             .setOngoing(false)
                             .setContentTitle(after_Notification)
                             .setAutoCancel(true)

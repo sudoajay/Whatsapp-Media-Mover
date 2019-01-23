@@ -407,7 +407,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             }
         }
         mBuilder = new NotificationCompat.Builder(this, id)
-                .setSmallIcon(R.drawable.ic_launcher)   // required
+                .setSmallIcon(R.mipmap.ic_launcher)   // required
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setContent(contentView)
                 .setAutoCancel(false)
