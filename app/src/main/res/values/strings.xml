@@ -94,4 +94,33 @@
     <string name="sdCardPath">Sd Card Path</string>
     <string name="stringUri">String URI</string>
 
+    <!--image Descrption-->
+    <string name="timer_icon">Timer icon</string>
+
+   <!--Background Timer-->
+    <string name="endlessly_Date">Endlessly</string>
+    <string name="repeatedly_Text">Repeatedly Timer</string>
+    <string name="background_Timer_Heading">What You Like ?</string>
+
+    <!--custom weekdays Setup-->
+    <string-array name="customWeekdaysSetup">
+        <item>Daily</item>
+        <item>Every Weekday(Mon-Fri)</item>
+        <item>Every Weekday(Sat,Sun)</item>
+        <item>Once A Month(Same Date)</item>
+        <item>Custom WeekDay</item>
+    </string-array>
+
+    <!--custom Chooser Setup-->
+    <string-array name="customChooserSetup">
+        <item>Move Data</item>
+        <item>Copy Data</item>
+        <item>Remove Data</item>
+        <item>Restore Data</item>
+    </string-array>
+
+    <!--Default Date-->
+    <string name="today_Date">Today</string>
+    <string name="yesterday_Date">Yesterday</string>
+    <string name="tomorrow_Date">Tomorrow</string>
 </resources>

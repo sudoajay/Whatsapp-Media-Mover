@@ -89,7 +89,7 @@
         app:textTint="@color/textColorOnCustomSpinner" />
 
     <Button
-        android:id="@+id/cancel_Button"
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -124,7 +124,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cancel_Button"
+        app:layout_constraintStart_toEndOf="@+id/cancelButton"
         app:layout_constraintTop_toBottomOf="@+id/customSpinner"
         app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

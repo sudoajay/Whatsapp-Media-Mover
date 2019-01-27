@@ -44,7 +44,7 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
 
         // reference
         back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
-        cancel_Button = rootview.findViewById(R.id.cancel_Button);
+        cancel_Button = rootview.findViewById(R.id.cancelButton);
         ok_Button  =rootview.findViewById(R.id.ok_Button);
         customSpinner = rootview.findViewById(R.id.customSpinner);
 

@@ -60,7 +60,7 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
         whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(Objects.requireNonNull(getContext()));
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
 
-        cancel_Button = rootview.findViewById(R.id.cancel_Button);
+        cancel_Button = rootview.findViewById(R.id.cancelButton);
         ok_Button  =rootview.findViewById(R.id.ok_Button);
         back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
         customSpinner = rootview.findViewById(R.id.customSpinner);

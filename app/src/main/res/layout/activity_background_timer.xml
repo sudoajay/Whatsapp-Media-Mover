@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
     android:background="@color/backgroundColor">
 
     <android.support.v7.widget.Toolbar
@@ -30,8 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:onClick="On_Click_Process"
-                android:paddingEnd="10dp"
+                        android:paddingEnd="10dp"
                 app:srcCompat="@drawable/back_arrow_icon" />
 
             <TextView
@@ -42,6 +40,7 @@
                 android:layout_gravity="start"
                 android:layout_marginEnd="80dp"
                 android:fontFamily="serif"
+                android:paddingTop="3dp"
                 android:paddingEnd="30dp"
                 android:text="@string/nav_background_Timer"
                 android:textSize="18sp" />
@@ -55,43 +54,169 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
+
     <TextView
         android:id="@+id/head_Text_View"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:fontFamily="serif"
-        android:text="@string/Choose_Your_Whatsapp"
-        android:textColor="#000000"
-        android:textSize="25sp"
+        android:text="@string/background_Timer_Heading"
+        android:textColor="@color/textColorOnCustomSpinner"
+        android:textSize="20sp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <org.angmarch.views.NiceSpinner
+        android:id="@+id/chooseSpinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/choose_ImageView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/head_Text_View"
+        app:layout_constraintVertical_bias="0.0"
+        app:textTint="@color/textColorOnCustomSpinner" />
+    <ImageView
+        android:id="@+id/choose_ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/timer_icon"
+        android:padding="10dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/chooseSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/head_Text_View"
+        app:layout_constraintVertical_bias="0.009"
+        app:srcCompat="@drawable/click_something_icon"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/repeatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="@string/repeatedly_Text"
+        android:textColor="@color/textColorOnCustomSpinner"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseSpinner"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <ImageView
+        android:id="@+id/repeat_Image_View"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/timer_icon"
+        android:padding="5dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintStart_toEndOf="@+id/repeatedlySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/repeatTextView"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/repeat_icon"
+        tools:ignore="VectorDrawableCompat" />
+
+
 
     <org.angmarch.views.NiceSpinner
-        android:id="@+id/customSpinner"
+        android:id="@+id/repeatedlySpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintEnd_toStartOf="@+id/repeat_Image_View"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/head_Text_View"
-        app:layout_constraintVertical_bias="0.082"
+        app:layout_constraintTop_toBottomOf="@+id/repeatTextView"
+        app:layout_constraintVertical_bias="0.0"
         app:textTint="@color/textColorOnCustomSpinner" />
 
-    <Button
-        android:id="@+id/cancel_Button"
+    <com.dpro.widgets.WeekdaysPicker
+        android:id="@+id/weekdaysPicker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="63dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:enabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repeatedlySpinner"
+        app:layout_constraintVertical_bias="0.0"
+        app:sunday_first_day="false" />
+
+    <EditText
+        android:id="@+id/endlesslyEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="@color/textColorOnCustomSpinner"
+        android:backgroundTintMode="@color/textColorOnCustomSpinner"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/endlessly_Date"
+        android:inputType="date|number|datetime|text|time"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:textColor="@color/textColorOnCustomSpinner"
+        android:textColorHint="@color/textColorOnCustomSpinner"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/repeat_Image_View"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekdaysPicker"
+        app:layout_constraintVertical_bias="0.178"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <ImageView
+        android:id="@+id/repeat_Off_Image_View"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/timer_icon"
+        android:padding="5dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/endlesslyEditText"
+        app:layout_constraintTop_toBottomOf="@+id/weekdaysPicker"
+        app:layout_constraintVertical_bias="0.133"
+        app:srcCompat="@drawable/repeat_off_icon"
+        tools:ignore="VectorDrawableCompat"
+        />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
@@ -104,15 +229,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.628"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customSpinner"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText" />
 
     <Button
-        android:id="@+id/ok_Button"
+        android:id="@+id/okButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
@@ -123,8 +246,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cancel_Button"
-        app:layout_constraintTop_toBottomOf="@+id/customSpinner"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/cancelButton"
+        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText" />
 
 </android.support.constraint.ConstraintLayout>
