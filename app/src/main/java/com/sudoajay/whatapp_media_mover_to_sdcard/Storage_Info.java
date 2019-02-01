@@ -19,17 +19,24 @@ public class Storage_Info {
                     ,internal_Other_Size, external_Other_Size;
     private String whatsapp_Path;
 
-    public  boolean externalMemoryAvailable() {
-        return new File(sd_Card_Path_URL).exists();
-    }
+    //  2 constructor
     public Storage_Info(String sd_Card_Path_URL , Context context){
         this.sd_Card_Path_URL = sd_Card_Path_URL;
 
         // Shared preferences use to grab the data
         WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+    }
+    public Storage_Info(Context context){
+        // Shared preferences use to grab the data
+        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+    }
 
 
+    public  boolean externalMemoryAvailable() {
+
+        return new File(sd_Card_Path_URL).exists();
     }
     public  String getAvailableInternalMemorySize() {
         File path = Environment.getExternalStorageDirectory();

@@ -10,7 +10,7 @@
    
 
     <Button
-        android:id="@+id/file_Size_text"
+        android:id="@+id/file_Size_Text"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="219dp"
         android:layout_height="100dp"

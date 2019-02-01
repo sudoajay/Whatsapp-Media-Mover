@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,7 +100,7 @@ public class Duplication_Class extends Fragment {
         scan_Button = layout.findViewById(R.id.scan_Button);
         internal_Text_View = layout.findViewById(R.id.internal_Text_View);
         external_Text_View = layout.findViewById(R.id.external_Text_View);
-        file_Size_text = layout.findViewById(R.id.file_Size_text);
+        file_Size_text = layout.findViewById(R.id.file_Size_Text);
 
         // onclick
         OnClick_Class onClick_class = new OnClick_Class();
@@ -177,10 +178,9 @@ public class Duplication_Class extends Fragment {
         }
         @Override
         protected String doInBackground(String... strings) {
-            duplication_data.Duplication(new File(androidExternalStorage_permission.getExternal_Path()+storage_info.getWhatsapp_Path()+"/") ,
-                    new File(android_sdCard_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/"),
-                    internal_Check.getVisibility(),external_Check.getVisibility());
-
+                duplication_data.Duplication(new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"),
+                        new File(android_sdCard_permission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
+                        internal_Check.getVisibility(), external_Check.getVisibility());
     return null;
         }
         @Override
@@ -192,6 +192,7 @@ public class Duplication_Class extends Fragment {
         protected void onPostExecute(String s) {
             alertDialog.dismiss();
 
+
             Bundle extra = new Bundle();
             extra.putSerializable("Duplication_Class_Data", (Serializable) duplication_data.getList());
 
@@ -199,6 +200,7 @@ public class Duplication_Class extends Fragment {
             intent.putExtra("Duplication_Class_Data" , extra);
             startActivity(intent);
             super.onPostExecute(s);
+
 
         }
 
@@ -275,8 +277,9 @@ public class Duplication_Class extends Fragment {
                     }
                     break;
                 case R.id.scan_Button:
-                    if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE)
+                    if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE) {
                         multiThreading_task.execute();
+                    }
                     else{
                         Toast_It("You Supposed To Select Something");
                     }

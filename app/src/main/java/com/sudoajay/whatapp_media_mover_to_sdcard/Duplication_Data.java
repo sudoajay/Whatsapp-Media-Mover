@@ -1,7 +1,9 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,7 +32,7 @@ public class Duplication_Data {
         }
     }
 
-    public void Duplication(File external_dir , File sd_Card_dir,int internal_Visible , int external_Visible ){
+    public void Duplication( File external_dir , File sd_Card_dir, int internal_Visible , int external_Visible ){
 
         Map<String, List<String>> lists = new HashMap<>();
         if(internal_Visible == View.VISIBLE) Get_All_Path(external_dir);

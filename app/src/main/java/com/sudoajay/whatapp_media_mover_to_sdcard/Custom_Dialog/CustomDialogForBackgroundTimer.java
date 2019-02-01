@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,12 +77,20 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                repeatedlySpinner.setSelectedIndex(cursor.getInt(2));
                if(cursor.getInt(2) == 4)
                    weekdaysPicker.setSelectedDays(Collections.singletonList(Integer.parseInt(cursor.getString(3))));
-               endlesslyEditText.setText(cursor.getString(4));
+
                 try {
-                    @SuppressLint("SimpleDateFormat") Date date = new SimpleDateFormat("dd-MM-yyyy").parse(endlesslyEditText.getText().toString());
-                    Toast.makeText(getContext(),date.toString(),Toast.LENGTH_LONG).show();
-                } catch (ParseException e) {
-                    e.printStackTrace();
+
+                    Calendar calendar = Calendar.getInstance();
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    simpleDateFormat.setCalendar(calendar);
+
+                    if(cursor.getString(4).equalsIgnoreCase(simpleDateFormat.format(calendar.getTime()))){
+                        endlesslyEditText.setText(getResources().getText(R.string.today_Date));
+                    }else {
+                        endlesslyEditText.setText(cursor.getString(4));
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getContext(),"Something Wrong",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -240,13 +250,21 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                         calendar.set(year, monthOfYear, dayOfMonth);
                         SimpleDateFormat getEndlesslyDate = new SimpleDateFormat("dd-MM-yyyy");
                         getSelectedEndlesslyDate= getEndlesslyDate.format(calendar.getTime());
-                        if ((cYear == year) && (cMonth == monthOfYear)) {
-                            if (cDay == dayOfMonth)
-                                endlesslyEditText.setText(CustomDialogForBackgroundTimer.this.getResources().getString(R.string.today_Date));
-                            else if ((cDay - 1) == dayOfMonth)
-                                endlesslyEditText.setText(CustomDialogForBackgroundTimer.this.getResources().getString(R.string.yesterday_Date));
-                            else if ((cDay + 1) == dayOfMonth)
-                                endlesslyEditText.setText(CustomDialogForBackgroundTimer.this.getResources().getString(R.string.tomorrow_Date));
+
+                        // check for today date
+                        try {
+
+                            Calendar calendars = Calendar.getInstance();
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                            simpleDateFormat.setCalendar(calendars);
+
+                        if(getSelectedEndlesslyDate.equalsIgnoreCase(simpleDateFormat.format(calendars.getTime())) ){
+                            endlesslyEditText.setText(getResources().getText(R.string.today_Date));
+                        }else {
+                            endlesslyEditText.setText(getSelectedEndlesslyDate);
+                        }
+                        } catch (Exception e) {
+                            Toast.makeText(getContext(),"Something Wrong",Toast.LENGTH_LONG).show();
                         }
 
                         // if date already done then show the user
@@ -262,9 +280,6 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
                     }
                 }, cYear, cMonth, cDay);
-
-
-
 
         if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP) {
             datePickerDialog.setIcon(R.drawable.check_icon);
@@ -287,6 +302,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             backgroundTimerDataBase.UpdateTheTable("1" , chooseSpinner.getSelectedIndex(),
                     repeatedlySpinner.getSelectedIndex(), weekdaysPicker.getSelectedDays().toString(),getSelectedEndlesslyDate);
         }
+
+        Toast.makeText(getContext(),getResources().getText(R.string.setting_Updated),Toast.LENGTH_LONG).show();
 
     }
     public void onStart() {

@@ -1,10 +1,11 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -18,14 +19,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Notification.NotifyNotification;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
 
 public class Main_Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,6 +54,13 @@ public class Main_Navigation extends AppCompatActivity
 
         setContentView(R.layout.activity_main_navigation);
 
+        // local variable
+        String value = null;
+        // get data from intent
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            value = extras.getString("passing");
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -57,10 +73,28 @@ public class Main_Navigation extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setTitle("Transfer Data");
-        //  change the navigation item to main transfer data
-        navigationView.getMenu().getItem(1).setChecked(true);
-        onNavigationItemSelected(navigationView.getMenu().getItem(1));
+        if (value == null){
+            setTitle("Transfer Data");
+            //  change the navigation item to main transfer data
+            navigationView.getMenu().getItem(1).setChecked(true);
+            onNavigationItemSelected(navigationView.getMenu().getItem(1));
+        }else {
+            setTitle("Duplicate Data");
+            //  change the navigation item to main transfer data
+            navigationView.getMenu().getItem(1).setChecked(true);
+            onNavigationItemSelected(navigationView.getMenu().getItem(2));
+
+        }
+        // setting and Configuration of background process
+
+        // regular background Process
+        // showing size of whatsApp Data
+        TypeATask();
+
+        // showing duplication of whatsapp Data
+        TypeBTask();
+
+
 
     }
 
@@ -144,6 +178,56 @@ public class Main_Navigation extends AppCompatActivity
                 = new CustomDialogForBackgroundTimer();
         customDialogForBackgroundTimer.show(ft, "dialog");
     }
+
+    private void TypeATask(){
+
+        // this task for cleaning and show today task
+
+        int hour;
+        Random random = new Random();
+        hour =random.nextInt(10) +15;
+        OneTimeWorkRequest morning_Work =
+                new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Show Size").setInitialDelay( hour, TimeUnit.HOURS)
+                        .build();
+        WorkManager.getInstance().enqueueUniqueWork("Regular Show Size", ExistingWorkPolicy.REPLACE, morning_Work);
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        // Do something with the status
+                        if (workInfo != null && workInfo.getState().isFinished()) {
+                            // ...
+                            TypeATask();
+                        }
+                    }
+                });
+    }
+    private void TypeBTask(){
+
+        // this task for cleaning and show today task
+
+        int hour;
+        Random random = new Random();
+        hour =random.nextInt(24) +(24*6) ;
+        OneTimeWorkRequest morning_Work =
+                new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Duplication Size").setInitialDelay( hour, TimeUnit.HOURS)
+                        .build();
+        WorkManager.getInstance().enqueueUniqueWork("Regular Duplication Size", ExistingWorkPolicy.REPLACE, morning_Work);
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        // Do something with the status
+                        if (workInfo != null && workInfo.getState().isFinished()) {
+                            // ...
+                            TypeBTask();
+                        }
+                    }
+                });
+    }
+
     // Replace Fragments
     public void Replace_Fragments() {
 

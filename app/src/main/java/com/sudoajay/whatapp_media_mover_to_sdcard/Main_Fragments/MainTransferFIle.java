@@ -76,7 +76,7 @@ public class MainTransferFIle extends Fragment {
         move_Button =  layout.findViewById(R.id.move_Button);
         copy_Button = layout.findViewById(R.id.copy_Button);
         remove_Button =  layout.findViewById(R.id.remove_Button);
-        file_Size_Text =  layout.findViewById(R.id.file_Size_text);
+        file_Size_Text =  layout.findViewById(R.id.file_Size_Text);
         restore_Button =  layout.findViewById(R.id.restore_Button);
 
         // on click process

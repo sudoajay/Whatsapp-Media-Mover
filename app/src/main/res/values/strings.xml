@@ -123,4 +123,13 @@
     <string name="today_Date">Today</string>
     <string name="yesterday_Date">Yesterday</string>
     <string name="tomorrow_Date">Tomorrow</string>
+
+
+    <!--setting updated-->
+    <string name="setting_Updated">Setting Updated</string>
+
+
+    <!--Notification-->
+    <string name="notify_Notification">Notify Notification</string>
+    <string name="size_Of_Whatsapp">Size Of Whatsapp</string>
 </resources>

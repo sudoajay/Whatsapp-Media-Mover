@@ -1,5 +1,6 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -23,12 +24,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter {
     private Context context;
-    private List<String> list_Header=new ArrayList<>();
-    private HashMap<String, List<String>> list_Header_Child = new LinkedHashMap<>();
+    private List<String> list_Header;
+    private HashMap<String, List<String>> list_Header_Child;
     private List<Integer> arrow_Image_Resource ;
 
     public Expandable_Duplicate_List_Adapter(Context context,  List<String> list_Header , HashMap<String, List<String>> list_Header_Child, List<Integer> arrow_Image_Resource ){
@@ -44,7 +46,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.list_Header_Child.get(this.list_Header.get(groupPosition))
+        return Objects.requireNonNull(this.list_Header_Child.get(this.list_Header.get(groupPosition)))
                 .size();
     }
 
@@ -73,6 +75,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         return false;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
@@ -89,7 +92,13 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         count_Text_View.setText(""+getChildrenCount(groupPosition));
         group_Heading_Text_View.setText(headerTitle);
         arrow_Image_View.setImageResource(arrow_Image_Resource.get(groupPosition));
-        group_Size_Text_View.setText("("+Convert_It(getFileSizeInBytes((String) getChild(groupPosition,0)))+")");
+
+        // long data
+            long dataSize=0;
+        for(int i = 0; i < Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).size()-1; i++){
+            dataSize+=getFileSizeInBytes((String) getChild(groupPosition,i));
+        }
+        group_Size_Text_View.setText("("+Convert_It(dataSize)+")");
 
         return convertView;
     }

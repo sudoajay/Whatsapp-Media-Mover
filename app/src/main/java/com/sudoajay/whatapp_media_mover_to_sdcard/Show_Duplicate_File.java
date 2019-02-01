@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,6 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
 
 import java.io.File;
@@ -36,8 +39,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
+
+import static java.security.AccessController.getContext;
 
 
 public class Show_Duplicate_File extends AppCompatActivity {
@@ -68,7 +74,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
         Reference();
 
         Bundle extra = getIntent().getBundleExtra("Duplication_Class_Data");
-        List<String> Data = (List<String>) extra.getSerializable("Duplication_Class_Data");
+        List<String> Data;
+        Data = (List<String>) extra.getSerializable("Duplication_Class_Data");
         if(Data.isEmpty()) {
             delete_Duplicate_Button.setVisibility(View.INVISIBLE);
             text_View_Nothing.setVisibility(View.VISIBLE);
@@ -96,9 +103,14 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         expandable_duplicate_list_adapter = new Expandable_Duplicate_List_Adapter(this, list_Header, list_Header_Child, arrow_Image_Resource);
         expandableListView.setAdapter(expandable_duplicate_list_adapter);
+
         for (i = 0; i < list_Header.size(); i++) {
             expandableListView.expandGroup(i);
-            total_Size+=new File(list_Header_Child.get(list_Header.get(i)).get(0)).length();
+            for(int j = 0; j< Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size()-1 ; j++){
+
+                total_Size+=new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j)).length();
+            }
+
         }
 
         delete_Duplicate_Button.setText("Delete ("+Convert_It(total_Size)+")");
@@ -156,6 +168,12 @@ public class Show_Duplicate_File extends AppCompatActivity {
         text_View_Nothing = findViewById(R.id.text_View_Nothing);
 
         notification_permission_check = new Notification_Permission_Check(this,this);
+
+        // fix or resize the drawable image
+        Drawable img = Objects.requireNonNull(getApplicationContext().getResources().getDrawable( R.drawable.remove_intro_icon ));
+        img.setBounds( 0, 0, 80, 80 );
+        delete_Duplicate_Button.setCompoundDrawables( img, null, null, null );
+
     }
 
     public void On_Click_Process(View view) {
@@ -187,7 +205,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         MimeTypeMap myMime = MimeTypeMap.getSingleton();
         Intent newIntent = new Intent(Intent.ACTION_VIEW);
 
-        String mimeType = myMime.getMimeTypeFromExtension(fileExt(file.getAbsolutePath()).substring(1));
+        String mimeType = myMime.getMimeTypeFromExtension(Objects.requireNonNull(fileExt(file.getAbsolutePath())).substring(1));
         Uri URI = FileProvider.getUriForFile(this,
                 BuildConfig.APPLICATION_ID + ".provider",
                 file);
@@ -222,7 +240,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       super.onBackPressed();
+       Intent intent = new Intent(getApplicationContext(), Main_Navigation.class);
+       intent.putExtra("passing","DuplicateData");
+        startActivity(intent);
     }
 
     public void Call_Custom_Dailog(String Message) {
@@ -241,6 +261,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             public void onClick(View v) {
 
                 multiThreading_task.execute();
+
                 dialog.dismiss();
             }
         });
@@ -347,6 +368,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         String title = this.getString(R.string.transfer_Done_title); // Default Channel
         NotificationCompat.Builder builder;
 
+        
 
         if (notificationManager == null) {
             notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
