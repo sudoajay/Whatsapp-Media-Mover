@@ -178,7 +178,7 @@ public class Duplication_Class extends Fragment {
         }
         @Override
         protected String doInBackground(String... strings) {
-                duplication_data.Duplication(new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"),
+                duplication_data.Duplication(getContext(),new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"+""),
                         new File(android_sdCard_permission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
                         internal_Check.getVisibility(), external_Check.getVisibility());
     return null;

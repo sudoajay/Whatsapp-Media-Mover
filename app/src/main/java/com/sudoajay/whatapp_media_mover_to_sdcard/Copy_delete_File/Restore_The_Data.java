@@ -1,4 +1,4 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard.SplashScreen;
+package com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File;
 
 import android.util.Log;
 import android.view.View;

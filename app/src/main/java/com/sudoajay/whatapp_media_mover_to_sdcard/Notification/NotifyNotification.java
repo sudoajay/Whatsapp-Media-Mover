@@ -1,6 +1,7 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Notification;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,12 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.view.View;
 
+import com.sudoajay.whatapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper class for showing and canceling alert
@@ -31,6 +42,7 @@ public class NotifyNotification {
     private Context context;
     private NotificationManager notificationManager;
     private String total_Size= "55 MB";
+    private Activity activity;
 
 
     /**
@@ -49,13 +61,16 @@ public class NotifyNotification {
      * @see #cancel(Context)
      */
 
-    public void notify(final Context context,
-                              final String notification_Hint) {
+    // Constructor
+    public NotifyNotification(final Context context ){
+        this.context = context;
+    }
+
+    public void notify(final String notification_Hint) {
 
         // local variable
         String text="",channel_id;
         final Resources res = context.getResources();
-        this.context = context;
         final String title = notification_Hint;
         Intent intent;
 
@@ -164,7 +179,7 @@ public class NotifyNotification {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify(Context, String)}.
+     * {@link #notify( String)}.
      */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
     private static void cancel(final Context context) {
@@ -175,13 +190,41 @@ public class NotifyNotification {
 
     private void GrabTheSize(final String hint){
         // local size
-        String size, whatsappPath;
+        String size, whatsappPath,externalPath,sdCardPath;
+         List<String>   path;
+         long longSize=0;
+         int externalVisible = View.VISIBLE,sdCardVisible=View.VISIBLE;
 
         if(hint.equalsIgnoreCase("Size Of Whatsapp Data")) {
             Storage_Info storage_info = new Storage_Info(context);
             total_Size = storage_info.getWhatsAppInternalMemorySize();
         }else{
-            total_Size ="";
+            // get the sd card path
+            SdCardPathSharedPreference sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
+            sdCardPath = sdCardPathSharedPreference.getSdCardPath();
+            // get the external sd card path
+            externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+            Storage_Info storage_info = new Storage_Info(context);
+
+            // check for external Storage Is exist
+            if(!new File(externalPath).exists())externalVisible = View.INVISIBLE;
+
+            // check for sd storage is exist
+            if(!new File(sdCardPath).exists()) sdCardVisible = View.INVISIBLE;
+
+            Duplication_Data duplication_data = new Duplication_Data();
+            duplication_data.Duplication(context,new File(externalPath + storage_info.getWhatsapp_Path() + "/"+""),
+                    new File(sdCardPath + storage_info.getWhatsapp_Path() + "/"+""), externalVisible,sdCardVisible);
+            path =duplication_data.getList();
+
+            for(String get:path){
+                if(!get.equalsIgnoreCase("and")) {
+                    longSize += new File(get).length();
+                }
+            }
+
+            total_Size =storage_info.Convert_It(longSize);
         }
 
     }

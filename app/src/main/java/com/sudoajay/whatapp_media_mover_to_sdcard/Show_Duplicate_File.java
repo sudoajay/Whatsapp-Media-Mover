@@ -106,8 +106,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         for (i = 0; i < list_Header.size(); i++) {
             expandableListView.expandGroup(i);
-            for(int j = 0; j< Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size()-1 ; j++){
-
+            for(int j = 0; j< Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size() ; j++){
                 total_Size+=new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j)).length();
             }
 

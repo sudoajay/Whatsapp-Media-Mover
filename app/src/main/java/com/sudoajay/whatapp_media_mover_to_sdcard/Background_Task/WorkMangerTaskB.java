@@ -1,6 +1,7 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -10,6 +11,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 public class WorkMangerTaskB extends Worker {
+
 
 
     private Context context;
@@ -23,8 +25,8 @@ public class WorkMangerTaskB extends Worker {
     public Result doWork() {
 
 
-        NotifyNotification notify_notification = new NotifyNotification();
-        notify_notification.notify(context, "Scan And Delete The Duplication Data");
+        NotifyNotification notify_notification = new NotifyNotification(context);
+        notify_notification.notify( "Scan And Delete The Duplication Data");
         return Result.success();
     }
 }

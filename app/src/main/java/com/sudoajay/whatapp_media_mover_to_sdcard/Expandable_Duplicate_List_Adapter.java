@@ -95,7 +95,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
 
         // long data
             long dataSize=0;
-        for(int i = 0; i < Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).size()-1; i++){
+        for(int i = 0; i < Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).size(); i++){
             dataSize+=getFileSizeInBytes((String) getChild(groupPosition,i));
         }
         group_Size_Text_View.setText("("+Convert_It(dataSize)+")");

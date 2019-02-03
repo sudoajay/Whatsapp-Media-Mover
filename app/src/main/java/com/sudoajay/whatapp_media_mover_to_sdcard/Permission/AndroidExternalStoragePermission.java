@@ -19,10 +19,8 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
 public class AndroidExternalStoragePermission {
 
-    private final int My_Permission_Request = 1;
     private Context context;
     private Activity activity;
-    private Handler handler;
     private String external_Path;
     public AndroidExternalStoragePermission(Context context , Activity activity){
        this.context = context;
@@ -35,16 +33,17 @@ public class AndroidExternalStoragePermission {
         if (Build.VERSION.SDK_INT >= 23) {
             if (ContextCompat.checkSelfPermission(context,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                int my_Permission_Request = 1;
                 if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                     ActivityCompat.requestPermissions(activity,
-                            new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, My_Permission_Request);
+                            new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, my_Permission_Request);
 
                 } else {
 
                     ActivityCompat.requestPermissions(activity,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, My_Permission_Request);
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, my_Permission_Request);
 
 
                 }
@@ -54,7 +53,7 @@ public class AndroidExternalStoragePermission {
 
     }
     public void call_Thread(){
-        handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -94,7 +93,7 @@ public class AndroidExternalStoragePermission {
     }
 
     public boolean isExternalStorageWritable() {
-        String permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
         int res = activity.checkCallingOrSelfPermission(permission);
         return (res == PackageManager.PERMISSION_GRANTED);
     }

@@ -39,7 +39,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_Fo
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Tabbed_Custom_Dialog_For_Deep;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
-import com.sudoajay.whatapp_media_mover_to_sdcard.SplashScreen.Restore_The_Data;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Restore_The_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TickOnButtonSharedPreference;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 import java.io.File;
@@ -824,6 +824,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     public class MultiThreading_Task extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {

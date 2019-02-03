@@ -1,8 +1,10 @@
-package com.sudoajay.whatapp_media_mover_to_sdcard;
+package com.sudoajay.whatapp_media_mover_to_sdcard.SplashScreen;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
 /**
  * Created by Lincoln on 05/05/16.
