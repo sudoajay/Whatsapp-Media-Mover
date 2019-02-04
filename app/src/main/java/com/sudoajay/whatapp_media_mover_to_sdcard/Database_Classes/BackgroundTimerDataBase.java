@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.util.Date;
 
 
 public class BackgroundTimerDataBase extends SQLiteOpenHelper {
@@ -21,7 +20,7 @@ public class BackgroundTimerDataBase extends SQLiteOpenHelper {
 
     public BackgroundTimerDataBase(Context context  )
     {
-        super(context, DATABASE_TABLE_NAME, null,1);
+        super(context, DATABASE_NAME, null,1);
 
     }
     @Override
@@ -55,45 +54,18 @@ public class BackgroundTimerDataBase extends SQLiteOpenHelper {
         }
         return true;
     }
-    public Cursor Get_All_Date_And_ID_Done_Week(){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select Date ,ID ,Done,Repeat,customWeekday,Endlessly from DATABASE_TABLE_NAME ORDER BY Original_Time ASC "
-                ,null);
-    }
-    public Integer deleteRow(String id){
-        SQLiteDatabase db=this.getWritableDatabase();
-        return db.delete(DATABASE_NAME,"ID = ?",new String[] {id});
-    }
     public Cursor GetTheValueFromId(){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery( "SELECT  * FROM " + DATABASE_TABLE_NAME,null);
+        return sqLiteDatabase.rawQuery( "SELECT * FROM " + DATABASE_TABLE_NAME,null);
     }
-    public Cursor Get_The_Id_From_Done(int done ){
+    public Cursor GetTheHourFromId(){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select ID from DATABASE_TABLE_NAME  WHERE Done = ?" ,new String []{done+"" });
+        return sqLiteDatabase.rawQuery( "SELECT  Repeatedly ,Weekdays, Endlessly FROM " + DATABASE_TABLE_NAME,null);
     }
-    public Cursor Get_The_Date_From_Id(int id){
+    public Cursor GetTheTypeFromId(){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select Date from DATABASE_TABLE_NAME  WHERE ID = ?" ,new String []{id+""});
+        return sqLiteDatabase.rawQuery("SELECT Choose_Type FROM "+ DATABASE_TABLE_NAME  ,null);
     }
-    public Cursor Get_The_Data_From_Today_Time(int done, String date){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select * from DATABASE_TABLE_NAME WHERE Date = ? AND Done = ?  ORDER BY Original_Time ASC "  ,new String []{date , done+"" });
-    }
-    public Cursor Get_The_Data_From_Done(int done){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select * from DATABASE_TABLE_NAME WHERE Done = ?  ORDER BY Original_Time ASC "  ,new String []{ done+"" });
-    }
-    public Cursor Get_All_Data_From_Date_Done_Time(String date,int time,int done){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select * from DATABASE_TABLE_NAME WHERE Date = ? And Original_Time >= ? AND Done = ? " ,new String []{ date, time+"" , done+"" });
-    }
-    public Cursor Get_The_Id_Name_Original_Time_From_Date_Done_OriginalTime( String date,int time,int done){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("select ID ,Task ,Time,Original_Time from DATABASE_TABLE_NAME  WHERE Date = ? And Original_Time >= ? AND Done = ? " +
-                "ORDER BY Original_Time ASC " ,new String []{date,time+"",done+"" });
-    }
-
 
     public void UpdateTheTable(String id , int choose_Type , int repeatedly , String weekdays , String endlessly){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -102,7 +74,7 @@ public class BackgroundTimerDataBase extends SQLiteOpenHelper {
         contentValues.put(col_2,choose_Type);
         contentValues.put(col_3,repeatedly);
         contentValues.put(col_4,weekdays);
-        contentValues.put(col_5, endlessly.toString());
+        contentValues.put(col_5, endlessly);
         sqLiteDatabase.update(DATABASE_TABLE_NAME,contentValues,"ID = ?",new String[] { id });
     }
 

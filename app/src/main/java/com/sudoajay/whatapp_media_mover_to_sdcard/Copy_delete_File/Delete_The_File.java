@@ -26,15 +26,16 @@ public class Delete_The_File {
     private int get_Data_Count;
     private List<File> only_Selected_File ;
     private int normal_Changes;
-    private String whatsapp_Path;
+    private String whatsapp_Path,process;
 
     public Delete_The_File(String external_Path_URL, String whats_App_Media_Path, After_MainTransferFIle after_main_transferFIle
-            , List<File> only_Selected_File , int normal_Changes , Context context){
+            , List<File> only_Selected_File , int normal_Changes ,String process, Context context){
         this.external_Path_URL=external_Path_URL;
         this.whats_App_Media_Path = whats_App_Media_Path;
         this.after_main_transferFIle = after_main_transferFIle;
         this.only_Selected_File= only_Selected_File;
         this.normal_Changes =normal_Changes;
+        this.process= process;
 
         // shared preferences use to grab the data
         WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
@@ -88,6 +89,7 @@ public class Delete_The_File {
             get_Data_Count++;
             fileOrDirectory.delete();
         }
+        if(!process.equals("Background"))
         after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
     }
     public boolean Check_For_Extension(String path){

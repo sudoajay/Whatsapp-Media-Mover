@@ -26,7 +26,7 @@ public class WorkMangerTaskB extends Worker {
 
 
         NotifyNotification notify_notification = new NotifyNotification(context);
-        notify_notification.notify( "Scan And Delete The Duplication Data");
+        notify_notification.notify( "Size Of Duplication Data");
         return Result.success();
     }
 }

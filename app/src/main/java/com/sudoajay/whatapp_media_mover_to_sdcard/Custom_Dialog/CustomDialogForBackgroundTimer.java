@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
 import org.angmarch.views.NiceSpinner;
@@ -34,6 +35,7 @@ import org.angmarch.views.NiceSpinner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Arrays;
@@ -50,11 +52,16 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     private WeekdaysPicker weekdaysPicker;
     private ImageView choose_ImageView;
     private EditText endlesslyEditText;
-    private String getSelectedEndlesslyDate;
+    private String getSelectedEndlesslyDate=null;
     private BackgroundTimerDataBase backgroundTimerDataBase;
-
+    private Main_Navigation main_navigation;
     public CustomDialogForBackgroundTimer(){
 
+    }
+
+    @SuppressLint("ValidFragment")
+    public CustomDialogForBackgroundTimer(Main_Navigation main_navigation){
+        this.main_navigation = main_navigation;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,9 +82,10 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
                chooseSpinner.setSelectedIndex(cursor.getInt(1));
                repeatedlySpinner.setSelectedIndex(cursor.getInt(2));
-               if(cursor.getInt(2) == 4)
-                   weekdaysPicker.setSelectedDays(Collections.singletonList(Integer.parseInt(cursor.getString(3))));
-
+               if(cursor.getInt(2) == 3) {
+                   Fill_The_Selected_Weekdays(cursor.getString(3));
+                   weekdaysPicker.setVisibility(View.VISIBLE);
+               }
                 try {
 
                     Calendar calendar = Calendar.getInstance();
@@ -138,6 +146,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             case R.id.okButton:
                 //Save To Database
                 SaveToDatabase();
+                main_navigation.TypeCTask();
             case R.id.cancelButton:
             case R.id.back_Image_View_Change:
                 Dissmiss();
@@ -184,7 +193,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(position== 4){
+                if(position== 3){
                     weekdaysPicker.setVisibility(View.VISIBLE);
                 }else{
                     weekdaysPicker.setVisibility(View.GONE);
@@ -291,20 +300,43 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
     private void SaveToDatabase(){
         // save to Database
-        if(getSelectedEndlesslyDate.isEmpty())
+        if(getSelectedEndlesslyDate== null)
             getSelectedEndlesslyDate="No Date";
 
         if(backgroundTimerDataBase.check_For_Empty()){
             backgroundTimerDataBase.FillIt(chooseSpinner.getSelectedIndex(),
-                    repeatedlySpinner.getSelectedIndex(), weekdaysPicker.getSelectedDays().toString(),getSelectedEndlesslyDate);
+                    repeatedlySpinner.getSelectedIndex(), get_Repeat(),getSelectedEndlesslyDate);
 
         }else {
             backgroundTimerDataBase.UpdateTheTable("1" , chooseSpinner.getSelectedIndex(),
-                    repeatedlySpinner.getSelectedIndex(), weekdaysPicker.getSelectedDays().toString(),getSelectedEndlesslyDate);
+                    repeatedlySpinner.getSelectedIndex(),get_Repeat(),getSelectedEndlesslyDate);
         }
 
         Toast.makeText(getContext(),getResources().getText(R.string.setting_Updated),Toast.LENGTH_LONG).show();
 
+    }
+
+    // week days selected
+    private void Fill_The_Selected_Weekdays(String week){
+        String[] split  =week.split("");
+        List<Integer> list = new ArrayList<>();
+        for(String weeks_Days: split){
+            try {
+                list.add(Integer.parseInt(weeks_Days));
+            }catch (Exception e){
+
+            }
+        }
+        weekdaysPicker.setSelectedDays(list);
+    }
+
+    public String get_Repeat(){
+        List<Integer> weekday = weekdaysPicker.getSelectedDays();
+        StringBuilder join= new StringBuilder();
+        for(Integer week: weekday){
+            join.append(week);
+        }
+        return join.toString();
     }
     public void onStart() {
         // This MUST be called first! Otherwise the view tweaking will not be present in the displayed Dialog (most likely overriden)

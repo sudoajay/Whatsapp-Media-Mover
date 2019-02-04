@@ -8,6 +8,7 @@ import android.view.View;
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -38,16 +40,20 @@ public class Copy_The_File {
     private List<File> only_Selected_File ;
     private List<File> get_All_Data = new LinkedList<>();
     private List<String> get_All_Hash_Data = new ArrayList<>();
-    private String whatsapp_Path;
+    private String whatsapp_Path,process;
+    private Context context;
 
     public Copy_The_File(String external_Path_Url, String whats_App_Media_Path, DocumentFile sd_Card_documentFile,
-                         After_MainTransferFIle after_main_transferFIle, List<File> only_Selected_File , int normal_Changes, Context context){
+                         After_MainTransferFIle after_main_transferFIle, List<File> only_Selected_File , int normal_Changes,String process, Context context){
         this.external_Path_Url = external_Path_Url;
         this.whats_App_Media_Path = whats_App_Media_Path;
         this.sd_Card_documentFile=sd_Card_documentFile;
         this.after_main_transferFIle = after_main_transferFIle;
         this.only_Selected_File= only_Selected_File;
         this.normal_Changes = normal_Changes;
+        this.process=process;
+        this.context=context;
+
 
         // shared preferences use to grab the data
         WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
@@ -117,12 +123,13 @@ public class Copy_The_File {
     public DocumentFile Return_Absolute_Path(String folder_Name){
         DocumentFile whatsApp_dir =sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile ,
                 whatsapp_Path.substring(1,whatsapp_Path.length()-1)));
-        DocumentFile media_dir = whatsApp_dir.findFile(check_For_Duplicate(whatsApp_dir ,"Media"));
-        return  media_dir.findFile(check_For_Duplicate(media_dir ,folder_Name));
+        DocumentFile media_dir = Objects.requireNonNull(whatsApp_dir).findFile(check_For_Duplicate(whatsApp_dir ,"Media"));
+        return  Objects.requireNonNull(media_dir).findFile(check_For_Duplicate(media_dir ,folder_Name));
     }
     public DocumentFile Return_Database_Path(String folder_Name){
         DocumentFile whatsApp_dir =sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile ,
                 whatsapp_Path.substring(1,whatsapp_Path.length()-1)));
+        assert whatsApp_dir != null;
         return  whatsApp_dir.findFile(check_For_Duplicate(whatsApp_dir ,folder_Name));
     }
     public void Delete_Database_File(DocumentFile documentFile){
@@ -203,36 +210,34 @@ public class Copy_The_File {
         }
     }
 
-    public void Copy_Files(String path , DocumentFile sd_Card_documentFile,String file_Name)
-    {
-        Log.e("Check" , "path" +path + "   docum  " + sd_Card_documentFile + " file" + file_Name);
+    public void Copy_Files(String path , DocumentFile sd_Card_documentFile,String file_Name)  {
+
 
         InputStream in;
         try {
-            if(!stop){
-            in = new FileInputStream(new File(path));
-            getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(path);
-            get_Data_Count++;
-            if ((sd_Card_documentFile.findFile(file_Name) == null)) {
-                DocumentFile documentFile = sd_Card_documentFile.createFile("image/", file_Name);
-                OutputStream out = after_main_transferFIle.getContentResolver().openOutputStream(documentFile.getUri());
-                byte[] buffer = new byte[1024];
-                int read;
-                while ((read = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, read);
+            if(!stop) {
+                in = new FileInputStream(new File(path));
+                getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(path);
+                get_Data_Count++;
+
+                if ((sd_Card_documentFile.findFile(file_Name) == null)) {
+                    DocumentFile documentFile = sd_Card_documentFile.createFile("image/", file_Name);
+                    assert documentFile != null;
+                    OutputStream out = context.getContentResolver().openOutputStream(documentFile.getUri());
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = in.read(buffer)) != -1) {
+                        assert out != null;
+                        out.write(buffer, 0, read);
+                    }
+
                 }
 
             }
-        }
-            after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
+            if(!process.equals("Background")) after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
         }catch (Exception e){
-            Log.e("GetByte" , e.getMessage());
-            if(e.getMessage().equals("write failed: ENOSPC (No space left on device)"))
-                stop=true;
-
+            Log.e("GetByte" , e.getMessage()+ " ---- ");
         }
-
-
     }
 
     public long getGetSize() {
@@ -257,11 +262,8 @@ public class Copy_The_File {
 
     }
     public void Remove_DataBase_Other_Files(File database_File){
-        List<File> files = new ArrayList<>();
         try{
-           for(File database : database_File.listFiles()){
-               files.add(database);
-                          }
+            List<File> files = new ArrayList<>(Arrays.asList(database_File.listFiles()));
             Convert_Into_Last_Modified(files);
             for (int i = files.size()-1 ; i >=1;i--){
                 getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(files.get(i).getAbsolutePath());

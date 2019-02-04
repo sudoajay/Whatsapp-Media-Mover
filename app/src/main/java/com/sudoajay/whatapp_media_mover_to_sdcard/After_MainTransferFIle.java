@@ -780,12 +780,13 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public void Copy_The_File() {
         sd_Card_URL = Uri.parse(getIntent().getStringExtra("Sd_Card_URI"));
 
+
         Notification();
         Check_For_WhatsApp_Folder();
         transFer_File_Changes();
         checking_Folder = false;
-        copy_the_file = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile, this, only_Selected_File,convert_To_Days()
-        ,getApplicationContext());
+        copy_the_file = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile,
+                this, only_Selected_File,convert_To_Days(),"No Background",getApplicationContext());
         copy_the_file.Copy_Folder_As_Per_Tick(tick_Database_ImageView.getVisibility(), tick_Audio_ImageView.getVisibility(), tick_Video_ImageView.getVisibility(),
                 tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                 tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
@@ -797,7 +798,8 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public void Remove_The_File() {
         checking_Folder = false;
         if (!stop_The_Process) {
-            delete_the_fIle = new Delete_The_File(external_Path_Url,whats_App_Media_Path, this, only_Selected_File,convert_To_Days(),getApplicationContext());
+            delete_the_fIle = new Delete_The_File(external_Path_Url,whats_App_Media_Path, this,
+                    only_Selected_File,convert_To_Days(),"No Background",getApplicationContext());
             delete_the_fIle.get_File_Path(tick_Database_ImageView.getVisibility(), tick_Audio_ImageView.getVisibility(), tick_Video_ImageView.getVisibility(),
                     tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                     tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
@@ -809,7 +811,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void Restore_The_Data() {
 
-        restore_the_data = new Restore_The_Data(external_Path_Url, sd_Card_Path_URL, whats_App_Media_Path, this);
+        restore_the_data = new Restore_The_Data(external_Path_Url, sd_Card_Path_URL, whats_App_Media_Path, this,"No Background");
         Notification();
         restore_the_data.WhatsFolder_Checked();
         checking_Folder = false;
@@ -830,14 +832,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         protected void onPreExecute() {
             count_Data = Count_The_Data();
             checking_Folder = true;
-            if (new File(external_Path_Url + whatsapp_Path+".Shared/").exists())
-                Delete_Particular_Data(external_Path_Url + whatsapp_Path+".Shared/");
-            if (new File(external_Path_Url + whatsapp_Path+".Trash").exists())
-                Delete_Particular_Data(external_Path_Url + whatsapp_Path+".Trash/");
-            if (new File(external_Path_Url + whatsapp_Path+"cache").exists())
-                Delete_Particular_Data(external_Path_Url + whatsapp_Path+"cache/");
-            if (new File(external_Path_Url + whatsapp_Path+"Theme").exists())
-                Delete_Particular_Data(external_Path_Url + whatsapp_Path+"Theme/");
+            UnneccesaryData();
             super.onPreExecute();
         }
 
@@ -1176,13 +1171,20 @@ public class After_MainTransferFIle extends AppCompatActivity {
             after_Notification = "Data Restore";
         }
     }
-
+    public void UnneccesaryData() {
+        if (new File(external_Path_Url + whatsapp_Path + ".Shared/").exists())
+            Delete_Particular_Data(external_Path_Url + whatsapp_Path + ".Shared/");
+        if (new File(external_Path_Url + whatsapp_Path + ".Trash").exists())
+            Delete_Particular_Data(external_Path_Url + whatsapp_Path + ".Trash/");
+        if (new File(external_Path_Url + whatsapp_Path + "cache").exists())
+            Delete_Particular_Data(external_Path_Url + whatsapp_Path + "cache/");
+        if (new File(external_Path_Url + whatsapp_Path + "Theme").exists())
+            Delete_Particular_Data(external_Path_Url + whatsapp_Path + "Theme/");
+    }
     public void setNormal_Changes(int normal_Changes) {
         this.normal_Changes = normal_Changes;
     }
     private int convert_To_Days(){
-
-        Log.e("Grabbs" , normal_Changes + " normal   "  );
         if(normal_Changes == 1) return 1;
         else if(normal_Changes == 2) return 5;
         else if (normal_Changes ==3) return  10;
@@ -1196,6 +1198,14 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public Storage_Info getStorage_Info() {
         return storage_Info;
+    }
+
+    public void setStorage_Info(Storage_Info storage_Info) {
+        this.storage_Info = storage_Info;
+    }
+
+    public void setWhich_Option_To_Do(String which_Option_To_Do) {
+        this.which_Option_To_Do = which_Option_To_Do;
     }
 }
 

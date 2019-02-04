@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
@@ -71,7 +72,6 @@ public class NotifyNotification {
         // local variable
         String text="",channel_id;
         final Resources res = context.getResources();
-        final String title = notification_Hint;
         Intent intent;
 
         // Grab The Size From Database
@@ -81,7 +81,7 @@ public class NotifyNotification {
         // setup intent and passing value
         intent = new Intent(context,Main_Navigation.class);
 
-        if(notification_Hint.equalsIgnoreCase("Scan And Delete The Duplication Data"))
+        if(notification_Hint.equalsIgnoreCase("Size Of Duplication Data"))
             intent.putExtra("passing","DuplicateData");
 
 
@@ -103,7 +103,7 @@ public class NotifyNotification {
             assert notificationManager != null;
             NotificationChannel mChannel = notificationManager.getNotificationChannel(channel_id);
             if (mChannel == null) {
-                mChannel = new NotificationChannel(channel_id, title, importance);
+                mChannel = new NotificationChannel(channel_id, notification_Hint, importance);
                 notificationManager.createNotificationChannel(mChannel);
             }
         }
@@ -115,7 +115,7 @@ public class NotifyNotification {
                 .setDefaults(Notification.DEFAULT_ALL)
                 // Set required fields, including the small icon, the
                 // notification title, and text.
-                .setContentTitle(title)
+                .setContentTitle(notification_Hint)
                 .setContentText(text )
 
                 // All fields below this line are optional.
@@ -188,45 +188,55 @@ public class NotifyNotification {
         nm.cancel(NOTIFICATION_TAG, 0);
     }
 
-    private void GrabTheSize(final String hint){
+    private void GrabTheSize(final String hint) {
         // local size
-        String size, whatsappPath,externalPath,sdCardPath;
-         List<String>   path;
-         long longSize=0;
-         int externalVisible = View.VISIBLE,sdCardVisible=View.VISIBLE;
+        String size, whatsappPath, externalPath, sdCardPath;
+        List<String> path;
+        long longSize = 0;
+        int externalVisible = View.VISIBLE, sdCardVisible = View.VISIBLE;
 
-        if(hint.equalsIgnoreCase("Size Of Whatsapp Data")) {
-            Storage_Info storage_info = new Storage_Info(context);
-            total_Size = storage_info.getWhatsAppInternalMemorySize();
-        }else{
-            // get the sd card path
-            SdCardPathSharedPreference sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
-            sdCardPath = sdCardPathSharedPreference.getSdCardPath();
-            // get the external sd card path
-            externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        // fallback error
+        try {
 
-            Storage_Info storage_info = new Storage_Info(context);
+            if (hint.equalsIgnoreCase("Size Of Whatsapp Data")) {
+                Storage_Info storage_info = new Storage_Info(context);
+                total_Size = storage_info.getWhatsAppInternalMemorySize();
+            } else if(hint.equalsIgnoreCase("Size Of Duplication Data")) {
+                // get the sd card path
+                SdCardPathSharedPreference sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
+                sdCardPath = sdCardPathSharedPreference.getSdCardPath();
+                // get the external sd card path
+                externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
-            // check for external Storage Is exist
-            if(!new File(externalPath).exists())externalVisible = View.INVISIBLE;
+                Storage_Info storage_info = new Storage_Info(context);
 
-            // check for sd storage is exist
-            if(!new File(sdCardPath).exists()) sdCardVisible = View.INVISIBLE;
+                // check for external Storage Is exist
+                if (!new File(externalPath).exists()) externalVisible = View.INVISIBLE;
 
-            Duplication_Data duplication_data = new Duplication_Data();
-            duplication_data.Duplication(context,new File(externalPath + storage_info.getWhatsapp_Path() + "/"+""),
-                    new File(sdCardPath + storage_info.getWhatsapp_Path() + "/"+""), externalVisible,sdCardVisible);
-            path =duplication_data.getList();
+                // check for sd storage is exist
+                if (!new File(sdCardPath).exists()) sdCardVisible = View.INVISIBLE;
 
-            for(String get:path){
-                if(!get.equalsIgnoreCase("and")) {
-                    longSize += new File(get).length();
+                Duplication_Data duplication_data = new Duplication_Data();
+                duplication_data.Duplication(context, new File(externalPath + storage_info.getWhatsapp_Path() + "/" + ""),
+                        new File(sdCardPath + storage_info.getWhatsapp_Path() + "/" + ""), externalVisible, sdCardVisible);
+                path = duplication_data.getList();
+
+                for (String get : path) {
+                    if (!get.equalsIgnoreCase("and")) {
+                        longSize += new File(get).length();
+                    }
                 }
+
+                total_Size = storage_info.Convert_It(longSize);
+            }else if(hint.contains("Error on Data")){
+                total_Size= "Please do this process manually (One Time)";
+            }else{
+                total_Size = "";
             }
 
-            total_Size =storage_info.Convert_It(longSize);
+        }catch (Exception e){
+            Toast.makeText(context,context.getResources().getText(R.string.fallBackError),Toast.LENGTH_LONG).show();
         }
-
     }
 
 

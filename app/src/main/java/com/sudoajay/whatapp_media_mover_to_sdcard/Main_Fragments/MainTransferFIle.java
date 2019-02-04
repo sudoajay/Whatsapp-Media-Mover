@@ -33,7 +33,6 @@ public class MainTransferFIle extends Fragment {
     private TextView toast_TextView;
     private Button move_Button , copy_Button , remove_Button,file_Size_Text,restore_Button;
     private String sd_Card_Path_URL="",string_URI ="";
-    private long get_Size;
     private Uri sdCard_Uri ;
     private View layout,layouts;
     private Toast toast;

@@ -16,18 +16,20 @@ import java.io.OutputStream;
  */
 
 public class Restore_The_Data {
-    private String external_Path_Url , whats_App_Path,sd_Card_Path_Url;
+    private String external_Path_Url , whats_App_Path,sd_Card_Path_Url,process;
     private After_MainTransferFIle after_main_transferFIle;
     private long getSize ;
     private int get_Data_Count;
     private boolean stop;
 
 
-    public Restore_The_Data( String external_Path_Url,String sd_Card_Path_Url, String whats_App_Path, After_MainTransferFIle after_main_transferFIle){
+    public Restore_The_Data( String external_Path_Url,String sd_Card_Path_Url, String whats_App_Path, After_MainTransferFIle after_main_transferFIle
+        ,String process ){
         this.external_Path_Url = external_Path_Url;
         this.whats_App_Path = whats_App_Path;
         this.sd_Card_Path_Url = sd_Card_Path_Url;
         this.after_main_transferFIle = after_main_transferFIle;
+        this.process =process;
     }
 
     public void WhatsFolder_Checked(){
@@ -51,6 +53,7 @@ public class Restore_The_Data {
                 if(!(new File(external_Path_Url+whats_App_Path+ "/"+Return_Path(i)+"/Sent").exists())){
                     new File(external_Path_Url+whats_App_Path+ "/" +Return_Path(i)+"/Sent").mkdir();
                 }
+                if(!process.equals("Background"))
                 after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
 
             }
@@ -138,7 +141,6 @@ public class Restore_The_Data {
         InputStream is;
         OutputStream os ;
         try{
-            Log.i("vaasdlue",stop+"");
             if(!stop) {
                 get_Data_Count++;
                 getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(path);
@@ -170,7 +172,8 @@ public class Restore_The_Data {
                     }
                 }
             }
-            after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
+            if(!process.equals("Background"))
+                after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
         }catch (Exception e){
             Log.e("ajayrockss",e.getMessage());
             if(e.getMessage().equals("write failed: ENOSPC (No space left on device)"))

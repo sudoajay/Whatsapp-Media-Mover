@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Media Mover (WhatsApp)</string>
     <string name="home">Home</string>
 
@@ -104,11 +104,11 @@
 
     <!--custom weekdays Setup-->
     <string-array name="customWeekdaysSetup">
-        <item>Daily</item>
-        <item>Every Weekday(Mon-Fri)</item>
-        <item>Every Weekday(Sat,Sun)</item>
-        <item>Once A Month(Same Date)</item>
+        <item tools:ignore="TypographyFractions">At Every 1/2 Day</item>
+        <item>At Every 1 Day</item>
+        <item>At Every 2 Day</item>
         <item>Custom WeekDay</item>
+        <item>Once A Month(Same Date)</item>
     </string-array>
 
     <!--custom Chooser Setup-->
@@ -132,4 +132,7 @@
     <!--Notification-->
     <string name="notify_Notification">Notify Notification</string>
     <string name="size_Of_Whatsapp">Size Of Whatsapp</string>
+
+    <!-- Fallback Error -->
+    <string name="fallBackError">Someting Went Wrong Please Contact Us !</string>
 </resources>
