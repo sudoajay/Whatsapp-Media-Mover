@@ -55,10 +55,14 @@ public class Sd_Card_dialog extends DialogFragment
             learn_More_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final String url = "https://developer.android.com/guide/topics/providers/document-provider.html";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
+                    try {
+                        final String url = "https://developer.android.com/guide/topics/providers/document-provider.html";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                    }catch (Exception e){
+
+                    }
                 }
             });
 

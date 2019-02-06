@@ -73,11 +73,14 @@ public class AndroidExternalStoragePermission {
         button_Learn_More.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String url = "https://developer.android.com/training/permissions/requesting.html";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                activity.startActivity(i);
+                try {
+                    final String url = "https://developer.android.com/training/permissions/requesting.html";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    activity.startActivity(i);
+                }catch (Exception e){
 
+                }
             }
         });
         button_Continue.setOnClickListener(new View.OnClickListener() {

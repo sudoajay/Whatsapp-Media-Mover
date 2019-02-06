@@ -89,10 +89,13 @@ public class AndroidSdCardPermission {
     }
 
     public void Call_Custom_Dailog_Changes() {
-        FragmentTransaction ft = ((FragmentActivity)activity).getSupportFragmentManager().beginTransaction();
-        Sd_Card_dialog sd_card_dialog=new Sd_Card_dialog(this);
-        sd_card_dialog.show(ft, "dialog");
+        try {
+            FragmentTransaction ft = ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction();
+            Sd_Card_dialog sd_card_dialog = new Sd_Card_dialog(this);
+            sd_card_dialog.show(ft, "dialog");
+        }catch (Exception e){
 
+        }
     }
     public boolean isGetting(){
         return (sd_Card_Path_URL.equals(Environment.getExternalStorageDirectory().getAbsolutePath())) || (!new File(sd_Card_Path_URL).exists());

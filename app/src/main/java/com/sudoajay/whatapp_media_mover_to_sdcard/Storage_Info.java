@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
@@ -31,6 +33,7 @@ public class Storage_Info {
         // Shared preferences use to grab the data
         WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+
     }
 
 
@@ -39,11 +42,15 @@ public class Storage_Info {
         return new File(sd_Card_Path_URL).exists();
     }
     public  String getAvailableInternalMemorySize() {
+        try{
         File path = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(path.getPath());
         long blockSize = stat.getBlockSizeLong();
         long availableBlocks = stat.getAvailableBlocksLong();
         internal_Available_Size = availableBlocks* blockSize;
+        }catch (Exception e){
+
+        }
         return Convert_It(internal_Available_Size);
     }
 
@@ -63,9 +70,10 @@ public class Storage_Info {
 
     public  String getWhatsAppInternalMemorySize() {
         File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+whatsapp_Path);
-        if(path.exists())
+        if(path.exists()) {
             return Convert_It((internal_WhatsApp_Size = getFileSizeInBytes(path.getAbsolutePath())));
-        else {
+
+        }  else {
             return "0.00 MB";
         }
     }
@@ -139,8 +147,9 @@ public class Storage_Info {
 
     public long getFileSizeInBytes(String fileName) {
         long ret = 0;
-        File f = new File(fileName);
         try {
+        File f = new File(fileName);
+
             if (f.exists()) {
                 if (f.isFile()) {
                     return f.length();
@@ -159,7 +168,6 @@ public class Storage_Info {
                 ret = 0;
             }
         }catch (Exception e){
-
         }
         return ret;
     }

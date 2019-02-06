@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -256,7 +257,6 @@ public class Duplication_Class extends Fragment {
                     if(external_Check.getVisibility() == View.VISIBLE) {
                         external_Check.setVisibility(View.INVISIBLE);
                         size-=storage_info.getFileSizeInBytes(android_sdCard_permission.getSd_Card_Path_URL()+storage_info.getWhatsapp_Path()+"/");
-                        Toast.makeText(getContext(),"Happy there",Toast.LENGTH_SHORT).show();
                     }
                     else{
                         android_sdCard_permission.Grab();
@@ -272,13 +272,15 @@ public class Duplication_Class extends Fragment {
                             external_Check.setVisibility(View.VISIBLE);
                             size+=storage_info.getFileSizeInBytes(android_sdCard_permission.getSd_Card_Path_URL()+
                                     storage_info.getWhatsapp_Path()+"/");
-
                         }
                     }
                     break;
                 case R.id.scan_Button:
                     if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE) {
-                        multiThreading_task.execute();
+                        try {
+                            multiThreading_task.execute();
+                        }catch (Exception e){
+                        }
                     }
                     else{
                         Toast_It("You Supposed To Select Something");

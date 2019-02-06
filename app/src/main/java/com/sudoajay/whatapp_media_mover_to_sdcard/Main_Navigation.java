@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
-import android.support.v4.provider.DocumentFile;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,28 +18,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Copy_The_File;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Delete_The_File;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Restore_The_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Fragments.Document_Fragment;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Notification.NotifyNotification;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
-import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +39,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -69,7 +58,6 @@ public class Main_Navigation extends AppCompatActivity
     private MainTransferFIle mainTransferFIle= new MainTransferFIle();
     private Duplication_Class duplication_class = new Duplication_Class();
     private  NavigationView navigationView;
-    private ArrayList<String> whats_App_Path = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -221,7 +209,7 @@ public class Main_Navigation extends AppCompatActivity
         PeriodicWorkRequest morning_Worker = morning_Work_builder.build();
 
         // Then enqueue the recurring task:
-        WorkManager.getInstance().enqueueUniquePeriodicWork("Regular Data Size", ExistingPeriodicWorkPolicy.REPLACE
+        WorkManager.getInstance().enqueueUniquePeriodicWork("Regular Data Size", ExistingPeriodicWorkPolicy.KEEP
                 ,morning_Worker);
     }
     private void TypeBTask(){
@@ -236,7 +224,7 @@ public class Main_Navigation extends AppCompatActivity
         PeriodicWorkRequest morning_Worker = morning_Work_builder.build();
 
         // Then enqueue the recurring task:
-        WorkManager.getInstance().enqueueUniquePeriodicWork("Weekly Duplicate Size", ExistingPeriodicWorkPolicy.REPLACE
+        WorkManager.getInstance().enqueueUniquePeriodicWork("Weekly Duplicate Size", ExistingPeriodicWorkPolicy.KEEP
                 ,morning_Worker);
 
     }
@@ -303,23 +291,24 @@ public class Main_Navigation extends AppCompatActivity
 
             }
         }
+        if(hour != 0) {
+            OneTimeWorkRequest morning_Work =
+                    new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
+                            .build();
+            WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.KEEP, morning_Work);
 
-        OneTimeWorkRequest morning_Work =
-                new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag("Regular Duplication Size").setInitialDelay( hour, TimeUnit.HOURS)
-                        .build();
-        WorkManager.getInstance().enqueueUniqueWork("Regular Duplication Size", ExistingWorkPolicy.REPLACE, morning_Work);
-
-        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
-                .observe(this, new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(@Nullable WorkInfo workInfo) {
-                        // Do something with the status
-                        if (workInfo != null && workInfo.getState().isFinished()) {
-                            // ...
-                            TypeCTask();
+            WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
+                    .observe(this, new Observer<WorkInfo>() {
+                        @Override
+                        public void onChanged(@Nullable WorkInfo workInfo) {
+                            // Do something with the status
+                            if (workInfo != null && workInfo.getState().isFinished()) {
+                                // ...
+                                TypeCTask();
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
     // Replace Fragments

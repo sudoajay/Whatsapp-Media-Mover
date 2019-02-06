@@ -75,11 +75,15 @@ public class Delete_Duplicate_Data {
 
     }
     public void Delete_The_Data_From_External_Storage(String path){
-        String save[] = path.split("/WhatsApp/");
-        DocumentFile documentFile = sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile,"WhatsApp"));
-        step_Into=save[1].split("/");
-        steps_Into=0;
-        Document(documentFile);
+        try {
+            String save[] = path.split("/WhatsApp/");
+            DocumentFile documentFile = sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile, "WhatsApp"));
+            step_Into = save[1].split("/");
+            steps_Into = 0;
+            Document(documentFile);
+        }catch (Exception e){
+
+        }
     }
     public void Document(DocumentFile documentFile){
         if(steps_Into < step_Into.length){

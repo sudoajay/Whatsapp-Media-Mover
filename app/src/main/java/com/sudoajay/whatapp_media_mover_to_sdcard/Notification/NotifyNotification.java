@@ -18,14 +18,11 @@ import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
-import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +39,7 @@ public class NotifyNotification {
     private static final String NOTIFICATION_TAG = "Alert_";
     private Context context;
     private NotificationManager notificationManager;
-    private String total_Size= "55 MB";
+    private String total_Size= "0 MB";
     private Activity activity;
 
 

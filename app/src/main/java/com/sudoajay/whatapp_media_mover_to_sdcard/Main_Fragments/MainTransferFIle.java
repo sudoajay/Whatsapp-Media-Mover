@@ -147,6 +147,7 @@ public class MainTransferFIle extends Fragment {
 //
  @SuppressLint("SetTextI18n")
  public void Enter_Whats_App_Folder(){
+
         if(androidExternalStorage_permission.isExternalStorageWritable())
             file_Size_Text.setText("Data Size - "+storage_info.getWhatsAppInternalMemorySize());
  }

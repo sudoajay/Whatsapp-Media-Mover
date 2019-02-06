@@ -14,7 +14,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.provider.DocumentFile;
@@ -69,7 +68,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private Copy_The_File copy_the_file;
     private Restore_The_Data restore_the_data;
     private DocumentFile sd_Card_documentFile;
-    private Handler handler = new Handler();
     private final int requestCode = 42;
     private Uri sd_Card_URL;
     private RemoteViews contentView;

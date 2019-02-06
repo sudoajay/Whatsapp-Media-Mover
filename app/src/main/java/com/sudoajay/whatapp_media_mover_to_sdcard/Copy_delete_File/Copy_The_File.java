@@ -77,7 +77,6 @@ public class Copy_The_File {
         }
         if(images == View.VISIBLE){
             Copy_Folder(4);
-            Log.e("Check" , external_Path_Url + whats_App_Media_Path + "/" + Return_Path(4));
         }
         if(gif == View.VISIBLE){
             Copy_Folder(5);
@@ -117,7 +116,6 @@ public class Copy_The_File {
             }
 
         }catch (Exception e){
-            Log.e("Errors" , e.getMessage() );
         }
     }
     public DocumentFile Return_Absolute_Path(String folder_Name){
