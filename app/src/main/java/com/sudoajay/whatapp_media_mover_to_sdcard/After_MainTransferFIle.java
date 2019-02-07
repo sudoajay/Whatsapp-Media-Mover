@@ -50,16 +50,25 @@ import java.util.Objects;
 
 public class After_MainTransferFIle extends AppCompatActivity {
     private Toolbar toolbar;
-    private TextView toolbar_Title, file_Size_TextView, toast_TextView;
+    private TextView file_Size_TextView;
     private Button changes_Button, doit_Button;
-    private ImageView refresh_Image_View, audio_ImageView, tick_Voice_ImageView, tick_Audio_ImageView,
-            tick_Video_ImageView, tick_Sticker_ImageView, tick_Document_ImageView, tick_Image_ImageView,
-            tick_Profile_ImageView, tick_Database_ImageView, tick_Gif_ImageView, back_Image_View;
-    private String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatsapp_media_mover",
-            which_Option_To_Do, external_Path_Url, sd_Card_Path_URL,
-            title_Notification = "Title", save_Exact_Size, after_Notification;
+    private ImageView refresh_Image_View;
+    private ImageView tick_Voice_ImageView;
+    private ImageView tick_Audio_ImageView;
+    private ImageView tick_Video_ImageView;
+    private ImageView tick_Sticker_ImageView;
+    private ImageView tick_Document_ImageView;
+    private ImageView tick_Image_ImageView;
+    private ImageView tick_Profile_ImageView;
+    private ImageView tick_Database_ImageView;
+    private ImageView tick_Gif_ImageView;
+    private String which_Option_To_Do;
+    private String external_Path_Url;
+    private String sd_Card_Path_URL;
+    private String title_Notification = "Title";
+    private String save_Exact_Size;
+    private String after_Notification;
     private long get_File_Size;
-    private File get_File_path;
     private boolean whats_App_File_Exist_Internal, checking_Folder, whats_App_File_Exist_External;
     private View layout;
     private Toast toast;
@@ -81,7 +90,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private int normal_Changes=0 ;
     private String whatsapp_Path,string_URI;
     private Storage_Info storage_Info;
-    private WhatsappPathSharedpreferences whatsappPathSharedpreferences;
     private TickOnButtonSharedPreference tickOnButtonSharedPreference;
     private AndroidSdCardPermission android_sdCard_permission;
 
@@ -93,7 +101,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         which_Option_To_Do = getIntent().getStringExtra("move_copy_remove_restore");
         sd_Card_Path_URL = getIntent().getStringExtra("sd_card_path");
         Reference();
-        get_File_path = Environment.getExternalStorageDirectory();
+        File get_File_path = Environment.getExternalStorageDirectory();
         external_Path_Url = get_File_path.getAbsolutePath();
 
         // setup and instalization of sharedprefernece
@@ -106,7 +114,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 no++;
             }
 
-        whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(getApplicationContext());
+        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(getApplicationContext());
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
         whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path() ;
 
@@ -123,7 +131,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void Reference() {
         toolbar = findViewById(R.id.toolbar);
-        toolbar_Title = toolbar.findViewById(R.id.toolbar_title);
+        TextView toolbar_Title = toolbar.findViewById(R.id.toolbar_title);
 
         file_Size_TextView = findViewById(R.id.file_Size_TextView);
         refresh_Image_View = toolbar.findViewById(R.id.refresh_Image_View);
@@ -131,7 +139,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         changes_Button = findViewById(R.id.normal_Changes_Button);
         doit_Button = findViewById(R.id.doit_Button);
 
-        audio_ImageView = findViewById(R.id.audio_ImageView);
+        ImageView audio_ImageView = findViewById(R.id.audio_ImageView);
 
 
         tick_Audio_ImageView = findViewById(R.id.tick_audio_ImageView);
@@ -143,7 +151,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         tick_Profile_ImageView = findViewById(R.id.tick_Profile_ImageView);
         tick_Voice_ImageView = findViewById(R.id.tick_Voice_ImageView);
         tick_Sticker_ImageView = findViewById(R.id.tick_Sticker_ImageView);
-        back_Image_View = findViewById(R.id.back_Image_View);
+        ImageView back_Image_View = findViewById(R.id.back_Image_View);
 
         // create class object
         notification_permission_check = new Notification_Permission_Check(this,this);
@@ -157,6 +165,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void On_Click_Process(View view) {
         Checked_The_Main_Thing();
+        String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatsapp_media_mover";
         switch (view.getId()) {
             case R.id.back_Image_View:
                 onBackPressed();
@@ -484,7 +493,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
     public void Toast_It(String message) {
-        toast_TextView = layout.findViewById(R.id.text);
+        TextView toast_TextView = layout.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(getApplicationContext());
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -910,7 +919,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         protected void onPostExecute(String s) {
             try {
                 Thread.sleep(2000);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
             notificationManager.cancel(1);
@@ -958,14 +967,12 @@ public class After_MainTransferFIle extends AppCompatActivity {
             builder = new NotificationCompat.Builder(this, id)// required
                     .setSmallIcon(R.mipmap.ic_launcher)   // required
                    .setVibrate(new long[]{0L}) // Passing null here silently fails
-                    .setPriority(Notification.PRIORITY_DEFAULT)
                     .setAutoCancel(false)
                     .setOngoing(true)
                     .setContent(contentView)
                     .setLights(Color.parseColor("#075e54"), 3000, 3000);
         notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         notificationManager.notify(1, notification);
 
@@ -1073,10 +1080,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
             builder =
                     new NotificationCompat.Builder(this,id)
                             .setSmallIcon(R.mipmap.ic_launcher)
+                            .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                             .setOngoing(false)
                             .setContentTitle(after_Notification)
                             .setAutoCancel(true)
-                            .setPriority(Notification.PRIORITY_DEFAULT)
                             .setLights(Color.parseColor("#075e54"), 3000, 3000);
 
         if (type == 1) {
@@ -1091,8 +1098,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
         notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
-
         notificationManager.notify(1, notification);
     }
     public void Call_Custom_Dailog_Option_Changes() {

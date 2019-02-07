@@ -24,9 +24,7 @@ public class AndroidSdCardPermission {
     private Activity activity;
     private Context context;
     private String sd_Card_Path_URL = "",string_URI;
-    private final int REQUEST_CODE_OPEN_DOCUMENT_TREE =42;
     private Duplication_Class duplication_class;
-    private Handler handler;
     private MainTransferFIle mainTransferFIle;
     private Home home;
     private SdCardPathSharedPreference sdCardPathSharedPreference;
@@ -63,7 +61,7 @@ public class AndroidSdCardPermission {
 
 
     public void call_Thread(){
-        handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -75,13 +73,14 @@ public class AndroidSdCardPermission {
     public void Storage_Access_FrameWork(){
         try {
             final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+            int REQUEST_CODE_OPEN_DOCUMENT_TREE = 42;
             if(mainTransferFIle != null) mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             else if(duplication_class != null) {
                 duplication_class.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             }else if(home != null){
                 home.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             }else if( after_mainTransferFIle != null){
-                after_mainTransferFIle.startActivityForResult(intent,REQUEST_CODE_OPEN_DOCUMENT_TREE);
+                after_mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             }
         }catch (Exception e){
             Toast.makeText(context,"There is Error Please Report It",Toast.LENGTH_SHORT).show();
@@ -93,7 +92,7 @@ public class AndroidSdCardPermission {
             FragmentTransaction ft = ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction();
             Sd_Card_dialog sd_card_dialog = new Sd_Card_dialog(this);
             sd_card_dialog.show(ft, "dialog");
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }
@@ -107,7 +106,7 @@ public class AndroidSdCardPermission {
 
             sd_Card_Path_URL = sdCardPathSharedPreference.getSdCardPath();
             string_URI = sdCardPathSharedPreference.getStringURI();
-        }catch (Exception e){
+        }catch (Exception ignored){
 
             
         }

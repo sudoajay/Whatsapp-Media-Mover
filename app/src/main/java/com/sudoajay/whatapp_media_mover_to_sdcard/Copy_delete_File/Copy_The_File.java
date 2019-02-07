@@ -8,7 +8,6 @@ import android.view.View;
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
-import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -115,7 +114,7 @@ public class Copy_The_File {
                 Copy_Files(file[0].getAbsolutePath(),exact_Path,file[0].getName());
             }
 
-        }catch (Exception e){
+        }catch (Exception ignored){
         }
     }
     public DocumentFile Return_Absolute_Path(String folder_Name){
@@ -290,7 +289,7 @@ public class Copy_The_File {
     static {
         try {
             messageDigest = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException ignored) {
         }
     }
     public String Grab_The_Has_Data(File file) {

@@ -4,19 +4,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
-
-import static java.sql.Types.NULL;
 
 public class Draw_View_Canvas_Rectangle extends View  {
-    private int mWidth,background_Color,mHeight,bg_Color ,whatsApp_Color,dot_Color ;
+    private int background_Color;
+    private int bg_Color;
+    private int whatsApp_Color;
+    private int dot_Color ;
     private Paint paint = new Paint();
     private double whatsApp_Percentage , other_Percentage, multi;
 
@@ -66,8 +62,8 @@ public class Draw_View_Canvas_Rectangle extends View  {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        mWidth = View.MeasureSpec.getSize(widthMeasureSpec);
-        mHeight = View.MeasureSpec.getSize(heightMeasureSpec);
+        int mWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int mHeight = MeasureSpec.getSize(heightMeasureSpec);
         setMeasuredDimension(mWidth, mHeight);
     }
 

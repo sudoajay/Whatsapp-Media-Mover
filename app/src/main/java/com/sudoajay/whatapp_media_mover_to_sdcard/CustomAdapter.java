@@ -14,11 +14,10 @@ import java.util.List;
 public class CustomAdapter extends FragmentPagerAdapter {
     List<Fragment> mFragmentCollection = new ArrayList<>();
     List<String> mTitleCollection = new ArrayList<>();
-    private After_MainTransferFIle after_main_transferFIle;
 
     public CustomAdapter(FragmentManager fm,After_MainTransferFIle after_main_transferFIle) {
         super(fm);
-        this.after_main_transferFIle = after_main_transferFIle;
+        After_MainTransferFIle after_main_transferFIle1 = after_main_transferFIle;
     }
 
     public void addFragment(String title, Fragment fragment)

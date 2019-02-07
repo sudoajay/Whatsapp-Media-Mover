@@ -19,7 +19,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -29,7 +28,6 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
 
 import java.io.File;
@@ -43,11 +41,8 @@ import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
-import static java.security.AccessController.getContext;
-
 
 public class Show_Duplicate_File extends AppCompatActivity {
-    private final String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatsapp_media_mover";
     private ImageView refresh_Image_View;
     private ExpandableListView expandableListView;
     private List<Integer> arrow_Image_Resource = new ArrayList<>();
@@ -59,7 +54,6 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private Button delete_Duplicate_Button;
     private TextView text_View_Nothing;
     private RemoteViews contentView;
-    private AlertDialog alertDialog ;
     private Notification notification;
     private NotificationManager notificationManager;
     private Notification_Permission_Check notification_permission_check;
@@ -176,6 +170,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
     }
 
     public void On_Click_Process(View view) {
+        String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatsapp_media_mover";
         switch (view.getId()) {
             case R.id.back_Image_View:
                 onBackPressed();
@@ -279,7 +274,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            alertDialog = new SpotsDialog.Builder()
+            AlertDialog alertDialog = new SpotsDialog.Builder()
                     .setContext(Show_Duplicate_File.this)
                     .setMessage("Deletion....")
                     .setCancelable(false)
@@ -387,7 +382,6 @@ public class Show_Duplicate_File extends AppCompatActivity {
                         .setContentTitle("Data Deleted")
                         .setAutoCancel(true)
                         .setOngoing(false)
-                        .setPriority(Notification.PRIORITY_DEFAULT)
                         .setLights(Color.parseColor("#075e54"), 3000, 3000);
         builder.setContentText("You Have Saved " + Convert_It(total_Size) + " Of Data ");
 
@@ -429,7 +423,6 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }
         mBuilder = new NotificationCompat.Builder(this, id)
                 .setSmallIcon(R.mipmap.ic_launcher)   // required
-                .setPriority(Notification.PRIORITY_DEFAULT)
                 .setContent(contentView)
                 .setAutoCancel(false)
                 .setOngoing(true)

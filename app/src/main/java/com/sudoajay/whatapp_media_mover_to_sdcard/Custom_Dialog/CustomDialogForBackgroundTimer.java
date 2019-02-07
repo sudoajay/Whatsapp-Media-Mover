@@ -10,9 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.QuickContactBadge;
 import android.widget.Toast;
 
 import com.dpro.widgets.WeekdaysPicker;
@@ -33,11 +30,8 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import org.angmarch.views.NiceSpinner;
 
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -46,8 +40,6 @@ import java.util.Objects;
 
 public class CustomDialogForBackgroundTimer extends DialogFragment implements AdapterView.OnItemSelectedListener , View.OnClickListener {
 
-    // global variable
-    private Button cancelButton,okButton;
     private NiceSpinner repeatedlySpinner,chooseSpinner;
     private WeekdaysPicker weekdaysPicker;
     private ImageView choose_ImageView;
@@ -113,8 +105,9 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
     // reference the object
     private void Reference(View view){
-        cancelButton = view.findViewById(R.id.cancelButton);
-        okButton = view.findViewById(R.id.okButton);
+        // global variable
+        Button cancelButton = view.findViewById(R.id.cancelButton);
+        Button okButton = view.findViewById(R.id.okButton);
         chooseSpinner =view.findViewById(R.id.chooseSpinner);
         repeatedlySpinner =view.findViewById(R.id.repeatedlySpinner);
         weekdaysPicker = view.findViewById(R.id.weekdaysPicker);
@@ -323,7 +316,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         for(String weeks_Days: split){
             try {
                 list.add(Integer.parseInt(weeks_Days));
-            }catch (Exception e){
+            }catch (Exception ignored){
 
             }
         }

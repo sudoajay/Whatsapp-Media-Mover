@@ -6,10 +6,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,18 +30,15 @@ import dmax.dialog.SpotsDialog;
 
 
 public class Duplication_Class extends Fragment {
-    private ImageView internal_Check,external_Check,internal_Image_View,external_Image_View;
-    private TextView internal_Text_View , external_Text_View;
+    private ImageView internal_Check;
+    private ImageView external_Check;
     private AndroidExternalStoragePermission androidExternalStorage_permission;
     private AndroidSdCardPermission android_sdCard_permission;
     private Button file_Size_text;
-    private String sd_Card_Path_URL ,string_URI;
-    private Uri sdCard_Uri ;
-    private TextView toast_TextView;
+    private String string_URI;
     private long size;
     private Toast toast;
     private View layout,layouts;
-    private Button scan_Button;
     private Duplication_Data duplication_data = new Duplication_Data();
     private AlertDialog alertDialog ;
     private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
@@ -96,11 +91,11 @@ public class Duplication_Class extends Fragment {
 
         internal_Check = layout.findViewById(R.id.internal_Check);
         external_Check = layout.findViewById(R.id.external_Check);
-        internal_Image_View =layout.findViewById(R.id.internal_Image_View);
-        external_Image_View = layout.findViewById(R.id.external_Image_View);
-        scan_Button = layout.findViewById(R.id.scan_Button);
-        internal_Text_View = layout.findViewById(R.id.internal_Text_View);
-        external_Text_View = layout.findViewById(R.id.external_Text_View);
+        ImageView internal_Image_View = layout.findViewById(R.id.internal_Image_View);
+        ImageView external_Image_View = layout.findViewById(R.id.external_Image_View);
+        Button scan_Button = layout.findViewById(R.id.scan_Button);
+        TextView internal_Text_View = layout.findViewById(R.id.internal_Text_View);
+        TextView external_Text_View = layout.findViewById(R.id.external_Text_View);
         file_Size_text = layout.findViewById(R.id.file_Size_Text);
 
         // onclick
@@ -123,10 +118,10 @@ public class Duplication_Class extends Fragment {
 
         if (resultCode != Activity.RESULT_OK)
             return;
-        sdCard_Uri = data.getData();
+        Uri sdCard_Uri = data.getData();
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
+        String sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
 
         if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
         android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
@@ -207,7 +202,7 @@ public class Duplication_Class extends Fragment {
 
     }
     public void Toast_It(String Message) {
-        toast_TextView = layouts.findViewById(R.id.text);
+        TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(main_navigation.getApplicationContext());
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -279,7 +274,7 @@ public class Duplication_Class extends Fragment {
                     if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE) {
                         try {
                             multiThreading_task.execute();
-                        }catch (Exception e){
+                        }catch (Exception ignored){
                         }
                     }
                     else{

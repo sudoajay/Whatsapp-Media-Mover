@@ -25,10 +25,9 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
 
     // globally variable
     private After_MainTransferFIle after_mainTransferFIle ;
-    private ImageView back_Image_View_Change;
     private int normal_change=0;
     private NiceSpinner customSpinner;
-    private Button ok_Button ,cancel_Button;
+
     public Custom_Dialog_For_Normal_Changes(){
 
     }
@@ -43,9 +42,9 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
         View rootview = inflater.inflate(R.layout.normal_changes_layout,container,false);
 
         // reference
-        back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
-        cancel_Button = rootview.findViewById(R.id.cancelButton);
-        ok_Button  =rootview.findViewById(R.id.ok_Button);
+        ImageView back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
+        Button cancel_Button = rootview.findViewById(R.id.cancelButton);
+        Button ok_Button = rootview.findViewById(R.id.ok_Button);
         customSpinner = rootview.findViewById(R.id.customSpinner);
 
         // Spinner Drop down elements

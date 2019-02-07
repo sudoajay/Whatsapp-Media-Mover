@@ -1,7 +1,6 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 

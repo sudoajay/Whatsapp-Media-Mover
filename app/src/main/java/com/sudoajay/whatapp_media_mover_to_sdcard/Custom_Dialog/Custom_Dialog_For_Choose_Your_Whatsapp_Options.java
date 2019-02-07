@@ -28,15 +28,10 @@ import java.util.Objects;
 
 public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
-    // globally variable
-    private Button cancel_Button , ok_Button;
     private Main_Navigation main_navigation ;
     private String define;
     private ArrayList<String> whats_App_Path = new ArrayList<>();
-    private ArrayList<String> types;
-    private int position;
     private String whatsapp_Path;
-    private ImageView back_Image_View_Change;
     private NiceSpinner customSpinner;
     private WhatsappPathSharedpreferences whatsappPathSharedpreferences;
 
@@ -60,13 +55,14 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
         whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(Objects.requireNonNull(getContext()));
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
 
-        cancel_Button = rootview.findViewById(R.id.cancelButton);
-        ok_Button  =rootview.findViewById(R.id.ok_Button);
-        back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
+        // globally variable
+        Button cancel_Button = rootview.findViewById(R.id.cancelButton);
+        Button ok_Button = rootview.findViewById(R.id.ok_Button);
+        ImageView back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
         customSpinner = rootview.findViewById(R.id.customSpinner);
 
         // array for shows in spinner
-        types = new ArrayList<>();
+        ArrayList<String> types = new ArrayList<>();
         types.add("Original Whatsapp");
         types.add("GbWhatsapp (Modded)");
         types.add("OgWhatsapp(Modded)");
@@ -177,7 +173,7 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-      this.position= position;
+        int position1 = position;
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,7 @@ import java.util.Objects;
 public class Audio_Fragment extends Fragment {
     private After_MainTransferFIle after_main_transferFIle;
     private Make_Changes make_changes=new Make_Changes();
-    private List<String> listDataHeader, send_Data_Path;
+    private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
     private List<Integer> arrow_Image_Resource = new ArrayList<>(), count_The_Size = new ArrayList<>();
     private String which_Option_To_Do;
@@ -148,7 +147,7 @@ public class Audio_Fragment extends Fragment {
     private void prepareListData() {
         listDataHeader = new ArrayList<>();
         listDataChild = new LinkedHashMap<>();
-        send_Data_Path = new ArrayList<>();
+        List<String> send_Data_Path = new ArrayList<>();
 
 
         List<Integer> count_The_Data = new ArrayList<>();

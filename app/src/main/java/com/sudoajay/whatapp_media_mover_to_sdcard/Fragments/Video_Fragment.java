@@ -34,7 +34,7 @@ import java.util.List;
 public class Video_Fragment extends Fragment {
     private static After_MainTransferFIle after_main_transferFIle;
     private static Make_Changes make_changes =new Make_Changes();
-    private List<String> listDataHeader,send_Data_Path;
+    private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
     private List<Integer> arrow_Image_Resource = new ArrayList<>(),count_The_Size = new ArrayList<>();
     private String which_Option_To_Do;
@@ -140,7 +140,7 @@ public class Video_Fragment extends Fragment {
     private void prepareListData() {
         listDataHeader = new ArrayList<>();
         listDataChild = new LinkedHashMap<>();
-        send_Data_Path = new ArrayList<>();
+        List<String> send_Data_Path = new ArrayList<>();
 
 
         List<Integer> count_The_Data = new ArrayList<>();

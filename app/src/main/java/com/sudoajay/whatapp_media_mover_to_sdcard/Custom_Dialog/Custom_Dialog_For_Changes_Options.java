@@ -18,10 +18,8 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
 public class Custom_Dialog_For_Changes_Options extends DialogFragment {
 
-    // globally variable
-    private Button normal_Changes_Button , deep_Changes_Button;
     private After_MainTransferFIle after_mainTransferFIle ;
-    private ImageView back_Image_View_Change;
+
     public Custom_Dialog_For_Changes_Options(){
 
     }
@@ -34,9 +32,10 @@ public class Custom_Dialog_For_Changes_Options extends DialogFragment {
 
         View rootview = inflater.inflate(R.layout.changes_options_layout,container,false);
 
-        normal_Changes_Button = rootview.findViewById(R.id.normal_Changes_Button);
-        deep_Changes_Button  =rootview.findViewById(R.id.deep_Changes_Button);
-        back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
+        // globally variable
+        Button normal_Changes_Button = rootview.findViewById(R.id.normal_Changes_Button);
+        Button deep_Changes_Button = rootview.findViewById(R.id.deep_Changes_Button);
+        ImageView back_Image_View_Change = rootview.findViewById(R.id.back_Image_View_Change);
 
         normal_Changes_Button.setOnClickListener(new View.OnClickListener() {
             @Override

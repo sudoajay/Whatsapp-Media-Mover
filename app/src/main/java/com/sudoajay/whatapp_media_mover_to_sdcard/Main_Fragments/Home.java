@@ -30,18 +30,15 @@ import java.text.DecimalFormat;
  * A simple {@link Fragment} subclass.
  */
 public class Home extends Fragment {
-    private Handler handler;
-    private TextView toast_TextView;
     private Main_Navigation main_navigation;
     private Toast toast;
     private View layout,layouts;
     private Storage_Info storage_info;
-    private Uri sdCard_Uri;
     private double internal_WhatsApp_Percentage, internal_Other_Percentage, external_WhatsApp_Percentage, external_Other_Percentage;
     private TextView internal_Storage_Available, internal_Storage_Total, internal_Storage_WhatsApp_Size, internal_Storage_Other_Size, external_Storage_Available, external_Storage_Total,
             external_Storage_WhatsApp_Size, external_Storage_Other_Size;
     private Draw_View_Canvas_Rectangle external_Draw_Bar, internal_Draw_Bar;
-    private String  sd_Card_Path_URL = "", string_URI;
+    private String string_URI;
     private AndroidExternalStoragePermission androidExternalStoragepermission;
     private AndroidSdCardPermission android_sdCard_permission;
     public Home() {
@@ -108,7 +105,7 @@ public class Home extends Fragment {
     }
 
     public void Toast_It(String Message) {
-        toast_TextView = layouts.findViewById(R.id.text);
+        TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(main_navigation);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -125,10 +122,10 @@ public class Home extends Fragment {
 
         if (resultCode != Activity.RESULT_OK)
             return;
-        sdCard_Uri = data.getData();
+        Uri sdCard_Uri = data.getData();
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
+        String sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
 
 
         if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
@@ -188,7 +185,7 @@ public class Home extends Fragment {
     }
 
     public void call_Thread(){
-        handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @SuppressLint("SetTextI18n")
             @Override

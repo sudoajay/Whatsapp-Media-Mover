@@ -1,7 +1,6 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 

@@ -1,17 +1,12 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.StatFs;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
-import java.util.Objects;
-import static android.content.Context.MODE_PRIVATE;
 
 public class Storage_Info {
 
@@ -48,7 +43,7 @@ public class Storage_Info {
         long blockSize = stat.getBlockSizeLong();
         long availableBlocks = stat.getAvailableBlocksLong();
         internal_Available_Size = availableBlocks* blockSize;
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
         return Convert_It(internal_Available_Size);
@@ -167,7 +162,7 @@ public class Storage_Info {
             } else {
                 ret = 0;
             }
-        }catch (Exception e){
+        }catch (Exception ignored){
         }
         return ret;
     }

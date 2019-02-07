@@ -313,7 +313,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             resizedBitmap = Bitmap.createBitmap(
                     artwork, 0, 0, width, height, matrix, false);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 

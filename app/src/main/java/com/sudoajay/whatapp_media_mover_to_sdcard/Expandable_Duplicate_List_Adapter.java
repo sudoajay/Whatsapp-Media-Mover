@@ -20,9 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -265,7 +263,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
             resizedBitmap = Bitmap.createBitmap(
                     artwork, 0, 0, width, height, matrix, false);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 

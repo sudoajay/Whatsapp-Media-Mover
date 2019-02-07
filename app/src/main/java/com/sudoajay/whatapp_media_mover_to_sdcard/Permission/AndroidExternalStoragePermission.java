@@ -78,7 +78,7 @@ public class AndroidExternalStoragePermission {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     activity.startActivity(i);
-                }catch (Exception e){
+                }catch (Exception ignored){
 
                 }
             }

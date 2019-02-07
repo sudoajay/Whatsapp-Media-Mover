@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import static android.content.Context.MODE_PRIVATE;
 

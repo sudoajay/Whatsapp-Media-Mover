@@ -34,12 +34,10 @@ import java.util.Objects;
 
 public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
     private TabLayout tabLayout;
-    private ViewPager viewPager;
     private boolean tick_Voice_ImageView, tick_Audio_ImageView, tick_Video_ImageView
             , tick_Sticker_ImageView, tick_Document_ImageView, tick_Image_ImageView
             , tick_Profile_ImageView, tick_Gif_ImageView;
     private CustomAdapter adapter;
-    private ImageView imageView;
     private After_MainTransferFIle after_main_transferFIle;
     private Audio_Fragment audio_fragment = new Audio_Fragment();
     private Video_Fragment video_fragment = new Video_Fragment();
@@ -77,9 +75,9 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
         View rootview = inflater.inflate(R.layout.activity_custom_dialog_changes,container,false);
 
         tabLayout =  rootview.findViewById(R.id.tabLayout);
-        viewPager =  rootview.findViewById(R.id.masterViewPager);
+        ViewPager viewPager = rootview.findViewById(R.id.masterViewPager);
 
-        imageView = rootview.findViewById(R.id.back_Image_View_Change);
+        ImageView imageView = rootview.findViewById(R.id.back_Image_View_Change);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

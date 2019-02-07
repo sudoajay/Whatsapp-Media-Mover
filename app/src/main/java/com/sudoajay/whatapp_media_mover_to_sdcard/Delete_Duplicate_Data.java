@@ -16,11 +16,8 @@ public class Delete_Duplicate_Data {
     private List<String> list_Header ;
     private HashMap<String, List<String>> list_Header_Child;
     private Show_Duplicate_File show_duplicate_file;
-    private String sd_Card_Path_URL,sd_Card_Uri,string_URI;
-    private Uri sd_Card_URL;
     private String step_Into[];
     private DocumentFile sd_Card_documentFile;
-    private AndroidSdCardPermission android_SdCard_Permission;
     private int steps_Into;
     public Delete_Duplicate_Data(List<String> list_Header , HashMap<String , List<String>> list_Header_Child,Show_Duplicate_File show_duplicate_file){
         this.list_Header = list_Header;
@@ -28,13 +25,13 @@ public class Delete_Duplicate_Data {
         this.show_duplicate_file = show_duplicate_file;
 
         // garb and store the data from shared preference
-        android_SdCard_Permission = new AndroidSdCardPermission(show_duplicate_file.getApplicationContext());
-        sd_Card_Path_URL= android_SdCard_Permission.getSd_Card_Path_URL();
-        string_URI = android_SdCard_Permission.getString_URI();
+        AndroidSdCardPermission android_SdCard_Permission = new AndroidSdCardPermission(show_duplicate_file.getApplicationContext());
+        String sd_Card_Path_URL = android_SdCard_Permission.getSd_Card_Path_URL();
+        String string_URI = android_SdCard_Permission.getString_URI();
 
         if(string_URI != null ) {
-            sd_Card_Uri = Split_The_URI(string_URI);
-            sd_Card_URL = Uri.parse(sd_Card_Uri);
+            String sd_Card_Uri = Split_The_URI(string_URI);
+            Uri sd_Card_URL = Uri.parse(sd_Card_Uri);
             sd_Card_documentFile = DocumentFile.fromTreeUri(show_duplicate_file.getApplicationContext(), sd_Card_URL);
         }
         Main_Method();
@@ -81,7 +78,7 @@ public class Delete_Duplicate_Data {
             step_Into = save[1].split("/");
             steps_Into = 0;
             Document(documentFile);
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }

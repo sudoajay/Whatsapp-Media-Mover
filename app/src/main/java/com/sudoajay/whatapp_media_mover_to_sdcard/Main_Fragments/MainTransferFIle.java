@@ -4,12 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -30,13 +29,10 @@ import java.io.File;
 import java.util.Objects;
 
 public class MainTransferFIle extends Fragment {
-    private TextView toast_TextView;
     private Button move_Button , copy_Button , remove_Button,file_Size_Text,restore_Button;
-    private String sd_Card_Path_URL="",string_URI ="";
-    private Uri sdCard_Uri ;
+    private String string_URI ="";
     private View layout,layouts;
     private Toast toast;
-    private Handler handler;
     private boolean whats_App_File_Exist_Internal,whats_App_File_Exist_External ;
     private Main_Navigation main_navigation;
     private AndroidExternalStoragePermission androidExternalStorage_permission;
@@ -87,19 +83,23 @@ public class MainTransferFIle extends Fragment {
 
         // Setting scaled drawable in code
 
-        Drawable img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.copy_intro_icon );
+        Drawable img = ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.drawable.copy_intro_icon );
+        assert img != null;
         img.setBounds( 0, 0, 80, 80 );
         copy_Button.setCompoundDrawables( img, null, null, null );
 
-        img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.restore_intro_icon );
+        img = ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.drawable.restore_intro_icon );
+        assert img != null;
         img.setBounds( 0, 0, 80, 80 );
         restore_Button.setCompoundDrawables( img, null, null, null );
 
-        img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.remove_intro_icon );
+        img = ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.drawable.remove_intro_icon );
+        assert img != null;
         img.setBounds( 0, 0, 80, 80 );
         remove_Button.setCompoundDrawables( img, null, null, null );
 
-        img = Objects.requireNonNull(getContext()).getResources().getDrawable( R.drawable.move_intro_icon );
+        img = ContextCompat.getDrawable(Objects.requireNonNull(getContext()),R.drawable.move_intro_icon );
+        assert img != null;
         img.setBounds( 0, 0, 80, 80 );
         move_Button.setCompoundDrawables( img, null, null, null );
 
@@ -160,10 +160,10 @@ public class MainTransferFIle extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK)
             return;
-            sdCard_Uri = data.getData();
+        Uri sdCard_Uri = data.getData();
             main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
+        String sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
 
             if(new File(sd_Card_Path_URL).exists())
                 string_URI  = Split_The_URI(sdCard_Uri.toString());
@@ -179,7 +179,7 @@ public class MainTransferFIle extends Fragment {
         return save[0]+"%3A";
     }
     public void Toast_It(String Message) {
-        toast_TextView = layouts.findViewById(R.id.text);
+        TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(main_navigation.getApplicationContext());
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -197,7 +197,7 @@ public class MainTransferFIle extends Fragment {
     public boolean isSamePath(){ return androidExternalStorage_permission.getExternal_Path().equals(androidSdCardPermission.getSd_Card_Path_URL()); }
 
         public void call_Thread(){
-        handler = new Handler();
+            Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -205,7 +205,7 @@ public class MainTransferFIle extends Fragment {
                     try{
                         Enter_Whats_App_Folder();
                         checked_For_Not_Get_Error();
-                    }catch (Exception e){
+                    }catch (Exception ignored){
 
                 }
 
@@ -220,7 +220,7 @@ public class MainTransferFIle extends Fragment {
         public void onClick(View v) {
             try {
                 Enter_Whats_App_Folder();
-            }catch (Exception e)
+            }catch (Exception ignored)
             {
 
             }
