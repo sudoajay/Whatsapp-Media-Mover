@@ -201,31 +201,42 @@ public class Main_Navigation extends AppCompatActivity
 
         // this task for Regular Show Size
 
-        PeriodicWorkRequest.Builder morning_Work_builder =
-                new PeriodicWorkRequest.Builder(WorkMangerTaskA.class, 1,
-                        TimeUnit.DAYS).addTag("Regular Data Size");
+        OneTimeWorkRequest morning_Work =
+                new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(1
+                        , TimeUnit.DAYS).build();
+        WorkManager.getInstance().enqueueUniqueWork("Regular Data Size", ExistingWorkPolicy.KEEP, morning_Work);
 
-        // Create the actual work object:
-        PeriodicWorkRequest morning_Worker = morning_Work_builder.build();
-
-        // Then enqueue the recurring task:
-        WorkManager.getInstance().enqueueUniquePeriodicWork("Regular Data Size", ExistingPeriodicWorkPolicy.KEEP
-                ,morning_Worker);
+        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        // Do something with the status
+                        if (workInfo != null && workInfo.getState().isFinished()) {
+                            // ...
+                            TypeATask();
+                        }
+                    }
+                });
     }
     private void TypeBTask(){
 
         // this task for weekly Duplicate Size
+        OneTimeWorkRequest morning_Work =
+                new OneTimeWorkRequest.Builder(WorkMangerTaskB.class).addTag("Weekly Duplicate Size").setInitialDelay(7
+                        , TimeUnit.DAYS).build();
+        WorkManager.getInstance().enqueueUniqueWork("Weekly Duplicate Size", ExistingWorkPolicy.KEEP, morning_Work);
 
-        PeriodicWorkRequest.Builder morning_Work_builder =
-                new PeriodicWorkRequest.Builder(WorkMangerTaskB.class, 7,
-                        TimeUnit.DAYS).addTag("Weekly Duplicate Size");
-
-        // Create the actual work object:
-        PeriodicWorkRequest morning_Worker = morning_Work_builder.build();
-
-        // Then enqueue the recurring task:
-        WorkManager.getInstance().enqueueUniquePeriodicWork("Weekly Duplicate Size", ExistingPeriodicWorkPolicy.KEEP
-                ,morning_Worker);
+        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        // Do something with the status
+                        if (workInfo != null && workInfo.getState().isFinished()) {
+                            // ...
+                            TypeBTask();
+                        }
+                    }
+                });
 
     }
 
