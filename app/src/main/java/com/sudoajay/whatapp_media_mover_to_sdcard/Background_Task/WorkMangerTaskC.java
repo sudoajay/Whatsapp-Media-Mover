@@ -65,56 +65,57 @@ public class WorkMangerTaskC extends Worker {
 
                     List<File> only_Selected_File = new ArrayList<>();
 
-                    value= cursor.getInt(0);
+                    value = cursor.getInt(0);
 
                     switch (cursor.getInt(0)) {
-                        case 0:
+                        case 1:
                             // Move process
                             Copy_The_File copy_the_file = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile,
                                     after_mainTransferFIle, only_Selected_File, 0,
                                     "Background", getApplicationContext());
-                            copy_the_file.Copy_Folder_As_Per_Tick(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE
-                                    , View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
+                            copy_the_file.Copy_Folder_As_Per_Tick(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE
+                                    , View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE);
 
                             Delete_The_File delete_the_fIle = new Delete_The_File(external_Path_Url, whats_App_Media_Path, after_mainTransferFIle,
                                     only_Selected_File, 0, "Background", getApplicationContext());
-                            delete_the_fIle.get_File_Path(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE
-                                    , View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
+                            delete_the_fIle.get_File_Path(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE
+                                    , View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE);
                             break;
-                        case 1:
+                        case 2:
                             // copy process
                             after_mainTransferFIle.setWhich_Option_To_Do("move");
                             Copy_The_File copy_the_files = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile,
                                     after_mainTransferFIle, only_Selected_File, 0,
                                     "Background", getApplicationContext());
-                            copy_the_files.Copy_Folder_As_Per_Tick(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE
-                                    , View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
+                            copy_the_files.Copy_Folder_As_Per_Tick(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE
+                                    , View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE);
                             break;
-                        case 2:
+                        case 3:
                             // remove Process
 
                             Delete_The_File delete_the_fIles = new Delete_The_File(external_Path_Url, whats_App_Media_Path, after_mainTransferFIle,
                                     only_Selected_File, 0, "Background", getApplicationContext());
-                            delete_the_fIles.get_File_Path(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE
-                                    , View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
+                            delete_the_fIles.get_File_Path(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE
+                                    , View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE);
                             break;
-                        case 3:
+                        case 4:
                             // restore Process
                             Restore_The_Data restore_the_data = new Restore_The_Data(external_Path_Url, sd_Card_Path_URL, whats_App_Media_Path, after_mainTransferFIle, "Background");
                             restore_the_data.WhatsFolder_Checked();
-                            restore_the_data.Restore_Folder_As_Per_Tick(View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE
-                                    , View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
+                            restore_the_data.Restore_Folder_As_Per_Tick(View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE
+                                    , View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE);
+                            break;
+                        default:
+                            backgroundTimerDataBase.deleteData(1 + "");
                             break;
                     }
-
+                    if (cursor.getInt(0) != 0) {
+                        // If Successfully Complete
+                        NotifyNotification notify_notification = new NotifyNotification(context);
+                        notify_notification.notify("Successfully Data " + GetType(value));
+                    }
                 }
             }
-
-
-            // If Successfully Complete
-            NotifyNotification notify_notification = new NotifyNotification(context);
-            notify_notification.notify( "Successfully Data " + GetType(value));
-
 
         }catch (Exception e){
             // If Error Complete

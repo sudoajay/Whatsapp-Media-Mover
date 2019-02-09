@@ -35,6 +35,10 @@ public class BackgroundTimerDataBase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME);
         onCreate(db);
     }
+    public Integer deleteData (String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(DATABASE_TABLE_NAME, "ID =?",new String[] {id});
+    }
     public void FillIt(int choose_Type , int repeatedly , String weekdays , String endlessly){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

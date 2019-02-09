@@ -207,13 +207,13 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         Bitmap largeIcon ;
         try {
         switch (pos){
-            case 0:
+            case 1:
                 largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.move_intro_icon);
                 break;
-            case 1:
+            case 2:
                 largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.copy_intro_icon);
                 break;
-            case 2:
+            case 3:
                 largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.remove_intro_icon);
                 break;
             default:

@@ -113,6 +113,7 @@
 
     <!--custom Chooser Setup-->
     <string-array name="customChooserSetup">
+        <item>No Process</item>
         <item>Move Data</item>
         <item>Copy Data</item>
         <item>Remove Data</item>
