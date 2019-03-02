@@ -25,6 +25,8 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.Objects;
 
@@ -48,7 +50,7 @@ public class MainTransferFIle extends Fragment {
         this.main_navigation = main_navigation;
         return this;
     }
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 

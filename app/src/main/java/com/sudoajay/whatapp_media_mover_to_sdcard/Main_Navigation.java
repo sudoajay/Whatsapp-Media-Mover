@@ -7,9 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,12 +24,16 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTask
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForForegroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.ForegroundService;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -39,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import androidx.work.ExistingWorkPolicy;
@@ -53,9 +58,11 @@ public class Main_Navigation extends AppCompatActivity
     private String rating_link = "https://play.google.com/store/apps/details?id=com.sudoajay.whatapp_media_mover_to_sdcard";
     private Fragment fragment;
     private Home home = new Home();
-    private MainTransferFIle mainTransferFIle= new MainTransferFIle();
+    private MainTransferFIle mainTransferFIle = new MainTransferFIle();
     private Duplication_Class duplication_class = new Duplication_Class();
-    private  NavigationView navigationView;
+    private NavigationView navigationView;
+    private TraceBackgroundService traceBackgroundService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,6 +77,7 @@ public class Main_Navigation extends AppCompatActivity
         if (extras != null) {
             value = extras.getString("passing");
         }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -87,35 +95,75 @@ public class Main_Navigation extends AppCompatActivity
             //  change the navigation item to main transfer data
             navigationView.getMenu().getItem(1).setChecked(true);
             onNavigationItemSelected(navigationView.getMenu().getItem(1));
-        } else {
+        } else if(value.equalsIgnoreCase("DuplicateData")) {
             setTitle("Duplicate Data");
             //  change the navigation item to main transfer data
             navigationView.getMenu().getItem(1).setChecked(true);
             onNavigationItemSelected(navigationView.getMenu().getItem(2));
-
         }
 
-        // setting and Configuration of background process
+        if(getIntent().getAction() != null) {
+            if (Objects.requireNonNull(getIntent().getAction()).equalsIgnoreCase("Stop_Foreground(Setting)")){
+                navigationView.getMenu().getItem(1).setChecked(true);
+                onNavigationItemSelected(navigationView.getMenu().getItem(5));
+            }
+
+        }
 
         AndroidExternalStoragePermission androidExternalStoragePermission = new AndroidExternalStoragePermission(getApplicationContext(),
                 Main_Navigation.this);
         if (androidExternalStoragePermission.isExternalStorageWritable()) {
-            // regular background Process
-            // showing size of whatsApp Data
-            TypeATask();
 
-            // showing duplication of whatsapp Data
-            TypeBTask();
+            PrefManager prefManager = new PrefManager(getApplicationContext());
+            traceBackgroundService= new TraceBackgroundService(getApplicationContext());
 
-            // doing background Process
-            // New Feature
-            TypeCTask();
+            // check for first time and there is no restriction in background service
+                if(!prefManager.isFirstTimeLaunch() && traceBackgroundService.isBackgroundServiceWorking()){
+                   if(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA())){
+                       traceBackgroundService.setBackgroundServiceWorking(false);
+                   }
+                   if(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskb())){
+                        traceBackgroundService.setBackgroundServiceWorking(false);
+                    }
+                    if(traceBackgroundService.getTaskc() != null &&
+                            !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskc())){
+                        traceBackgroundService.setBackgroundServiceWorking(false);
+                    }
+                }
+
+            // first time check
+
+
+            if(prefManager.isFirstTimeLaunch() || traceBackgroundService.isBackgroundServiceWorking()) {
+
+                // regular background Process
+                // showing size of whatsApp Data
+                TypeATask();
+
+                // showing duplication of whatsapp Data.
+                TypeBTask();
+
+                // doing background Process
+                // New Feature
+                TypeCTask();
+            }else {
+
+                if(traceBackgroundService.isForegroundServiceWorking()) {
+
+                    ForegroundService foregroundService =
+                            new ForegroundService(Main_Navigation.this,Main_Navigation.this);
+                    // call Custom dialog for Thread
+                     foregroundService.call_Thread();
+
+                }
+            }
+
 
         }
     }
 
-    public void On_Click_Process (View view){
-        switch (view.getId()){
+    public void On_Click_Process(View view) {
+        switch (view.getId()) {
             case R.id.media_Mover_Image_View:
             case R.id.media_Mover_Text_View:
                 navigationView.getMenu().getItem(0).setChecked(true);
@@ -164,7 +212,9 @@ public class Main_Navigation extends AppCompatActivity
 
         } else if (id == R.id.nav_Timer) CallCustomDailogBackgroundTimer();
 
-        else if(id == R.id.nav_Whatsapp_Setting) Call_Custom_Dailog_Setting();
+        else if (id == R.id.nav_Whatsapp_Setting) Call_Custom_Dailog_Setting();
+
+        else if(id == R.id.nav_Foreground_Setting)CallCustomDailogForeground();
 
         else if (id == R.id.nav_share) Share();
 
@@ -172,13 +222,13 @@ public class Main_Navigation extends AppCompatActivity
 
         else if (id == R.id.nav_Contact_Me) Open_Email();
 
-
         Replace_Fragments();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void Call_Custom_Dailog_Setting() {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -195,13 +245,24 @@ public class Main_Navigation extends AppCompatActivity
         customDialogForBackgroundTimer.show(ft, "dialog");
     }
 
-    private void TypeATask(){
+    public void CallCustomDailogForeground() {
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        CustomDialogForForegroundService custom_dialog_for_changes_options
+                = new CustomDialogForForegroundService();
+        custom_dialog_for_changes_options.show(ft, "dialog");
+    }
+
+    private void TypeATask() {
 
         // this task for Regular Show Size
+
 
         OneTimeWorkRequest morning_Work =
                 new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(1
                         , TimeUnit.DAYS).build();
+
+
         WorkManager.getInstance().enqueueUniqueWork("Regular Data Size", ExistingWorkPolicy.KEEP, morning_Work);
 
         WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
@@ -210,13 +271,16 @@ public class Main_Navigation extends AppCompatActivity
                     public void onChanged(@Nullable WorkInfo workInfo) {
                         // Do something with the status
                         if (workInfo != null && workInfo.getState().isFinished()) {
-                            // ...
-                            TypeATask();
+
+
+                            // Recursive
+                              TypeATask();
                         }
                     }
                 });
     }
-    private void TypeBTask(){
+
+    private void TypeBTask() {
 
         // this task for weekly Duplicate Size
         OneTimeWorkRequest morning_Work =
@@ -230,7 +294,9 @@ public class Main_Navigation extends AppCompatActivity
                     public void onChanged(@Nullable WorkInfo workInfo) {
                         // Do something with the status
                         if (workInfo != null && workInfo.getState().isFinished()) {
-                            // ...
+
+
+                            // Recursive
                             TypeBTask();
                         }
                     }
@@ -238,10 +304,10 @@ public class Main_Navigation extends AppCompatActivity
 
     }
 
-    public void TypeCTask(){
+    public void TypeCTask() {
 
         // this task for cleaning and show today task
-        int hour=0;
+        int hour = 0;
 
         // grab the data From Database
         BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
@@ -251,48 +317,48 @@ public class Main_Navigation extends AppCompatActivity
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
 
-                if(!cursor.getString(2).equals("No Date")) {
+                if (!cursor.getString(2).equals("No Date")) {
                     try {
 
                         // current or today date
                         Calendar calendars = Calendar.getInstance();
-                        Date curDate =calendars.getTime();
+                        Date curDate = calendars.getTime();
 
                         // specific date from database
                         DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
                         Date date = format.parse(cursor.getString(2));
-                    if(date.after(curDate)) {
-                        switch (cursor.getInt(0)) {
-                            case 0: // At Every 1/2 Day
-                                hour = 12;
-                                break;
-                            case 1:// At Every 1 Day
-                                hour = 24;
-                                break;
-                            case 2:
-                                // At Every 2 Day
-                                hour = (24 * 2);
-                                break;
-                            case 3:
+                        if (date.after(curDate)) {
+                            switch (cursor.getInt(0)) {
+                                case 0: // At Every 1/2 Day
+                                    hour = 12;
+                                    break;
+                                case 1:// At Every 1 Day
+                                    hour = 24;
+                                    break;
+                                case 2:
+                                    // At Every 2 Day
+                                    hour = (24 * 2);
+                                    break;
+                                case 3:
 
-                                Calendar calendar = Calendar.getInstance();
-                                int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+                                    Calendar calendar = Calendar.getInstance();
+                                    int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 
-                                String weekdays = cursor.getString(1);
-                                String[] splits = weekdays.split("");
-                                List<Integer> listWeekdays = new ArrayList<>();
-                                for (String ints : splits) {
-                                    listWeekdays.add(Integer.parseInt(ints));
-                                }
+                                    String weekdays = cursor.getString(1);
+                                    String[] splits = weekdays.split("");
+                                    List<Integer> listWeekdays = new ArrayList<>();
+                                    for (String ints : splits) {
+                                        listWeekdays.add(Integer.parseInt(ints));
+                                    }
 
-                                hour = 24 * CountDay(currentDay, listWeekdays);
+                                    hour = 24 * CountDay(currentDay, listWeekdays);
 
-                                break;
-                            case 4:  // At Every month(Same Date)
-                                hour = (24 * 30);
-                                break;
+                                    break;
+                                case 4:  // At Every month(Same Date)
+                                    hour = (24 * 30);
+                                    break;
+                            }
                         }
-                    }
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -300,11 +366,15 @@ public class Main_Navigation extends AppCompatActivity
 
             }
         }
-        if(hour != 0) {
+        if (hour != 0) {
+
+
+
             OneTimeWorkRequest morning_Work =
                     new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
                             .build();
             WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.KEEP, morning_Work);
+
 
             WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
                     .observe(this, new Observer<WorkInfo>() {
@@ -312,7 +382,9 @@ public class Main_Navigation extends AppCompatActivity
                         public void onChanged(@Nullable WorkInfo workInfo) {
                             // Do something with the status
                             if (workInfo != null && workInfo.getState().isFinished()) {
-                                // ...
+
+
+                                // Recursive
                                 TypeCTask();
                             }
                         }
@@ -392,17 +464,19 @@ public class Main_Navigation extends AppCompatActivity
         return navigationView;
     }
 
-    private static int CountDay(int day,  List<Integer> week_Days){
-        int temp =day,count=0;
-        do{
+    public static int CountDay(int day, List<Integer> week_Days) {
+        int temp = day, count = 0;
+        do {
             count++;
             temp++;
-            if(temp==8)temp=1;
+            if (temp == 8) temp = 1;
 
-            for(Integer week:week_Days){
-                if(temp == week)return count;
+            for (Integer week : week_Days) {
+                if (temp == week) return count;
             }
-        }while(temp != day);
+        } while (temp != day);
         return 0;
     }
+
+
 }

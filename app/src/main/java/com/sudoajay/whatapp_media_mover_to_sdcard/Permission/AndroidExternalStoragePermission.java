@@ -66,7 +66,7 @@ public class AndroidExternalStoragePermission {
         final Dialog dialog = new Dialog(context);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.activity_custom_dialog_permission);
-        Button button_Learn_More = dialog.findViewById(R.id.learn_More_button);
+        Button button_Learn_More = dialog.findViewById(R.id.see_More_button);
         Button button_Continue = dialog.findViewById(R.id.ok_Button);
         // if button is clicked, close the custom dialog
 

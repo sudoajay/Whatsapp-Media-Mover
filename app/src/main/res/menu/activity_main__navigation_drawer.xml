@@ -25,6 +25,11 @@
             android:icon="@drawable/settings_icon"
             android:title="@string/nav_Whatsapp_Setting" />
 
+        <item
+            android:id="@+id/nav_Foreground_Setting"
+            android:icon="@drawable/foreground_icon"
+            android:title="@string/nav_Foreground_Setting" />
+
     </group>
 
     <group android:id="@+id/grp1" android:checkableBehavior="single" >

@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -188,12 +189,8 @@ public class Duplication_Class extends Fragment {
         protected void onPostExecute(String s) {
             alertDialog.dismiss();
 
-
-            Bundle extra = new Bundle();
-            extra.putSerializable("Duplication_Class_Data", (Serializable) duplication_data.getList());
-
             Intent intent = new Intent(main_navigation, Show_Duplicate_File.class);
-            intent.putExtra("Duplication_Class_Data" , extra);
+            intent.putExtra("Duplication_Class_Data" , duplication_data.getList());
             startActivity(intent);
             super.onPostExecute(s);
 

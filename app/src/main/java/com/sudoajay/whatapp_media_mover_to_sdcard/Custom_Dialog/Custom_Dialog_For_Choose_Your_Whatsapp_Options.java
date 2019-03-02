@@ -47,7 +47,7 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootview = inflater.inflate(R.layout.setting_layout_design,container,false);
+        View rootview = inflater.inflate(R.layout.setting_layout_design_whatsapp,container,false);
 
 
         // setup and instalizition for getSharedPreferences

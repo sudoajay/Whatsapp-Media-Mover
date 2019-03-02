@@ -44,6 +44,7 @@
 
     //setting heading
     <string name="Choose_Your_Whatsapp">Choose Your Whatsapp</string>
+    <string name="foreground_Setting">Foreground Service</string>
     <string name="Choose_Ok">OK</string>
     <string name="Choose_Cancel">Cancel</string>
     <string name="setting_Heading">Setting</string>
@@ -54,6 +55,7 @@
     <string name="nav_Duplicate_Data">Duplicate Data</string>
     <string name="nav_background_Timer">Background Timer</string>
     <string name="nav_Whatsapp_Setting">Whatsapp Setting</string>
+    <string name="nav_Foreground_Setting">Foreground Setting</string>
     <string name="nav_share">share</string>
     <string name="nav_Rate_Us">Rate Us</string>
     <string name="nav_Contact_Me">Contact Me</string>
@@ -73,6 +75,12 @@
     <!--whatsApp path setting -->
     <string name="MY_PREFS_NAME">WhatsApp Media Mover</string>
     <string name="keyValue">WhatsApp_Path</string>
+    <string name="background_Service_Working">Background Service Working</string>
+    <string name="foreground_Service_Working">Foreground Service Working</string>
+    <string name="task_A_NextDate">Task A NextDate</string>
+    <string name="task_B_NextDate">Task B NextDate</string>
+    <string name="task_C_NextDate">Task C NextDate</string>
+
 
      <!--first time check flash screen-->
     <string name="isFirstTimeLaunch">Is First Time Launch</string>
@@ -136,4 +144,14 @@
 
     <!-- Fallback Error -->
     <string name="fallBackError">Someting Went Wrong Please Contact Us !</string>
+
+    <!--setting Foreground Service-->
+    <string name="stop_Foreground_Service">Stop Service</string>
+    <string name="why_This_Foreground_Service">Why This ? </string>
+
+    <string name="custom_Foreground_Permission">Smartphones are getting more and more powerful,
+        but the battery capacity is lagging behind .</string>
+
+    <string name="custom_Dialog_Box_Heading">Foreground Service</string>
+    <string name="custom_Dialog_Box_Text">Are you sure to stop all your background Task?</string>
 </resources>

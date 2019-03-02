@@ -95,7 +95,7 @@ public class NotifyNotification {
 
         // this check for android Oero In which Channel Id Come as New Feature
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             assert notificationManager != null;
             NotificationChannel mChannel = notificationManager.getNotificationChannel(channel_id);
             if (mChannel == null) {
@@ -118,7 +118,7 @@ public class NotifyNotification {
 
                 // Use a default priority (recognized on devices running Android
                 // 4.1 or later)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
            //     .setSound(uri)
                 // Provide a large icon, shown with the notification in the
                 // notification drawer on devices running Android 3.0 or later.

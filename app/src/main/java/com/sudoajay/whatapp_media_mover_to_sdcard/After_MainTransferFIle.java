@@ -31,20 +31,21 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Copy_The_File;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Delete_The_File;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Restore_The_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Changes_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Normal_Changes;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Tabbed_Custom_Dialog_For_Deep;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Copy_delete_File.Restore_The_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TickOnButtonSharedPreference;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -956,7 +957,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             assert notificationManager != null;
             NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
             if (mChannel == null) {
@@ -968,6 +969,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     .setSmallIcon(R.mipmap.ic_launcher)   // required
                    .setVibrate(new long[]{0L}) // Passing null here silently fails
                     .setAutoCancel(false)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setOngoing(true)
                     .setContent(contentView)
                     .setLights(Color.parseColor("#075e54"), 3000, 3000);
@@ -978,13 +980,16 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     }
     public String get_Current_Time() {
-        Date currentTime = Calendar.getInstance().getTime();
 
-        if (currentTime.getHours() < 12) {
-            return currentTime.getHours() + ":" + currentTime.getMinutes() + " AM";
+        Calendar calendar = Calendar.getInstance();
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+
+        if (hours < 12) {
+            return hours + ":" + minutes + " AM";
         } else {
 
-            return (currentTime.getHours() - 12) + ":" + currentTime.getMinutes() + " PM";
+            return (hours - 12) + ":" + minutes + " PM";
         }
     }
 
@@ -1082,6 +1087,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                             .setOngoing(false)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .setContentTitle(after_Notification)
                             .setAutoCancel(true)
                             .setLights(Color.parseColor("#075e54"), 3000, 3000);

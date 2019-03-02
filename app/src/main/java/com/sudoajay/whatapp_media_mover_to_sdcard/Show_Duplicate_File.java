@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,9 +68,12 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         Reference();
 
-        Bundle extra = getIntent().getBundleExtra("Duplication_Class_Data");
-        List<String> Data;
-        Data = (List<String>) extra.getSerializable("Duplication_Class_Data");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        assert bundle != null;
+        ArrayList<String> Data =  bundle.getStringArrayList("Duplication_Class_Data");
+
+        assert Data != null;
         if(Data.isEmpty()) {
             delete_Duplicate_Button.setVisibility(View.INVISIBLE);
             text_View_Nothing.setVisibility(View.VISIBLE);
@@ -163,7 +167,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
         notification_permission_check = new Notification_Permission_Check(this,this);
 
         // fix or resize the drawable image
-        Drawable img = Objects.requireNonNull(getApplicationContext().getResources().getDrawable( R.drawable.remove_intro_icon ));
+        Drawable img = ContextCompat.getDrawable(Objects.requireNonNull(getApplicationContext()), R.drawable.remove_intro_icon );
+        assert img != null;
         img.setBounds( 0, 0, 80, 80 );
         delete_Duplicate_Button.setCompoundDrawables( img, null, null, null );
 
@@ -392,7 +397,6 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         notificationManager.notify(1, notification);
     }
@@ -430,18 +434,20 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_LIGHTS;
 
         notificationManager.notify(1, notification);
     }
     public String get_Current_Time() {
-        Date currentTime = Calendar.getInstance().getTime();
 
-        if (currentTime.getHours() < 12) {
-            return currentTime.getHours() + ":" + currentTime.getMinutes() + " AM";
+        Calendar calendar = Calendar.getInstance();
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+
+        if (hours < 12) {
+            return hours + ":" + minutes + " AM";
         } else {
 
-            return (currentTime.getHours() - 12) + ":" + currentTime.getMinutes() + " PM";
+            return (hours - 12) + ":" + minutes + " PM";
         }
     }
 

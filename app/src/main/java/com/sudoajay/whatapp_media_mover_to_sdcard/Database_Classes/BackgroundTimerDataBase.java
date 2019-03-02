@@ -68,7 +68,7 @@ public class BackgroundTimerDataBase extends SQLiteOpenHelper {
     }
     public Cursor GetTheTypeFromId(){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT Choose_Type FROM "+ DATABASE_TABLE_NAME  ,null);
+        return sqLiteDatabase.rawQuery("SELECT Choose_Type,Repeatedly FROM "+ DATABASE_TABLE_NAME  ,null);
     }
 
     public void UpdateTheTable(String id , int choose_Type , int repeatedly , String weekdays , String endlessly){

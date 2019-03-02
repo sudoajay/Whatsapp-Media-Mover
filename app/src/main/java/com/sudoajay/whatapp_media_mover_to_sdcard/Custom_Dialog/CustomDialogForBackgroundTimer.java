@@ -25,10 +25,11 @@ import android.widget.Toast;
 import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.ForegroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import org.angmarch.views.NiceSpinner;
-
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,28 +39,29 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class CustomDialogForBackgroundTimer extends DialogFragment implements AdapterView.OnItemSelectedListener , View.OnClickListener {
+public class CustomDialogForBackgroundTimer extends DialogFragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    private NiceSpinner repeatedlySpinner,chooseSpinner;
+    private NiceSpinner repeatedlySpinner, chooseSpinner;
     private WeekdaysPicker weekdaysPicker;
     private ImageView choose_ImageView;
     private EditText endlesslyEditText;
-    private String getSelectedEndlesslyDate=null;
+    private String getSelectedEndlesslyDate = null;
     private BackgroundTimerDataBase backgroundTimerDataBase;
     private Main_Navigation main_navigation;
-    public CustomDialogForBackgroundTimer(){
+
+    public CustomDialogForBackgroundTimer() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public CustomDialogForBackgroundTimer(Main_Navigation main_navigation){
+    public CustomDialogForBackgroundTimer(Main_Navigation main_navigation) {
         this.main_navigation = main_navigation;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        View rootview = inflater.inflate(R.layout.activity_background_timer,container,false);
+        View rootview = inflater.inflate(R.layout.activity_background_timer, container, false);
 
         Reference(rootview);
 
@@ -67,30 +69,30 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         setCustomChooserSpinner();
         setCustomRepeatSpinner();
 
-        if(!backgroundTimerDataBase.check_For_Empty()){
+        if (!backgroundTimerDataBase.check_For_Empty()) {
             Cursor cursor = backgroundTimerDataBase.GetTheValueFromId();
             if (cursor != null) {
                 cursor.moveToFirst();
 
-               chooseSpinner.setSelectedIndex(cursor.getInt(1));
-               repeatedlySpinner.setSelectedIndex(cursor.getInt(2));
-               if(cursor.getInt(2) == 3) {
-                   Fill_The_Selected_Weekdays(cursor.getString(3));
-                   weekdaysPicker.setVisibility(View.VISIBLE);
-               }
+                chooseSpinner.setSelectedIndex(cursor.getInt(1));
+                repeatedlySpinner.setSelectedIndex(cursor.getInt(2));
+                if (cursor.getInt(2) == 3) {
+                    Fill_The_Selected_Weekdays(cursor.getString(3));
+                    weekdaysPicker.setVisibility(View.VISIBLE);
+                }
                 try {
 
                     Calendar calendar = Calendar.getInstance();
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     simpleDateFormat.setCalendar(calendar);
 
-                    if(cursor.getString(4).equalsIgnoreCase(simpleDateFormat.format(calendar.getTime()))){
+                    if (cursor.getString(4).equalsIgnoreCase(simpleDateFormat.format(calendar.getTime()))) {
                         endlesslyEditText.setText(getResources().getText(R.string.today_Date));
-                    }else {
+                    } else {
                         endlesslyEditText.setText(cursor.getString(4));
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getContext(),"Something Wrong",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Something Wrong", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -104,12 +106,12 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     }
 
     // reference the object
-    private void Reference(View view){
+    private void Reference(View view) {
         // global variable
         Button cancelButton = view.findViewById(R.id.cancelButton);
         Button okButton = view.findViewById(R.id.okButton);
-        chooseSpinner =view.findViewById(R.id.chooseSpinner);
-        repeatedlySpinner =view.findViewById(R.id.repeatedlySpinner);
+        chooseSpinner = view.findViewById(R.id.chooseSpinner);
+        repeatedlySpinner = view.findViewById(R.id.repeatedlySpinner);
         weekdaysPicker = view.findViewById(R.id.weekdaysPicker);
         choose_ImageView = view.findViewById(R.id.choose_ImageView);
         endlesslyEditText = view.findViewById(R.id.endlesslyEditText);
@@ -135,8 +137,12 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.okButton:
+
+                // checking for foreground Service
+                CheckingAndSetting();
+
                 //Save To Database
                 SaveToDatabase();
                 main_navigation.TypeCTask();
@@ -154,7 +160,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
     // spinner for choose
     // set spinner list for Choose
-    private void setCustomChooserSpinner(){
+    private void setCustomChooserSpinner() {
 
         List<String> repeat_Array = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.customChooserSetup)));
         chooseSpinner.attachDataSource(repeat_Array);
@@ -173,9 +179,10 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             }
         });
     }
+
     // spinner for choose
     // set spinner list for repeat
-    private void setCustomRepeatSpinner(){
+    private void setCustomRepeatSpinner() {
 
         List<String> repeat_Array = new LinkedList<>(Arrays.asList(getResources().getStringArray(R.array.customWeekdaysSetup)));
         repeatedlySpinner.attachDataSource(repeat_Array);
@@ -186,9 +193,9 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(position== 3){
+                if (position == 3) {
                     weekdaysPicker.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     weekdaysPicker.setVisibility(View.GONE);
                 }
             }
@@ -201,33 +208,33 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     }
 
     // setup choose_ImageView
-    private void setupChooseImageView(final int pos){
+    private void setupChooseImageView(final int pos) {
 
         // local variable
-        Bitmap largeIcon ;
+        Bitmap largeIcon;
         try {
-        switch (pos){
-            case 1:
-                largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.move_intro_icon);
-                break;
-            case 2:
-                largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.copy_intro_icon);
-                break;
-            case 3:
-                largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.remove_intro_icon);
-                break;
-            default:
-                largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.restore_intro_icon);
-                break;
-        }
-            choose_ImageView.setImageBitmap(Bitmap.createScaledBitmap(largeIcon,55,55,false));
+            switch (pos) {
+                case 1:
+                    largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.move_intro_icon);
+                    break;
+                case 2:
+                    largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.copy_intro_icon);
+                    break;
+                case 3:
+                    largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.remove_intro_icon);
+                    break;
+                default:
+                    largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.restore_intro_icon);
+                    break;
+            }
+            choose_ImageView.setImageBitmap(Bitmap.createScaledBitmap(largeIcon, 55, 55, false));
         } catch (Exception e) {
-            Toast.makeText(getContext(),"Something Wrong - "+ e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Something Wrong - " + e.getMessage(), Toast.LENGTH_LONG).show();
 
         }
     }
 
-    private void GetEndlesslyDate(){
+    private void GetEndlesslyDate() {
         final Calendar c = Calendar.getInstance();
         final int cYear = c.get(Calendar.YEAR);
         final int cMonth = c.get(Calendar.MONTH);
@@ -235,13 +242,10 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
 
         DatePickerDialog datePickerDialog;
-        int theme1;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            theme1 = android.R.style.Theme_Material_Light_Dialog;
-        }else{
-            theme1 = android.R.style.Theme_Holo_Dialog;
-        }
-        datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()),theme1,
+        // Theme
+        int theme1 = android.R.style.Theme_Material_Light_Dialog;
+
+        datePickerDialog = new DatePickerDialog(Objects.requireNonNull(getContext()), theme1,
                 new DatePickerDialog.OnDateSetListener() {
                     @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
                     @Override
@@ -251,7 +255,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, monthOfYear, dayOfMonth);
                         SimpleDateFormat getEndlesslyDate = new SimpleDateFormat("dd-MM-yyyy");
-                        getSelectedEndlesslyDate= getEndlesslyDate.format(calendar.getTime());
+                        getSelectedEndlesslyDate = getEndlesslyDate.format(calendar.getTime());
 
                         // check for today date
                         try {
@@ -260,13 +264,13 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                             @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                             simpleDateFormat.setCalendar(calendars);
 
-                        if(getSelectedEndlesslyDate.equalsIgnoreCase(simpleDateFormat.format(calendars.getTime())) ){
-                            endlesslyEditText.setText(getResources().getText(R.string.today_Date));
-                        }else {
-                            endlesslyEditText.setText(getSelectedEndlesslyDate);
-                        }
+                            if (getSelectedEndlesslyDate.equalsIgnoreCase(simpleDateFormat.format(calendars.getTime()))) {
+                                endlesslyEditText.setText(getResources().getText(R.string.today_Date));
+                            } else {
+                                endlesslyEditText.setText(getSelectedEndlesslyDate);
+                            }
                         } catch (Exception e) {
-                            Toast.makeText(getContext(),"Something Wrong",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Something Wrong", Toast.LENGTH_LONG).show();
                         }
 
                         // if date already done then show the user
@@ -291,46 +295,47 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         datePickerDialog.show();
     }
 
-    private void SaveToDatabase(){
+    private void SaveToDatabase() {
         // save to Database
-        if(getSelectedEndlesslyDate== null)
-            getSelectedEndlesslyDate="No Date";
+        if (getSelectedEndlesslyDate == null)
+            getSelectedEndlesslyDate = "No Date";
 
-        if(backgroundTimerDataBase.check_For_Empty()){
+        if (backgroundTimerDataBase.check_For_Empty()) {
             backgroundTimerDataBase.FillIt(chooseSpinner.getSelectedIndex(),
-                    repeatedlySpinner.getSelectedIndex(), get_Repeat(),getSelectedEndlesslyDate);
+                    repeatedlySpinner.getSelectedIndex(), get_Repeat(), getSelectedEndlesslyDate);
 
-        }else {
-            backgroundTimerDataBase.UpdateTheTable("1" , chooseSpinner.getSelectedIndex(),
-                    repeatedlySpinner.getSelectedIndex(),get_Repeat(),getSelectedEndlesslyDate);
+        } else {
+            backgroundTimerDataBase.UpdateTheTable("1", chooseSpinner.getSelectedIndex(),
+                    repeatedlySpinner.getSelectedIndex(), get_Repeat(), getSelectedEndlesslyDate);
         }
 
-        Toast.makeText(getContext(),getResources().getText(R.string.setting_Updated),Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getResources().getText(R.string.setting_Updated), Toast.LENGTH_LONG).show();
 
     }
 
     // week days selected
-    private void Fill_The_Selected_Weekdays(String week){
-        String[] split  =week.split("");
+    private void Fill_The_Selected_Weekdays(String week) {
+        String[] split = week.split("");
         List<Integer> list = new ArrayList<>();
-        for(String weeks_Days: split){
+        for (String weeks_Days : split) {
             try {
                 list.add(Integer.parseInt(weeks_Days));
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
 
             }
         }
         weekdaysPicker.setSelectedDays(list);
     }
 
-    public String get_Repeat(){
+    public String get_Repeat() {
         List<Integer> weekday = weekdaysPicker.getSelectedDays();
-        StringBuilder join= new StringBuilder();
-        for(Integer week: weekday){
+        StringBuilder join = new StringBuilder();
+        for (Integer week : weekday) {
             join.append(week);
         }
         return join.toString();
     }
+
     public void onStart() {
         // This MUST be called first! Otherwise the view tweaking will not be present in the displayed Dialog (most likely overriden)
         super.onStart();
@@ -361,8 +366,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                 }
 
                 // Modify the layout
-                current.getLayoutParams().width = width-((10*width)/100);
-                current.getLayoutParams().height = height-((25 *height)/100);
+                current.getLayoutParams().width = width - ((10 * width) / 100);
+                current.getLayoutParams().height = height - ((25 * height) / 100);
             }
         } while (current.getParent() != null);
 
@@ -376,7 +381,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss(){
+    public void Dissmiss() {
 
         this.dismiss();
     }
@@ -390,6 +395,17 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    // only for forground service
+    private void CheckingAndSetting() {
+        TraceBackgroundService traceBackgroundService =
+                new TraceBackgroundService(Objects.requireNonNull(getContext()));
+//        if (!traceBackgroundService.isBackgroundServiceWorking()
+//                && !traceBackgroundService.isForegroundServiceWorking()){
 
+                // call thread and dilog to run foreground service
+        ForegroundService foregroundService = new ForegroundService(getContext(),getActivity());
+        foregroundService.call_Thread();
+    //    }
+    }
 
 }

@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class Duplication_Data {
     private List<File> getAllData = new LinkedList<>();
-    private List<String> dataStore = new ArrayList<>();
+    private ArrayList<String> dataStore = new ArrayList<>();
     private static Context context;
 
 
@@ -102,7 +102,7 @@ public class Duplication_Data {
         }
     }
 
-    public List<String> getList() {
+    public ArrayList<String> getList() {
         return dataStore;
     }
 }

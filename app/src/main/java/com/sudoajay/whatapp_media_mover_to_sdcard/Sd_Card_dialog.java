@@ -39,7 +39,7 @@ public class Sd_Card_dialog extends DialogFragment
             ImageView imageView = rootview.findViewById(R.id.step_Image_View);
 
             Button continue_Button = rootview.findViewById(R.id.ok_Button);
-            Button learn_More_button = rootview.findViewById(R.id.learn_More_button);
+            Button learn_More_button = rootview.findViewById(R.id.see_More_button);
 
             continue_Button.setOnClickListener(new View.OnClickListener() {
                 @Override
