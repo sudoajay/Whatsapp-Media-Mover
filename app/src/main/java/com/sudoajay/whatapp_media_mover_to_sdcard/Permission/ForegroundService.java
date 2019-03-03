@@ -1,6 +1,7 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Permission;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -70,11 +71,13 @@ public class ForegroundService {
 
                     traceBackgroundService.setForegroundServiceWorking(true);
 
-                    // call Foreground Thread();
-                    Intent startIntent = new Intent(mContext, Foreground.class);
-                    startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
-                            ,"Start_Foreground");
-                    activity.startService(startIntent);
+                    if(!isServiceRunningInForeground(mContext,Foreground.class)) {
+                        // call Foreground Thread();
+                        Intent startIntent = new Intent(mContext, Foreground.class);
+                        startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
+                                , "Start_Foreground");
+                        activity.startService(startIntent);
+                    }
                 }catch (Exception ignored){
 
                 }
@@ -101,5 +104,18 @@ public class ForegroundService {
             default: return  "https://dontkillmyapp.com/";
 
         }
+    }
+
+    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                if (service.foreground) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
     }
 }

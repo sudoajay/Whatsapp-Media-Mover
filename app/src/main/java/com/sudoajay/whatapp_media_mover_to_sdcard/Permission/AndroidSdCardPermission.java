@@ -8,13 +8,13 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_dialog;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 
 import java.io.File;
@@ -83,7 +83,7 @@ public class AndroidSdCardPermission {
                 after_mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             }
         }catch (Exception e){
-            Toast.makeText(context,"There is Error Please Report It",Toast.LENGTH_SHORT).show();
+            CustomToast.ToastIt(context,"There is Error Please Report It");
         }
     }
 

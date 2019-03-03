@@ -14,12 +14,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -27,14 +27,13 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,7 +49,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private Expandable_Duplicate_List_Adapter expandable_duplicate_list_adapter;
     private List<String> list_Header = new ArrayList<>(), save = new ArrayList<>();
     private HashMap<String, List<String>> list_Header_Child = new LinkedHashMap<>();
-    private MultiThreading_Task multiThreading_task=new MultiThreading_Task();
+    private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
     private long total_Size;
     private Button delete_Duplicate_Button;
     private TextView text_View_Nothing;
@@ -71,10 +70,10 @@ public class Show_Duplicate_File extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         assert bundle != null;
-        ArrayList<String> Data =  bundle.getStringArrayList("Duplication_Class_Data");
+        ArrayList<String> Data = bundle.getStringArrayList("Duplication_Class_Data");
 
         assert Data != null;
-        if(Data.isEmpty()) {
+        if (Data.isEmpty()) {
             delete_Duplicate_Button.setVisibility(View.INVISIBLE);
             text_View_Nothing.setVisibility(View.VISIBLE);
 
@@ -104,13 +103,13 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         for (i = 0; i < list_Header.size(); i++) {
             expandableListView.expandGroup(i);
-            for(int j = 0; j< Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size() ; j++){
-                total_Size+=new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j)).length();
+            for (int j = 0; j < Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size(); j++) {
+                total_Size += new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j)).length();
             }
 
         }
 
-        delete_Duplicate_Button.setText("Delete ("+Convert_It(total_Size)+")");
+        delete_Duplicate_Button.setText("Delete (" + Convert_It(total_Size) + ")");
         // Listview Group click listener
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
@@ -164,13 +163,13 @@ public class Show_Duplicate_File extends AppCompatActivity {
         delete_Duplicate_Button = findViewById(R.id.delete_Duplicate_Button);
         text_View_Nothing = findViewById(R.id.text_View_Nothing);
 
-        notification_permission_check = new Notification_Permission_Check(this,this);
+        notification_permission_check = new Notification_Permission_Check(this, this);
 
         // fix or resize the drawable image
-        Drawable img = ContextCompat.getDrawable(Objects.requireNonNull(getApplicationContext()), R.drawable.remove_intro_icon );
+        Drawable img = ContextCompat.getDrawable(Objects.requireNonNull(getApplicationContext()), R.drawable.remove_intro_icon);
         assert img != null;
-        img.setBounds( 0, 0, 80, 80 );
-        delete_Duplicate_Button.setCompoundDrawables( img, null, null, null );
+        img.setBounds(0, 0, 80, 80);
+        delete_Duplicate_Button.setCompoundDrawables(img, null, null, null);
 
     }
 
@@ -192,9 +191,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
                     refresh_Image_View.animate().rotationBy(360f).setDuration(1000);
                 break;
             case R.id.delete_Duplicate_Button:
-                if(!notification_permission_check.check_Notification_Permission()){
+                if (!notification_permission_check.check_Notification_Permission()) {
                     notification_permission_check.Custom_AertDialog();
-                }else {
+                } else {
                     Call_Custom_Dailog("   Are You Sure To Delete ?");
                 }
         }
@@ -203,7 +202,6 @@ public class Show_Duplicate_File extends AppCompatActivity {
     public void open_With(File file) {
         MimeTypeMap myMime = MimeTypeMap.getSingleton();
         Intent newIntent = new Intent(Intent.ACTION_VIEW);
-
         String mimeType = myMime.getMimeTypeFromExtension(Objects.requireNonNull(fileExt(file.getAbsolutePath())).substring(1));
         Uri URI = FileProvider.getUriForFile(this,
                 BuildConfig.APPLICATION_ID + ".provider",
@@ -213,8 +211,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         try {
             this.startActivity(newIntent);
         } catch (Exception e) {
-            Toast.makeText(this, "No handler for this type of file.", Toast.LENGTH_LONG).show();
-
+            CustomToast.ToastIt(getApplicationContext(), "No handler for this type of file.");
         }
     }
 
@@ -239,8 +236,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       Intent intent = new Intent(getApplicationContext(), Main_Navigation.class);
-       intent.putExtra("passing","DuplicateData");
+        Intent intent = new Intent(getApplicationContext(), Main_Navigation.class);
+        intent.putExtra("passing", "DuplicateData");
         startActivity(intent);
     }
 
@@ -274,8 +271,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public  class MultiThreading_Task extends AsyncTask<String, String, String> {
-        int progress = 0 ;
+    public class MultiThreading_Task extends AsyncTask<String, String, String> {
+        int progress = 0;
 
         @Override
         protected void onPreExecute() {
@@ -288,8 +285,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
             alertDialog.show();
             onBackPressed();
-            Toast.makeText(Show_Duplicate_File.this,"Deletion" , Toast.LENGTH_LONG).show();
-                super.onPreExecute();
+            CustomToast.ToastIt(getApplicationContext(), "Deletion");
+            super.onPreExecute();
         }
 
         @Override
@@ -300,11 +297,10 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(String... values)
-        {
+        protected void onProgressUpdate(String... values) {
             progress++;
             contentView.setTextViewText(R.id.size_Title, progress + "/" + list_Header.size());
-            contentView.setTextViewText(R.id.percent_Text, ((progress*100)/list_Header.size())+"%");
+            contentView.setTextViewText(R.id.percent_Text, ((progress * 100) / list_Header.size()) + "%");
             contentView.setTextViewText(R.id.time_Tittle, get_Current_Time());
             contentView.setProgressBar(R.id.progressBar, list_Header.size(), progress, false);
             notificationManager.notify(1, notification);
@@ -314,7 +310,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             Notification();
-            new Delete_Duplicate_Data(list_Header,list_Header_Child,Show_Duplicate_File.this);
+            new Delete_Duplicate_Data(list_Header, list_Header_Child, Show_Duplicate_File.this);
             return null;
         }
     }
@@ -349,28 +345,29 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }
 
     }
+
     public void call_Thread() {
-       Handler handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 notificationManager.cancel(1);
                 default_Notification();
-                Toast.makeText(Show_Duplicate_File.this, "Successfully Data Deleted", Toast.LENGTH_LONG).show();
+                CustomToast.ToastIt(getApplicationContext(), "Successfully Data Deleted");
 
             }
         }, 2000);
     }
+
     public void default_Notification() {
 
         String id = this.getString(R.string.transfer_Done_Id); // default_channel_id
         String title = this.getString(R.string.transfer_Done_title); // Default Channel
         NotificationCompat.Builder builder;
 
-        
 
         if (notificationManager == null) {
-            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -382,7 +379,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             }
         }
         builder =
-                new NotificationCompat.Builder(this,"")
+                new NotificationCompat.Builder(this, "")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Data Deleted")
                         .setAutoCancel(true)
@@ -400,6 +397,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         notificationManager.notify(1, notification);
     }
+
     public void Notification() {
         String id = this.getString(R.string.duplicate_Id); // default_channel_id
         String title = this.getString(R.string.duplicate_title); // Default Channel
@@ -410,11 +408,11 @@ public class Show_Duplicate_File extends AppCompatActivity {
         contentView.setTextViewText(R.id.title, "Deletion...");
         contentView.setTextViewText(R.id.time_Tittle, get_Current_Time());
         contentView.setProgressBar(R.id.progressBar, 100, 0, false);
-        contentView.setTextViewText(R.id.size_Title, "0/"+ list_Header.size());
+        contentView.setTextViewText(R.id.size_Title, "0/" + list_Header.size());
         contentView.setTextViewText(R.id.percent_Text, "00%");
 
         if (notificationManager == null) {
-            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -437,6 +435,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         notificationManager.notify(1, notification);
     }
+
     public String get_Current_Time() {
 
         Calendar calendar = Calendar.getInstance();

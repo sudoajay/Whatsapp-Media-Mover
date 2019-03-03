@@ -2,7 +2,8 @@ package com.sudoajay.whatapp_media_mover_to_sdcard;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
+
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +29,7 @@ public class Duplication_Data {
         try {
             messageDigest = MessageDigest.getInstance("SHA-512");
         } catch (NoSuchAlgorithmException e) {
-            Toast.makeText(context,"cannot initialize SHA-512 hash function",Toast.LENGTH_LONG).show();
+            CustomToast.ToastIt(context,"cannot initialize SHA-512 hash function");
         }
     }
 

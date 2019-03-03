@@ -20,13 +20,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.ForegroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import org.angmarch.views.NiceSpinner;
@@ -92,7 +92,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                         endlesslyEditText.setText(cursor.getString(4));
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getContext(), "Something Wrong", Toast.LENGTH_LONG).show();
+                    CustomToast.ToastIt(getContext(), "Something Wrong");
                 }
 
             }
@@ -229,7 +229,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             }
             choose_ImageView.setImageBitmap(Bitmap.createScaledBitmap(largeIcon, 55, 55, false));
         } catch (Exception e) {
-            Toast.makeText(getContext(), "Something Wrong - " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+            CustomToast.ToastIt(getContext(),"Something Wrong");
 
         }
     }
@@ -270,7 +271,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                                 endlesslyEditText.setText(getSelectedEndlesslyDate);
                             }
                         } catch (Exception e) {
-                            Toast.makeText(getContext(), "Something Wrong", Toast.LENGTH_LONG).show();
+                            CustomToast.ToastIt(getContext(), "Something Wrong");
                         }
 
                         // if date already done then show the user
@@ -278,10 +279,10 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                         if (((Integer.parseInt(split_Date[2]) < c.get(Calendar.YEAR)) ||
                                 ((Integer.parseInt(split_Date[2]) <= c.get(Calendar.YEAR)) && (Integer.parseInt(split_Date[1]) < c.get(Calendar.MONTH)))
                                 || ((Integer.parseInt(split_Date[2]) <= c.get(Calendar.YEAR)) && (Integer.parseInt(split_Date[1]) <= c.get(Calendar.MONTH)) && (Integer.parseInt(split_Date[0]) < c.get(Calendar.DAY_OF_MONTH)))))
-                            Toast.makeText(CustomDialogForBackgroundTimer.this.getContext(), "Oops... The Date You selected is Already gone", Toast.LENGTH_SHORT).show();
+                        CustomToast.ToastIt(getContext(),"Oops... The Date You selected is Already gone");
                         else {
                             // print the endlessly_Edit_Text text
-                            Toast.makeText(CustomDialogForBackgroundTimer.this.getContext(), endlesslyEditText.getText().toString(), Toast.LENGTH_LONG).show();
+                            CustomToast.ToastIt(getContext(),endlesslyEditText.getText().toString());
                         }
 
                     }
@@ -309,7 +310,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                     repeatedlySpinner.getSelectedIndex(), get_Repeat(), getSelectedEndlesslyDate);
         }
 
-        Toast.makeText(getContext(), getResources().getText(R.string.setting_Updated), Toast.LENGTH_LONG).show();
+        CustomToast.ToastIt(getContext(), getResources().getText(R.string.setting_Updated).toString());
 
     }
 
@@ -399,13 +400,12 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     private void CheckingAndSetting() {
         TraceBackgroundService traceBackgroundService =
                 new TraceBackgroundService(Objects.requireNonNull(getContext()));
-//        if (!traceBackgroundService.isBackgroundServiceWorking()
-//                && !traceBackgroundService.isForegroundServiceWorking()){
-
-                // call thread and dilog to run foreground service
+        if (!traceBackgroundService.isBackgroundServiceWorking()
+                && !traceBackgroundService.isForegroundServiceWorking()){
+                // call thread and dialog to run foreground service
         ForegroundService foregroundService = new ForegroundService(getContext(),getActivity());
         foregroundService.call_Thread();
-    //    }
+      }
     }
 
 }

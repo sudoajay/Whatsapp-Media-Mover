@@ -40,6 +40,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_Fo
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Tabbed_Custom_Dialog_For_Deep;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TickOnButtonSharedPreference;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
@@ -73,12 +74,11 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private boolean whats_App_File_Exist_Internal, checking_Folder, whats_App_File_Exist_External;
     private View layout;
     private Toast toast;
-    private  String whats_App_Media_Path;
+    private String whats_App_Media_Path;
     private Delete_The_File delete_the_fIle;
     private Copy_The_File copy_the_file;
     private Restore_The_Data restore_the_data;
     private DocumentFile sd_Card_documentFile;
-    private final int requestCode = 42;
     private Uri sd_Card_URL;
     private RemoteViews contentView;
     private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
@@ -88,8 +88,8 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private List<File> only_Selected_File = new ArrayList<>();
     private boolean stop_The_Process;
     private Notification_Permission_Check notification_permission_check;
-    private int normal_Changes=0 ;
-    private String whatsapp_Path,string_URI;
+    private int normal_Changes = 0;
+    private String whatsapp_Path, string_URI;
     private Storage_Info storage_Info;
     private TickOnButtonSharedPreference tickOnButtonSharedPreference;
     private AndroidSdCardPermission android_sdCard_permission;
@@ -108,16 +108,16 @@ public class After_MainTransferFIle extends AppCompatActivity {
         // setup and instalization of sharedprefernece
         tickOnButtonSharedPreference = new TickOnButtonSharedPreference(getApplicationContext());
         int no = 0;
-            while (no < 9) {
-                if (!tickOnButtonSharedPreference.getTickArray(no)) {
-                    return_Id(no).setVisibility(View.GONE);
-                }
-                no++;
+        while (no < 9) {
+            if (!tickOnButtonSharedPreference.getTickArray(no)) {
+                return_Id(no).setVisibility(View.GONE);
             }
+            no++;
+        }
 
         WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(getApplicationContext());
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
-        whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path() ;
+        whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path();
 
         setSupportActionBar(toolbar);
 
@@ -155,12 +155,12 @@ public class After_MainTransferFIle extends AppCompatActivity {
         ImageView back_Image_View = findViewById(R.id.back_Image_View);
 
         // create class object
-        notification_permission_check = new Notification_Permission_Check(this,this);
-        storage_Info = new Storage_Info(sd_Card_Path_URL , this);
+        notification_permission_check = new Notification_Permission_Check(this, this);
+        storage_Info = new Storage_Info(sd_Card_Path_URL, this);
 
         // create and instalization of sd card permission
         android_sdCard_permission = new AndroidSdCardPermission(After_MainTransferFIle.this
-                ,getApplicationContext(),this);
+                , getApplicationContext(), this);
     }
 
     @SuppressLint("SetTextI18n")
@@ -197,9 +197,9 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     Toast_It("You Supposed To Select Something");
                 else {
                     Save_In_Database();
-                    if(!notification_permission_check.check_Notification_Permission()){
+                    if (!notification_permission_check.check_Notification_Permission()) {
                         notification_permission_check.Custom_AertDialog();
-                    }else{
+                    } else {
                         Send_Permission_To_Transfer();
                     }
 
@@ -219,16 +219,16 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility1 == View.VISIBLE) {
                     tick_Audio_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Audio");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Audio");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio");
                     }
                 } else {
                     tick_Audio_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Audio");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Audio");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio");
                     }
                 }
                 break;
@@ -242,17 +242,17 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility2 == View.VISIBLE) {
                     tick_Video_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Video");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Video");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video");
                     }
 
                 } else {
                     tick_Video_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Video");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path +"/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Video");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video");
                     }
                 }
                 break;
@@ -266,17 +266,17 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility3 == View.VISIBLE) {
                     tick_Document_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Documents");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Documents");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents");
                     }
 
                 } else {
                     tick_Document_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Documents");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Documents");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents");
                     }
                 }
                 break;
@@ -290,17 +290,17 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility4 == View.VISIBLE) {
                     tick_Image_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images");
                     }
 
                 } else {
                     tick_Image_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images");
                     }
                 }
                 break;
@@ -314,17 +314,17 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility5 == View.VISIBLE) {
                     tick_Gif_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Animated Gifs");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Animated Gifs");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs");
                     }
 
                 } else {
                     tick_Gif_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Animated Gifs");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Animated Gifs");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs");
                     }
                 }
                 break;
@@ -338,16 +338,16 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility6 == View.VISIBLE) {
                     tick_Voice_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes");
                     }
                 } else {
                     tick_Voice_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes");
                     }
                 }
                 break;
@@ -362,11 +362,11 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     tick_Profile_ImageView.setVisibility(View.GONE);
 
                     if (!which_Option_To_Do.equalsIgnoreCase("restore")) {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Profile Photos");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos");
                         get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/.Statuses");
                         get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/WallPaper");
                     } else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Profile Photos");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos");
                         get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/.Statuses");
                         get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/WallPaper");
                     }
@@ -374,12 +374,12 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
                     tick_Profile_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore")) {
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Profile Photos");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos");
                         get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/.Statuses");
                         get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/WallPaper");
                     } else {
                         get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/WallPaper");
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Profile Photos");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos");
                         get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/.Statuses");
                     }
                 }
@@ -394,17 +394,17 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility8 == View.VISIBLE) {
                     tick_Sticker_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Stickers");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers");
                     else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Stickers");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers");
                     }
 
                 } else {
                     tick_Sticker_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore"))
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Stickers");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers");
                     else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Stickers");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers");
                     }
                 }
                 break;
@@ -418,25 +418,25 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 else if (visibility9 == View.VISIBLE) {
                     tick_Database_ImageView.setVisibility(View.GONE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore")) {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"Databases");
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+".Shared");
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+".Trash");
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"cache");
-                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"Theme");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "Databases");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + ".Shared");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + ".Trash");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "cache");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "Theme");
                     } else {
-                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whatsapp_Path+"Databases");
+                        get_File_Size -= storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whatsapp_Path + "Databases");
                     }
 
                 } else {
                     tick_Database_ImageView.setVisibility(View.VISIBLE);
                     if (!which_Option_To_Do.equalsIgnoreCase("restore")) {
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"Databases");
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+".Shared");
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+".Trash");
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"cache");
-                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"Theme");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "Databases");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + ".Shared");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + ".Trash");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "cache");
+                        get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "Theme");
                     } else {
-                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whatsapp_Path+"Databases");
+                        get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whatsapp_Path + "Databases");
                     }
                 }
                 break;
@@ -457,7 +457,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
         whats_App_File_Exist_External = (new File(sd_Card_Path_URL + whats_App_Media_Path)).exists();
     }
-    
+
 
     public void Checked_For_Check_The_Icon() {
         if (tick_Audio_ImageView.getVisibility() == View.VISIBLE || tick_Video_ImageView.getVisibility() == View.VISIBLE ||
@@ -547,31 +547,31 @@ public class After_MainTransferFIle extends AppCompatActivity {
         Checked_The_Main_Thing();
         if (whats_App_File_Exist_Internal && !which_Option_To_Do.equalsIgnoreCase("Restore")) {
             if (tick_Audio_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Audio");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio");
             if (tick_Video_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Video");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video");
             if (tick_Document_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Documents");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents");
             if (tick_Image_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images");
             if (tick_Gif_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Animated Gifs");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs");
             if (tick_Voice_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes");
             if (tick_Profile_ImageView.getVisibility() == View.VISIBLE) {
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Profile Photos");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos");
                 get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/.Statuses");
                 get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/WallPaper");
 
             }
             if (tick_Sticker_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Stickers");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers");
             if (tick_Database_ImageView.getVisibility() == View.VISIBLE) {
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"Databases");
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+".Shared");
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+".Trash");
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"cache");
-                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path+"Theme");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "Databases");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + ".Shared");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + ".Trash");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "cache");
+                get_File_Size += storage_Info.getFileSizeInBytes(external_Path_Url + whatsapp_Path + "Theme");
 
             }
 
@@ -579,26 +579,26 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
         } else {
             if (tick_Audio_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Audio");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio");
             if (tick_Video_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Video");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video");
             if (tick_Document_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Documents");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents");
             if (tick_Image_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images");
             if (tick_Gif_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Animated Gifs");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs");
             if (tick_Voice_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes");
             if (tick_Profile_ImageView.getVisibility() == View.VISIBLE) {
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Profile Photos");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos");
                 get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/.Statuses");
                 get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/WallPaper");
             }
             if (tick_Sticker_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/"+whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Stickers");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whats_App_Media_Path + "/" + whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers");
             if (tick_Database_ImageView.getVisibility() == View.VISIBLE)
-                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whatsapp_Path+"Databases");
+                get_File_Size += storage_Info.getFileSizeInBytes(sd_Card_Path_URL + whatsapp_Path + "Databases");
             file_Size_TextView.setText("Data Size - " + storage_Info.Convert_It(get_File_Size));
         }
     }
@@ -612,7 +612,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         getContentResolver().takePersistableUriPermission(sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sd_Card_URL, this);
 
-        if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sd_Card_URL.toString());
+        if (new File(sd_Card_Path_URL).exists()) string_URI = Split_The_URI(sd_Card_URL.toString());
         android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
         android_sdCard_permission.setString_URI(string_URI);
 
@@ -652,10 +652,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public boolean Get_Path() {
 
-        DocumentFile whatsApp_dir = sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile, (whatsapp_Path.substring(1, whatsapp_Path.length()-1))));
+        DocumentFile whatsApp_dir = sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile, (whatsapp_Path.substring(1, whatsapp_Path.length() - 1))));
         try {
             if (whatsApp_dir == null) {
-                sd_Card_documentFile.createDirectory(whatsapp_Path.substring(1, whatsapp_Path.length()-1));
+                sd_Card_documentFile.createDirectory(whatsapp_Path.substring(1, whatsapp_Path.length() - 1));
                 return false;
             } else {
                 count_Folder = 1;
@@ -724,19 +724,30 @@ public class After_MainTransferFIle extends AppCompatActivity {
         return external_Path_Url.equals(sd_Card_Path_URL);
     }
 
-    public String Return_Path(int no){
-        switch (no){
-            case 1: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Audio";
-            case 2: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Video";
-            case 3: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Documents";
-            case 4: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Images";
-            case 5: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Animated Gifs";
-            case 6: return "WallPaper";
-            case 7: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Profile Photos";
-            case 8: return ".Statuses";
-            case 9: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Stickers";
-            case 10:return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Voice Notes";
-            default:return"Databases";
+    public String Return_Path(int no) {
+        switch (no) {
+            case 1:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Audio";
+            case 2:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Video";
+            case 3:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Documents";
+            case 4:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Images";
+            case 5:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Animated Gifs";
+            case 6:
+                return "WallPaper";
+            case 7:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Profile Photos";
+            case 8:
+                return ".Statuses";
+            case 9:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Stickers";
+            case 10:
+                return whatsapp_Path.substring(1, whatsapp_Path.length() - 1) + " Voice Notes";
+            default:
+                return "Databases";
         }
     }
 
@@ -756,18 +767,14 @@ public class After_MainTransferFIle extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (which_Option_To_Do.equals("remove")) {
-                    Toast.makeText(After_MainTransferFIle.this, "Removing....", Toast.LENGTH_LONG).show();
-
-                } else if (which_Option_To_Do.equals("copy")) {
-                    Toast.makeText(After_MainTransferFIle.this, "Copying....", Toast.LENGTH_LONG).show();
-
-                } else if (which_Option_To_Do.equals("move")) {
-                    Toast.makeText(After_MainTransferFIle.this, "Moving....", Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(After_MainTransferFIle.this, "Restoring....", Toast.LENGTH_LONG).show();
-
+                if (which_Option_To_Do.equals("remove"))
+                    CustomToast.ToastIt(getApplicationContext(),"Removing....");
+                 else if (which_Option_To_Do.equals("copy"))
+                    CustomToast.ToastIt(getApplicationContext(),"Copying....");
+                 else if (which_Option_To_Do.equals("move"))
+                    CustomToast.ToastIt(getApplicationContext(),"Moving....");
+                 else {
+                    CustomToast.ToastIt(getApplicationContext(),"Restoring....");
                 }
                 Push_Back();
                 multiThreading_task.execute();
@@ -794,7 +801,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         transFer_File_Changes();
         checking_Folder = false;
         copy_the_file = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile,
-                this, only_Selected_File,convert_To_Days(),"No Background",getApplicationContext());
+                this, only_Selected_File, convert_To_Days(), "No Background", getApplicationContext());
         copy_the_file.Copy_Folder_As_Per_Tick(tick_Database_ImageView.getVisibility(), tick_Audio_ImageView.getVisibility(), tick_Video_ImageView.getVisibility(),
                 tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                 tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
@@ -806,20 +813,20 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public void Remove_The_File() {
         checking_Folder = false;
         if (!stop_The_Process) {
-            delete_the_fIle = new Delete_The_File(external_Path_Url,whats_App_Media_Path, this,
-                    only_Selected_File,convert_To_Days(),"No Background",getApplicationContext());
+            delete_the_fIle = new Delete_The_File(external_Path_Url, whats_App_Media_Path, this,
+                    only_Selected_File, convert_To_Days(), "No Background", getApplicationContext());
             delete_the_fIle.get_File_Path(tick_Database_ImageView.getVisibility(), tick_Audio_ImageView.getVisibility(), tick_Video_ImageView.getVisibility(),
                     tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                     tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
                     tick_Profile_ImageView.getVisibility(), tick_Sticker_ImageView.getVisibility());
         } else {
-             default_Notification(2);
+            default_Notification(2);
         }
     }
 
     public void Restore_The_Data() {
 
-        restore_the_data = new Restore_The_Data(external_Path_Url, sd_Card_Path_URL, whats_App_Media_Path, this,"No Background");
+        restore_the_data = new Restore_The_Data(external_Path_Url, sd_Card_Path_URL, whats_App_Media_Path, this, "No Background");
         Notification();
         restore_the_data.WhatsFolder_Checked();
         checking_Folder = false;
@@ -925,7 +932,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
             notificationManager.cancel(1);
             if (!stop_The_Process)
-                 default_Notification(1);
+                default_Notification(1);
             super.onPostExecute(s);
         }
     }
@@ -954,7 +961,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         contentView.setTextViewText(R.id.percent_Text, "00%");
 
         if (notificationManager == null) {
-            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -965,20 +972,21 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 notificationManager.createNotificationChannel(mChannel);
             }
         }
-            builder = new NotificationCompat.Builder(this, id)// required
-                    .setSmallIcon(R.mipmap.ic_launcher)   // required
-                   .setVibrate(new long[]{0L}) // Passing null here silently fails
-                    .setAutoCancel(false)
-                    .setPriority(NotificationCompat.PRIORITY_MAX)
-                    .setOngoing(true)
-                    .setContent(contentView)
-                    .setLights(Color.parseColor("#075e54"), 3000, 3000);
+        builder = new NotificationCompat.Builder(this, id)// required
+                .setSmallIcon(R.mipmap.ic_launcher)   // required
+                .setVibrate(new long[]{0L}) // Passing null here silently fails
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setOngoing(true)
+                .setContent(contentView)
+                .setLights(Color.parseColor("#075e54"), 3000, 3000);
         notification = builder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         notificationManager.notify(1, notification);
 
     }
+
     public String get_Current_Time() {
 
         Calendar calendar = Calendar.getInstance();
@@ -1059,7 +1067,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     }
 
-    public void  default_Notification(int type) {
+    public void default_Notification(int type) {
         String id = this.getString(R.string.transfer_Done_Id); // default_channel_id
         String title = this.getString(R.string.transfer_Done_title); // Default Channel
         NotificationCompat.Builder builder;
@@ -1071,7 +1079,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
 
         if (notificationManager == null) {
-            notificationManager = (NotificationManager)this.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
@@ -1082,15 +1090,15 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 notificationManager.createNotificationChannel(mChannel);
             }
         }
-            builder =
-                    new NotificationCompat.Builder(this,id)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
-                            .setOngoing(false)
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setContentTitle(after_Notification)
-                            .setAutoCancel(true)
-                            .setLights(Color.parseColor("#075e54"), 3000, 3000);
+        builder =
+                new NotificationCompat.Builder(this, id)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                        .setOngoing(false)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentTitle(after_Notification)
+                        .setAutoCancel(true)
+                        .setLights(Color.parseColor("#075e54"), 3000, 3000);
 
         if (type == 1) {
             builder.setContentText("Successfully Data " + get);
@@ -1106,16 +1114,18 @@ public class After_MainTransferFIle extends AppCompatActivity {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(1, notification);
     }
+
     public void Call_Custom_Dailog_Option_Changes() {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Custom_Dialog_For_Changes_Options custom_dialog_for_changes_options = new Custom_Dialog_For_Changes_Options(this);
         custom_dialog_for_changes_options.show(ft, "dialog");
     }
+
     public void Call_Custom_Dailog_Normal_Changes() {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Custom_Dialog_For_Normal_Changes custom_dialog_for_normal_changes = new Custom_Dialog_For_Normal_Changes(this,normal_Changes);
+        Custom_Dialog_For_Normal_Changes custom_dialog_for_normal_changes = new Custom_Dialog_For_Normal_Changes(this, normal_Changes);
         custom_dialog_for_normal_changes.show(ft, "dialog");
     }
 
@@ -1152,16 +1162,17 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void Delete_Particular_Data(String path) {
         File[] files = new File(path).listFiles();
-        for(File data : files){
-            if(!data.isDirectory()){
+        for (File data : files) {
+            if (!data.isDirectory()) {
                 data.delete();
-            }else {
+            } else {
                 Delete_Particular_Data(data.getAbsolutePath());
             }
         }
 
-}
-    public void Send_Permission_To_Transfer(){
+    }
+
+    public void Send_Permission_To_Transfer() {
         if (which_Option_To_Do.equals("remove")) {
             Call_Custom_Dailog("     Are You Sure To Remove Data ? ");
             title_Notification = "Data Removing";
@@ -1180,6 +1191,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             after_Notification = "Data Restore";
         }
     }
+
     public void UnneccesaryData() {
         if (new File(external_Path_Url + whatsapp_Path + ".Shared/").exists())
             Delete_Particular_Data(external_Path_Url + whatsapp_Path + ".Shared/");
@@ -1190,17 +1202,19 @@ public class After_MainTransferFIle extends AppCompatActivity {
         if (new File(external_Path_Url + whatsapp_Path + "Theme").exists())
             Delete_Particular_Data(external_Path_Url + whatsapp_Path + "Theme/");
     }
+
     public void setNormal_Changes(int normal_Changes) {
         this.normal_Changes = normal_Changes;
     }
-    private int convert_To_Days(){
-        if(normal_Changes == 1) return 1;
-        else if(normal_Changes == 2) return 5;
-        else if (normal_Changes ==3) return  10;
-        else if (normal_Changes ==4) return  15;
-        else if (normal_Changes ==5) return  30;
-        else if (normal_Changes ==6) return  60;
-        else if (normal_Changes ==7) return  180;
+
+    private int convert_To_Days() {
+        if (normal_Changes == 1) return 1;
+        else if (normal_Changes == 2) return 5;
+        else if (normal_Changes == 3) return 10;
+        else if (normal_Changes == 4) return 15;
+        else if (normal_Changes == 5) return 30;
+        else if (normal_Changes == 6) return 60;
+        else if (normal_Changes == 7) return 180;
 
         return 0;
     }

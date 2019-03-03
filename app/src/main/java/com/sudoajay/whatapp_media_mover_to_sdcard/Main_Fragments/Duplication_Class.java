@@ -6,9 +6,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,16 +16,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
+
 import com.sudoajay.whatapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Show_Duplicate_File;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
+
 import java.io.File;
-import java.io.Serializable;
+
 import dmax.dialog.SpotsDialog;
 
 
@@ -38,8 +39,8 @@ public class Duplication_Class extends Fragment {
     private Button file_Size_text;
     private String string_URI;
     private long size;
-    private Toast toast;
     private View layout,layouts;
+    private Toast toast;
     private Duplication_Data duplication_data = new Duplication_Data();
     private AlertDialog alertDialog ;
     private MultiThreading_Task multiThreading_task = new MultiThreading_Task();

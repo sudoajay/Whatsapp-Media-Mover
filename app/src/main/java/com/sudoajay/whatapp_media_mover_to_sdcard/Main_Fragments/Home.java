@@ -14,10 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
+
 import com.sudoajay.whatapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
@@ -107,7 +108,7 @@ public class Home extends Fragment {
     public void Toast_It(String Message) {
         TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
-            toast = new Toast(main_navigation);
+            toast = new Toast(main_navigation.getApplicationContext());
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(layouts);

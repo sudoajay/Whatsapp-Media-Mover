@@ -34,7 +34,7 @@ public class TraceBackgroundService {
 
         taskA = pref.getString(context.getString(R.string.task_A_NextDate),NextDate(24));
         taskB = pref.getString(context.getString(R.string.task_B_NextDate),NextDate((7*24)));
-        taskC = pref.getString(context.getString(R.string.task_C_NextDate),null);
+        taskC = pref.getString(context.getString(R.string.task_C_NextDate),"");
         editor.apply();
 
     }

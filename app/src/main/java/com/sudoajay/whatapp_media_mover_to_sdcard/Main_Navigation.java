@@ -1,6 +1,9 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -18,7 +21,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
@@ -27,11 +29,13 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForB
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForForegroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
+import com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService.Foreground;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.ForegroundService;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
@@ -69,7 +73,6 @@ public class Main_Navigation extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_navigation);
-
         // local variable
         String value = null;
         // get data from intent
@@ -81,7 +84,7 @@ public class Main_Navigation extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        @SuppressLint("CutPasteId") DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -95,15 +98,15 @@ public class Main_Navigation extends AppCompatActivity
             //  change the navigation item to main transfer data
             navigationView.getMenu().getItem(1).setChecked(true);
             onNavigationItemSelected(navigationView.getMenu().getItem(1));
-        } else if(value.equalsIgnoreCase("DuplicateData")) {
+        } else if (value.equalsIgnoreCase("DuplicateData")) {
             setTitle("Duplicate Data");
             //  change the navigation item to main transfer data
             navigationView.getMenu().getItem(1).setChecked(true);
             onNavigationItemSelected(navigationView.getMenu().getItem(2));
         }
 
-        if(getIntent().getAction() != null) {
-            if (Objects.requireNonNull(getIntent().getAction()).equalsIgnoreCase("Stop_Foreground(Setting)")){
+        if (getIntent().getAction() != null) {
+            if (Objects.requireNonNull(getIntent().getAction()).equalsIgnoreCase("Stop_Foreground(Setting)")) {
                 navigationView.getMenu().getItem(1).setChecked(true);
                 onNavigationItemSelected(navigationView.getMenu().getItem(5));
             }
@@ -115,26 +118,24 @@ public class Main_Navigation extends AppCompatActivity
         if (androidExternalStoragePermission.isExternalStorageWritable()) {
 
             PrefManager prefManager = new PrefManager(getApplicationContext());
-            traceBackgroundService= new TraceBackgroundService(getApplicationContext());
+            traceBackgroundService = new TraceBackgroundService(getApplicationContext());
 
             // check for first time and there is no restriction in background service
-                if(!prefManager.isFirstTimeLaunch() && traceBackgroundService.isBackgroundServiceWorking()){
-                   if(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA())){
-                       traceBackgroundService.setBackgroundServiceWorking(false);
-                   }
-                   if(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskb())){
-                        traceBackgroundService.setBackgroundServiceWorking(false);
-                    }
-                    if(traceBackgroundService.getTaskc() != null &&
-                            !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskc())){
-                        traceBackgroundService.setBackgroundServiceWorking(false);
-                    }
+            if (!prefManager.isFirstTimeLaunch() && traceBackgroundService.isBackgroundServiceWorking()) {
+                if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA())) {
+                    traceBackgroundService.setBackgroundServiceWorking(false);
                 }
+                if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB())) {
+                    traceBackgroundService.setBackgroundServiceWorking(false);
+                }
+                if (traceBackgroundService.getTaskC() != null &&
+                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())) {
+                    traceBackgroundService.setBackgroundServiceWorking(false);
+                }
+            }
 
             // first time check
-
-
-            if(prefManager.isFirstTimeLaunch() || traceBackgroundService.isBackgroundServiceWorking()) {
+            if (prefManager.isFirstTimeLaunch() || traceBackgroundService.isBackgroundServiceWorking()) {
 
                 // regular background Process
                 // showing size of whatsApp Data
@@ -146,15 +147,16 @@ public class Main_Navigation extends AppCompatActivity
                 // doing background Process
                 // New Feature
                 TypeCTask();
-            }else {
+            } else {
 
-                if(traceBackgroundService.isForegroundServiceWorking()) {
+                if (traceBackgroundService.isForegroundServiceWorking()) {
 
-                    ForegroundService foregroundService =
-                            new ForegroundService(Main_Navigation.this,Main_Navigation.this);
-                    // call Custom dialog for Thread
-                     foregroundService.call_Thread();
-
+                    if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
+                        ForegroundService foregroundService =
+                                new ForegroundService(Main_Navigation.this, Main_Navigation.this);
+                        // call Custom dialog for Thread
+                        foregroundService.call_Thread();
+                    }
                 }
             }
 
@@ -214,7 +216,7 @@ public class Main_Navigation extends AppCompatActivity
 
         else if (id == R.id.nav_Whatsapp_Setting) Call_Custom_Dailog_Setting();
 
-        else if(id == R.id.nav_Foreground_Setting)CallCustomDailogForeground();
+        else if (id == R.id.nav_Foreground_Setting) CallCustomDailogForeground();
 
         else if (id == R.id.nav_share) Share();
 
@@ -274,7 +276,7 @@ public class Main_Navigation extends AppCompatActivity
 
 
                             // Recursive
-                              TypeATask();
+                            TypeATask();
                         }
                     }
                 });
@@ -369,7 +371,6 @@ public class Main_Navigation extends AppCompatActivity
         if (hour != 0) {
 
 
-
             OneTimeWorkRequest morning_Work =
                     new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
                             .build();
@@ -409,7 +410,7 @@ public class Main_Navigation extends AppCompatActivity
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, " Click Back Again To Exit", Toast.LENGTH_SHORT).show();
+        CustomToast.ToastIt(getApplicationContext(), "Click Back Again To Exit");
 
         new Handler().postDelayed(new Runnable() {
 
@@ -450,13 +451,9 @@ public class Main_Navigation extends AppCompatActivity
             intent.putExtra(Intent.EXTRA_TEXT, "");
             startActivity(intent);
         } catch (Exception e) {
-            Toast.makeText(this, "There is no Email App", Toast.LENGTH_LONG).show();
+            CustomToast.ToastIt(getApplicationContext(), "There is no Email App");
         }
 
-    }
-
-    public Home getHome() {
-        return home;
     }
 
 
@@ -478,5 +475,15 @@ public class Main_Navigation extends AppCompatActivity
         return 0;
     }
 
-
+    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                if (service.foreground) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

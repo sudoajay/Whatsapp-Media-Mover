@@ -13,12 +13,12 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
-import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 
 import java.io.File;
@@ -231,7 +231,7 @@ public class NotifyNotification {
             }
 
         }catch (Exception e){
-            Toast.makeText(context,context.getResources().getText(R.string.fallBackError),Toast.LENGTH_LONG).show();
+            CustomToast.ToastIt(context,context.getResources().getText(R.string.fallBackError).toString());
         }
     }
 

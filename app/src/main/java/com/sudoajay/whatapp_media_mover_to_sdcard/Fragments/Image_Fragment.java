@@ -14,13 +14,13 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.BuildConfig;
 import com.sudoajay.whatapp_media_mover_to_sdcard.ExpandableListAdapter;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Make_Changes;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
@@ -252,7 +252,7 @@ public class Image_Fragment extends Fragment {
         try {
             after_main_transferFIle.startActivity(newIntent);
         } catch (Exception e) {
-            Toast.makeText(after_main_transferFIle, "No handler for this type of file.", Toast.LENGTH_LONG).show();
+            CustomToast.ToastIt(getContext(),"No handler for this type of file.");
 
         }
     }
