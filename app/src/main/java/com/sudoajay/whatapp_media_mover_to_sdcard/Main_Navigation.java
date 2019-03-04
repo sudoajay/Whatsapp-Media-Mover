@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -134,6 +135,8 @@ public class Main_Navigation extends AppCompatActivity
                 }
             }
 
+            Log.i("JustGetIt",traceBackgroundService.getTaskA()+ " -- " + traceBackgroundService.getTaskB()
+            +" -- "+traceBackgroundService.getTaskC());
             // first time check
             if (prefManager.isFirstTimeLaunch() || traceBackgroundService.isBackgroundServiceWorking()) {
 

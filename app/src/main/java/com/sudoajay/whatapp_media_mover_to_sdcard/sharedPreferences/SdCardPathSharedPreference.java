@@ -3,52 +3,54 @@ package com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
-import java.util.Objects;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class SdCardPathSharedPreference {
 
     // global varibale
     private SharedPreferences.Editor editor;
-    private String sdCardPath,stringURI;
+    private String sdCardPath, stringURI;
     private Context context;
+    private SharedPreferences pref;
+
 
     // constructor
     @SuppressLint("CommitPrefEdits")
-    public SdCardPathSharedPreference(Context context){
-        SharedPreferences pref =Objects.requireNonNull(context.getSharedPreferences(context.
-                getString(R.string.MY_PREFS_NAME), MODE_PRIVATE));
+    public SdCardPathSharedPreference(Context context) {
+        pref = context.getSharedPreferences(context.getString(R.string.MY_PREFS_NAME), MODE_PRIVATE);
         editor = pref.edit();
-        this.context =context;
+        this.context = context;
 
         // default value pass
         // grab the data from shared preference
-        sdCardPath = pref.getString(context.getString(R.string.sdCardPath), "");
-        stringURI = pref.getString(context.getString(R.string.stringUri), "");
+        editor.putString(context.getString(R.string.sdCardPath), "");
+        editor.putString(context.getString(R.string.stringUri), "");
 
     }
 
     public String getSdCardPath() {
-        return sdCardPath;
+        return pref.getString(context.getString(R.string.sdCardPath), "");
     }
 
     public void setSdCardPath(String sdCardPath) {
         this.sdCardPath = sdCardPath;
 
         // send thd data to shared preferences
-        editor.putString(context.getString(R.string.sdCardPath),sdCardPath);
+        editor.putString(context.getString(R.string.sdCardPath), sdCardPath);
         editor.apply();
     }
 
     public String getStringURI() {
-        return stringURI;
+        return pref.getString(context.getString(R.string.stringUri), "");
     }
 
     public void setStringURI(String stringURI) {
         this.stringURI = stringURI;
 
-        editor.putString(context.getString(R.string.stringUri),stringURI);
+        editor.putString(context.getString(R.string.stringUri), stringURI);
         editor.apply();
     }
 }

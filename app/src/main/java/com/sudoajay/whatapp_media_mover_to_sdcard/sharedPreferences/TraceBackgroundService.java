@@ -25,22 +25,19 @@ public class TraceBackgroundService {
 
 
     @SuppressLint("CommitPrefEdits")
-    public TraceBackgroundService(Context context) {
-        this._context = context;
-        pref = _context.getSharedPreferences(context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
+    public TraceBackgroundService(final Context _context) {
+        this._context = _context;
+        pref = _context.getSharedPreferences(_context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
         editor = pref.edit();
 
-
-
-        taskA = pref.getString(context.getString(R.string.task_A_NextDate),NextDate(24));
-        taskB = pref.getString(context.getString(R.string.task_B_NextDate),NextDate((7*24)));
-        taskC = pref.getString(context.getString(R.string.task_C_NextDate),"");
+        editor.putString(_context.getString(R.string.task_A_NextDate),NextDate(24));
+        editor.putString(_context.getString(R.string.task_B_NextDate),NextDate((7*24)));
+        editor.putString(_context.getString(R.string.task_C_NextDate),"");
         editor.apply();
-
     }
 
     public String getTaskA() {
-        return taskA;
+        return pref.getString(_context.getString(R.string.task_A_NextDate),NextDate(24));
     }
 
     public void setTaskA(String taskA) {
@@ -51,7 +48,7 @@ public class TraceBackgroundService {
     }
 
     public String getTaskB() {
-        return taskB;
+        return pref.getString(_context.getString(R.string.task_B_NextDate),NextDate((7*24)));
     }
 
     public void setTaskB(String taskB) {
@@ -60,7 +57,7 @@ public class TraceBackgroundService {
         this.taskB = taskB;    }
 
     public String getTaskC() {
-        return taskC;
+        return pref.getString(_context.getString(R.string.task_C_NextDate),"");
     }
 
     public void setTaskC(String taskc) {
