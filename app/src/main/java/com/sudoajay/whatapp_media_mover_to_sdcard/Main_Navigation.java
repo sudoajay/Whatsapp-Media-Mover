@@ -18,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,7 +40,6 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -126,17 +124,15 @@ public class Main_Navigation extends AppCompatActivity
                 if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA())) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
                 }
-                if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB())) {
+                else if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB())) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
                 }
-                if (traceBackgroundService.getTaskC() != null &&
+                else if (traceBackgroundService.getTaskC() != null &&
                         !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
                 }
             }
 
-            Log.i("JustGetIt",traceBackgroundService.getTaskA()+ " -- " + traceBackgroundService.getTaskB()
-            +" -- "+traceBackgroundService.getTaskC());
             // first time check
             if (prefManager.isFirstTimeLaunch() || traceBackgroundService.isBackgroundServiceWorking()) {
 
@@ -313,6 +309,7 @@ public class Main_Navigation extends AppCompatActivity
 
         // this task for cleaning and show today task
         int hour = 0;
+        String endles = "No Date";
 
         // grab the data From Database
         BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
@@ -322,55 +319,51 @@ public class Main_Navigation extends AppCompatActivity
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
 
-                if (!cursor.getString(2).equals("No Date")) {
-                    try {
+                endles = cursor.getColumnName(2);
+                try {
 
-                        // current or today date
-                        Calendar calendars = Calendar.getInstance();
-                        Date curDate = calendars.getTime();
+                    switch (cursor.getInt(0)) {
+                        case 0: // At Every 1/2 Day
+                            hour = 12;
+                            break;
+                        case 1:// At Every 1 Day
+                            hour = 24;
+                            break;
+                        case 2:
+                            // At Every 2 Day
+                            hour = (24 * 2);
+                            break;
+                        case 3:
 
-                        // specific date from database
-                        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                        Date date = format.parse(cursor.getString(2));
-                        if (date.after(curDate)) {
-                            switch (cursor.getInt(0)) {
-                                case 0: // At Every 1/2 Day
-                                    hour = 12;
-                                    break;
-                                case 1:// At Every 1 Day
-                                    hour = 24;
-                                    break;
-                                case 2:
-                                    // At Every 2 Day
-                                    hour = (24 * 2);
-                                    break;
-                                case 3:
+                            Calendar calendar = Calendar.getInstance();
+                            int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 
-                                    Calendar calendar = Calendar.getInstance();
-                                    int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
-
-                                    String weekdays = cursor.getString(1);
-                                    String[] splits = weekdays.split("");
-                                    List<Integer> listWeekdays = new ArrayList<>();
-                                    for (String ints : splits) {
-                                        listWeekdays.add(Integer.parseInt(ints));
-                                    }
-
-                                    hour = 24 * CountDay(currentDay, listWeekdays);
-
-                                    break;
-                                case 4:  // At Every month(Same Date)
-                                    hour = (24 * 30);
-                                    break;
+                            String weekdays = cursor.getString(1);
+                            String[] splits = weekdays.split("");
+                            List<Integer> listWeekdays = new ArrayList<>();
+                            for (String ints : splits) {
+                                listWeekdays.add(Integer.parseInt(ints));
                             }
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
 
+                            hour = 24 * CountDay(currentDay, listWeekdays);
+
+                            break;
+                        case 4:  // At Every month(Same Date)
+                            hour = (24 * 30);
+                            break;
+                    }
+
+                } catch (Exception e) {
+                }
             }
+
+            // delete database if not endlesss
+            if(endles.equals("No Date"))
+                backgroundTimerDataBase.deleteData(0+"");
+
+
         }
+
         if (hour != 0) {
 
 
@@ -380,16 +373,34 @@ public class Main_Navigation extends AppCompatActivity
             WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.KEEP, morning_Work);
 
 
+            final String finalEndles = endles;
             WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
                     .observe(this, new Observer<WorkInfo>() {
                         @Override
                         public void onChanged(@Nullable WorkInfo workInfo) {
                             // Do something with the status
                             if (workInfo != null && workInfo.getState().isFinished()) {
+                                try {
+                                if (!finalEndles.equals("No Date")) {
 
+                                    // current or today date
+                                    Calendar calendars = Calendar.getInstance();
+                                    Date curDate = calendars.getTime();
 
-                                // Recursive
-                                TypeCTask();
+                                    // specific date from database
+                                    DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                                    Date date = null;
+
+                                        date = format.parse(finalEndles);
+
+                                    if (date.after(curDate)) {
+                                        // Recursive
+                                        TypeCTask();
+                                    }
+                                }
+                                } catch (Exception e) {
+                                }
+
                             }
                         }
                     });

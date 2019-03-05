@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
@@ -145,6 +146,10 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
                 //Save To Database
                 SaveToDatabase();
+
+                // save into Trace
+                TraceTheData();
+
                 main_navigation.TypeCTask();
             case R.id.cancelButton:
             case R.id.back_Image_View_Change:
@@ -296,6 +301,59 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         datePickerDialog.show();
     }
 
+    private void TraceTheData(){
+        int hour = 12;
+        switch (repeatedlySpinner.getSelectedIndex()) {
+            case 0: // At Every 1/2 Day
+                hour = 12;
+                break;
+            case 1:// At Every 1 Day
+                hour = 24;
+                break;
+            case 2:
+                // At Every 2 Day
+                hour = (24 * 2);
+                break;
+            case 3:
+
+                Calendar calendar = Calendar.getInstance();
+                int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+
+                String weekdays =get_Repeat();
+                String[] splits = weekdays.split("");
+                List<Integer> listWeekdays = new ArrayList<>();
+                for (String ints : splits) {
+                    listWeekdays.add(Integer.parseInt(ints));
+                }
+
+                hour = 24 * CountDay(currentDay, listWeekdays);
+
+                break;
+            case 4:  // At Every month(Same Date)
+                hour = (24 * 30);
+                break;
+        }
+
+        // send the data to Trace Background Service
+        TraceBackgroundService traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));
+        traceBackgroundService.setTaskC(traceBackgroundService.NextDate(hour));
+        Toast.makeText(getContext()," hour "+ hour  + " ---- " +traceBackgroundService.NextDate(hour),Toast.LENGTH_LONG).show();
+
+    }
+
+    public static int CountDay(int day, List<Integer> week_Days) {
+        int temp = day, count = 0;
+        do {
+            count++;
+            temp++;
+            if (temp == 8) temp = 1;
+
+            for (Integer week : week_Days) {
+                if (temp == week) return count;
+            }
+        } while (temp != day);
+        return 0;
+    }
     private void SaveToDatabase() {
         // save to Database
         if (getSelectedEndlesslyDate == null)
@@ -309,6 +367,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
             backgroundTimerDataBase.UpdateTheTable("1", chooseSpinner.getSelectedIndex(),
                     repeatedlySpinner.getSelectedIndex(), get_Repeat(), getSelectedEndlesslyDate);
         }
+
+
 
         CustomToast.ToastIt(getContext(), getResources().getText(R.string.setting_Updated).toString());
 

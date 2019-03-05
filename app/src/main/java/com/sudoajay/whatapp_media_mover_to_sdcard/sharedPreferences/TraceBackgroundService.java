@@ -41,9 +41,10 @@ public class TraceBackgroundService {
     }
 
     public void setTaskA(String taskA) {
+        this.taskA = taskA;
         editor.putString(_context.getString(R.string.task_A_NextDate),taskA);
         editor.apply();
-        this.taskA = taskA;
+
 
     }
 
@@ -52,18 +53,20 @@ public class TraceBackgroundService {
     }
 
     public void setTaskB(String taskB) {
+        this.taskB = taskB;
         editor.putString(_context.getString(R.string.task_B_NextDate),taskB);
         editor.apply();
-        this.taskB = taskB;    }
+            }
 
     public String getTaskC() {
         return pref.getString(_context.getString(R.string.task_C_NextDate),"");
     }
 
-    public void setTaskC(String taskc) {
+    public void setTaskC(String taskC) {
+        this.taskC = taskC;
         editor.putString(_context.getString(R.string.task_C_NextDate),taskC);
         editor.apply();
-        this.taskC = taskC;    }
+          }
 
     public void setBackgroundServiceWorking(boolean backgroundServiceWorking) {
         editor.putBoolean(_context.getString(R.string.background_Service_Working), backgroundServiceWorking);
