@@ -36,6 +36,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIl
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.ForegroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
@@ -65,6 +66,7 @@ public class Main_Navigation extends AppCompatActivity
     private Duplication_Class duplication_class = new Duplication_Class();
     private NavigationView navigationView;
     private TraceBackgroundService traceBackgroundService;
+    private BackgroundProcess backgroundProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,9 @@ public class Main_Navigation extends AppCompatActivity
         if (extras != null) {
             value = extras.getString("passing");
         }
+
+        // Create Object
+        backgroundProcess = new BackgroundProcess(getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -123,29 +128,31 @@ public class Main_Navigation extends AppCompatActivity
             if (!prefManager.isFirstTimeLaunch() && traceBackgroundService.isBackgroundServiceWorking()) {
                 if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA())) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
-                }
-                else if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB())) {
+                } else if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB())) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
-                }
-                else if (traceBackgroundService.getTaskC() != null &&
+                } else if (traceBackgroundService.getTaskC() != null &&
                         !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
                 }
             }
 
             // first time check
-            if (prefManager.isFirstTimeLaunch() || traceBackgroundService.isBackgroundServiceWorking()) {
+            if (traceBackgroundService.isBackgroundServiceWorking()) {
+
 
                 // regular background Process
                 // showing size of whatsApp Data
-                TypeATask();
+                if (backgroundProcess.isTaskADone())
+                    TypeATask();
 
                 // showing duplication of whatsapp Data.
-                TypeBTask();
+                if (backgroundProcess.isTaskBDone())
+                    TypeBTask();
 
                 // doing background Process
                 // New Feature
-                TypeCTask();
+                if (backgroundProcess.isTaskCDone())
+                    TypeCTask();
             } else {
 
                 if (traceBackgroundService.isForegroundServiceWorking()) {
@@ -256,9 +263,10 @@ public class Main_Navigation extends AppCompatActivity
 
     private void TypeATask() {
 
+        // set the Task is started
+        backgroundProcess.setTaskADone(false);
+
         // this task for Regular Show Size
-
-
         OneTimeWorkRequest morning_Work =
                 new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(1
                         , TimeUnit.DAYS).build();
@@ -279,9 +287,15 @@ public class Main_Navigation extends AppCompatActivity
                         }
                     }
                 });
+
+
     }
 
     private void TypeBTask() {
+
+        // set the Task is started
+
+        backgroundProcess.setTaskBDone(false);
 
         // this task for weekly Duplicate Size
         OneTimeWorkRequest morning_Work =
@@ -307,6 +321,9 @@ public class Main_Navigation extends AppCompatActivity
 
     public void TypeCTask() {
 
+        // set the Task is started
+        backgroundProcess.setTaskCDone(false);
+
         // this task for cleaning and show today task
         int hour = 0;
         String endles = "No Date";
@@ -319,7 +336,7 @@ public class Main_Navigation extends AppCompatActivity
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
 
-                endles = cursor.getColumnName(2);
+                endles = cursor.getString(2);
                 try {
 
                     switch (cursor.getInt(0)) {
@@ -358,8 +375,8 @@ public class Main_Navigation extends AppCompatActivity
             }
 
             // delete database if not endlesss
-            if(endles.equals("No Date"))
-                backgroundTimerDataBase.deleteData(0+"");
+            if (endles.equals("No Date"))
+                backgroundTimerDataBase.deleteData(1 + "");
 
 
         }
@@ -381,23 +398,23 @@ public class Main_Navigation extends AppCompatActivity
                             // Do something with the status
                             if (workInfo != null && workInfo.getState().isFinished()) {
                                 try {
-                                if (!finalEndles.equals("No Date")) {
+                                    if (!finalEndles.equals("No Date")) {
 
-                                    // current or today date
-                                    Calendar calendars = Calendar.getInstance();
-                                    Date curDate = calendars.getTime();
+                                        // current or today date
+                                        Calendar calendars = Calendar.getInstance();
+                                        Date curDate = calendars.getTime();
 
-                                    // specific date from database
-                                    DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                                    Date date = null;
+                                        // specific date from database
+                                        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                                        Date date = null;
 
                                         date = format.parse(finalEndles);
 
-                                    if (date.after(curDate)) {
-                                        // Recursive
-                                        TypeCTask();
+                                        if (date.after(curDate)) {
+                                            // Recursive
+                                            TypeCTask();
+                                        }
                                     }
-                                }
                                 } catch (Exception e) {
                                 }
 

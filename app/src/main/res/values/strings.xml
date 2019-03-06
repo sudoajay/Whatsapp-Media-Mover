@@ -80,6 +80,9 @@
     <string name="task_A_NextDate">Task A NextDate</string>
     <string name="task_B_NextDate">Task B NextDate</string>
     <string name="task_C_NextDate">Task C NextDate</string>
+    <string name="task_A_Done">Task A Done</string>
+    <string name="task_B_Done">Task B Done</string>
+    <string name="task_C_Done">Task C Done</string>
 
 
      <!--first time check flash screen-->

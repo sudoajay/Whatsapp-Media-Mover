@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Notification.NotifyNotification;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import androidx.work.Worker;
@@ -38,6 +39,10 @@ public class WorkMangerTaskB extends Worker {
 
         NotifyNotification notify_notification = new NotifyNotification(context);
         notify_notification.notify( "Size Of Duplication Data");
+
+        // set the Task is done
+        BackgroundProcess backgroundProcess = new BackgroundProcess(context);
+        backgroundProcess.setTaskBDone(true);
     }
 }
 

@@ -17,6 +17,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Database_Classes.BackgroundTim
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Notification.NotifyNotification;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
+import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
@@ -164,6 +165,10 @@ public class WorkMangerTaskC extends Worker {
                     }
                 }
             }
+
+            // set the Task is done
+            BackgroundProcess backgroundProcess = new BackgroundProcess(context);
+            backgroundProcess.setTaskCDone(true);
 
         }catch (Exception e){
             // If Error Complete
