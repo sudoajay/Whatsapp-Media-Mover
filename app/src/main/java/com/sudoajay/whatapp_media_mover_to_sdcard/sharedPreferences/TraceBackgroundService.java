@@ -17,8 +17,8 @@ import java.util.Date;
 public class TraceBackgroundService {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private Context _context;
-    private String taskA ,taskB,taskC;
+    private static Context _context;
+    private String taskA, taskB, taskC;
 
     // shared pref mode
     private final int PRIVATE_MODE = 0;
@@ -30,43 +30,39 @@ public class TraceBackgroundService {
         pref = _context.getSharedPreferences(_context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
         editor = pref.edit();
 
-        editor.putString(_context.getString(R.string.task_A_NextDate),NextDate(24));
-        editor.putString(_context.getString(R.string.task_B_NextDate),NextDate((7*24)));
-        editor.putString(_context.getString(R.string.task_C_NextDate),"");
-        editor.apply();
     }
 
     public String getTaskA() {
-        return pref.getString(_context.getString(R.string.task_A_NextDate),NextDate(24));
+        return pref.getString(_context.getString(R.string.task_A_NextDate), NextDate(24));
     }
 
     public void setTaskA(String taskA) {
         this.taskA = taskA;
-        editor.putString(_context.getString(R.string.task_A_NextDate),taskA);
+        editor.putString(_context.getString(R.string.task_A_NextDate), taskA);
         editor.apply();
 
 
     }
 
     public String getTaskB() {
-        return pref.getString(_context.getString(R.string.task_B_NextDate),NextDate((7*24)));
+        return pref.getString(_context.getString(R.string.task_B_NextDate), NextDate((7 * 24)));
     }
 
     public void setTaskB(String taskB) {
         this.taskB = taskB;
-        editor.putString(_context.getString(R.string.task_B_NextDate),taskB);
+        editor.putString(_context.getString(R.string.task_B_NextDate), taskB);
         editor.apply();
-            }
+    }
 
     public String getTaskC() {
-        return pref.getString(_context.getString(R.string.task_C_NextDate),"");
+        return pref.getString(_context.getString(R.string.task_C_NextDate), "");
     }
 
     public void setTaskC(String taskC) {
         this.taskC = taskC;
-        editor.putString(_context.getString(R.string.task_C_NextDate),taskC);
+        editor.putString(_context.getString(R.string.task_C_NextDate), taskC);
         editor.apply();
-          }
+    }
 
     public void setBackgroundServiceWorking(boolean backgroundServiceWorking) {
         editor.putBoolean(_context.getString(R.string.background_Service_Working), backgroundServiceWorking);
@@ -85,28 +81,28 @@ public class TraceBackgroundService {
     public boolean isForegroundServiceWorking() {
         return pref.getBoolean(_context.getString(R.string.foreground_Service_Working), true);
     }
-    public String NextDate(int hour){
+
+    public String NextDate(int hour) {
         // get Today Date as default
         Calendar calendar = Calendar.getInstance();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        calendar.add(Calendar.HOUR,hour);
-         dateFormat.setTimeZone(calendar.getTimeZone());
+        calendar.add(Calendar.HOUR, hour);
+        dateFormat.setTimeZone(calendar.getTimeZone());
         return dateFormat.format(calendar.getTime());
     }
 
-    public static boolean  CheckForBackground(String date){
+    public static boolean CheckForBackground(String date) {
 
         // today date
         Calendar calendar = Calendar.getInstance();
-        Date todayDate= calendar.getTime();
+        Date todayDate = calendar.getTime();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            Date getDate =  dateFormat.parse(date);
+            Date getDate = dateFormat.parse(date);
+            if (todayDate.after(getDate)) {
 
-        if(todayDate.after(getDate)){
-
-            return false;
-        }
+                return false;
+            }
         } catch (ParseException e) {
             return true;
         }

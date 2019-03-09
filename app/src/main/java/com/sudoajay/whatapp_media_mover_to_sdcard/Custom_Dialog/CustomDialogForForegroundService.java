@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import java.util.Objects;
 
 public class CustomDialogForForegroundService extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
+    private TraceBackgroundService traceBackgroundService;
     // blank constructor
     public CustomDialogForForegroundService() {
 
@@ -38,7 +40,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
 
 
 
-        final TraceBackgroundService traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));
+       traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));
         // setup and instalizition for getSharedPreferences
         // configuration or setup the sharedPreferences
         final Switch switchForeground = rootview.findViewById(R.id.switchForeground);
@@ -191,16 +193,28 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                if (service.foreground) {
-                    return true;
+    public  boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        try {
+            ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                Log.i("Showwme", service.service.getClassName());
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    if (service.foreground) {
+                        return true;
+                    }
                 }
             }
+            return false;
+        }catch (Exception e){
+            if (!ServicesWorking()) return true;
+            return false;
         }
-        return false;
     }
 
+    public  boolean ServicesWorking() {
+        return !(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA()) ||
+                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB()) ||
+                (traceBackgroundService.getTaskC() != null &&
+                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())));
+    }
 }

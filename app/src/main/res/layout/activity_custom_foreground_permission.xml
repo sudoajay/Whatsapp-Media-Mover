@@ -72,7 +72,7 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:background="#ffffff"
-        android:text="Continue"
+        android:text="Do This"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"

@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +82,7 @@ public class Main_Navigation extends AppCompatActivity
         if (extras != null) {
             value = extras.getString("passing");
         }
-
+        isServiceRunningInForeground(getApplicationContext(), Foreground.class);
         // Create Object
         backgroundProcess = new BackgroundProcess(getApplicationContext());
 
@@ -121,22 +122,16 @@ public class Main_Navigation extends AppCompatActivity
                 Main_Navigation.this);
         if (androidExternalStoragePermission.isExternalStorageWritable()) {
 
-            PrefManager prefManager = new PrefManager(getApplicationContext());
             traceBackgroundService = new TraceBackgroundService(getApplicationContext());
 
-            // check for first time and there is no restriction in background service
-            if (!prefManager.isFirstTimeLaunch() && traceBackgroundService.isBackgroundServiceWorking()) {
-                if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA())) {
-                    traceBackgroundService.setBackgroundServiceWorking(false);
-                } else if (!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB())) {
-                    traceBackgroundService.setBackgroundServiceWorking(false);
-                } else if (traceBackgroundService.getTaskC() != null &&
-                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())) {
+            PrefManager prefManager = new PrefManager(getApplicationContext());
+            if (!prefManager.isFirstTimeLaunch()) {
+                if (!ServicesWorking()) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
                 }
             }
 
-            // first time check
+         //    first time check
             if (traceBackgroundService.isBackgroundServiceWorking()) {
 
 
@@ -155,14 +150,12 @@ public class Main_Navigation extends AppCompatActivity
                     TypeCTask();
             } else {
 
-                if (traceBackgroundService.isForegroundServiceWorking()) {
+                if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
+                    ForegroundService foregroundService =
+                            new ForegroundService(Main_Navigation.this, Main_Navigation.this);
+                    // call Custom dialog for Thread
+                    foregroundService.call_Thread();
 
-                    if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
-                        ForegroundService foregroundService =
-                                new ForegroundService(Main_Navigation.this, Main_Navigation.this);
-                        // call Custom dialog for Thread
-                        foregroundService.call_Thread();
-                    }
                 }
             }
 
@@ -506,15 +499,28 @@ public class Main_Navigation extends AppCompatActivity
         return 0;
     }
 
-    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                if (service.foreground) {
-                    return true;
+    public  boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        try {
+                ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+                for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                    Log.i("Showwme", service.service.getClassName());
+                    if (serviceClass.getName().equals(service.service.getClassName())) {
+                        if (service.foreground) {
+                            return true;
+                        }
+                    }
                 }
-            }
+            return false;
+        }catch (Exception e){
+            if (!ServicesWorking()) return true;
+            return false;
         }
-        return false;
+    }
+
+    public  boolean ServicesWorking() {
+        return !(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA()) ||
+                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB()) ||
+                (traceBackgroundService.getTaskC() != null &&
+                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())));
     }
 }

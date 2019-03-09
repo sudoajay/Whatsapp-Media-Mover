@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +19,7 @@ public class ForegroundService {
 
     private Context mContext;
     private Activity activity;
+    private TraceBackgroundService traceBackgroundService;
     // constructor
     public ForegroundService(final Context mContext, final Activity activity){
         this.mContext = mContext;
@@ -66,9 +68,7 @@ public class ForegroundService {
                     i.setData(Uri.parse(url));
                     activity.startActivity(i);
 
-                    // shared reference
-                    TraceBackgroundService traceBackgroundService = new TraceBackgroundService(mContext);
-
+                    traceBackgroundService = new TraceBackgroundService(mContext);
                     traceBackgroundService.setForegroundServiceWorking(true);
 
                     if(!isServiceRunningInForeground(mContext,Foreground.class)) {
@@ -106,16 +106,28 @@ public class ForegroundService {
         }
     }
 
-    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                if (service.foreground) {
-                    return true;
+    public  boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        try {
+            ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                Log.i("Showwme", service.service.getClassName());
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    if (service.foreground) {
+                        return true;
+                    }
                 }
-
             }
+            return false;
+        }catch (Exception e){
+            if (!ServicesWorking()) return true;
+            return false;
         }
-        return false;
+    }
+
+    public  boolean ServicesWorking() {
+        return !(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA()) ||
+                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB()) ||
+                (traceBackgroundService.getTaskC() != null &&
+                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())));
     }
 }

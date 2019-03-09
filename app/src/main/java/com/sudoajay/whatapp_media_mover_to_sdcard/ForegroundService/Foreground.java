@@ -61,7 +61,6 @@ public class Foreground extends Service {
                     // Set required fields, including the small icon, the
                     // notification title, and text.
                     .setContentTitle("Foreground Service")
-                    .setContentText("Notjh")
 
                     // All fields below this line are optional.
 
