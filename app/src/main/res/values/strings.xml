@@ -152,8 +152,9 @@
     <string name="stop_Foreground_Service">Stop Service</string>
     <string name="why_This_Foreground_Service">Why This ? </string>
 
-    <string name="custom_Foreground_Permission">Smartphones are getting more and more powerful,
-        but the battery capacity is lagging behind .</string>
+    <string name="custom_Foreground_Permission">Smartphones are more restrict about background Process from which our background task not working So if you want to us to run background task
+        follow it please .</string>
+    <string name="custom_Foreground_Permission_Follow">Follow It</string>
 
     <string name="custom_Dialog_Box_Heading">Foreground Service</string>
     <string name="custom_Dialog_Box_Text">Are you sure to stop all your background Task?</string>

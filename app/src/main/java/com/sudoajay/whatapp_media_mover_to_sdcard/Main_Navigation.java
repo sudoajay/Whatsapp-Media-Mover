@@ -18,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -128,6 +127,8 @@ public class Main_Navigation extends AppCompatActivity
             if (!prefManager.isFirstTimeLaunch()) {
                 if (!ServicesWorking()) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
+                    // if the background service not working then
+                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(2*24));
                 }
             }
 
@@ -503,7 +504,6 @@ public class Main_Navigation extends AppCompatActivity
         try {
                 ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
                 for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                    Log.i("Showwme", service.service.getClassName());
                     if (serviceClass.getName().equals(service.service.getClassName())) {
                         if (service.foreground) {
                             return true;
@@ -518,9 +518,7 @@ public class Main_Navigation extends AppCompatActivity
     }
 
     public  boolean ServicesWorking() {
-        return !(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA()) ||
-                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB()) ||
-                (traceBackgroundService.getTaskC() != null &&
-                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())));
+        return (traceBackgroundService.getTaskC() != null &&
+                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC()));
     }
 }

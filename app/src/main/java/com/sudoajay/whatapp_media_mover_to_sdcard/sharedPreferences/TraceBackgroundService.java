@@ -30,6 +30,10 @@ public class TraceBackgroundService {
         pref = _context.getSharedPreferences(_context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
         editor = pref.edit();
 
+        // set default value
+        editor.putString(_context.getString(R.string.task_A_NextDate),NextDate(24));
+        editor.putString(_context.getString(R.string.task_B_NextDate),NextDate(7*24));
+        editor.apply();
     }
 
     public String getTaskA() {
@@ -95,7 +99,10 @@ public class TraceBackgroundService {
 
         // today date
         Calendar calendar = Calendar.getInstance();
+        // juts add this for tommorw
+        calendar.add(Calendar.HOUR,24);
         Date todayDate = calendar.getTime();
+
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date getDate = dateFormat.parse(date);

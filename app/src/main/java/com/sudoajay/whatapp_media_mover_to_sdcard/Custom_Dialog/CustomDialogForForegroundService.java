@@ -214,7 +214,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
     public  boolean ServicesWorking() {
         return !(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA()) ||
                 !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB()) ||
-                (traceBackgroundService.getTaskC() != null &&
+                !(traceBackgroundService.getTaskC() != null &&
                         !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())));
     }
 }

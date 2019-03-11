@@ -120,7 +120,7 @@ public class Foreground extends Service {
                             0,
                             new Intent(this, Main_Navigation.class),
                             PendingIntent.FLAG_UPDATE_CURRENT))
-                    .setSmallIcon(R.drawable.move_intro_icon);
+                    .setSmallIcon(R.mipmap.ic_launcher);
 
             startForeground(1, notification.build());
 
