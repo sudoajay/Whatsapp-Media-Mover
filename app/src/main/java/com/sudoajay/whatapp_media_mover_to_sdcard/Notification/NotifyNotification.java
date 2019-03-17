@@ -229,7 +229,6 @@ public class NotifyNotification {
             }else{
                 total_Size = "";
             }
-
         }catch (Exception e){
             CustomToast.ToastIt(context,context.getResources().getText(R.string.fallBackError).toString());
         }

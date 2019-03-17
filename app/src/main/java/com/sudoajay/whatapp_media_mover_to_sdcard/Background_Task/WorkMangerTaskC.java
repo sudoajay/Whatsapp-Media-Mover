@@ -23,9 +23,13 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgro
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -67,41 +71,9 @@ public class WorkMangerTaskC extends Worker {
                 Cursor cursor = backgroundTimerDataBase.GetTheTypeFromId();
                 if (cursor != null && cursor.moveToFirst()) {
                     cursor.moveToFirst();
-                    switch (cursor.getInt(1)) {
-                        case 0: // At Every 1/2 Day
-                            hour = 12;
-                            break;
-                        case 1:// At Every 1 Day
-                            hour = 24;
-                            break;
-                        case 2:
-                            // At Every 2 Day
-                            hour = (24 * 2);
-                            break;
-                        case 3:
 
-                            Calendar calendar = Calendar.getInstance();
-                            int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+                    getNextDate(context);
 
-                            String weekdays = cursor.getString(1);
-                            String[] splits = weekdays.split("");
-                            List<Integer> listWeekdays = new ArrayList<>();
-                            for (String ints : splits) {
-                                listWeekdays.add(Integer.parseInt(ints));
-                            }
-
-                            hour = 24 * Main_Navigation.CountDay(currentDay, listWeekdays);
-
-                            break;
-                        case 4:  // At Every month(Same Date)
-                            hour = (24 * 30);
-                            break;
-                    }
-                    if(hour != 0) {
-                        TraceBackgroundService traceBackgroundService = new TraceBackgroundService(context);
-                        // set next date
-                        traceBackgroundService.setTaskC(traceBackgroundService.NextDate(hour));
-                    }
                     after_mainTransferFIle.UnneccesaryData();
                     after_mainTransferFIle.setStorage_Info(new Storage_Info(context));
 
@@ -155,7 +127,9 @@ public class WorkMangerTaskC extends Worker {
                                     , View.VISIBLE, View.VISIBLE, View.VISIBLE, View.VISIBLE);
                             break;
                         default:
-                            backgroundTimerDataBase.deleteData(1 + "");
+                            // Delete The Database
+                            Cursor cursor1 = backgroundTimerDataBase.GetTheId();
+                            backgroundTimerDataBase.deleteData(cursor1.getString(0));
                             break;
                     }
                     if (cursor.getInt(0) != 0) {
@@ -171,26 +145,98 @@ public class WorkMangerTaskC extends Worker {
             backgroundProcess.setTaskCDone(true);
 
         }catch (Exception e){
+
+
             // If Error Complete
             NotifyNotification notify_notification = new NotifyNotification(context);
             notify_notification.notify( "Error on Data " + GetType(value));
+
+            // this is just for backup plan
+            getNextDate(context);
         }
     }
     private static String GetType(int value){
         switch (value){
-            case 0:
-                return "Move";
             case 1:
-                return "Copy";
+                return "Move";
             case 2:
-                return "Remove";
+                return "Copy";
             case 3:
+                return "Remove";
+            case 4:
                 return "Restore";
 
         }
         return "background Process";
     }
 
+    private static void getNextDate(final Context context) {
+        BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(context);
+        int hour = 0;
+        if (!backgroundTimerDataBase.check_For_Empty()) {
+            Cursor cursor = backgroundTimerDataBase.GetTheTypeFromId();
+            if (cursor != null && cursor.moveToFirst()) {
+                cursor.moveToFirst();
+                switch (cursor.getInt(1)) {
+                    case 0: // At Every 1/2 Day
+                        hour = 12;
+                        break;
+                    case 1:// At Every 1 Day
+                        hour = 24;
+                        break;
+                    case 2:
+                        // At Every 2 Day
+                        hour = (24 * 2);
+                        break;
+                    case 3:
 
+                        Calendar calendar = Calendar.getInstance();
+                        int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+
+                        String weekdays = cursor.getString(1);
+                        String[] splits = weekdays.split("");
+                        List<Integer> listWeekdays = new ArrayList<>();
+                        for (String ints : splits) {
+                            listWeekdays.add(Integer.parseInt(ints));
+                        }
+
+                        hour = 24 * Main_Navigation.CountDay(currentDay, listWeekdays);
+
+                        break;
+                    case 4:  // At Every month(Same Date)
+                        hour = (24 * 30);
+                        break;
+                }
+                if (hour != 0) {
+                    TraceBackgroundService traceBackgroundService = new TraceBackgroundService(context);
+                    // set next date
+                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(hour));
+                }
+            }
+            try {
+                // check for endlessly and delete the database
+                assert cursor != null;
+                if (!cursor.getString(2).equalsIgnoreCase("No Date Fixed")) {
+                    // current or today date
+                    Calendar calendars = Calendar.getInstance();
+                    Date curDate = calendars.getTime();
+
+                    // specific date from database
+                    DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                    Date date;
+
+                    date = format.parse(cursor.getString(2));
+
+                    if (date.after(curDate) && date.before(curDate)) {
+                        // Delete The Database
+                        Cursor cursor1 = backgroundTimerDataBase.GetTheId();
+                        backgroundTimerDataBase.deleteData(cursor1.getString(0) );
+                    }
+                }
+            }catch (Exception e){
+
+            }
+        }
+    }
 }
 

@@ -99,14 +99,14 @@ public class TraceBackgroundService {
 
         // today date
         Calendar calendar = Calendar.getInstance();
-        // juts add this for tommorw
-        calendar.add(Calendar.HOUR,24);
-        Date todayDate = calendar.getTime();
+        // juts add this for Yesterday
+        calendar.add(Calendar.DATE,-1);
+        Date yesterDay = calendar.getTime();
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             Date getDate = dateFormat.parse(date);
-            if (todayDate.after(getDate)) {
+            if (yesterDay.after(getDate)) {
 
                 return false;
             }

@@ -362,7 +362,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     private void SaveToDatabase() {
         // save to Database
         if (getSelectedEndlesslyDate == null)
-            getSelectedEndlesslyDate = "No Date";
+            getSelectedEndlesslyDate = "No Date Fixed";
 
         if (backgroundTimerDataBase.check_For_Empty()) {
             backgroundTimerDataBase.FillIt(chooseSpinner.getSelectedIndex(),
@@ -476,11 +476,12 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     private void ClearAll() {
         // delete from DataBase
         BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getContext());
-        if (!backgroundTimerDataBase.check_For_Empty())
-            backgroundTimerDataBase.deleteData(1 + "");
-
+        if (!backgroundTimerDataBase.check_For_Empty()) {
+            Cursor cursor = backgroundTimerDataBase.GetTheId();
+            backgroundTimerDataBase.deleteData(cursor.getString(0) );
+        }
         // Clear from shared preference
-        TraceBackgroundService traceBackgroundService = new TraceBackgroundService(getContext());
+        TraceBackgroundService traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));
         traceBackgroundService.setTaskC("");
 
         BackgroundProcess backgroundProcess = new BackgroundProcess(getContext());

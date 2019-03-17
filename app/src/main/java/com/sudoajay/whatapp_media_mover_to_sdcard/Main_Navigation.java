@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,13 +41,9 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.BackgroundPr
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +67,6 @@ public class Main_Navigation extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_navigation);
@@ -81,7 +77,8 @@ public class Main_Navigation extends AppCompatActivity
         if (extras != null) {
             value = extras.getString("passing");
         }
-        isServiceRunningInForeground(getApplicationContext(), Foreground.class);
+
+
         // Create Object
         backgroundProcess = new BackgroundProcess(getApplicationContext());
 
@@ -108,7 +105,6 @@ public class Main_Navigation extends AppCompatActivity
             navigationView.getMenu().getItem(1).setChecked(true);
             onNavigationItemSelected(navigationView.getMenu().getItem(2));
         }
-
         if (getIntent().getAction() != null) {
             if (Objects.requireNonNull(getIntent().getAction()).equalsIgnoreCase("Stop_Foreground(Setting)")) {
                 navigationView.getMenu().getItem(1).setChecked(true);
@@ -116,7 +112,6 @@ public class Main_Navigation extends AppCompatActivity
             }
 
         }
-
         AndroidExternalStoragePermission androidExternalStoragePermission = new AndroidExternalStoragePermission(getApplicationContext(),
                 Main_Navigation.this);
         if (androidExternalStoragePermission.isExternalStorageWritable()) {
@@ -128,11 +123,13 @@ public class Main_Navigation extends AppCompatActivity
                 if (!ServicesWorking()) {
                     traceBackgroundService.setBackgroundServiceWorking(false);
                     // if the background service not working then
-                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(2*24));
+                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(24));
+                    traceBackgroundService.setTaskA(traceBackgroundService.NextDate(24));
+                    traceBackgroundService.setTaskB(traceBackgroundService.NextDate(7 * 24));
                 }
             }
-
-         //    first time check
+//
+            //    first time check
             if (traceBackgroundService.isBackgroundServiceWorking()) {
 
 
@@ -140,6 +137,7 @@ public class Main_Navigation extends AppCompatActivity
                 // showing size of whatsApp Data
                 if (backgroundProcess.isTaskADone())
                     TypeATask();
+
 
                 // showing duplication of whatsapp Data.
                 if (backgroundProcess.isTaskBDone())
@@ -320,17 +318,15 @@ public class Main_Navigation extends AppCompatActivity
 
         // this task for cleaning and show today task
         int hour = 0;
-        String endles = "No Date";
 
         // grab the data From Database
-        BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
+        final BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
 
         if (!backgroundTimerDataBase.check_For_Empty()) {
             Cursor cursor = backgroundTimerDataBase.GetTheHourFromId();
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
 
-                endles = cursor.getString(2);
                 try {
 
                     switch (cursor.getInt(0)) {
@@ -367,12 +363,6 @@ public class Main_Navigation extends AppCompatActivity
                 } catch (Exception e) {
                 }
             }
-
-            // delete database if not endlesss
-            if (endles.equals("No Date"))
-                backgroundTimerDataBase.deleteData(1 + "");
-
-
         }
 
         if (hour != 0) {
@@ -384,7 +374,6 @@ public class Main_Navigation extends AppCompatActivity
             WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.KEEP, morning_Work);
 
 
-            final String finalEndles = endles;
             WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
                     .observe(this, new Observer<WorkInfo>() {
                         @Override
@@ -392,23 +381,9 @@ public class Main_Navigation extends AppCompatActivity
                             // Do something with the status
                             if (workInfo != null && workInfo.getState().isFinished()) {
                                 try {
-                                    if (!finalEndles.equals("No Date")) {
-
-                                        // current or today date
-                                        Calendar calendars = Calendar.getInstance();
-                                        Date curDate = calendars.getTime();
-
-                                        // specific date from database
-                                        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                                        Date date = null;
-
-                                        date = format.parse(finalEndles);
-
-                                        if (date.after(curDate)) {
-                                            // Recursive
-                                            TypeCTask();
-                                        }
-                                    }
+                                    // Recursive
+                                    if (!backgroundTimerDataBase.check_For_Empty())
+                                        TypeCTask();
                                 } catch (Exception e) {
                                 }
 
@@ -500,25 +475,26 @@ public class Main_Navigation extends AppCompatActivity
         return 0;
     }
 
-    public  boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+    public boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
         try {
-                ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-                for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                    if (serviceClass.getName().equals(service.service.getClassName())) {
-                        if (service.foreground) {
-                            return true;
-                        }
+            ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                Log.i("FigureOut", service.service.getClassName());
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    if (service.foreground) {
+                        return true;
                     }
                 }
+            }
             return false;
-        }catch (Exception e){
+        } catch (Exception e) {
             if (!ServicesWorking()) return true;
             return false;
         }
     }
 
-    public  boolean ServicesWorking() {
-        return (traceBackgroundService.getTaskC() != null &&
-                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC()));
+    public boolean ServicesWorking() {
+        return !(!traceBackgroundService.getTaskC().equalsIgnoreCase("") &&
+                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC()));
     }
 }

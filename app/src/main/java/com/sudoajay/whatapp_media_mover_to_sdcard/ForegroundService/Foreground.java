@@ -14,8 +14,8 @@ import android.support.v4.app.NotificationCompat;
 
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
+import com.sudoajay.whatapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Notification.NotifyNotification;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
@@ -136,8 +136,7 @@ public class Foreground extends Service {
 
             // Third Process or Task C
             if (DatesMatches(traceBackgroundService.getTaskC())) {
-                NotifyNotification notify_notifications = new NotifyNotification(this);
-                notify_notifications.notify("Size Of Duplication Data");
+                WorkMangerTaskC.getWork(getApplicationContext());
             }
         } else if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"))
                 .equalsIgnoreCase("Stop_Foreground")) {
