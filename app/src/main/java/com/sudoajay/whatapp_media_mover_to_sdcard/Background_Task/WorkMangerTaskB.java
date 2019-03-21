@@ -15,10 +15,9 @@ public class WorkMangerTaskB extends Worker {
 
 
 
-    private Context context;
+
     public WorkMangerTaskB(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        this.context = context;
     }
 
     @NonNull

@@ -136,7 +136,7 @@ public class Foreground extends Service {
 
             // Third Process or Task C
             if (DatesMatches(traceBackgroundService.getTaskC())) {
-                WorkMangerTaskC.getWork(getApplicationContext());
+                WorkMangerTaskC.runThread(getApplicationContext());
             }
         } else if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"))
                 .equalsIgnoreCase("Stop_Foreground")) {

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.provider.DocumentFile;
 import android.view.View;
@@ -36,29 +38,26 @@ import androidx.work.WorkerParameters;
 
 public class WorkMangerTaskC extends Worker {
 
-
-
-    private Context context;
     public WorkMangerTaskC(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        this.context = context;
     }
+
 
     @NonNull
     @Override
     public Result doWork() {
-            getWork(context);
+
+        runThread(getApplicationContext());
 
         TraceBackgroundService traceBackgroundService = new TraceBackgroundService(getApplicationContext());
         traceBackgroundService.setBackgroundServiceWorking(true);
 
 
-
         return Result.success();
     }
 
-    public static void getWork(final Context context){
-        int value=5,hour = 0;
+    private static void getWork(final Context context) {
+        int value = 5, hour = 0;
         try {
             // create Object
             After_MainTransferFIle after_mainTransferFIle = new After_MainTransferFIle();
@@ -104,7 +103,7 @@ public class WorkMangerTaskC extends Worker {
                             break;
                         case 2:
                             // copy process
-                            after_mainTransferFIle.setWhich_Option_To_Do("move");
+//                            after_mainTransferFIle.setWhich_Option_To_Do("move");
                             Copy_The_File copy_the_files = new Copy_The_File(external_Path_Url, whats_App_Media_Path, sd_Card_documentFile,
                                     after_mainTransferFIle, only_Selected_File, 0,
                                     "Background", context);
@@ -144,19 +143,19 @@ public class WorkMangerTaskC extends Worker {
             BackgroundProcess backgroundProcess = new BackgroundProcess(context);
             backgroundProcess.setTaskCDone(true);
 
-        }catch (Exception e){
-
-
+        } catch (Exception e) {
             // If Error Complete
             NotifyNotification notify_notification = new NotifyNotification(context);
-            notify_notification.notify( "Error on Data " + GetType(value));
+//            notify_notification.notify( "Error On Data " + GetType(value));
+            notify_notification.notify("Error On Data " + e.getMessage());
 
             // this is just for backup plan
             getNextDate(context);
         }
     }
-    private static String GetType(int value){
-        switch (value){
+
+    private static String GetType(int value) {
+        switch (value) {
             case 1:
                 return "Move";
             case 2:
@@ -230,13 +229,31 @@ public class WorkMangerTaskC extends Worker {
                     if (date.after(curDate) && date.before(curDate)) {
                         // Delete The Database
                         Cursor cursor1 = backgroundTimerDataBase.GetTheId();
-                        backgroundTimerDataBase.deleteData(cursor1.getString(0) );
+                        backgroundTimerDataBase.deleteData(cursor1.getString(0));
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
     }
+
+
+    public static void runThread(final Context context) {
+
+        try {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                public void run() {
+                    // code goes here
+                    getWork(context);
+                }
+            });
+
+        } catch (Exception e) {
+        }
+
+    }
+
+
 }
 

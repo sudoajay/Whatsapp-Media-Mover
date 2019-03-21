@@ -14,20 +14,17 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 @SuppressLint("NewApi")
-public final class Sd_Card_Path {
+public final class SdCardPath {
 
-    static String TAG="TAG";
+    static String TAG = "TAG";
     private static final String PRIMARY_VOLUME_NAME = "primary";
-
-
-
 
     @Nullable
     public static String getFullPathFromTreeUri(@Nullable final Uri treeUri, Context con) {
         if (treeUri == null) {
             return null;
         }
-        String volumePath = Sd_Card_Path.getVolumePath(Sd_Card_Path.getVolumeIdFromTreeUri(treeUri),con);
+        String volumePath = SdCardPath.getVolumePath(SdCardPath.getVolumeIdFromTreeUri(treeUri), con);
         if (volumePath == null) {
             return File.separator;
         }
@@ -35,7 +32,7 @@ public final class Sd_Card_Path {
             volumePath = volumePath.substring(0, volumePath.length() - 1);
         }
 
-        String documentPath = Sd_Card_Path.getDocumentPathFromTreeUri(treeUri);
+        String documentPath = SdCardPath.getDocumentPathFromTreeUri(treeUri);
         if (documentPath.endsWith(File.separator)) {
             documentPath = documentPath.substring(0, documentPath.length() - 1);
         }
@@ -43,22 +40,25 @@ public final class Sd_Card_Path {
         if (documentPath.length() > 0) {
             if (documentPath.startsWith(File.separator)) {
                 return volumePath + documentPath;
-            }
-            else {
+            } else {
                 return volumePath + File.separator + documentPath;
             }
-        }
-        else {
+        } else {
             return volumePath;
         }
+
+
     }
 
-
-    private static String getVolumePath(final String volumeId, Context con) {
+    @SuppressLint("ObsoleteSdkInt")
+    private static String getVolumePath(final String volumeId, Context concontext) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return null;
+        }
 
         try {
             StorageManager mStorageManager =
-                    (StorageManager) con.getSystemService(Context.STORAGE_SERVICE);
+                    (StorageManager) concontext.getSystemService(Context.STORAGE_SERVICE);
 
             Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
 
@@ -80,17 +80,14 @@ public final class Sd_Card_Path {
                 }
 
                 // other volumes?
-                if (uuid != null) {
-                    if (uuid.equals(volumeId)) {
-                        return (String) getPath.invoke(storageVolumeElement);
-                    }
+                if (uuid != null && uuid.equals(volumeId)) {
+                    return (String) getPath.invoke(storageVolumeElement);
                 }
             }
 
             // not found.
             return null;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -102,8 +99,7 @@ public final class Sd_Card_Path {
 
         if (split.length > 0) {
             return split[0];
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -115,8 +111,7 @@ public final class Sd_Card_Path {
         final String[] split = docId.split(":");
         if ((split.length >= 2) && (split[1] != null)) {
             return split[1];
-        }
-        else {
+        } else {
             return File.separator;
         }
     }

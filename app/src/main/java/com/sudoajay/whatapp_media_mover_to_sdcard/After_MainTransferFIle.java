@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -610,7 +611,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         sd_Card_URL = resultData.getData();
         grantUriPermission(getPackageName(), sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         getContentResolver().takePersistableUriPermission(sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sd_Card_URL, this);
+        sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, this);
 
         if (new File(sd_Card_Path_URL).exists()) string_URI = Split_The_URI(sd_Card_URL.toString());
         android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
@@ -951,9 +952,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
         String title = this.getString(R.string.transfer_title); // Default Channel
         NotificationCompat.Builder builder;
 
+
         save_Exact_Size = storage_Info.Convert_It(get_File_Size);
         contentView = new RemoteViews(getPackageName(), R.layout.activity_custom_notification);
-        contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
+        contentView.setImageViewResource(R.id.image, R.drawable.copy_intro_icon);
         contentView.setTextViewText(R.id.title, "Data Folder");
         contentView.setTextViewText(R.id.time_Tittle, get_Current_Time());
         contentView.setProgressBar(R.id.progressBar, 0, 0, false);
@@ -973,7 +975,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
         }
         builder = new NotificationCompat.Builder(this, id)// required
-                .setSmallIcon(R.mipmap.ic_launcher)   // required
+                .setSmallIcon(R.drawable.copy_intro_icon)   // required
                 .setVibrate(new long[]{0L}) // Passing null here silently fails
                 .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -1071,8 +1073,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         String id = this.getString(R.string.transfer_Done_Id); // default_channel_id
         String title = this.getString(R.string.transfer_Done_title); // Default Channel
         NotificationCompat.Builder builder;
-
-
+        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         String get = "Transfer";
         if (which_Option_To_Do.equals("remove"))
             get = "Remove";
@@ -1092,9 +1093,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
         }
         builder =
                 new NotificationCompat.Builder(this, id)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                        .setSmallIcon(R.drawable.copy_intro_icon)
+                        .setVibrate(new long[]{1000})
                         .setOngoing(false)
+                        .setSound(uri)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentTitle(after_Notification)
                         .setAutoCancel(true)
@@ -1192,7 +1194,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         }
     }
 
-    public void UnneccesaryData() {
+    public  void UnneccesaryData() {
         if (new File(external_Path_Url + whatsapp_Path + ".Shared/").exists())
             Delete_Particular_Data(external_Path_Url + whatsapp_Path + ".Shared/");
         if (new File(external_Path_Url + whatsapp_Path + ".Trash").exists())

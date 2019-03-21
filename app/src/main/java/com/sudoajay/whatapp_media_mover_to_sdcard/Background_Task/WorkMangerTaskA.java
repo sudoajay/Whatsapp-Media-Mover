@@ -14,11 +14,10 @@ import androidx.work.WorkerParameters;
 public class WorkMangerTaskA extends Worker {
 
 
-    private Context context;
 
     public WorkMangerTaskA(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
-        this.context = context;
+
     }
 
     @NonNull

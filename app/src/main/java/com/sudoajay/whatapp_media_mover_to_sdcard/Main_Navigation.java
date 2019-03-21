@@ -78,7 +78,6 @@ public class Main_Navigation extends AppCompatActivity
             value = extras.getString("passing");
         }
 
-
         // Create Object
         backgroundProcess = new BackgroundProcess(getApplicationContext());
 
@@ -128,7 +127,6 @@ public class Main_Navigation extends AppCompatActivity
                     traceBackgroundService.setTaskB(traceBackgroundService.NextDate(7 * 24));
                 }
             }
-//
             //    first time check
             if (traceBackgroundService.isBackgroundServiceWorking()) {
 
@@ -145,7 +143,7 @@ public class Main_Navigation extends AppCompatActivity
 
                 // doing background Process
                 // New Feature
-                if (backgroundProcess.isTaskCDone())
+                if (backgroundProcess.isTaskCDone());
                     TypeCTask();
             } else {
 
@@ -157,7 +155,6 @@ public class Main_Navigation extends AppCompatActivity
 
                 }
             }
-
 
         }
     }
@@ -372,7 +369,6 @@ public class Main_Navigation extends AppCompatActivity
                     new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
                             .build();
             WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.KEEP, morning_Work);
-
 
             WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
                     .observe(this, new Observer<WorkInfo>() {

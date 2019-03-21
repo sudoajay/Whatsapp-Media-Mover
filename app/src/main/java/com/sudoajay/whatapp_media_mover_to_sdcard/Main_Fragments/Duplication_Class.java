@@ -22,7 +22,7 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Sd_Card_Path;
+import com.sudoajay.whatapp_media_mover_to_sdcard.SdCardPath;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Show_Duplicate_File;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Storage_Info;
 
@@ -123,7 +123,7 @@ public class Duplication_Class extends Fragment {
         Uri sdCard_Uri = data.getData();
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        String sd_Card_Path_URL = Sd_Card_Path.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
+        String sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
 
         if(new File(sd_Card_Path_URL).exists()) string_URI  = Split_The_URI(sdCard_Uri.toString());
         android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);

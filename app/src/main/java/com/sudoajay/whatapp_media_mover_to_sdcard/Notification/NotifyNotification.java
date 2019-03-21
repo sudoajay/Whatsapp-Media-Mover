@@ -1,7 +1,6 @@
 package com.sudoajay.whatapp_media_mover_to_sdcard.Notification;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,6 +8,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
@@ -38,8 +39,7 @@ public class NotifyNotification {
     private static final String NOTIFICATION_TAG = "Alert_";
     private Context context;
     private NotificationManager notificationManager;
-    private String total_Size= "0 MB";
-    private Activity activity;
+    private String total_Size = "0 MB";
 
 
     /**
@@ -59,14 +59,14 @@ public class NotifyNotification {
      */
 
     // Constructor
-    public NotifyNotification(final Context context ){
+    public NotifyNotification(final Context context) {
         this.context = context;
     }
 
     public void notify(final String notification_Hint) {
 
         // local variable
-        String text="",channel_id;
+        String text = "", channel_id;
         final Resources res = context.getResources();
         Intent intent;
 
@@ -75,22 +75,22 @@ public class NotifyNotification {
         GrabTheSize(notification_Hint);
 
         // setup intent and passing value
-        intent = new Intent(context,Main_Navigation.class);
+        intent = new Intent(context, Main_Navigation.class);
 
-        if(notification_Hint.equalsIgnoreCase("Size Of Duplication Data"))
-            intent.putExtra("passing","DuplicateData");
+        if (notification_Hint.equalsIgnoreCase("Size Of Duplication Data"))
+            intent.putExtra("passing", "DuplicateData");
 
 
         // setup according Which Type
         // if There is no data match with query
 
         channel_id = context.getString(R.string.notify_Notification); // channel_id
-        text = total_Size ;
+        text = total_Size;
 
 
         // now check for null notification manger
         if (notificationManager == null) {
-            notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
         // this check for android Oero In which Channel Id Come as New Feature
@@ -104,7 +104,10 @@ public class NotifyNotification {
             }
         }
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context,channel_id)
+        // Default ringtone
+        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channel_id)
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
@@ -112,14 +115,14 @@ public class NotifyNotification {
                 // Set required fields, including the small icon, the
                 // notification title, and text.
                 .setContentTitle(notification_Hint)
-                .setContentText(text )
+                .setContentText(text)
 
                 // All fields below this line are optional.
 
                 // Use a default priority (recognized on devices running Android
                 // 4.1 or later)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-           //     .setSound(uri)
+                .setSound(uri)
                 // Provide a large icon, shown with the notification in the
                 // notification drawer on devices running Android 3.0 or later.
                 // Set ticker text (preview) information for this notification.
@@ -163,11 +166,12 @@ public class NotifyNotification {
 
         // check if there ia data with empty
         // more and view button classification
-            builder.setSmallIcon(R.mipmap.ic_launcher);
-            notify(context, builder.build());
+        builder.setSmallIcon(R.drawable.copy_intro_icon);
+        notify(context, builder.build());
     }
+
     @TargetApi(Build.VERSION_CODES.ECLAIR)
-    private void notify(final Context context, final Notification notification ) {
+    private void notify(final Context context, final Notification notification) {
 
         notificationManager.notify(NOTIFICATION_TAG, 0, notification);
     }
@@ -175,7 +179,7 @@ public class NotifyNotification {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify( String)}.
+     * {@link #notify(String)}.
      */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
     private static void cancel(final Context context) {
@@ -186,7 +190,7 @@ public class NotifyNotification {
 
     private void GrabTheSize(final String hint) {
         // local size
-        String size, whatsappPath, externalPath, sdCardPath;
+        String externalPath, sdCardPath;
         List<String> path;
         long longSize = 0;
         int externalVisible = View.VISIBLE, sdCardVisible = View.VISIBLE;
@@ -197,7 +201,7 @@ public class NotifyNotification {
             if (hint.equalsIgnoreCase("Size Of Whatsapp Data")) {
                 Storage_Info storage_info = new Storage_Info(context);
                 total_Size = storage_info.getWhatsAppInternalMemorySize();
-            } else if(hint.equalsIgnoreCase("Size Of Duplication Data")) {
+            } else if (hint.equalsIgnoreCase("Size Of Duplication Data")) {
                 // get the sd card path
                 SdCardPathSharedPreference sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
                 sdCardPath = sdCardPathSharedPreference.getSdCardPath();
@@ -224,13 +228,14 @@ public class NotifyNotification {
                 }
 
                 total_Size = storage_info.Convert_It(longSize);
-            }else if(hint.contains("Error on Data")){
-                total_Size= "Please do this process manually (One Time)";
-            }else{
+            } else if (hint.contains("Error On Data")) {
+                total_Size = hint;
+//                total_Size= "Please do this process manually (One Time)";
+            } else {
                 total_Size = "";
             }
-        }catch (Exception e){
-            CustomToast.ToastIt(context,context.getResources().getText(R.string.fallBackError).toString());
+        } catch (Exception e) {
+            CustomToast.ToastIt(context, context.getResources().getText(R.string.fallBackError).toString());
         }
     }
 
