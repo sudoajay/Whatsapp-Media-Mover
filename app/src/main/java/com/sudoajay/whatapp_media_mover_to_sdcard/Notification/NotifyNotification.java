@@ -132,6 +132,7 @@ public class NotifyNotification {
                 // a single type.
                 .setNumber(1)
                 .setSmallIcon(R.drawable.copy_intro_icon)
+                .setColor(context.getResources().getColor(R.color.colorPrimary))
                 // If this notification relates to a past or upcoming event, you
                 // should set the relevant time information using the setWhen
                 // method below. If this call is omitted, the notification's

@@ -966,7 +966,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
             assert notificationManager != null;
             NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
             if (mChannel == null) {
@@ -976,9 +976,10 @@ public class After_MainTransferFIle extends AppCompatActivity {
         }
         builder = new NotificationCompat.Builder(this, id)// required
                 .setSmallIcon(R.drawable.copy_intro_icon)   // required
+                .setColor(getResources().getColor(R.color.colorPrimary))
                 .setVibrate(new long[]{0L}) // Passing null here silently fails
                 .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOngoing(true)
                 .setContent(contentView)
                 .setLights(Color.parseColor("#075e54"), 3000, 3000);
@@ -1094,6 +1095,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         builder =
                 new NotificationCompat.Builder(this, id)
                         .setSmallIcon(R.drawable.copy_intro_icon)
+                        .setColor(getResources().getColor(R.color.colorPrimary))
                         .setVibrate(new long[]{1000})
                         .setOngoing(false)
                         .setSound(uri)
