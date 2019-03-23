@@ -131,7 +131,7 @@ public class NotifyNotification {
                 // Show a number. This is useful when stacking notifications of
                 // a single type.
                 .setNumber(1)
-
+                .setSmallIcon(R.drawable.copy_intro_icon)
                 // If this notification relates to a past or upcoming event, you
                 // should set the relevant time information using the setWhen
                 // method below. If this call is omitted, the notification's
@@ -166,7 +166,6 @@ public class NotifyNotification {
 
         // check if there ia data with empty
         // more and view button classification
-        builder.setSmallIcon(R.drawable.copy_intro_icon);
         notify(context, builder.build());
     }
 

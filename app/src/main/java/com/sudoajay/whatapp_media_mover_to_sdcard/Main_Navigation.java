@@ -35,7 +35,6 @@ import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Duplication_Cla
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
-import com.sudoajay.whatapp_media_mover_to_sdcard.Permission.ForegroundService;
 import com.sudoajay.whatapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
@@ -148,10 +147,7 @@ public class Main_Navigation extends AppCompatActivity
             } else {
 
                 if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
-                    ForegroundService foregroundService =
-                            new ForegroundService(Main_Navigation.this, Main_Navigation.this);
-                    // call Custom dialog for Thread
-                    foregroundService.call_Thread();
+
 
                 }
             }

@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REAL_GET_TASKS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
 
     <application
@@ -70,6 +71,16 @@
         </service>
         <service android:name=".ForegroundService.Foreground"
             tools:ignore="InnerclassSeparator" />
+
+        <service android:name="com.sudoajay.whatapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot"
+            tools:ignore="InnerclassSeparator" />
+
+        <receiver android:name="com.sudoajay.whatapp_media_mover_to_sdcard.Receive_Boot_Completed.MyRebootReceiver"
+            tools:ignore="InnerclassSeparator">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

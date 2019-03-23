@@ -152,8 +152,8 @@
     <string name="stop_Foreground_Service">Stop Service</string>
     <string name="why_This_Foreground_Service">Why This ? </string>
 
-    <string name="custom_Foreground_Permission">Smartphones are more restrict about background Process from which our background task not working So if you want to us to run background task
-        follow it please .</string>
+    <string name="custom_Foreground_Permission">Smart phone are more restrict about background Process from which our background task not working So if you want to us to run background task
+        follow the steps which is given on that Website .</string>
     <string name="custom_Foreground_Permission_Follow">Follow It</string>
 
     <string name="custom_Dialog_Box_Heading">Foreground Service</string>

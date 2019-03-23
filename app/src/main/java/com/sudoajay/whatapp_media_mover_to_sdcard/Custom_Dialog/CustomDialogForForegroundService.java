@@ -73,7 +73,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
                         // shared Preference changes
                         traceBackgroundService.setForegroundServiceWorking(true);
 
-                        if(!isServiceRunningInForeground(Objects.requireNonNull(getContext()),Foreground.class)) {
+                        if(!isServiceRunningInForeground(Objects.requireNonNull(getContext()), Foreground.class)) {
                             // push foreground service
                             Intent startIntent = new Intent(CustomDialogForForegroundService.this.getContext(), Foreground.class);
                             startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"

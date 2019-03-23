@@ -71,7 +71,7 @@ public class ForegroundService {
                     traceBackgroundService = new TraceBackgroundService(mContext);
                     traceBackgroundService.setForegroundServiceWorking(true);
 
-                    if(!isServiceRunningInForeground(mContext,Foreground.class)) {
+                    if(!isServiceRunningInForeground(mContext, Foreground.class)) {
                         // call Foreground Thread();
                         Intent startIntent = new Intent(mContext, Foreground.class);
                         startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
