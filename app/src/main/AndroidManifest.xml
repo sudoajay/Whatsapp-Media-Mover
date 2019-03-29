@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.sudoajay.whatapp_media_mover_to_sdcard"
+    package="com.sudoajay.whatsapp_media_mover_to_sdcard"
     tools:ignore="ExtraText">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SplashScreen.WelcomeActivity"
+            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.SplashScreen.WelcomeActivity"
             android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
@@ -44,7 +44,7 @@
         </provider>
 
         <activity
-            android:name=".After_MainTransferFIle"
+            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
 
@@ -53,15 +53,15 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".Main_Navigation"
+            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation"
             android:configChanges="orientation"
 
             android:label="@string/title_activity_main__navigation"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Show_Duplicate_File" />
+        <activity android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Show_Duplicate_File" />
 
-        <service android:name=".Firebase_Message_Config.MyFireBaseInstanceMessageService"
+        <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Firebase_Message_Config.MyFireBaseInstanceMessageService"
             tools:ignore="InnerclassSeparator"
             android:stopWithTask="false">
             <intent-filter>
@@ -69,13 +69,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".ForegroundService.Foreground"
+        <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.Foreground"
             tools:ignore="InnerclassSeparator" />
 
-        <service android:name="com.sudoajay.whatapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot"
+        <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot"
             tools:ignore="InnerclassSeparator" />
 
-        <receiver android:name="com.sudoajay.whatapp_media_mover_to_sdcard.Receive_Boot_Completed.MyRebootReceiver"
+        <receiver android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.MyRebootReceiver"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

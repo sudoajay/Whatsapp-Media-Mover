@@ -37,7 +37,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
-<com.sudoajay.whatapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle
+<com.sudoajay.whatsapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle
     android:id="@+id/internal_Draw_Bar"
     android:layout_width="0dp"
     android:layout_height="20dp"
@@ -51,7 +51,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.13999999" />
 
-<com.sudoajay.whatapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle
+<com.sudoajay.whatsapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle
     android:id="@+id/external_Draw_Bar"
     android:layout_width="0dp"
     android:layout_height="20dp"
