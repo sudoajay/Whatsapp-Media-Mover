@@ -146,8 +146,8 @@ public class WorkMangerTaskC extends Worker {
         } catch (Exception e) {
             // If Error Complete
             NotifyNotification notify_notification = new NotifyNotification(context);
-//            notify_notification.notify( "Error On Data " + GetType(value));
-            notify_notification.notify("Error On Data " + e.getMessage());
+           notify_notification.notify( "Error On Data " + GetType(value));
+
 
             // this is just for backup plan
             getNextDate(context);

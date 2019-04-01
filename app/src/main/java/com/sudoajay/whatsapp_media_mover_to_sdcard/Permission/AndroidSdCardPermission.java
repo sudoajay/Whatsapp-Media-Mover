@@ -74,7 +74,8 @@ public class AndroidSdCardPermission {
         try {
             final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             int REQUEST_CODE_OPEN_DOCUMENT_TREE = 42;
-            if(mainTransferFIle != null) mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
+            if(mainTransferFIle != null)
+                mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             else if(duplication_class != null) {
                 duplication_class.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             }else if(home != null){

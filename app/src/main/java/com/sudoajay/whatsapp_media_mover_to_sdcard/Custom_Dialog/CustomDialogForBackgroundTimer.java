@@ -325,10 +325,9 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
                 int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 
                 String weekdays = get_Repeat();
-                String[] splits = weekdays.split("");
                 List<Integer> listWeekdays = new ArrayList<>();
-                for (String ints : splits) {
-                    listWeekdays.add(Integer.parseInt(ints));
+                for (int i = 0;i < weekdays.length(); i++){
+                    listWeekdays.add(Character.getNumericValue(weekdays.charAt(i)));
                 }
 
                 hour = 24 * CountDay(currentDay, listWeekdays);
@@ -393,12 +392,16 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     }
 
     public String get_Repeat() {
-        List<Integer> weekday = weekdaysPicker.getSelectedDays();
-        StringBuilder join = new StringBuilder();
-        for (Integer week : weekday) {
-            join.append(week);
+        if(repeatedlySpinner.getSelectedIndex() == 3) {
+            List<Integer> weekday = weekdaysPicker.getSelectedDays();
+            StringBuilder join = new StringBuilder();
+            for (Integer week : weekday) {
+                join.append(week);
+            }
+
+            return join.toString();
         }
-        return join.toString();
+        return "No Weekday";
     }
 
     public void onStart() {

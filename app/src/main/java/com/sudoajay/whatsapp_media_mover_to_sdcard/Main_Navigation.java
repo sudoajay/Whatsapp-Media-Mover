@@ -341,10 +341,9 @@ public class Main_Navigation extends AppCompatActivity
                             int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 
                             String weekdays = cursor.getString(1);
-                            String[] splits = weekdays.split("");
                             List<Integer> listWeekdays = new ArrayList<>();
-                            for (String ints : splits) {
-                                listWeekdays.add(Integer.parseInt(ints));
+                            for (int i = 0;i < weekdays.length(); i++){
+                                listWeekdays.add(Character.getNumericValue(weekdays.charAt(i)));
                             }
 
                             hour = 24 * CountDay(currentDay, listWeekdays);
@@ -362,11 +361,10 @@ public class Main_Navigation extends AppCompatActivity
 
         if (hour != 0) {
 
-
             OneTimeWorkRequest morning_Work =
                     new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
                             .build();
-            WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.KEEP, morning_Work);
+            WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.REPLACE, morning_Work);
 
             WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
                     .observe(this, new Observer<WorkInfo>() {
