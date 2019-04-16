@@ -1,7 +1,10 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
@@ -38,11 +41,20 @@ public class Duplication_Data {
         Duplication_Data.context =context;
 
         Map<String, List<String>> lists = new HashMap<>();
-        if(internal_Visible == View.VISIBLE) Get_All_Path(external_dir);
-        if(external_Visible == View.VISIBLE)Get_All_Path(sd_Card_dir);
+        if(internal_Visible == View.VISIBLE) {
+            if (FileExist(external_dir)) Get_All_Path(external_dir);
+        }
+        if(external_Visible == View.VISIBLE){
+            if (FileExist(sd_Card_dir))Get_All_Path(sd_Card_dir);
+        }
+
 
         // check for length in file
         DuplicatedFilesUsingLength();
+
+        // check the file meme
+        DuplicateFileType();
+
         // check for hash using "SHA-512"
         DuplicatedFilesUsingHashTable(lists);
         for (List<String> list : lists.values()) {
@@ -70,7 +82,40 @@ public class Duplication_Data {
                 }
             }
         }
+    }
 
+    private void DuplicateFileType(){
+        ArrayList<String> getAllDataType =new ArrayList<>();
+        for(File data: getAllData){
+            getAllDataType.add(getMimeType(Uri.fromFile(data)));
+        }
+
+        for(int i = getAllDataType.size()-1 ;i >0;i--){
+            for(int j = 0 ;j <getAllDataType.size();j++){
+                if(i !=j){
+                    if(getAllDataType.get(i) == null || getAllDataType.get(i).equals(getAllDataType.get(j)))break;
+                    if(j==getAllDataType.size()-1){
+                        getAllDataType.remove(i);
+                        getAllData.remove(i);
+                    }
+                }
+            }
+        }
+    }
+
+
+    public String getMimeType(Uri uri) {
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = context.getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType;
     }
     public void DuplicatedFilesUsingHashTable(Map<String, List<String>> lists) {
         for (File child : getAllData) {
@@ -105,5 +150,9 @@ public class Duplication_Data {
 
     public ArrayList<String> getList() {
         return dataStore;
+    }
+
+    private boolean FileExist(File path){
+        return   (path.listFiles() != null && path.exists());
     }
 }

@@ -155,6 +155,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         });
         expandableListView.invalidate();
+
     }
 
     public void Reference() {
