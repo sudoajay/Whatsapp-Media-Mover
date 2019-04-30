@@ -15,6 +15,7 @@ import android.support.v4.app.NotificationCompat;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
@@ -44,7 +45,7 @@ public class Foreground extends Service {
         // create object
         traceBackgroundService = new TraceBackgroundService(getApplicationContext());
 
-        if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"))
+        if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"))
                 .equalsIgnoreCase("Start_Foreground")) {
 
             createNotificationChannel();
@@ -126,18 +127,18 @@ public class Foreground extends Service {
             // check if date matches then run the process
 
             // first Process or Task A
-            if (DatesMatches(traceBackgroundService.getTaskA()))
+            if (DatesMatches(traceBackgroundService.getTaskA(), 1))
                 WorkMangerTaskA.getWork(getApplicationContext());
 
             // Second Process or Task B
-            if (DatesMatches(traceBackgroundService.getTaskB()))
+            if (DatesMatches(traceBackgroundService.getTaskB(), 2))
                 WorkMangerTaskB.getWork(getApplicationContext());
 
             // Third Process or Task C
-            if (DatesMatches(traceBackgroundService.getTaskC())) {
+            if (DatesMatches(traceBackgroundService.getTaskC(), 3)) {
                 WorkMangerTaskC.runThread(getApplicationContext());
             }
-        } else if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"))
+        } else if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"))
                 .equalsIgnoreCase("Stop_Foreground")) {
             //your  service end here
             stopForeground(true);
@@ -171,15 +172,8 @@ public class Foreground extends Service {
         return null;
     }
 
-    private void OnStop() {
-        stopSelf();
-    }
-
-    private boolean DatesMatches(final String date) {
-
+    private boolean DatesMatches(final String date, final int type) {
         try {
-            // check if its matches then start the process
-
 
             // set The Today Date
             Calendar todayCalender = Calendar.getInstance();
@@ -189,8 +183,22 @@ public class Foreground extends Service {
             DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
             Date curDate = format.parse(date);
-
-            if (todayDate.after(curDate) && todayDate.before(curDate)) return true;
+            if (todayDate.after(curDate)) {
+                if (!format.format(todayDate).equals(format.format(curDate))) {
+                    if (type == 1) {
+                        traceBackgroundService.setTaskA();
+                    } else if (type == 2) {
+                        traceBackgroundService.setTaskB();
+                    } else {
+                        BackgroundTimerDataBase backgroundTimerDataBase =
+                                new BackgroundTimerDataBase(getApplicationContext());
+                        traceBackgroundService.setTaskC
+                                (TraceBackgroundService.NextDate(Main_Navigation.getHours(backgroundTimerDataBase)));
+                    }
+                }
+            }
+            if (format.format(todayDate).equals(format.format(curDate)))
+                return true;
             return false;
         } catch (ParseException e) {
             return false;

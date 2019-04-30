@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -976,7 +977,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         }
         builder = new NotificationCompat.Builder(this, id)// required
                 .setSmallIcon(R.drawable.copy_intro_icon)   // required
-                .setColor(getResources().getColor(R.color.colorPrimary))
+                .setColor(ContextCompat.getColor(After_MainTransferFIle.this,R.color.colorPrimary))
                 .setVibrate(new long[]{0L}) // Passing null here silently fails
                 .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -1095,7 +1096,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         builder =
                 new NotificationCompat.Builder(this, id)
                         .setSmallIcon(R.drawable.copy_intro_icon)
-                        .setColor(getResources().getColor(R.color.colorPrimary))
+                        .setColor(ContextCompat.getColor(After_MainTransferFIle.this,R.color.colorPrimary))
                         .setVibrate(new long[]{1000})
                         .setOngoing(false)
                         .setSound(uri)

@@ -22,6 +22,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
+import androidx.work.WorkManager;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
@@ -30,12 +35,11 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogFor
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.Foreground;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.ForegroundDialog;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
@@ -44,11 +48,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
-import androidx.work.WorkManager;
 
 public class Main_Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -61,7 +60,7 @@ public class Main_Navigation extends AppCompatActivity
     private Duplication_Class duplication_class = new Duplication_Class();
     private NavigationView navigationView;
     private TraceBackgroundService traceBackgroundService;
-    private BackgroundProcess backgroundProcess;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +74,6 @@ public class Main_Navigation extends AppCompatActivity
         if (extras != null) {
             value = extras.getString("passing");
         }
-
-        // Create Object
-        backgroundProcess = new BackgroundProcess(getApplicationContext());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -109,52 +105,43 @@ public class Main_Navigation extends AppCompatActivity
             }
 
         }
-        AndroidExternalStoragePermission androidExternalStoragePermission = new AndroidExternalStoragePermission(getApplicationContext(),
-                Main_Navigation.this);
-        if (androidExternalStoragePermission.isExternalStorageWritable()) {
 
-            traceBackgroundService = new TraceBackgroundService(getApplicationContext());
+        traceBackgroundService = new TraceBackgroundService(getApplicationContext());
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        if (!prefManager.isFirstTimeLaunch()) {
 
-            PrefManager prefManager = new PrefManager(getApplicationContext());
-            if (!prefManager.isFirstTimeLaunch()) {
-                if (!ServicesWorking()) {
-                    traceBackgroundService.setBackgroundServiceWorking(false);
-                    // if the background service not working then
-                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(24));
-                    traceBackgroundService.setTaskA(traceBackgroundService.NextDate(24));
-                    traceBackgroundService.setTaskB(traceBackgroundService.NextDate(7 * 24));
-                }
-            }
-            //    first time check
             if (traceBackgroundService.isBackgroundServiceWorking()) {
-
-
-                // regular background Process
-                // showing size of whatsApp Data
-                if (backgroundProcess.isTaskADone())
-                    TypeATask();
-
-
-                // showing duplication of whatsapp Data.
-                if (backgroundProcess.isTaskBDone())
-                    TypeBTask();
-
-                // doing background Process
-                // New Feature
-                if (backgroundProcess.isTaskCDone());
-                    TypeCTask();
-            } else {
-
-                if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
-                    Intent startIntent = new Intent(getApplicationContext(), Foreground.class);
-                    startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
-                            , "Start_Foreground");
-                    startService(startIntent);
-
-                }
+                traceBackgroundService.isBackgroundWorking();
             }
 
+            if (!traceBackgroundService.isBackgroundServiceWorking()) {
+                // if the background service not working then
+//                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(24));
+                traceBackgroundService.setTaskA();
+                traceBackgroundService.setTaskB();
+            }
+        } else {
+            // regular background Process
+            // showing size of whatsApp Data
+            TypeATask();
+
+            // showing duplication of whatsapp Data.
+            TypeBTask();
+
+            // New Feature
+            TypeCTask();
         }
+        //    first time check
+        if (!traceBackgroundService.isBackgroundServiceWorking()) {
+
+            if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
+                ForegroundDialog foregroundService = new ForegroundDialog(Main_Navigation.this,
+                        Main_Navigation.this);
+                foregroundService.call_Thread();
+
+            }
+        }
+
     }
 
     public void On_Click_Process(View view) {
@@ -251,13 +238,11 @@ public class Main_Navigation extends AppCompatActivity
     private void TypeATask() {
 
         // set the Task is started
-        backgroundProcess.setTaskADone(false);
 
         // this task for Regular Show Size
         OneTimeWorkRequest morning_Work =
                 new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(1
                         , TimeUnit.DAYS).build();
-
 
         WorkManager.getInstance().enqueueUniqueWork("Regular Data Size", ExistingWorkPolicy.KEEP, morning_Work);
 
@@ -267,7 +252,6 @@ public class Main_Navigation extends AppCompatActivity
                     public void onChanged(@Nullable WorkInfo workInfo) {
                         // Do something with the status
                         if (workInfo != null && workInfo.getState().isFinished()) {
-
 
                             // Recursive
                             TypeATask();
@@ -281,9 +265,6 @@ public class Main_Navigation extends AppCompatActivity
     private void TypeBTask() {
 
         // set the Task is started
-
-        backgroundProcess.setTaskBDone(false);
-
         // this task for weekly Duplicate Size
         OneTimeWorkRequest morning_Work =
                 new OneTimeWorkRequest.Builder(WorkMangerTaskB.class).addTag("Weekly Duplicate Size").setInitialDelay(7
@@ -297,7 +278,6 @@ public class Main_Navigation extends AppCompatActivity
                         // Do something with the status
                         if (workInfo != null && workInfo.getState().isFinished()) {
 
-
                             // Recursive
                             TypeBTask();
                         }
@@ -308,17 +288,45 @@ public class Main_Navigation extends AppCompatActivity
 
     public void TypeCTask() {
 
+        final BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
+
+        int hour = getHours(backgroundTimerDataBase);
+
+        OneTimeWorkRequest morning_Work =
+                new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
+                        .build();
+        WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.REPLACE, morning_Work);
+
+        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(@Nullable WorkInfo workInfo) {
+                        // Do something with the status
+                        if (workInfo != null && workInfo.getState().isFinished()) {
+                            try {
+                                // Recursive
+                                if (!backgroundTimerDataBase.check_For_Empty())
+                                    TypeCTask();
+                            } catch (Exception e) {
+                            }
+
+                        }
+                    }
+                });
+
+    }
+
+    public static int getHours(final BackgroundTimerDataBase backgroundTimerDataBase) {
         // set the Task is started
-        backgroundProcess.setTaskCDone(false);
 
         // this task for cleaning and show today task
         int hour = 0;
 
         // grab the data From Database
-        final BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
+
 
         if (!backgroundTimerDataBase.check_For_Empty()) {
-            Cursor cursor = backgroundTimerDataBase.GetTheHourFromId();
+            Cursor cursor = backgroundTimerDataBase.GetTheRepeatedlyWeekdays();
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
 
@@ -342,7 +350,7 @@ public class Main_Navigation extends AppCompatActivity
 
                             String weekdays = cursor.getString(1);
                             List<Integer> listWeekdays = new ArrayList<>();
-                            for (int i = 0;i < weekdays.length(); i++){
+                            for (int i = 0; i < weekdays.length(); i++) {
                                 listWeekdays.add(Character.getNumericValue(weekdays.charAt(i)));
                             }
 
@@ -358,31 +366,7 @@ public class Main_Navigation extends AppCompatActivity
                 }
             }
         }
-
-        if (hour != 0) {
-
-            OneTimeWorkRequest morning_Work =
-                    new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
-                            .build();
-            WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.REPLACE, morning_Work);
-
-            WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
-                    .observe(this, new Observer<WorkInfo>() {
-                        @Override
-                        public void onChanged(@Nullable WorkInfo workInfo) {
-                            // Do something with the status
-                            if (workInfo != null && workInfo.getState().isFinished()) {
-                                try {
-                                    // Recursive
-                                    if (!backgroundTimerDataBase.check_For_Empty())
-                                        TypeCTask();
-                                } catch (Exception e) {
-                                }
-
-                            }
-                        }
-                    });
-        }
+        return hour;
     }
 
     // Replace Fragments
@@ -485,7 +469,7 @@ public class Main_Navigation extends AppCompatActivity
     }
 
     public boolean ServicesWorking() {
-        return !(!traceBackgroundService.getTaskC().equalsIgnoreCase("") &&
-                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC()));
+        traceBackgroundService.isBackgroundWorking();
+        return !traceBackgroundService.isBackgroundServiceWorking();
     }
 }

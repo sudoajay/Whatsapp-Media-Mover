@@ -20,7 +20,7 @@ public class ForegroundServiceBoot extends IntentService {
         assert intentType != null;
         if (intentType.equalsIgnoreCase("RebootReceiver")) {
             Intent startIntent = new Intent(getApplicationContext(), Foreground.class);
-            startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
+            startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
                     , "Start_Foreground");
             startService(startIntent);
         }

@@ -11,6 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.provider.DocumentFile;
 import android.view.View;
 
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File.Copy_The_File;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File.Delete_The_File;
@@ -19,7 +22,6 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTi
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Notification.NotifyNotification;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Storage_Info;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
@@ -32,9 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 public class WorkMangerTaskC extends Worker {
 
@@ -67,7 +66,7 @@ public class WorkMangerTaskC extends Worker {
 
 
             if (!backgroundTimerDataBase.check_For_Empty()) {
-                Cursor cursor = backgroundTimerDataBase.GetTheTypeFromId();
+                Cursor cursor = backgroundTimerDataBase.GetTheChoose_TypeRepeatedlyEndlessly();
                 if (cursor != null && cursor.moveToFirst()) {
                     cursor.moveToFirst();
 
@@ -138,15 +137,10 @@ public class WorkMangerTaskC extends Worker {
                     }
                 }
             }
-
-            // set the Task is done
-            BackgroundProcess backgroundProcess = new BackgroundProcess(context);
-            backgroundProcess.setTaskCDone(true);
-
         } catch (Exception e) {
             // If Error Complete
             NotifyNotification notify_notification = new NotifyNotification(context);
-           notify_notification.notify( "Error On Data " + GetType(value));
+            notify_notification.notify("Error On Data " + GetType(value));
 
 
             // this is just for backup plan
@@ -173,7 +167,7 @@ public class WorkMangerTaskC extends Worker {
         BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(context);
         int hour = 0;
         if (!backgroundTimerDataBase.check_For_Empty()) {
-            Cursor cursor = backgroundTimerDataBase.GetTheTypeFromId();
+            Cursor cursor = backgroundTimerDataBase.GetTheChoose_TypeRepeatedlyEndlessly();
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
                 switch (cursor.getInt(1)) {
@@ -209,7 +203,7 @@ public class WorkMangerTaskC extends Worker {
                 if (hour != 0) {
                     TraceBackgroundService traceBackgroundService = new TraceBackgroundService(context);
                     // set next date
-                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(hour));
+                    traceBackgroundService.setTaskC(TraceBackgroundService.NextDate(hour));
                 }
             }
             try {
@@ -222,11 +216,9 @@ public class WorkMangerTaskC extends Worker {
 
                     // specific date from database
                     DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                    Date date;
+                    Date date = format.parse(cursor.getString(2));
 
-                    date = format.parse(cursor.getString(2));
-
-                    if (date.after(curDate) && date.before(curDate)) {
+                    if (!format.format(curDate).equals(format.format(date))) {
                         // Delete The Database
                         Cursor cursor1 = backgroundTimerDataBase.GetTheId();
                         backgroundTimerDataBase.deleteData(cursor1.getString(0));

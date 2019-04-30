@@ -10,23 +10,16 @@ android {
         versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        renderscriptTargetApi 24
+        renderscriptTargetApi 21
         renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
-
-    packagingOptions {
-        exclude 'META-INF/proguard/androidx-annotations.pro'
-        pickFirst 'lib/armeabi-v7a/libassmidi.so'
-        pickFirst 'lib/x86/libassmidi.so'
-    }
-
 }
 
 dependencies {

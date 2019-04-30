@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.ForegroundService;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.ForegroundDialog;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
@@ -471,8 +471,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         if (!traceBackgroundService.isBackgroundServiceWorking()
                 && !traceBackgroundService.isForegroundServiceWorking()) {
             // call thread and dialog to run foreground service
-            ForegroundService foregroundService = new ForegroundService(getContext(), getActivity());
-            foregroundService.call_Thread();
+            ForegroundDialog foregroundDialog = new ForegroundDialog(getContext(), getActivity());
+            foregroundDialog.call_Thread();
         }
     }
 

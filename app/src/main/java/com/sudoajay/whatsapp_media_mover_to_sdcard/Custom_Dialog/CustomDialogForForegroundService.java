@@ -75,7 +75,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
                         if(!isServiceRunningInForeground(Objects.requireNonNull(getContext()), Foreground.class)) {
                             // push foreground service
                             Intent startIntent = new Intent(CustomDialogForForegroundService.this.getContext(), Foreground.class);
-                            startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
+                            startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
                                     , "Start_Foreground");
                             Objects.requireNonNull(CustomDialogForForegroundService.this.getActivity()).startService(startIntent);
                         }
@@ -104,7 +104,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
                                         if(isServiceRunningInForeground(Objects.requireNonNull(getContext()),Foreground.class)) {
                                             // push foreground service
                                             Intent stopIntent = new Intent(CustomDialogForForegroundService.this.getContext(), Foreground.class);
-                                            stopIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundService"
+                                            stopIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
                                                     , "Stop_Foreground");
                                             Objects.requireNonNull(CustomDialogForForegroundService.this.getActivity()).startService(stopIntent);
                                         }
@@ -210,9 +210,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
     }
 
     public  boolean ServicesWorking() {
-        return !(!TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskA()) ||
-                !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskB()) ||
-                !(traceBackgroundService.getTaskC() != null &&
-                        !TraceBackgroundService.CheckForBackground(traceBackgroundService.getTaskC())));
+        traceBackgroundService.isBackgroundWorking();
+        return !traceBackgroundService.isBackgroundServiceWorking();
     }
 }

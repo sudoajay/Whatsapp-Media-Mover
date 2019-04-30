@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Duplication_Data;
@@ -132,7 +133,7 @@ public class NotifyNotification {
                 // a single type.
                 .setNumber(1)
                 .setSmallIcon(R.drawable.copy_intro_icon)
-                .setColor(context.getResources().getColor(R.color.colorPrimary))
+                .setColor(ContextCompat.getColor(context,R.color.colorPrimary))
                 // If this notification relates to a past or upcoming event, you
                 // should set the relevant time information using the setWhen
                 // method below. If this call is omitted, the notification's
