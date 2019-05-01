@@ -62,6 +62,8 @@ public class Foreground extends Service {
                     // Set required fields, including the small icon, the
                     // notification title, and text.
                     .setContentTitle("Foreground Service")
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                    .setVibrate(new long[]{0L})
 
                     // All fields below this line are optional.
 
@@ -145,7 +147,7 @@ public class Foreground extends Service {
             stopSelf();
         }
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void createNotificationChannel() {
