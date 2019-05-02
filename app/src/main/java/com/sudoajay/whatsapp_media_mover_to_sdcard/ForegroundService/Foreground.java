@@ -18,6 +18,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTas
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import java.text.DateFormat;
@@ -165,9 +166,19 @@ public class Foreground extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        startForeground();
     }
 
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        startForeground();
+    }
+
+    private void startForeground() {
+        Intent serviceIntent = new Intent(getApplicationContext(), ForegroundServiceBoot.class);
+        serviceIntent.setAction("RebootReceiver");
+        getApplication().startService(serviceIntent);
+    }
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
