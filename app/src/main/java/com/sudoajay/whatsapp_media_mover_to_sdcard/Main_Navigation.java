@@ -86,7 +86,6 @@ public class Main_Navigation extends AppCompatActivity
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         if (value == null) {
             setTitle("Transfer Data");
             //  change the navigation item to main transfer data

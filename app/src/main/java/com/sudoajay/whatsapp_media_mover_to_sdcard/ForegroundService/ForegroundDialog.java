@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
@@ -76,7 +77,13 @@ public class ForegroundDialog {
                         Intent startIntent = new Intent(mContext, Foreground.class);
                         startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
                                 , "Start_Foreground");
-                        activity.startService(startIntent);
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            activity.startForegroundService(startIntent);
+                        } else {
+                            activity.startService(startIntent);
+                        }
+
                     }
                 } catch (Exception ignored) {
 

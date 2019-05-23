@@ -234,7 +234,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public void Check_For_Extension(String path,ImageView imageView){
-        Log.i("through" , path);
         int i = path.lastIndexOf('.');
         String extension="";
         if (i > 0) {

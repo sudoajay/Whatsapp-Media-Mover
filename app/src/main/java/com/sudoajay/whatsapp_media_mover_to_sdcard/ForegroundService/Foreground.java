@@ -1,10 +1,12 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -105,7 +107,7 @@ public class Foreground extends Service {
                                     stopIntent,
                                     PendingIntent.FLAG_UPDATE_CURRENT))
 
-
+                    .setOnlyAlertOnce(true)
                     // Show an expanded list of items on devices running Android 4.1
                     // or later.
 
@@ -125,7 +127,7 @@ public class Foreground extends Service {
                             new Intent(this, Main_Navigation.class),
                             PendingIntent.FLAG_UPDATE_CURRENT));
 
-            startForeground(1, notification.build());
+            startForeground(1337, notification.build());
 
             // check if date matches then run the process
 
@@ -141,6 +143,8 @@ public class Foreground extends Service {
             if (DatesMatches(traceBackgroundService.getTaskC(), 3)) {
                 WorkMangerTaskC.runThread(getApplicationContext());
             }
+
+            Task();
         } else if (Objects.requireNonNull(intent.getStringExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"))
                 .equalsIgnoreCase("Stop_Foreground")) {
             //your  service end here
@@ -157,6 +161,7 @@ public class Foreground extends Service {
                     CHANNEL_ID,
                     "Example Service Channel",
                     NotificationManager.IMPORTANCE_DEFAULT
+
             );
 
             NotificationManager manager = getSystemService(NotificationManager.class);
@@ -179,6 +184,7 @@ public class Foreground extends Service {
         serviceIntent.setAction("RebootReceiver");
         getApplication().startService(serviceIntent);
     }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -216,5 +222,27 @@ public class Foreground extends Service {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    private void Task() {
+        Intent startIntent = new Intent(getApplicationContext(), Foreground.class);
+        startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
+                , "Start_Foreground");
+        PendingIntent pintent = PendingIntent.getService(getApplicationContext(), 0, startIntent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        startAlarm(alarmManager, pintent);
+
+    }
+
+    private void startAlarm(final AlarmManager alarmManager, final PendingIntent pendingIntent) {
+        long setTime = 3600000; // 1 hours
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                    System.currentTimeMillis() + setTime, pendingIntent);
+
+        } else {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + setTime, pendingIntent);
+        }
+
     }
 }

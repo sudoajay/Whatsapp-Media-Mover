@@ -69,8 +69,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.Foreground"
+        <service android:enabled="true" android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.Foreground"
             tools:ignore="InnerclassSeparator" />
+
 
         <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot"
             tools:ignore="InnerclassSeparator" />
