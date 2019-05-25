@@ -194,6 +194,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
     }
     public  boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
         try {
+            if(traceBackgroundService.isForegroundServiceWorking()){
             ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
                 if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -202,6 +203,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
                     }
                 }
             }
+        }
             return false;
         }catch (Exception e){
             if (!ServicesWorking()) return true;

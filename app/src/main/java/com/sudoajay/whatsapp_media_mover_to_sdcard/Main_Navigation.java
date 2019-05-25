@@ -132,12 +132,13 @@ public class Main_Navigation extends AppCompatActivity
         }
         //    first time check
         if (!traceBackgroundService.isBackgroundServiceWorking()) {
+            if (traceBackgroundService.isForegroundServiceWorking()) {
+                if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
+                    ForegroundDialog foregroundService = new ForegroundDialog(Main_Navigation.this,
+                            Main_Navigation.this);
+                    foregroundService.call_Thread();
 
-            if (!isServiceRunningInForeground(getApplicationContext(), Foreground.class)) {
-                ForegroundDialog foregroundService = new ForegroundDialog(Main_Navigation.this,
-                        Main_Navigation.this);
-                foregroundService.call_Thread();
-
+                }
             }
         }
 
