@@ -171,12 +171,12 @@ public class Foreground extends Service {
 
     @Override
     public void onDestroy() {
-        startForeground();
+        super.onDestroy();
     }
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        startForeground();
+        super.onTaskRemoved(rootIntent);
     }
 
     private void startForeground() {

@@ -1,5 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,6 +29,7 @@ import java.util.Objects;
 public class CustomDialogForForegroundService extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
     private TraceBackgroundService traceBackgroundService;
+    private Activity activity;
     // blank constructor
     public CustomDialogForForegroundService() {
 
@@ -37,7 +39,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
 
         View rootview = inflater.inflate(R.layout.setting_layout_design_foreground, container, false);
 
-
+        activity = getActivity();
 
        traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));
         // setup and instalizition for getSharedPreferences
@@ -67,59 +69,67 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
         ok_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!traceBackgroundService.isBackgroundServiceWorking()) {
+                if (!traceBackgroundService.isBackgroundServiceWorking()) {
                     if (switchForeground.isChecked()) {
                         // shared Preference changes
-                        traceBackgroundService.setForegroundServiceWorking(true);
 
-                        if(!isServiceRunningInForeground(Objects.requireNonNull(getContext()), Foreground.class)) {
+                        if(!isServiceRunningInForeground(activity, Foreground.class)) {
                             // push foreground service
                             Intent startIntent = new Intent(CustomDialogForForegroundService.this.getContext(), Foreground.class);
                             startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
                                     , "Start_Foreground");
                             Objects.requireNonNull(CustomDialogForForegroundService.this.getActivity()).startService(startIntent);
                         }
+                        traceBackgroundService.setForegroundServiceWorking(true);
+
                         // dismiss or close the dialog
                         dismiss();
                     } else {
-                        int theme;
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                            theme = R.style.AppTheme;
-                        } else {
-                            theme = android.R.style.Theme_Holo_Dialog;
-                        }
-                        new AlertDialog.Builder(new ContextThemeWrapper
-                                (CustomDialogForForegroundService.this.getContext(), theme))
-                                .setTitle(getResources().getString(R.string.custom_Dialog_Box_Heading))
-                                .setMessage(getResources().getString(R.string.custom_Dialog_Box_Text))
+                        if (isServiceRunningInForeground(activity, Foreground.class)) {
 
-                                // Specifying a listener allows you to take an action before dismissing the dialog.
-                                // The dialog is automatically dismissed when a dialog button is clicked.
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // Continue with delete operation
+                            int theme;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                                theme = R.style.AppTheme;
+                            } else {
+                                theme = android.R.style.Theme_Holo_Dialog;
+                            }
+                            new AlertDialog.Builder(new ContextThemeWrapper
+                                    (activity, theme))
+                                    .setTitle(getResources().getString(R.string.custom_Dialog_Box_Heading))
+                                    .setMessage(getResources().getString(R.string.custom_Dialog_Box_Text))
 
-                                        // shared Preference changes
-                                        traceBackgroundService.setForegroundServiceWorking(false);
-                                        if(isServiceRunningInForeground(Objects.requireNonNull(getContext()),Foreground.class)) {
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+
+                                            // shared Preference changes
                                             // push foreground service
-                                            Intent stopIntent = new Intent(CustomDialogForForegroundService.this.getContext(), Foreground.class);
+                                            Intent stopIntent = new Intent(activity, Foreground.class);
                                             stopIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
                                                     , "Stop_Foreground");
-                                            Objects.requireNonNull(CustomDialogForForegroundService.this.getActivity()).startService(stopIntent);
-                                        }
-                                        dismiss();
-                                    }
-                                })
+                                            Objects.requireNonNull(activity).startService(stopIntent);
 
-                                // A null listener allows the button to dismiss the dialog and take no further action.
-                                .setNegativeButton(android.R.string.no, null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
+                                            traceBackgroundService.setForegroundServiceWorking(false);
+
+                                            dismiss();
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }else{
+                            dismiss();
+                        }
+
                     }
                 }else{
                     dismiss();
                 }
+
             }
         });
         cancel_Button.setOnClickListener(new View.OnClickListener() {
