@@ -59,7 +59,7 @@ public class TraceBackgroundService {
     }
 
     public String getTaskC() {
-        return pref.getString(_context.getString(R.string.task_C_NextDate), null);
+        return pref.getString(_context.getString(R.string.task_C_NextDate), "");
     }
 
     public void setTaskC(String taskC) {
