@@ -881,35 +881,27 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     if (which_Option_To_Do.equals("remove")) {
                         size = storage_Info.Convert_It(delete_the_fIle.getGetSize());
                         exact_Data = delete_the_fIle.getGet_Data_Count();
-                        percentage = ((exact_Data * 100) / count_Data);
                     } else if (which_Option_To_Do.equals("copy")) {
-
-
                         size = storage_Info.Convert_It(copy_the_file.getGetSize());
                         exact_Data = copy_the_file.getGet_Data_Count();
-                        percentage = ((exact_Data * 100) / count_Data);
                     } else if (which_Option_To_Do.equals("move")) {
                         size = storage_Info.Convert_It(copy_the_file.getGetSize());
                         exact_Data = copy_the_file.getGet_Data_Count();
-                        percentage = ((exact_Data * 100) / count_Data);
                         if (copy_the_file.isCopy_Done()) {
                             size = storage_Info.Convert_It(delete_the_fIle.getGetSize());
                             exact_Data = delete_the_fIle.getGet_Data_Count();
-                            percentage = ((exact_Data * 100) / count_Data);
                         }
                     } else {
                         size = storage_Info.Convert_It(restore_the_data.getGetSize());
                         exact_Data = restore_the_data.getGet_Data_Count();
-                        percentage = ((exact_Data * 100) / count_Data);
                     }
 
                 } catch (ArithmeticException e) {
-                    percentage = 100;
-
                 } catch (Exception f) {
                 }
                 contentView.setTextViewText(R.id.size_Title, size + "/" + save_Exact_Size);
                 contentView.setProgressBar(R.id.progressBar, count_Data, exact_Data, false);
+                percentage = (exact_Data*100) / count_Data;
                 contentView.setTextViewText(R.id.percent_Text, percentage + "%");
 
             } else if (which_Option_To_Do.equals("restore")) {

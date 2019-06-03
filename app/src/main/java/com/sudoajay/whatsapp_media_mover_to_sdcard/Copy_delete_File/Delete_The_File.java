@@ -77,7 +77,6 @@ public class Delete_The_File {
     public void Delete_The_File(String path){
         File file = new File(path);
         deleteRecursive(file);
-
         }
     public void deleteRecursive(File fileOrDirectory) {
         if (fileOrDirectory.isDirectory())

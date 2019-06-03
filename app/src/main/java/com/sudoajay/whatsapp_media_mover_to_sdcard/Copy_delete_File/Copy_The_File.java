@@ -1,16 +1,20 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File;
 
 import android.content.Context;
+import android.provider.DocumentsContract;
 import android.support.v4.provider.DocumentFile;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +38,7 @@ public class Copy_The_File {
     private List<File> only_Selected_File ;
     private String whatsapp_Path,process;
     private Context context;
+    private static final int BUFFER = 2048;
 
     public Copy_The_File(String external_Path_Url, String whats_App_Media_Path, DocumentFile sd_Card_documentFile,
                          After_MainTransferFIle after_main_transferFIle, List<File> only_Selected_File , int normal_Changes,String process, Context context){
@@ -103,7 +108,7 @@ public class Copy_The_File {
                 Remove_DataBase_Other_Files(folder_File);
                 Delete_Database_File(exact_Path);
                 File[] file = folder_File.listFiles();
-                Copy_Files(file[0].getAbsolutePath(),exact_Path,file[0].getName());
+                copyDocument(context, file[0], exact_Path);
             }
 
         }catch (Exception ignored){
@@ -135,7 +140,7 @@ public class Copy_The_File {
                     if (!file.isDirectory()) {
                         if (!Selected_The_File(file) &&
                                 Convert_The_LastMoified(file.lastModified()))
-                                Copy_Files(file.getAbsolutePath(), exact_Path, file.getName());
+                            copyDocument(context, file, exact_Path);
                     } else {
                         Get_List(exact_Path.findFile("Sent"), file);
                         Get_List(exact_Path.findFile("Private"), file);
@@ -157,6 +162,15 @@ public class Copy_The_File {
         return name;
     }
 
+    public boolean isDuplicate(DocumentFile file, String name) {
+        DocumentFile[] Files = file.listFiles();
+        for (DocumentFile files : Files) {
+            if (Objects.requireNonNull(files.getName()).equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public String Return_Path(int no){
         switch (no){
             case 1: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Audio";
@@ -173,36 +187,74 @@ public class Copy_The_File {
         }
     }
 
-    public void Copy_Files(String path , DocumentFile sd_Card_documentFile,String file_Name) throws IOException {
+    public boolean copyDocument(Context context, File file, DocumentFile dest) throws IOException {
+        getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(file.getAbsolutePath());
+        get_Data_Count++;
+        if (file.exists() && !file.isDirectory() && !isDuplicate(dest, file.getName())) {
 
+            BufferedOutputStream bos = null;
+            BufferedInputStream bis = null;
+            byte[] data = new byte[BUFFER];
+            int read = 0;
+            try {
 
-        InputStream in = null;
-        OutputStream os =null ;
-        try {
-            if(!stop) {
-                in = new FileInputStream(new File(path));
-                getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(path);
-                get_Data_Count++;
+                String mimeType = getTypeForFile(file);
+                String displayName = file.getName();
+                DocumentFile destFile = dest.createFile(mimeType, displayName);
 
-                if ((sd_Card_documentFile.findFile(file_Name) == null)) {
-                    DocumentFile documentFile = sd_Card_documentFile.createFile("image/", file_Name);
-                    assert documentFile != null;
-                    OutputStream out = context.getContentResolver().openOutputStream(documentFile.getUri());
-                    byte[] buffer = new byte[1024];
-                    int read;
-                    while ((read = in.read(buffer)) != -1) {
-                        assert out != null;
-                        out.write(buffer, 0, read);
-                    }
+                int n = 0;
+                while (destFile == null && n++ < 32) {
+                    String destName = displayName + " (" + n + ")";
+                    destFile = dest.createFile(mimeType, destName);
                 }
+
+                if (destFile == null) {
+                    return false;
+                }
+
+                bos = new BufferedOutputStream(getOutputStream(context, destFile));
+                bis = new BufferedInputStream(new FileInputStream(file));
+                while ((read = bis.read(data, 0, BUFFER)) != -1) {
+                    bos.write(data, 0, read);
+                }
+
+            } catch (Exception e) {
+            } finally {
+                //flush and close
+                assert bos != null;
+                bos.close();
+                assert bis != null;
+                bis.close();
             }
-            if(!process.equals("Background")) after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
-        }catch (Exception e){
-        } finally {
-            in.close();
-            os.close();
+        }
+        if (!process.equals("Background"))
+            after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
+        return true;
+    }
+
+    public static OutputStream getOutputStream(Context context, DocumentFile documentFile) throws FileNotFoundException {
+        return context.getContentResolver().openOutputStream(documentFile.getUri());
+    }
+
+    public static String getTypeForFile(File file) {
+        if (file.isDirectory()) {
+            return DocumentsContract.Document.MIME_TYPE_DIR;
+        } else {
+            return getTypeForName(file.getName());
+        }
+    }
+
+    public static String getTypeForName(String name) {
+        final int lastDot = name.lastIndexOf('.');
+        if (lastDot >= 0) {
+            final String extension = name.substring(lastDot + 1).toLowerCase();
+            final String mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+            if (mime != null) {
+                return mime;
+            }
         }
 
+        return "image/";
     }
 
     public long getGetSize() {
