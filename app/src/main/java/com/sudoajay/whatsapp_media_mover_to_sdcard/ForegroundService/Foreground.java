@@ -235,7 +235,7 @@ public class Foreground extends Service {
     }
 
     private void startAlarm(final AlarmManager alarmManager, final PendingIntent pendingIntent) {
-        long setTime = 3600000; // 1 hours
+        long setTime = 3600000 * 3; // 3 hours
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
                     System.currentTimeMillis() + setTime, pendingIntent);

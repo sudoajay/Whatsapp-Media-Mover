@@ -6,8 +6,8 @@ android {
         applicationId "com.sudoajay.whatapp_media_mover_to_sdcard"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 15
-        versionName "3.0"
+        versionCode 17
+        versionName "4.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 21
@@ -48,8 +48,8 @@ dependencies {
 
 
     // firebase configuration
-    implementation 'com.google.firebase:firebase-messaging:17.6.0'
-    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
 }

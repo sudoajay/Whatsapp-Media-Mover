@@ -1,6 +1,5 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File;
 
-import android.util.Log;
 import android.view.View;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
@@ -59,7 +58,7 @@ public class Restore_The_Data {
             }
 
         }catch (Exception e){
-            Log.e("Check" , e.getMessage());
+
         }
     }
     public String Return_Path(int no){
@@ -123,7 +122,6 @@ public class Restore_The_Data {
             }
             Search_File(file,no);
         }catch (Exception e){
-            Log.e("ajayrocks",e.getMessage());
 
         }
     }
@@ -145,7 +143,7 @@ public class Restore_The_Data {
                 get_Data_Count++;
                 getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(path);
                 if (no == 11) {
-                    if (!new File(external_Path_Url + "/WhatsApp/" + Return_Path(no) + "/" + getName).exists() && Check_For_Extension(path)) {
+                    if (!new File(external_Path_Url + "/WhatsApp/" + Return_Path(no) + "/" + getName).exists()) {
                         new File(external_Path_Url + "/WhatsApp/" + Return_Path(no) + "/" + getName).createNewFile();
                         is = new FileInputStream(new File(path));
                         os = new FileOutputStream(new File(external_Path_Url + "/WhatsApp/" + Return_Path(no) + "/" + getName));
@@ -158,7 +156,7 @@ public class Restore_The_Data {
 
                     }
                 } else {
-                    if (!new File(external_Path_Url + whats_App_Path + "/" + Return_Path(no) + "/" + getName).exists() && Check_For_Extension(path)) {
+                    if (!new File(external_Path_Url + whats_App_Path + "/" + Return_Path(no) + "/" + getName).exists()) {
                         new File(external_Path_Url + whats_App_Path + "/" + Return_Path(no) + "/" + getName).createNewFile();
                         is = new FileInputStream(new File(path));
                         os = new FileOutputStream(new File(external_Path_Url + whats_App_Path + "/" + Return_Path(no) + "/" + getName));
@@ -175,24 +173,12 @@ public class Restore_The_Data {
             if(!process.equals("Background"))
                 after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
         }catch (Exception e){
-            Log.e("ajayrockss",e.getMessage());
+
             if(e.getMessage().equals("write failed: ENOSPC (No space left on device)"))
                 stop=true;
 
 
         }
-    }
-
-    public boolean Check_For_Extension(String path){
-        int i = path.lastIndexOf('.');
-        String extension="";
-        if (i > 0) {
-            extension = path.substring(i+1);
-        }
-        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
-                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
-                || extension.equals("opus") || extension.equals("crypt12");
-
     }
 
 

@@ -2,7 +2,6 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File;
 
 import android.content.Context;
 import android.support.v4.provider.DocumentFile;
-import android.util.Log;
 import android.view.View;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
@@ -13,14 +12,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,8 +32,6 @@ public class Copy_The_File {
     private boolean copy_Done;
     private boolean stop;
     private List<File> only_Selected_File ;
-    private List<File> get_All_Data = new LinkedList<>();
-    private List<String> get_All_Hash_Data = new ArrayList<>();
     private String whatsapp_Path,process;
     private Context context;
 
@@ -102,7 +95,6 @@ public class Copy_The_File {
                  exact_Path = Return_Absolute_Path(Return_Path(folder_No));
 
                  folder_File = new File(external_Path_Url + whats_App_Media_Path + "/" + Return_Path(folder_No));
-                 Grab_The_Data(folder_File);
                  Get_List(exact_Path , folder_File);
             } else
             {
@@ -110,7 +102,7 @@ public class Copy_The_File {
                  exact_Path = Return_Database_Path(Return_Path(folder_No));
                 Remove_DataBase_Other_Files(folder_File);
                 Delete_Database_File(exact_Path);
-                File file[] = folder_File.listFiles();
+                File[] file = folder_File.listFiles();
                 Copy_Files(file[0].getAbsolutePath(),exact_Path,file[0].getName());
             }
 
@@ -130,7 +122,7 @@ public class Copy_The_File {
         return  whatsApp_dir.findFile(check_For_Duplicate(whatsApp_dir ,folder_Name));
     }
     public void Delete_Database_File(DocumentFile documentFile){
-      DocumentFile documentFile1[] = documentFile.listFiles();
+        DocumentFile[] documentFile1 = documentFile.listFiles();
         for(DocumentFile f : documentFile1) {
             Objects.requireNonNull(documentFile.findFile(Objects.requireNonNull(f.getName()))).delete();
         }
@@ -141,22 +133,9 @@ public class Copy_The_File {
                 File[] files = folder_File.listFiles();
                 for (File file : files) {
                     if (!file.isDirectory()) {
-                        if (Check_For_Extension(file.getAbsolutePath()) && !Selected_The_File(file) &&
-                                Convert_The_LastMoified(file.lastModified())) {
-                            if(Objects.requireNonNull(exact_Path.findFile("Sent")).canRead()) {
+                        if (!Selected_The_File(file) &&
+                                Convert_The_LastMoified(file.lastModified()))
                                 Copy_Files(file.getAbsolutePath(), exact_Path, file.getName());
-
-                            }else{
-                                for(String hash:get_All_Hash_Data){
-                                    if(hash.equals(Grab_The_Has_Data(file))){
-                                        Delete_The_Data(file);
-                                    }
-                                }
-                                if(file.exists()){
-                                    Copy_Files(file.getAbsolutePath(), exact_Path, file.getName());
-                                }
-                            }
-                        }
                     } else {
                         Get_List(exact_Path.findFile("Sent"), file);
                         Get_List(exact_Path.findFile("Private"), file);
@@ -165,7 +144,6 @@ public class Copy_The_File {
                 }
             }
         }catch (Exception e){
-            Log.e("Errora" , e.toString() );
         }
     }
 
@@ -177,18 +155,6 @@ public class Copy_The_File {
             }
         }
         return name;
-    }
-    public boolean Check_For_Extension(String path){
-        int i = path.lastIndexOf('.');
-        String extension="";
-        if (i > 0) {
-            extension = path.substring(i+1);
-        }
-        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
-                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
-                || extension.equals("opus") || extension.equals("crypt12") || extension.equals("m4a")
-                || extension.equals("amr") || extension.equals("aac");
-
     }
 
     public String Return_Path(int no){
@@ -207,10 +173,11 @@ public class Copy_The_File {
         }
     }
 
-    public void Copy_Files(String path , DocumentFile sd_Card_documentFile,String file_Name)  {
+    public void Copy_Files(String path , DocumentFile sd_Card_documentFile,String file_Name) throws IOException {
 
 
-        InputStream in;
+        InputStream in = null;
+        OutputStream os =null ;
         try {
             if(!stop) {
                 in = new FileInputStream(new File(path));
@@ -227,14 +194,15 @@ public class Copy_The_File {
                         assert out != null;
                         out.write(buffer, 0, read);
                     }
-
                 }
-
             }
             if(!process.equals("Background")) after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
         }catch (Exception e){
-            Log.e("GetByte" , e.getMessage()+ " ---- ");
+        } finally {
+            in.close();
+            os.close();
         }
+
     }
 
     public long getGetSize() {
@@ -268,7 +236,6 @@ public class Copy_The_File {
                  new File(files.get(i).getAbsolutePath()).delete();
             }
         }catch (Exception e){
-            Log.i("E" , e.getMessage());
         }
     }
     public void Convert_Into_Last_Modified(List<File> files){
@@ -285,54 +252,8 @@ public class Copy_The_File {
             }
         }
     }
-    private static MessageDigest messageDigest;
-    static {
-        try {
-            messageDigest = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException ignored) {
-        }
-    }
-    public String Grab_The_Has_Data(File file) {
-            try {
-                FileInputStream fileInput = new FileInputStream(file);
-                byte fileData[] = new byte[(int) file.length()];
-                fileInput.read(fileData);
-                fileInput.close();
-                String uniqueFileHash = new BigInteger(1, messageDigest.digest(fileData)).toString(16);
-               return uniqueFileHash;
-            } catch (Exception e) {
-                return  null;
-            }
 
-    }
-    public void Grab_The_Data(File Data_Path ){
 
-        for(File file : Data_Path.listFiles()){
-            if(!file.isDirectory()){
-                get_All_Data.add(file);
-            }
-        }
-        get_All_Hash_Data.clear();
-        for(File file :get_All_Data) {
-            get_All_Hash_Data.add(Grab_The_Has_Data(file));
-        }
-
-    }
-
-    public void Delete_The_Data(File path){
-        path.delete();
-        if(path.exists()){
-            try {
-                path.getCanonicalFile().delete();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(path.exists()){
-                after_main_transferFIle.getApplicationContext().deleteFile(path.getName());
-            }
-        }
-
-    }
     public boolean isStop() {
         return stop;
     }

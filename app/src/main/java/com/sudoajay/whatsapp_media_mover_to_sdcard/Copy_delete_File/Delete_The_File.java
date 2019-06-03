@@ -1,7 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
@@ -85,26 +84,14 @@ public class Delete_The_File {
             for (File child : fileOrDirectory.listFiles())
                 deleteRecursive(child);
         getSize+= after_main_transferFIle.getStorage_Info().getFileSizeInBytes(fileOrDirectory.getAbsolutePath());
-        if(Check_For_Extension(fileOrDirectory.getAbsolutePath()) && !Selected_The_File(fileOrDirectory) && Convert_The_LastMoified(fileOrDirectory.lastModified())) {
+        if(!Selected_The_File(fileOrDirectory) && Convert_The_LastMoified(fileOrDirectory.lastModified())) {
             get_Data_Count++;
             fileOrDirectory.delete();
         }
         if(!process.equals("Background"))
         after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
     }
-    public boolean Check_For_Extension(String path){
-        int i = path.lastIndexOf('.');
-        String extension="";
-        if (i > 0) {
-            extension = path.substring(i+1);
-        }
-        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
-                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
-                || extension.equals("opus") || extension.equals("m4a")
-                || extension.equals("amr") || extension.equals("aac");
-
-    }
-    public long getGetSize() {
+      public long getGetSize() {
         return getSize;
     }
 
@@ -133,7 +120,7 @@ public class Delete_The_File {
                 new File(files.get(i).getAbsolutePath()).delete();
             }
         }catch (Exception e){
-            Log.i("E" , e.getMessage());
+
         }
     }
     public void Convert_Into_Last_Modified(List<File> files){

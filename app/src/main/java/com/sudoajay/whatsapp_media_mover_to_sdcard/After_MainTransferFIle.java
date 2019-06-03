@@ -21,7 +21,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.provider.DocumentFile;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -648,7 +647,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             while (!Get_Path()) {
             }
         } catch (Exception e) {
-            Log.e("Exceptionaaaasdasdasa ", e.toString());
+
         }
     }
 
@@ -689,7 +688,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
-            Log.e("Exceptionaaaa ", e.toString());
+
         }
         return true;
     }
@@ -717,7 +716,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
 
         } catch (Exception e) {
-            Log.e("Exceptionasdasd ", e.getMessage());
+
         }
         return true;
     }
@@ -908,7 +907,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     percentage = 100;
 
                 } catch (Exception f) {
-                    Log.d("Exceptionsasas", f.getStackTrace() + "");
                 }
                 contentView.setTextViewText(R.id.size_Title, size + "/" + save_Exact_Size);
                 contentView.setProgressBar(R.id.progressBar, count_Data, exact_Data, false);

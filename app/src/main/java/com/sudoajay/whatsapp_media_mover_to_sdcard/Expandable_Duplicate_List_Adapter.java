@@ -10,14 +10,15 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -188,24 +189,20 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         if (i > 0) {
             extension = path.substring(i+1);
         }
-        if(extension.equals("jpg") || extension.equals("mp4") || extension.equals("jpeg")){
+        if (extension.equals("jpg") || extension.equals("mp4") || extension.equals("jpeg") || extension.equals("webp"))
             // Images || Videos
             Glide.with(context)
                     .asBitmap()
                     .load(Uri.fromFile(new File(path)))
                     .into(imageView);
-        }else if(extension.equals("mp3")||extension.equals("m4a") || extension.equals("amr") || extension.equals("aac")){
+        else if (extension.equals("mp3") || extension.equals("m4a") || extension.equals("amr") || extension.equals("aac"))
             // Audiio
             getAudioAlbumImageContentUri(imageView,path);
-
-        }else if(extension.equals("pptx") ||extension.equals("pdf")
-                ||extension.equals("docx") || extension.equals("txt"))
-            imageView.setImageResource(R.drawable.document_icon);
-
-        else if(extension.equals("opus")){
+        else if (extension.equals("opus"))
             imageView.setImageResource(R.drawable.voice_icon);
+        else {
+            imageView.setImageResource(R.drawable.document_icon);
         }
-
     }
     public void getAudioAlbumImageContentUri(ImageView imageView ,String filePath) {
         try {
@@ -237,7 +234,6 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
                 cursor.close();
             }
         } catch (Exception e){
-            Log.e("Exception",e.getMessage());
         }
     }
     public Bitmap get_Cover(long album_id) {
