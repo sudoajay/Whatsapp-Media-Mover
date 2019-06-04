@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -167,9 +168,13 @@ public class MainTransferFIle extends Fragment {
         if (resultCode != Activity.RESULT_OK)
             return;
         Uri sdCard_Uri = data.getData();
+        Log.d("SomethingWrong",sdCard_Uri.toString());
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         String sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
+
+
+
 
         if (new File(sd_Card_Path_URL).exists())
             string_URI = Split_The_URI(sdCard_Uri.toString());
