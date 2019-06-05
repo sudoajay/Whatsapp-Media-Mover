@@ -16,7 +16,7 @@ public class Delete_Duplicate_Data {
     private List<String> list_Header;
     private HashMap<String, List<String>> list_Header_Child;
     private Show_Duplicate_File show_duplicate_file;
-    private String step_Into[];
+    private String step_Into[], externalPath;
     private DocumentFile sd_Card_documentFile;
     private int steps_Into;
 
@@ -29,6 +29,8 @@ public class Delete_Duplicate_Data {
         AndroidSdCardPermission android_SdCard_Permission = new AndroidSdCardPermission(show_duplicate_file.getApplicationContext());
         String sd_Card_Path_URL = android_SdCard_Permission.getSd_Card_Path_URL();
         String string_URI = android_SdCard_Permission.getString_URI();
+
+        externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
         if (string_URI != null) {
             String sd_Card_Uri = Split_The_URI(string_URI);
@@ -47,8 +49,7 @@ public class Delete_Duplicate_Data {
 
     public void Seprate_The_Data(List<String> list) {
         for (int i = 1; i < list.size(); i++) {
-
-            if (list.get(i).contains(Environment.getExternalStorageDirectory().getAbsolutePath())) {
+            if (list.get(i).contains(externalPath)) {
                 Delete_The_Data_From_Internal_Storage(list.get(i));
             } else {
                 Delete_The_Data_From_External_Storage(list.get(i));
@@ -77,7 +78,7 @@ public class Delete_Duplicate_Data {
     public void Delete_The_Data_From_External_Storage(String path) {
         try {
             String[] save = path.split("/WhatsApp/");
-            DocumentFile documentFile = sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile, "WhatsApp"));
+            DocumentFile documentFile = sd_Card_documentFile.findFile("WhatsApp");
             step_Into = save[1].split("/");
             steps_Into = 0;
             Document(documentFile);
@@ -88,7 +89,7 @@ public class Delete_Duplicate_Data {
 
     public void Document(DocumentFile documentFile) {
         if (steps_Into < step_Into.length) {
-            DocumentFile documentFile1 = documentFile.findFile(check_For_Duplicate(documentFile, step_Into[steps_Into]));
+            DocumentFile documentFile1 = documentFile.findFile(step_Into[steps_Into]);
             steps_Into++;
             Document(documentFile1);
         } else {
@@ -101,14 +102,14 @@ public class Delete_Duplicate_Data {
         return save[0] + "%3A";
     }
 
-    public String check_For_Duplicate(DocumentFile file, String name) {
-        DocumentFile[] Files = file.listFiles();
-        for (DocumentFile files : Files) {
-            if (files.getName().equalsIgnoreCase(name)) {
-                return files.getName();
-            }
-        }
-        return name;
-    }
+//    public String check_For_Duplicate(DocumentFile file, String name) {
+//        DocumentFile[] Files = file.listFiles();
+//        for (DocumentFile files : Files) {
+//            if (files.getName().equalsIgnoreCase(name)) {
+//                return files.getName();
+//            }
+//        }
+//        return name;
+//    }
 
 }

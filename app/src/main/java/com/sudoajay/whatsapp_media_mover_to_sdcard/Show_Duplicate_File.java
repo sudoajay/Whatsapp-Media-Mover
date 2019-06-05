@@ -381,7 +381,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }
         builder =
                 new NotificationCompat.Builder(this, "")
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.remove_intro_icon)
                         .setContentTitle("Data Deleted")
                         .setAutoCancel(true)
                         .setOngoing(false)

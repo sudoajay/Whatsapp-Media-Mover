@@ -6,8 +6,8 @@ android {
         applicationId "com.sudoajay.whatapp_media_mover_to_sdcard"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 17
-        versionName "4.1"
+        versionCode 18
+        versionName "4.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 21
