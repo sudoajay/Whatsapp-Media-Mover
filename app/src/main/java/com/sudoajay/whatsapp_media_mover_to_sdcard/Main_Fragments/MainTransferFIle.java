@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +25,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermi
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.SdCardPath;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Storage_Info;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,7 +34,6 @@ import java.util.Objects;
 
 public class MainTransferFIle extends Fragment {
     private Button move_Button, copy_Button, remove_Button, file_Size_Text, restore_Button;
-    private String string_URI = "";
     private View layout, layouts;
     private Toast toast;
     private boolean whats_App_File_Exist_Internal, whats_App_File_Exist_External;
@@ -42,6 +41,7 @@ public class MainTransferFIle extends Fragment {
     private AndroidExternalStoragePermission androidExternalStorage_permission;
     private AndroidSdCardPermission androidSdCardPermission;
     private Storage_Info storage_info;
+
 
 
     public MainTransferFIle() {
@@ -165,30 +165,41 @@ public class MainTransferFIle extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri sd_Card_URL;
+        String sd_Card_Path_URL, string_URI = null;
+
         if (resultCode != Activity.RESULT_OK)
             return;
-        Uri sdCard_Uri = data.getData();
-        Log.d("SomethingWrong",sdCard_Uri.toString());
-        main_navigation.grantUriPermission(main_navigation.getPackageName(), sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        main_navigation.getContentResolver().takePersistableUriPermission(sdCard_Uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        String sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sdCard_Uri, main_navigation);
+        sd_Card_URL = data.getData();
 
+        main_navigation.grantUriPermission(main_navigation.getPackageName(), sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        main_navigation.getContentResolver().takePersistableUriPermission(sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, main_navigation);
 
+        string_URI = sd_Card_URL.toString();
+        sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
 
-
-        if (new File(sd_Card_Path_URL).exists())
-            string_URI = Split_The_URI(sdCard_Uri.toString());
-
-
+        if (!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
+            CustomToast.ToastIt(getContext(), getResources().getString(R.string.errorMes));
+            return;
+        }
         androidSdCardPermission.setSd_Card_Path_URL(sd_Card_Path_URL);
         androidSdCardPermission.setString_URI(string_URI);
 
     }
 
-    public String Split_The_URI(String url) {
-        String save[] = url.split("%3A");
-        return save[0] + "%3A";
+    private boolean isSelectSdRootDirectory(String path){
+        if(path.substring(path.length()-3).equals("%3A"))return true;
+        return false;
+
     }
+    public String Spilit_The_Path(final String url, final String path) {
+        String[] spilt = url.split("%3A");
+        String[] getPaths = spilt[0].split("/");
+        String[] paths = path.split(getPaths[getPaths.length - 1]);
+        return paths[0] + getPaths[getPaths.length - 1];
+    }
+
 
     public void Toast_It(String Message) {
         TextView toast_TextView = layouts.findViewById(R.id.text);

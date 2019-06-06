@@ -1,6 +1,7 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -605,32 +606,44 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
-        if (resultCode != RESULT_OK)
-            return;
 
+        Uri sd_Card_URL;
+        String sd_Card_Path_URL, string_URI = null;
+
+        if (resultCode != Activity.RESULT_OK)
+            return;
         sd_Card_URL = resultData.getData();
         grantUriPermission(getPackageName(), sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        assert sd_Card_URL != null;
         getContentResolver().takePersistableUriPermission(sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, this);
+        if (!isSamePath()) {
+            string_URI = sd_Card_URL.toString();
+            sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
 
-        if (new File(sd_Card_Path_URL).exists()) string_URI = Split_The_URI(sd_Card_URL.toString());
-        android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
-        android_sdCard_permission.setString_URI(string_URI);
-
-        File file = new File(sd_Card_Path_URL);
-        if (!isSamePath() && file.exists()) {
-            sd_Card_Path_URL = Split_The_URI(sd_Card_URL.toString());
-            sd_Card_URL = Uri.parse(sd_Card_Path_URL);
+            if(!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
+                CustomToast.ToastIt(getApplicationContext(),getResources().getString(R.string.errorMes));
+                return;
+            }
+            android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
+            android_sdCard_permission.setString_URI(string_URI);
             Check_For_WhatsApp_Folder();
         }
 
     }
 
-    public String Split_The_URI(String url) {
-        String save[] = url.split("%3A");
-        return save[0] + "%3A";
+    private boolean isSelectSdRootDirectory(String path){
+        if(path.substring(path.length()-3).equals("%3A"))return true;
+        return false;
+
     }
 
+    public String Spilit_The_Path(final String url, final String path) {
+        String[] spilt = url.split("%3A");
+        String[] getPaths = spilt[0].split("/");
+        String[] paths = path.split(getPaths[getPaths.length - 1]);
+        return paths[0] + getPaths[getPaths.length - 1];
+    }
     public String check_For_Duplicate(DocumentFile file, String name) {
         DocumentFile[] Files = file.listFiles();
         for (DocumentFile files : Files) {

@@ -158,4 +158,7 @@
 
     <string name="custom_Dialog_Box_Heading">Foreground Service</string>
     <string name="custom_Dialog_Box_Text">Are you sure to stop all your background Task?</string>
+
+    <!--Error Message-->
+    <string name="errorMes">Please Select the Sd Card Root Directory</string>
 </resources>

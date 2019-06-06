@@ -18,6 +18,7 @@ public class Delete_Duplicate_Data {
     private Show_Duplicate_File show_duplicate_file;
     private String step_Into[], externalPath;
     private DocumentFile sd_Card_documentFile;
+    private String sdCardPath;
     private int steps_Into;
 
     public Delete_Duplicate_Data(List<String> list_Header, HashMap<String, List<String>> list_Header_Child, Show_Duplicate_File show_duplicate_file) {
@@ -27,15 +28,13 @@ public class Delete_Duplicate_Data {
 
         // garb and store the data from shared preference
         AndroidSdCardPermission android_SdCard_Permission = new AndroidSdCardPermission(show_duplicate_file.getApplicationContext());
-        String sd_Card_Path_URL = android_SdCard_Permission.getSd_Card_Path_URL();
+        sdCardPath = android_SdCard_Permission.getSd_Card_Path_URL();
         String string_URI = android_SdCard_Permission.getString_URI();
 
         externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
         if (string_URI != null) {
-            String sd_Card_Uri = Split_The_URI(string_URI);
-            Uri sd_Card_URL = Uri.parse(sd_Card_Uri);
-            sd_Card_documentFile = DocumentFile.fromTreeUri(show_duplicate_file.getApplicationContext(), sd_Card_URL);
+            sd_Card_documentFile = DocumentFile.fromTreeUri(show_duplicate_file.getApplicationContext(), Uri.parse(string_URI));
         }
         Main_Method();
     }
@@ -52,7 +51,7 @@ public class Delete_Duplicate_Data {
             if (list.get(i).contains(externalPath)) {
                 Delete_The_Data_From_Internal_Storage(list.get(i));
             } else {
-                Delete_The_Data_From_External_Storage(list.get(i));
+                DeleteTheDataFromExternalStorage(list.get(i));
             }
         }
     }
@@ -73,43 +72,25 @@ public class Delete_Duplicate_Data {
         }
 
     }
+    public void DeleteTheDataFromExternalStorage(String path) {
+        DocumentFile sdCardDocument = sd_Card_documentFile;
 
+        if (sdCardDocument != null) {
+            String[] spiltSdPath = path.split(sdCardPath + "/");
+            String[] spilt = spiltSdPath[1].split("/");
+            for (String part : spilt) {
+                DocumentFile nextDocument = sdCardDocument.findFile(part);
+                if (nextDocument != null) {
+                    sdCardDocument = nextDocument;
+                }
 
-    public void Delete_The_Data_From_External_Storage(String path) {
-        try {
-            String[] save = path.split("/WhatsApp/");
-            DocumentFile documentFile = sd_Card_documentFile.findFile("WhatsApp");
-            step_Into = save[1].split("/");
-            steps_Into = 0;
-            Document(documentFile);
-        } catch (Exception ignored) {
+            }
 
+            sdCardDocument.delete();
         }
+
     }
 
-    public void Document(DocumentFile documentFile) {
-        if (steps_Into < step_Into.length) {
-            DocumentFile documentFile1 = documentFile.findFile(step_Into[steps_Into]);
-            steps_Into++;
-            Document(documentFile1);
-        } else {
-            documentFile.delete();
-        }
-    }
 
-    public String Split_The_URI(String url) {
-        String save[] = url.split("%3A");
-        return save[0] + "%3A";
-    }
-
-//    public String check_For_Duplicate(DocumentFile file, String name) {
-//        DocumentFile[] Files = file.listFiles();
-//        for (DocumentFile files : Files) {
-//            if (files.getName().equalsIgnoreCase(name)) {
-//                return files.getName();
-//            }
-//        }
-//        return name;
-//    }
 
 }
