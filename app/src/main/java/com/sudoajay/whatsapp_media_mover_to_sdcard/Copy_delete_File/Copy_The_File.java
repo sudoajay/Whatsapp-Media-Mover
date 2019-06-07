@@ -29,7 +29,7 @@ import java.util.Objects;
 
 public class Copy_The_File {
     private String external_Path_Url,whats_App_Media_Path;
-    private DocumentFile sd_Card_documentFile;
+    private DocumentFile sd_Card_documentFile,media_dir;
     private After_MainTransferFIle after_main_transferFIle;
     private int get_Data_Count,normal_Changes;
     private boolean copy_Done;
@@ -54,7 +54,7 @@ public class Copy_The_File {
         // shared preferences use to grab the data
         WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
         whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
-
+        media_dir =ReturnMediaDir();
     }
     public void Copy_Folder_As_Per_Tick(int database, int audio , int video ,int document ,int images , int gif ,int voice
             ,int profile , int sticker  ){
@@ -113,10 +113,12 @@ public class Copy_The_File {
         }catch (Exception ignored){
         }
     }
-    public DocumentFile Return_Absolute_Path(String folder_Name){
+    private DocumentFile ReturnMediaDir(){
         DocumentFile whatsApp_dir =sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile ,
                 whatsapp_Path.substring(1,whatsapp_Path.length()-1)));
-        DocumentFile media_dir = Objects.requireNonNull(whatsApp_dir).findFile(check_For_Duplicate(whatsApp_dir ,"Media"));
+        return Objects.requireNonNull(whatsApp_dir).findFile(check_For_Duplicate(whatsApp_dir ,"Media"));
+    }
+    public DocumentFile Return_Absolute_Path(String folder_Name){
         return  Objects.requireNonNull(media_dir).findFile(check_For_Duplicate(media_dir ,folder_Name));
     }
     public DocumentFile Return_Database_Path(String folder_Name){
