@@ -121,7 +121,7 @@ public class Duplication_Data {
         for (File child : getAllData) {
             try {
                 FileInputStream fileInput = new FileInputStream(child);
-                byte fileData[] = new byte[(int) child.length()];
+                byte[] fileData = new byte[(int) child.length()];
                 fileInput.read(fileData);
                 fileInput.close();
                 String uniqueFileHash = new BigInteger(1, messageDigest.digest(fileData)).toString(16);

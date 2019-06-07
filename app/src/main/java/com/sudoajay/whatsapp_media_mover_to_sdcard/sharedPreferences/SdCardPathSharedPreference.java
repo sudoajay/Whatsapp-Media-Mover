@@ -20,9 +20,10 @@ public class SdCardPathSharedPreference {
     // constructor
     @SuppressLint("CommitPrefEdits")
     public SdCardPathSharedPreference(Context context) {
+        this.context = context;
         pref = context.getSharedPreferences(context.getString(R.string.MY_PREFS_NAME), MODE_PRIVATE);
         editor = pref.edit();
-        this.context = context;
+
 
         // default value pass
         // grab the data from shared preference

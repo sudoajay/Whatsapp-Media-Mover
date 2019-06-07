@@ -21,7 +21,6 @@ public class Delete_The_File {
     private String external_Path_URL;
     private After_MainTransferFIle after_main_transferFIle;
     private String whats_App_Media_Path;
-    private long getSize ;
     private int get_Data_Count;
     private List<File> only_Selected_File ;
     private int normal_Changes;
@@ -82,16 +81,13 @@ public class Delete_The_File {
         if (fileOrDirectory.isDirectory())
             for (File child : fileOrDirectory.listFiles())
                 deleteRecursive(child);
-        getSize+= after_main_transferFIle.getStorage_Info().getFileSizeInBytes(fileOrDirectory.getAbsolutePath());
+
         if(!Selected_The_File(fileOrDirectory) && Convert_The_LastMoified(fileOrDirectory.lastModified())) {
             get_Data_Count++;
             fileOrDirectory.delete();
         }
         if(!process.equals("Background"))
         after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
-    }
-      public long getGetSize() {
-        return getSize;
     }
 
     public int getGet_Data_Count() {
@@ -114,7 +110,6 @@ public class Delete_The_File {
             }
             Convert_Into_Last_Modified(files);
             for (int i = files.size()-1 ; i >=1;i--){
-                getSize+= after_main_transferFIle.getStorage_Info().getFileSizeInBytes(files.get(i).getAbsolutePath());
                 get_Data_Count++;
                 new File(files.get(i).getAbsolutePath()).delete();
             }

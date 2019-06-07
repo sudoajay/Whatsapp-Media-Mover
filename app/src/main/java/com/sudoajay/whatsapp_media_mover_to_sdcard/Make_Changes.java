@@ -41,7 +41,6 @@ public class Make_Changes  {
         if (fileOrDirectory.isDirectory())
             for (File child : fileOrDirectory.listFiles())
                 Get_FIle_Recursive(child);
-        if(Check_For_Extension(fileOrDirectory.getAbsolutePath()))
             save_Data.add(fileOrDirectory);
 
     }
@@ -70,18 +69,7 @@ public class Make_Changes  {
                         }
                     }
     }
-    public boolean Check_For_Extension(String path){
-        int i = path.lastIndexOf('.');
-        String extension="";
-        if (i > 0) {
-            extension = path.substring(i+1);
-        }
-        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
-                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
-                || extension.equals("opus") || extension.equals("jpeg") || extension.equals("txt")
-                || extension.equals("m4a") || extension.equals("amr") || extension.equals("aac");
 
-    }
 
     public void Check_For_Commom_Date(){
         int  count = 1;

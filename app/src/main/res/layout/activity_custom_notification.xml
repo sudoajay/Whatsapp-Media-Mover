@@ -39,9 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image"
-                android:gravity="right"
                 android:layout_weight="1"
-                android:text="8:00 pm "
+                android:gravity="right"
                 android:textColor="#616366"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -68,7 +67,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image"
                 android:layout_weight="1"
-                android:text="500 mb / 1.5 gb"
                 android:textColor="#616366"
                 android:textSize="12sp" />
 
@@ -77,9 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image"
-                android:gravity="right"
                 android:layout_weight="1"
-                android:text="80%"
+                android:gravity="right"
                 android:textColor="#616366"
                 android:textSize="12sp" />
         </LinearLayout>

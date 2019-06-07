@@ -887,32 +887,24 @@ public class After_MainTransferFIle extends AppCompatActivity {
         public void onProgressUpdate(String... values) {
 
             if (!checking_Folder) {
-                String size = "";
                 int exact_Data = 0;
                 int percentage = 00;
                 try {
                     if (which_Option_To_Do.equals("remove")) {
-                        size = storage_Info.Convert_It(delete_the_fIle.getGetSize());
                         exact_Data = delete_the_fIle.getGet_Data_Count();
                     } else if (which_Option_To_Do.equals("copy")) {
-                        size = storage_Info.Convert_It(copy_the_file.getGetSize());
                         exact_Data = copy_the_file.getGet_Data_Count();
                     } else if (which_Option_To_Do.equals("move")) {
-                        size = storage_Info.Convert_It(copy_the_file.getGetSize());
                         exact_Data = copy_the_file.getGet_Data_Count();
                         if (copy_the_file.isCopy_Done()) {
-                            size = storage_Info.Convert_It(delete_the_fIle.getGetSize());
                             exact_Data = delete_the_fIle.getGet_Data_Count();
                         }
                     } else {
-                        size = storage_Info.Convert_It(restore_the_data.getGetSize());
                         exact_Data = restore_the_data.getGet_Data_Count();
                     }
-
-                } catch (ArithmeticException e) {
                 } catch (Exception f) {
                 }
-                contentView.setTextViewText(R.id.size_Title, size + "/" + save_Exact_Size);
+                contentView.setTextViewText(R.id.size_Title, exact_Data + "/" + count_Data);
                 contentView.setProgressBar(R.id.progressBar, count_Data, exact_Data, false);
                 percentage = (exact_Data*100) / count_Data;
                 contentView.setTextViewText(R.id.percent_Text, percentage + "%");
@@ -1053,26 +1045,11 @@ public class After_MainTransferFIle extends AppCompatActivity {
         if (file.isDirectory())
             for (File child : file.listFiles())
                 count += Data_Count(child);
-        if (Check_For_Extension(file.getAbsolutePath())) {
             count++;
             return count;
-        } else {
-            return count;
-        }
     }
 
-    public boolean Check_For_Extension(String path) {
-        int i = path.lastIndexOf('.');
-        String extension = "";
-        if (i > 0) {
-            extension = path.substring(i + 1);
-        }
-        return extension.equals("jpg") || extension.equals("mp3") || extension.equals("mp4")
-                || extension.equals("pptx") || extension.equals("pdf") || extension.equals("docx")
-                || extension.equals("opus") || extension.equals("m4a")
-                || extension.equals("amr") || extension.equals("aac");
 
-    }
 
     public void default_Notification(int type) {
         String id = this.getString(R.string.transfer_Done_Id); // default_channel_id

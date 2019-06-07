@@ -112,7 +112,7 @@ public class Duplication_Class extends Fragment {
         external_Text_View.setOnClickListener(onClick_class);
 
         // create new clas object
-        android_sdCard_permission = new AndroidSdCardPermission(main_navigation,main_navigation ,this);
+        android_sdCard_permission = new AndroidSdCardPermission(main_navigation,main_navigation ,Duplication_Class.this);
         androidExternalStorage_permission = new AndroidExternalStoragePermission(main_navigation, main_navigation);
         storage_info= new Storage_Info(android_sdCard_permission.getSd_Card_Path_URL(),main_navigation);
     }

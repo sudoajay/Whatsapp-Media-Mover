@@ -31,7 +31,6 @@ public class Copy_The_File {
     private String external_Path_Url,whats_App_Media_Path;
     private DocumentFile sd_Card_documentFile;
     private After_MainTransferFIle after_main_transferFIle;
-    private long getSize ;
     private int get_Data_Count,normal_Changes;
     private boolean copy_Done;
     private boolean stop;
@@ -188,14 +187,13 @@ public class Copy_The_File {
     }
 
     public boolean copyDocument(Context context, File file, DocumentFile dest) throws IOException {
-        getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(file.getAbsolutePath());
-        get_Data_Count++;
+
         if (file.exists() && !file.isDirectory() && !isDuplicate(dest, file.getName())) {
 
             BufferedOutputStream bos = null;
             BufferedInputStream bis = null;
             byte[] data = new byte[BUFFER];
-            int read = 0;
+            int read ;
             try {
 
                 String mimeType = getTypeForFile(file);
@@ -227,6 +225,7 @@ public class Copy_The_File {
                 bis.close();
             }
         }
+        get_Data_Count++;
         if (!process.equals("Background"))
             after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
         return true;
@@ -257,9 +256,7 @@ public class Copy_The_File {
         return "image/";
     }
 
-    public long getGetSize() {
-        return getSize;
-    }
+
 
     public int getGet_Data_Count() {
         return get_Data_Count;
@@ -283,8 +280,6 @@ public class Copy_The_File {
             List<File> files = new ArrayList<>(Arrays.asList(database_File.listFiles()));
             Convert_Into_Last_Modified(files);
             for (int i = files.size()-1 ; i >=1;i--){
-                getSize += after_main_transferFIle.getStorage_Info().getFileSizeInBytes(files.get(i).getAbsolutePath());
-                get_Data_Count++;
                  new File(files.get(i).getAbsolutePath()).delete();
             }
         }catch (Exception e){

@@ -8,18 +8,20 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermi
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Delete_Duplicate_Data {
 
     private List<String> list_Header;
-    private HashMap<String, List<String>> list_Header_Child;
+    private HashMap<String, List<String>> list_Header_Child, sdCardStore = new HashMap<>();
     private Show_Duplicate_File show_duplicate_file;
     private String step_Into[], externalPath;
     private DocumentFile sd_Card_documentFile;
     private String sdCardPath;
-    private int steps_Into;
+    private List<String> sdcard = new ArrayList<>(), pathStore = new ArrayList<>();
 
     public Delete_Duplicate_Data(List<String> list_Header, HashMap<String, List<String>> list_Header_Child, Show_Duplicate_File show_duplicate_file) {
         this.list_Header = list_Header;
@@ -42,21 +44,39 @@ public class Delete_Duplicate_Data {
     public void Main_Method() {
         for (int i = 0; i < list_Header.size(); i++) {
             Seprate_The_Data(list_Header_Child.get(list_Header.get(i)));
-            show_duplicate_file.getMultiThreading_task().onProgressUpdate();
         }
+
+        SeprateTheSDCardPath();
+        DeleteTheDataFromExternalStorage();
     }
 
     public void Seprate_The_Data(List<String> list) {
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).contains(externalPath)) {
-                Delete_The_Data_From_Internal_Storage(list.get(i));
+                DeleteTheDataFromInternal_Storage(list.get(i));
+                show_duplicate_file.getMultiThreading_task().onProgressUpdate();
             } else {
-                DeleteTheDataFromExternalStorage(list.get(i));
+                sdcard.add(list.get(i));
             }
         }
     }
 
-    public void Delete_The_Data_From_Internal_Storage(String path) {
+    private void SeprateTheSDCardPath() {
+        for (String path : sdcard) {
+            pathStore.clear();
+            File file = new File(path);
+            String parentPath = file.getParentFile().toString();
+            String filePathName = file.getName();
+
+            if (sdCardStore.get(parentPath) != null)
+                pathStore.addAll(Objects.requireNonNull(sdCardStore.get(parentPath)));
+
+            pathStore.add(filePathName);
+            sdCardStore.put(parentPath, new ArrayList<>(pathStore));
+        }
+    }
+
+    public void DeleteTheDataFromInternal_Storage(String path) {
 
         File file = new File(path);
         boolean wasSuccessful = file.delete();
@@ -72,23 +92,27 @@ public class Delete_Duplicate_Data {
         }
 
     }
-    public void DeleteTheDataFromExternalStorage(String path) {
-        DocumentFile sdCardDocument = sd_Card_documentFile;
 
-        if (sdCardDocument != null) {
-            String[] spiltSdPath = path.split(sdCardPath + "/");
-            String[] spilt = spiltSdPath[1].split("/");
-            for (String part : spilt) {
-                DocumentFile nextDocument = sdCardDocument.findFile(part);
-                if (nextDocument != null) {
-                    sdCardDocument = nextDocument;
+    public void DeleteTheDataFromExternalStorage() {
+        for (String getKey : sdCardStore.keySet()) {
+            DocumentFile sdCardDocument = sd_Card_documentFile;
+            if (sdCardDocument != null) {
+                String[] spiltSdPath = getKey.split(sdCardPath + "/");
+                String[] spilt = spiltSdPath[1].split("/");
+                for (String part : spilt) {
+                    DocumentFile nextDocument = sdCardDocument.findFile(part);
+                    if (nextDocument != null) {
+                        sdCardDocument = nextDocument;
+                    }
                 }
 
+                for (String value : Objects.requireNonNull(sdCardStore.get(getKey))) {
+                    DocumentFile save = sdCardDocument.findFile(value);
+                    save.delete();
+                    show_duplicate_file.getMultiThreading_task().onProgressUpdate();
+                }
             }
-
-            sdCardDocument.delete();
         }
-
     }
 
 
