@@ -64,7 +64,8 @@
 
         <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Firebase_Message_Config.MyFireBaseInstanceMessageService"
             tools:ignore="InnerclassSeparator"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="false">
             <intent-filter>
 
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

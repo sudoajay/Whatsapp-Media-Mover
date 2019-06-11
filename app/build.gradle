@@ -6,8 +6,8 @@ android {
         applicationId "com.sudoajay.whatapp_media_mover_to_sdcard"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 18
-        versionName "4.2"
+        versionCode 19
+        versionName "4.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 21
@@ -15,8 +15,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,13 +39,9 @@ dependencies {
     implementation 'android.arch.work:work-runtime:1.0.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
-
-
-
     // outside libary
     implementation 'com.github.arcadefire:nice-spinner:1.3.7'
     implementation 'com.github.DavidProdinger:weekdays-selector:1.0.4'
-
 
     // firebase configuration
     implementation 'com.google.firebase:firebase-messaging:18.0.0'

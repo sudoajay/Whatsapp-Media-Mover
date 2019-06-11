@@ -2,14 +2,12 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,14 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForForegroundService;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
@@ -238,81 +234,41 @@ public class Main_Navigation extends AppCompatActivity
     private void TypeATask() {
 
         // set the Task is started
+        PeriodicWorkRequest.Builder myWorkBuilder =
+                new PeriodicWorkRequest.Builder(WorkMangerTaskA.class, 24, TimeUnit.HOURS);
 
-        // this task for Regular Show Size
-        OneTimeWorkRequest morning_Work =
-                new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(1
-                        , TimeUnit.DAYS).build();
-
-        WorkManager.getInstance().enqueueUniqueWork("Regular Data Size", ExistingWorkPolicy.KEEP, morning_Work);
-
-        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
-                .observe(this, new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(@Nullable WorkInfo workInfo) {
-                        // Do something with the status
-                        if (workInfo != null && workInfo.getState().isFinished()) {
-
-                            // Recursive
-                            TypeATask();
-                        }
-                    }
-                });
-
+        PeriodicWorkRequest myWork = myWorkBuilder.build();
+        WorkManager.getInstance()
+                .enqueueUniquePeriodicWork("Regular Data Size", ExistingPeriodicWorkPolicy.KEEP, myWork);
 
     }
 
     private void TypeBTask() {
 
         // set the Task is started
+
         // this task for weekly Duplicate Size
-        OneTimeWorkRequest morning_Work =
-                new OneTimeWorkRequest.Builder(WorkMangerTaskB.class).addTag("Weekly Duplicate Size").setInitialDelay(7
-                        , TimeUnit.DAYS).build();
-        WorkManager.getInstance().enqueueUniqueWork("Weekly Duplicate Size", ExistingWorkPolicy.KEEP, morning_Work);
+        PeriodicWorkRequest.Builder myWorkBuilder =
+                new PeriodicWorkRequest.Builder(WorkMangerTaskB.class, 48, TimeUnit.HOURS);
 
-        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
-                .observe(this, new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(@Nullable WorkInfo workInfo) {
-                        // Do something with the status
-                        if (workInfo != null && workInfo.getState().isFinished()) {
-
-                            // Recursive
-                            TypeBTask();
-                        }
-                    }
-                });
+        PeriodicWorkRequest myWork = myWorkBuilder.build();
+        WorkManager.getInstance()
+                .enqueueUniquePeriodicWork("Weekly Duplicate Size", ExistingPeriodicWorkPolicy.KEEP, myWork);
 
     }
 
     public void TypeCTask() {
-
         final BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
 
         int hour = getHours(backgroundTimerDataBase);
+        if (!backgroundTimerDataBase.check_For_Empty()) {
+            PeriodicWorkRequest.Builder myWorkBuilder =
+                    new PeriodicWorkRequest.Builder(WorkMangerTaskB.class, hour, TimeUnit.HOURS);
 
-        OneTimeWorkRequest morning_Work =
-                new OneTimeWorkRequest.Builder(WorkMangerTaskC.class).addTag(" Duplication Size").setInitialDelay(hour, TimeUnit.HOURS)
-                        .build();
-        WorkManager.getInstance().enqueueUniqueWork(" Duplication Size", ExistingWorkPolicy.REPLACE, morning_Work);
-
-        WorkManager.getInstance().getWorkInfoByIdLiveData(morning_Work.getId())
-                .observe(this, new Observer<WorkInfo>() {
-                    @Override
-                    public void onChanged(@Nullable WorkInfo workInfo) {
-                        // Do something with the status
-                        if (workInfo != null && workInfo.getState().isFinished()) {
-                            try {
-                                // Recursive
-                                if (!backgroundTimerDataBase.check_For_Empty())
-                                    TypeCTask();
-                            } catch (Exception e) {
-                            }
-
-                        }
-                    }
-                });
+            PeriodicWorkRequest myWork = myWorkBuilder.build();
+            WorkManager.getInstance()
+                    .enqueueUniquePeriodicWork("Duplication Size", ExistingPeriodicWorkPolicy.REPLACE, myWork);
+        }
 
     }
 
