@@ -170,7 +170,7 @@ public class WorkMangerTaskC extends Worker {
             Cursor cursor = backgroundTimerDataBase.GetTheChoose_TypeRepeatedlyEndlessly();
             if (cursor != null && cursor.moveToFirst()) {
                 cursor.moveToFirst();
-                switch (cursor.getInt(1)) {
+                switch (cursor.getInt(0)) {
                     case 0: // At Every 1/2 Day
                         hour = 12;
                         break;

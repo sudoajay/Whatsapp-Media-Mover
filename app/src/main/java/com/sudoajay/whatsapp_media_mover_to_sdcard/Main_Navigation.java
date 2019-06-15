@@ -26,6 +26,7 @@ import androidx.work.WorkManager;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForForegroundService;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
@@ -261,9 +262,9 @@ public class Main_Navigation extends AppCompatActivity
         final BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
 
         int hour = getHours(backgroundTimerDataBase);
-        if (!backgroundTimerDataBase.check_For_Empty()) {
+        if (!backgroundTimerDataBase.check_For_Empty() && hour != 0) {
             PeriodicWorkRequest.Builder myWorkBuilder =
-                    new PeriodicWorkRequest.Builder(WorkMangerTaskB.class, hour, TimeUnit.HOURS);
+                    new PeriodicWorkRequest.Builder(WorkMangerTaskC.class, hour, TimeUnit.HOURS);
 
             PeriodicWorkRequest myWork = myWorkBuilder.build();
             WorkManager.getInstance()
