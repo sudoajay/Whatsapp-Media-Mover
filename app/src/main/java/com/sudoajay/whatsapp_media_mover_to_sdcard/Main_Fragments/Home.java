@@ -88,7 +88,7 @@ public class Home extends Fragment {
         external_Draw_Bar = layout.findViewById(R.id.external_Draw_Bar);
 
         androidExternalStoragepermission = new AndroidExternalStoragePermission(main_navigation , main_navigation);
-        android_sdCard_permission = new AndroidSdCardPermission(main_navigation,main_navigation,this);
+        android_sdCard_permission = new AndroidSdCardPermission(main_navigation,this);
 
         // onclick class call
         OnClick_Class onClick_class = new OnClick_Class();

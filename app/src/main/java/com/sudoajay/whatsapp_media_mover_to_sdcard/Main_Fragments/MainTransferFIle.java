@@ -112,7 +112,7 @@ public class MainTransferFIle extends Fragment {
         // create object classes
 
         androidExternalStorage_permission = new AndroidExternalStoragePermission(main_navigation, main_navigation);
-        androidSdCardPermission = new AndroidSdCardPermission(main_navigation, main_navigation, this);
+        androidSdCardPermission = new AndroidSdCardPermission( main_navigation, this);
         storage_info = new Storage_Info(androidSdCardPermission.getSd_Card_Path_URL(), main_navigation);
 
     }

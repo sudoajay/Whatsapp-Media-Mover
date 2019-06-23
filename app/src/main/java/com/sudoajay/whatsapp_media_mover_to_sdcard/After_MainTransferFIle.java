@@ -161,8 +161,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         storage_Info = new Storage_Info(sd_Card_Path_URL, this);
 
         // create and instalization of sd card permission
-        android_sdCard_permission = new AndroidSdCardPermission(After_MainTransferFIle.this
-                , getApplicationContext(), this);
+        android_sdCard_permission = new AndroidSdCardPermission(After_MainTransferFIle.this, this);
     }
 
     @SuppressLint("SetTextI18n")

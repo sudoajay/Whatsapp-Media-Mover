@@ -30,21 +30,18 @@ public class AndroidSdCardPermission {
     private SdCardPathSharedPreference sdCardPathSharedPreference;
     private After_MainTransferFIle after_mainTransferFIle;
 
-    public AndroidSdCardPermission(Activity activity , Context context, Duplication_Class duplication_class){
+    public AndroidSdCardPermission(Activity activity , Duplication_Class duplication_class){
         this.activity= activity;
-        this.context =context;
         this.duplication_class=duplication_class;
         Grab();
     }
-    public AndroidSdCardPermission(Activity activity , Context context, MainTransferFIle mainTransferFIle){
+    public AndroidSdCardPermission(Activity activity , MainTransferFIle mainTransferFIle){
         this.activity= activity;
-        this.context =context;
         this.mainTransferFIle=mainTransferFIle;
         Grab();
     }
-    public AndroidSdCardPermission(Activity activity , Context context, Home home){
+    public AndroidSdCardPermission(Activity activity , Home home){
         this.activity= activity;
-        this.context =context;
         this.home=home;
         Grab();
     }
@@ -52,9 +49,8 @@ public class AndroidSdCardPermission {
         this.context =context;
         Grab();
     }
-    public AndroidSdCardPermission(Activity activity , Context context, After_MainTransferFIle after_mainTransferFIle){
+    public AndroidSdCardPermission(Activity activity , After_MainTransferFIle after_mainTransferFIle){
         this.activity= activity;
-        this.context =context;
         this.after_mainTransferFIle=after_mainTransferFIle;
         Grab();
     }
@@ -84,7 +80,11 @@ public class AndroidSdCardPermission {
                 after_mainTransferFIle.startActivityForResult(intent, REQUEST_CODE_OPEN_DOCUMENT_TREE);
             }
         }catch (Exception e){
-            CustomToast.ToastIt(context,"There is Error Please Report It");
+            if(activity == null )
+                CustomToast.ToastIt(context,"There is Error Please Report It");
+            else{
+                CustomToast.ToastIt(activity,"There is Error Please Report It");
+            }
         }
     }
 
@@ -101,8 +101,12 @@ public class AndroidSdCardPermission {
         return (sd_Card_Path_URL.equals(Environment.getExternalStorageDirectory().getAbsolutePath())) || (!new File(sd_Card_Path_URL).exists());
     }
     public void Grab(){
-        // gran the data from shared preference
-        sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
+        if(activity == null ) {
+            // gran the data from shared preference
+            sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
+        }else{
+            sdCardPathSharedPreference = new SdCardPathSharedPreference(activity);
+        }
         try {
 
             sd_Card_Path_URL = sdCardPathSharedPreference.getSdCardPath();
