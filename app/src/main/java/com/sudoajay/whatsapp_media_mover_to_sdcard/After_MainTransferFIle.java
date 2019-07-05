@@ -16,12 +16,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.provider.DocumentFile;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -142,7 +142,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
         changes_Button = findViewById(R.id.normal_Changes_Button);
         doit_Button = findViewById(R.id.doit_Button);
 
-        ImageView audio_ImageView = findViewById(R.id.audio_ImageView);
 
 
         tick_Audio_ImageView = findViewById(R.id.tick_audio_ImageView);
@@ -154,7 +153,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
         tick_Profile_ImageView = findViewById(R.id.tick_Profile_ImageView);
         tick_Voice_ImageView = findViewById(R.id.tick_Voice_ImageView);
         tick_Sticker_ImageView = findViewById(R.id.tick_Sticker_ImageView);
-        ImageView back_Image_View = findViewById(R.id.back_Image_View);
 
         // create class object
         notification_permission_check = new Notification_Permission_Check(this, this);

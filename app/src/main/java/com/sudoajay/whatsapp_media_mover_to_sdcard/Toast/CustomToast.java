@@ -2,7 +2,7 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Toast;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;

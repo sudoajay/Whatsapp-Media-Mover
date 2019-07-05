@@ -2,7 +2,7 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.net.Uri;
 import android.os.Environment;
-import android.support.v4.provider.DocumentFile;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 
