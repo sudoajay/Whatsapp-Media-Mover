@@ -24,29 +24,10 @@ public class BackgroundProcess {
         editor = pref.edit();
     }
 
-    public void setTaskADone(final boolean task) {
-        editor.putBoolean(_context.getString(R.string.task_A_Done), task);
-        editor.apply();
-    }
-
-    public boolean isTaskADone() {
-        return pref.getBoolean(_context.getString(R.string.task_A_Done), true);
-    }
-    public void setTaskBDone(final boolean task) {
-        editor.putBoolean(_context.getString(R.string.task_B_Done), task);
-        editor.apply();
-    }
-
-    public boolean isTaskBDone() {
-        return pref.getBoolean(_context.getString(R.string.task_B_Done), true);
-    }
     public void setTaskCDone(final boolean task) {
         editor.putBoolean(_context.getString(R.string.task_C_Done), task);
         editor.apply();
     }
 
-    public boolean isTaskCDone() {
-        return pref.getBoolean(_context.getString(R.string.task_C_Done), true);
-    }
 
 }

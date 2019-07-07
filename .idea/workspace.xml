@@ -122,124 +122,80 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_extensions_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_extensions_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_db_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_db_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_db_framework_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_db_framework_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_room_runtime_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_room_runtime_1_1_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_work_work_runtime_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_work_work_runtime_1_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_asynclayoutinflater_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_1_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_coordinatorlayout_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cursoradapter_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customtabs_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customtabs_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_customview_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_documentfile_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_drawerlayout_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_interpolator_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_loader_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_localbroadcastmanager_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_print_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_slidingpanelayout_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_swiperefreshlayout_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_2_2_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_2_2_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_2_2_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_2_2_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_exposed_instrumentation_api_publish_0_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_exposed_instrumentation_api_publish_0_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_rules_0_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_rules_0_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_runner_0_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_runner_0_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_versionedparcelable_28_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_viewpager_28_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_extensions_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_extensions_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_process_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_recyclerview_recyclerview_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_room_room_runtime_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_sqlite_sqlite_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_sqlite_sqlite_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_sqlite_sqlite_framework_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_sqlite_sqlite_framework_2_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_transition_transition_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_DavidProdinger_weekdays_selector_1_0_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_DavidProdinger_weekdays_selector_1_0_4_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_arcadefire_nice_spinner_1_3_7_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_arcadefire_nice_spinner_1_3_7_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_d_max_spots_dialog_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_d_max_spots_dialog_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_api_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_api_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_impl_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_impl_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_api_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_sdk_api_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_18_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_19_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_19_0_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_18_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_19_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_19_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/app.aab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/sudoajay/whatsapp_storage_transfer/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/sudoajay/whatsapp_storage_transfer/ExampleInstrumentedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskA.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskC.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Copy_delete_File/Copy_The_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Copy_delete_File/Copy_The_File.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/CustomAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/CustomAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForBackgroundTimer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForBackgroundTimer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForForegroundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForForegroundService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Custom_Dialog_For_Changes_Options.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Custom_Dialog_For_Changes_Options.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Custom_Dialog_For_Choose_Your_Whatsapp_Options.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Custom_Dialog_For_Choose_Your_Whatsapp_Options.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Custom_Dialog_For_Normal_Changes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Custom_Dialog_For_Normal_Changes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Tabbed_Custom_Dialog_For_Deep.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Tabbed_Custom_Dialog_For_Deep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Draw_View_Canvas_Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Draw_View_Canvas_Rectangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Firebase_Message_Config/MyFireBaseInstanceMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Firebase_Message_Config/MyFireBaseInstanceMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/ForegroundService/Foreground.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/ForegroundService/Foreground.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Document_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Document_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Gif_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Gif_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Image_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Image_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Profile_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Profile_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Sticker_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Sticker_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Video_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Video_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Voice_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Voice_Fragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Duplication_Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Duplication_Class.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/MainTransferFIle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/MainTransferFIle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Notification/NotifyNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Notification/NotifyNotification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidExternalStoragePermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidExternalStoragePermission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/Notification_Permission_Check.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/Notification_Permission_Check.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SdCardPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SdCardPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Sd_Card_dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Sd_Card_dialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Show_Duplicate_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Show_Duplicate_File.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/WelcomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/WelcomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Toast/CustomToast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Toast/CustomToast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_after_main_transfer_file_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_after_main_transfer_file_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_background_timer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_background_timer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_custom_dialog_changes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_custom_dialog_changes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_custom_foreground_permission.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_custom_foreground_permission.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_duplication_list_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_duplication_list_view.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_navigation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_changes_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_changes_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_list_style.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_list_style.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_duplicate_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_duplicate_file.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_welcome.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/app_bar_main_navigation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/changes_options_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/changes_options_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/custom_tab.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_duplicate_class.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_duplicate_class.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_transfer_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_transfer_file.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main_navigation.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/normal_changes_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/normal_changes_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/setting_layout_design_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/setting_layout_design_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/setting_layout_design_whatsapp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/setting_layout_design_whatsapp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/welcome_slide4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/BackgroundProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/BackgroundProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -259,26 +215,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_show_duplicate_file.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="20" column="46" selection-start-line="10" selection-start-column="3" selection-end-line="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+            <state relative-caret-position="279">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
@@ -288,18 +234,20 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gradle.properties">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+            <state relative-caret-position="1854">
+              <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/PrefManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-129" />
+            <state relative-caret-position="126">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -316,8 +264,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>/storage/4110-1CF7</find>
-      <find>getGetSize</find>
       <find>Search_File</find>
       <find>grantUriPermission</find>
       <find>cacheChildren</find>
@@ -346,6 +292,8 @@
       <find>BackgroundTimerDataBase</find>
       <find>getMergeResources</find>
       <find>variant</find>
+      <find>isBackgroundWorking</find>
+      <find>TypeATask</find>
     </findStrings>
     <replaceStrings>
       <replace>VISIBLE</replace>
@@ -363,7 +311,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatapp_media_mover_to_sdcard/ForeGroundService/Foreground.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatapp_media_mover_to_sdcard/ForegroundService/Foreground.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatapp_media_mover_to_sdcard/Receive_Boot_Completed/MyRebootReceiver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatapp_media_mover_to_sdcard/Permission/ForegroundService.java" />
@@ -405,15 +352,16 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskC.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Duplication_Class.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/MainTransferFIle.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Home.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/gradle.properties" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/BackgroundProcess.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -432,10 +380,32 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
+            <path>
+              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="whatsapp_media_mover_to_sdcard" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="whatsapp_media_mover_to_sdcard" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="sharedPreferences" type="462c0819:PsiDirectoryNode" />
+            </path>
             <path>
               <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -444,7 +414,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -456,7 +426,7 @@
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
-    <property name="device.picker.selection" value="RQ300206V7" />
+    <property name="device.picker.selection" value="192.168.0.173:5555" />
     <property name="format" value="PNG" />
     <property name="lastFolderRoot" value="$PROJECT_DIR$/app/src/main/res/drawable/copy.webp" />
     <property name="last_opened_file_path" value="$USER_HOME$/Documents" />
@@ -465,7 +435,7 @@
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="resolutions" value="LDPI&#10;MDPI&#10;XXXHDPI&#10;XXHDPI&#10;XHDPI&#10;HDPI" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="experimental" />
     <property name="sourceResolution" value="XXXHDPI" />
   </component>
   <component name="PsdUISettings">
@@ -584,7 +554,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="7" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.47655398" visible="true" weight="0.32977587" />
@@ -598,9 +569,9 @@
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.3286026" />
       <window_info anchor="bottom" id="Logcat" order="1" weight="0.42857143" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32824427" />
-      <window_info anchor="bottom" id="Terminal" order="3" weight="0.31079608" />
-      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.50160086" side_tool="true" weight="0.3351469" />
-      <window_info active="true" anchor="bottom" id="Build" order="5" sideWeight="0.49839914" visible="true" weight="0.32606325" />
+      <window_info anchor="bottom" id="Terminal" order="3" weight="0.3101197" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="4" sideWeight="0.50213444" side_tool="true" visible="true" weight="0.32497275" />
+      <window_info anchor="bottom" id="Build" order="5" sideWeight="0.49786553" visible="true" weight="0.32497275" />
       <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" weight="0.9672846" />
       <window_info anchor="bottom" id="Run" order="7" />
       <window_info anchor="bottom" id="Debug" order="8" />
@@ -614,23 +585,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Spin_adapter_For_Setting.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Copy_delete_File/Restore_The_Data.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1208">
-          <caret line="120" column="48" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/xiaomi-redmi_4-f5dc4e87cf40/data/data/com.sudoajay.duplication_data/shared_prefs/Duplication Data.xml" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4fbb76b290797cc1ab545b34d33b13cb/jars/classes.jar!/android/support/v4/provider/DocumentFile.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/CachedDocumentFile.java" />
     <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/xiaomi-redmi_4-f5dc4e87cf40/data/data/com.sudoajay.whatapp_media_mover_to_sdcard/shared_prefs/WhatsApp Media Mover.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Sd_Card_dialog.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -744,23 +698,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/sony-f3116-192.168.0.173_5555/data/data/com.sudoajay.whatapp_media_mover_to_sdcard/shared_prefs/WhatsApp Media Mover.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/sony-f3116-192.168.0.173_5555/data/data/com.sudoajay.whatapp_media_mover_to_sdcard/shared_prefs/WhatsApp Media Mover.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/voice_icon.png" />
     <entry file="file://$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk">
       <provider selected="true" editor-type-id="apk-viewer" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-504">
-          <caret line="56" column="81" selection-start-line="56" selection-start-column="81" selection-end-line="56" selection-end-column="81" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskB.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -818,16 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/SdCardPathSharedPreference.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -835,23 +766,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-145">
-          <caret line="321" column="39" lean-forward="true" selection-start-line="285" selection-start-column="11" selection-end-line="321" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForBackgroundTimer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="49" column="59" selection-start-line="49" selection-start-column="36" selection-end-line="49" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -877,22 +791,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="21" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_tab.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_show_duplicate_file.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="46" selection-start-line="10" selection-start-column="3" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -903,18 +809,6 @@
     <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-129" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="43" column="61" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradle.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -922,10 +816,97 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_show_duplicate_file.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="20" column="46" selection-start-line="10" selection-start-column="3" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForBackgroundTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="489" column="8" selection-start-line="489" selection-start-column="8" selection-end-line="489" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/BackgroundProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/SdCardPathSharedPreference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TickOnButtonSharedPreference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="109" column="58" selection-start-line="109" selection-start-column="39" selection-end-line="109" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="11" column="53" selection-start-line="11" selection-start-column="53" selection-end-line="11" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1854">
+          <caret line="112" column="21" selection-start-line="112" selection-start-column="21" selection-end-line="112" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/PrefManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/sony-f3116-RQ300206V7/data/data/com.sudoajay.duplication_data/shared_prefs/androidx.work.util.id.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/sony-f3116-RQ300206V7/data/data/com.sudoajay.whatapp_media_mover_to_sdcard/shared_prefs/androidx.work.util.id.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="50" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
