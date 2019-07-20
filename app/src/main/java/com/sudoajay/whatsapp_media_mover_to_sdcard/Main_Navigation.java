@@ -24,9 +24,7 @@ import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskManager;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForBackgroundTimer;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.CustomDialogForForegroundService;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_For_Choose_Your_Whatsapp_Options;
@@ -105,27 +103,22 @@ public class Main_Navigation extends AppCompatActivity
         traceBackgroundService = new TraceBackgroundService(getApplicationContext());
         PrefManager prefManager = new PrefManager(getApplicationContext());
         if (!prefManager.isFirstTimeLaunch()) {
-
             if (traceBackgroundService.isBackgroundServiceWorking()) {
                 traceBackgroundService.isBackgroundWorking();
             }
 
             if (!traceBackgroundService.isBackgroundServiceWorking()) {
                 // if the background service not working then
-//                    traceBackgroundService.setTaskC(traceBackgroundService.NextDate(24));
+                traceBackgroundService.setTaskC(TraceBackgroundService.NextDate(24));
                 traceBackgroundService.setTaskA();
                 traceBackgroundService.setTaskB();
             }
         } else {
             // regular background Process
             // showing size of whatsApp Data
-            TypeATask();
+            Task();
+            prefManager.setFirstTimeLaunch(false);
 
-            // showing duplication of whatsapp Data.
-            TypeBTask();
-
-            // New Feature
-            TypeCTask();
         }
         //    first time check
         if (!traceBackgroundService.isBackgroundServiceWorking()) {
@@ -138,6 +131,7 @@ public class Main_Navigation extends AppCompatActivity
                 }
             }
         }
+
 
     }
 
@@ -232,99 +226,18 @@ public class Main_Navigation extends AppCompatActivity
         custom_dialog_for_changes_options.show(ft, "dialog");
     }
 
-    private void TypeATask() {
+    private void Task() {
 
         // set the Task is started
         PeriodicWorkRequest.Builder myWorkBuilder =
-                new PeriodicWorkRequest.Builder(WorkMangerTaskA.class, 24, TimeUnit.HOURS);
+                new PeriodicWorkRequest.Builder(WorkMangerTaskManager.class, 12, TimeUnit.HOURS);
 
         PeriodicWorkRequest myWork = myWorkBuilder.build();
-        WorkManager.getInstance()
-                .enqueueUniquePeriodicWork("Regular Data Size", ExistingPeriodicWorkPolicy.KEEP, myWork);
+        WorkManager.getInstance(getApplicationContext())
+                .enqueueUniquePeriodicWork("Manages", ExistingPeriodicWorkPolicy.KEEP, myWork);
 
     }
 
-    private void TypeBTask() {
-
-        // set the Task is started
-
-        // this task for weekly Duplicate Size
-        PeriodicWorkRequest.Builder myWorkBuilder =
-                new PeriodicWorkRequest.Builder(WorkMangerTaskB.class, 48, TimeUnit.HOURS);
-
-        PeriodicWorkRequest myWork = myWorkBuilder.build();
-        WorkManager.getInstance()
-                .enqueueUniquePeriodicWork("Weekly Duplicate Size", ExistingPeriodicWorkPolicy.KEEP, myWork);
-
-    }
-
-    public void TypeCTask() {
-        final BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getApplicationContext());
-
-        int hour = getHours(backgroundTimerDataBase);
-        if (!backgroundTimerDataBase.check_For_Empty() && hour != 0) {
-            PeriodicWorkRequest.Builder myWorkBuilder =
-                    new PeriodicWorkRequest.Builder(WorkMangerTaskC.class, hour, TimeUnit.HOURS);
-
-            PeriodicWorkRequest myWork = myWorkBuilder.build();
-            WorkManager.getInstance()
-                    .enqueueUniquePeriodicWork("Duplication Size", ExistingPeriodicWorkPolicy.REPLACE, myWork);
-        }
-
-    }
-
-    public static int getHours(final BackgroundTimerDataBase backgroundTimerDataBase) {
-        // set the Task is started
-
-        // this task for cleaning and show today task
-        int hour = 0;
-
-        // grab the data From Database
-
-
-        if (!backgroundTimerDataBase.check_For_Empty()) {
-            Cursor cursor = backgroundTimerDataBase.GetTheRepeatedlyWeekdays();
-            if (cursor != null && cursor.moveToFirst()) {
-                cursor.moveToFirst();
-
-                try {
-
-                    switch (cursor.getInt(0)) {
-                        case 0: // At Every 1/2 Day
-                            hour = 12;
-                            break;
-                        case 1:// At Every 1 Day
-                            hour = 24;
-                            break;
-                        case 2:
-                            // At Every 2 Day
-                            hour = (24 * 2);
-                            break;
-                        case 3:
-
-                            Calendar calendar = Calendar.getInstance();
-                            int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
-
-                            String weekdays = cursor.getString(1);
-                            List<Integer> listWeekdays = new ArrayList<>();
-                            for (int i = 0; i < weekdays.length(); i++) {
-                                listWeekdays.add(Character.getNumericValue(weekdays.charAt(i)));
-                            }
-
-                            hour = 24 * CountDay(currentDay, listWeekdays);
-
-                            break;
-                        case 4:  // At Every month(Same Date)
-                            hour = (24 * 30);
-                            break;
-                    }
-
-                } catch (Exception e) {
-                }
-            }
-        }
-        return hour;
-    }
 
     // Replace Fragments
     public void Replace_Fragments() {
@@ -394,19 +307,7 @@ public class Main_Navigation extends AppCompatActivity
         return navigationView;
     }
 
-    public static int CountDay(int day, List<Integer> week_Days) {
-        int temp = day, count = 0;
-        do {
-            count++;
-            temp++;
-            if (temp == 8) temp = 1;
 
-            for (Integer week : week_Days) {
-                if (temp == week) return count;
-            }
-        } while (temp != day);
-        return 0;
-    }
 
     public boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
         try {
@@ -428,5 +329,74 @@ public class Main_Navigation extends AppCompatActivity
     public boolean ServicesWorking() {
         traceBackgroundService.isBackgroundWorking();
         return !traceBackgroundService.isBackgroundServiceWorking();
+    }
+
+    public static int getHours(final Context context) {
+
+        BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(context);
+        // set the Task is started
+
+        // this task for cleaning and show today task
+        int hour = 0;
+
+        // grab the data From Database
+
+
+        if (!backgroundTimerDataBase.check_For_Empty()) {
+            Cursor cursor = backgroundTimerDataBase.GetTheRepeatedlyWeekdays();
+            if (cursor != null && cursor.moveToFirst()) {
+                cursor.moveToFirst();
+
+                try {
+
+                    switch (cursor.getInt(0)) {
+                        case 0: // At Every 1/2 Day
+                            hour = 12;
+                            break;
+                        case 1:// At Every 1 Day
+                            hour = 24;
+                            break;
+                        case 2:
+                            // At Every 2 Day
+                            hour = (24 * 2);
+                            break;
+                        case 3:
+
+                            Calendar calendar = Calendar.getInstance();
+                            int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+
+                            String weekdays = cursor.getString(1);
+                            List<Integer> listWeekdays = new ArrayList<>();
+                            for (int i = 0; i < weekdays.length(); i++) {
+                                listWeekdays.add(Character.getNumericValue(weekdays.charAt(i)));
+                            }
+
+                            hour = 24 * CountDay(currentDay, listWeekdays);
+
+                            break;
+                        case 4:  // At Every month(Same Date)
+                            hour = (24 * 30);
+                            break;
+                    }
+
+                } catch (Exception e) {
+                }
+            }
+        }
+        return hour;
+    }
+
+    public static int CountDay(int day, List<Integer> week_Days) {
+        int temp = day, count = 0;
+        do {
+            count++;
+            temp++;
+            if (temp == 8) temp = 1;
+
+            for (Integer week : week_Days) {
+                if (temp == week) return count;
+            }
+        } while (temp != day);
+        return 0;
     }
 }

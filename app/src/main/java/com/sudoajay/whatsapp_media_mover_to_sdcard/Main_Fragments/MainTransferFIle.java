@@ -7,8 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
@@ -259,7 +260,7 @@ public class MainTransferFIle extends Fragment {
                     } else if (!whats_App_File_Exist_Internal)
                         Toast_It("No WhatsApp Data Present");
                     else if (move_Button.getAlpha() == 0.5f && androidSdCardPermission.isGetting()) {
-                        Toast_It("Select The Sd Card  ");
+                        Toast_It("Select The Root Of Sd Card  ");
                         androidSdCardPermission.call_Thread();
                         call_Thread();
                     } else {
@@ -278,7 +279,7 @@ public class MainTransferFIle extends Fragment {
                     } else if (!whats_App_File_Exist_Internal)
                         Toast_It("No WhatsApp Data Present");
                     else if (copy_Button.getAlpha() == 0.5f && androidSdCardPermission.isGetting()) {
-                        Toast_It("Select The Sd Card  ");
+                        Toast_It("Select The Root Of Sd Card  ");
                         androidSdCardPermission.call_Thread();
                         call_Thread();
                     } else {
@@ -309,7 +310,7 @@ public class MainTransferFIle extends Fragment {
                         androidExternalStorage_permission.call_Thread();
                         call_Thread();
                     } else if (restore_Button.getAlpha() == 0.5f && androidSdCardPermission.isGetting()) {
-                        Toast_It("Select The Sd Card  ");
+                        Toast_It("Select The Root Of Sd Card ");
                         androidSdCardPermission.call_Thread();
                         call_Thread();
                     } else if (!whats_App_File_Exist_External)

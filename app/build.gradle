@@ -15,8 +15,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
-    def work_version = "2.0.1"
+    def work_version = "2.1.0"
 
     // WorkManager
     implementation "androidx.work:work-runtime:$work_version"
@@ -49,7 +49,7 @@ dependencies {
 
     // fireBase configuration
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
-    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
 }

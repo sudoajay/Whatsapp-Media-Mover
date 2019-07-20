@@ -11,13 +11,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskA;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskB;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot;
@@ -209,10 +209,9 @@ public class Foreground extends Service {
                     } else if (type == 2) {
                         traceBackgroundService.setTaskB();
                     } else {
-                        BackgroundTimerDataBase backgroundTimerDataBase =
-                                new BackgroundTimerDataBase(getApplicationContext());
+
                         traceBackgroundService.setTaskC
-                                (TraceBackgroundService.NextDate(Main_Navigation.getHours(backgroundTimerDataBase)));
+                                (TraceBackgroundService.NextDate(Main_Navigation.getHours(getApplicationContext())));
                     }
                 }
             }

@@ -54,7 +54,7 @@ public class TraceBackgroundService {
     }
 
     public void setTaskB() {
-        editor.putString(_context.getString(R.string.task_B_NextDate), NextDate(2 * 24));
+        editor.putString(_context.getString(R.string.task_B_NextDate), NextDate(5 * 24));
         editor.apply();
     }
 
