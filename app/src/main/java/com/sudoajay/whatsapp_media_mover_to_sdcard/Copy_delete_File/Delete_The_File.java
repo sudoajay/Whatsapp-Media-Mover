@@ -8,6 +8,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPat
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -103,11 +104,8 @@ public class Delete_The_File {
     }
 
     public void Remove_DataBase_Other_Files(File database_File){
-        List<File> files = new ArrayList<>();
         try{
-            for(File database : database_File.listFiles()){
-                files.add(database);
-            }
+            List<File> files = new ArrayList<>(Arrays.asList(database_File.listFiles()));
             Convert_Into_Last_Modified(files);
             for (int i = files.size()-1 ; i >=1;i--){
                 get_Data_Count++;

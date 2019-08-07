@@ -56,7 +56,6 @@
         <activity
             android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation"
             android:configChanges="orientation"
-
             android:label="@string/title_activity_main__navigation"
             android:screenOrientation="portrait"/>
 

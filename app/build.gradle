@@ -6,8 +6,8 @@ android {
         applicationId "com.sudoajay.whatapp_media_mover_to_sdcard"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 21
-        versionName "5.1"
+        versionCode 22
+        versionName "5.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 21
@@ -15,8 +15,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

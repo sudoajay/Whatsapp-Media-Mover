@@ -21,7 +21,7 @@
 
     <!-- Screens background color-->
     <color name="bg_screen1">#e4a234</color>
-    <color name="bg_screen2">#48a74b</color>
+    <color name="bg_screen2">#48A74B</color>
     <color name="bg_screen3">#0d8dd1</color>
     <color name="bg_screen4">#d6585d</color>
 
