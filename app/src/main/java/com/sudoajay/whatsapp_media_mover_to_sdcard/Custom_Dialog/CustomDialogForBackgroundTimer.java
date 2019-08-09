@@ -340,7 +340,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
         // send the data to Trace Background Service
         TraceBackgroundService traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));
-        traceBackgroundService.setTaskC(traceBackgroundService.NextDate(hour));
+        traceBackgroundService.setTaskC(TraceBackgroundService.NextDate(hour));
 
     }
 

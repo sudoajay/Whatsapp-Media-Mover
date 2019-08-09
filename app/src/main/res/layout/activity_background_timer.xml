@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                        android:paddingEnd="10dp"
+                android:paddingEnd="10dp"
                 app:srcCompat="@drawable/back_arrow_icon" />
 
             <TextView
@@ -84,6 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/head_Text_View"
         app:layout_constraintVertical_bias="0.0"
         app:textTint="@color/textColorOnCustomSpinner" />
+
     <ImageView
         android:id="@+id/choose_ImageView"
         android:layout_width="wrap_content"
@@ -134,7 +135,6 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/repeat_icon"
         tools:ignore="VectorDrawableCompat" />
-
 
 
     <org.angmarch.views.NiceSpinner
@@ -209,14 +209,14 @@
         app:layout_constraintTop_toBottomOf="@+id/weekdaysPicker"
         app:layout_constraintVertical_bias="0.133"
         app:srcCompat="@drawable/repeat_off_icon"
-        tools:ignore="VectorDrawableCompat"
-        />
+        tools:ignore="VectorDrawableCompat" />
 
     <Button
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
@@ -226,16 +226,16 @@
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.628"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText" />
+        app:layout_constraintEnd_toStartOf="@+id/okButton"
+        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/okButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
@@ -245,8 +245,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cancelButton"
-        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
