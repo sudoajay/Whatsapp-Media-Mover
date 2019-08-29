@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.DavidProdinger:weekdays-selector:1.0.4@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08b3c440f35c6f46bbcd216a97d64820/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08b3c440f35c6f46bbcd216a97d64820/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f1b7d8d05f4d220414f26b831b83cc01/weekdays-selector-1.0.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f1b7d8d05f4d220414f26b831b83cc01/weekdays-selector-1.0.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
