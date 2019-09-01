@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
@@ -85,7 +87,8 @@ public class Duplication_Class extends Fragment {
 
         }
 
-        Show_Size();
+        runThread();
+
 
         return  layout;
 
@@ -153,7 +156,17 @@ public class Duplication_Class extends Fragment {
         return paths[0] + getPaths[getPaths.length - 1];
     }
 
+    private void runThread(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Show_Size();
+            }
+        },1000);
 
+
+    }
     @SuppressLint("SetTextI18n")
     public void Show_Size(){
         size=0;

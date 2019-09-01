@@ -165,6 +165,7 @@ public class WorkMangerTaskC extends Worker {
 
     private static void getNextDate(final Context context) {
         BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(context);
+        TraceBackgroundService traceBackgroundService = new TraceBackgroundService(context);
         int hour = 0;
         if (!backgroundTimerDataBase.check_For_Empty()) {
             Cursor cursor = backgroundTimerDataBase.GetTheChoose_TypeRepeatedlyEndlessly();
@@ -201,7 +202,7 @@ public class WorkMangerTaskC extends Worker {
                         break;
                 }
                 if (hour != 0) {
-                    TraceBackgroundService traceBackgroundService = new TraceBackgroundService(context);
+
                     // set next date
                     traceBackgroundService.setTaskC(TraceBackgroundService.NextDate(hour));
                 }
@@ -222,6 +223,7 @@ public class WorkMangerTaskC extends Worker {
                         // Delete The Database
                         Cursor cursor1 = backgroundTimerDataBase.GetTheId();
                         backgroundTimerDataBase.deleteData(cursor1.getString(0));
+                        traceBackgroundService.setTaskC("");
                     }
                 }
             } catch (Exception e) {

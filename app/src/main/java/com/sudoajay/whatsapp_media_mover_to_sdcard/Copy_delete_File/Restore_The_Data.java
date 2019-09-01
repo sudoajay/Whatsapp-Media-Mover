@@ -52,6 +52,9 @@ public class Restore_The_Data {
                 if(!(new File(external_Path_Url+whats_App_Path+ "/"+Return_Path(i)+"/Sent").exists())){
                     new File(external_Path_Url+whats_App_Path+ "/" +Return_Path(i)+"/Sent").mkdir();
                 }
+                if(!(new File(external_Path_Url+whats_App_Path+ "/"+Return_Path(i)+"/Private").exists())){
+                    new File(external_Path_Url+whats_App_Path+ "/" +Return_Path(i)+"/Private").mkdir();
+                }
                 if(!process.equals("Background"))
                 after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
 
