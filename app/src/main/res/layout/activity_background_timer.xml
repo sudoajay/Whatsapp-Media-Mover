@@ -215,8 +215,7 @@
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
@@ -225,9 +224,9 @@
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/okButton"
         app:layout_constraintEnd_toStartOf="@+id/okButton"
-        app:layout_constraintTop_toBottomOf="@+id/endlesslyEditText"
+        app:layout_constraintTop_toTopOf="@+id/okButton"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button

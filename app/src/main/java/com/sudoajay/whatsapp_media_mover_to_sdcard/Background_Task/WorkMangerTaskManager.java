@@ -11,7 +11,6 @@ import androidx.work.WorkerParameters;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,34 +59,36 @@ public class WorkMangerTaskManager extends Worker {
         Date date = null;
         try {
             date = dateFormat.parse(traceBackgroundService.getTaskA());
-        } catch (ParseException e) {
+
+            if (dateFormat.format(todayDate).equals(dateFormat.format(date)) || date.before(todayDate)) {
+                list.add(everyDayWork);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (dateFormat.format(todayDate).equals(dateFormat.format(date))) {
-            list.add(everyDayWork);
-        }
 
         // Check for Date B Task
         try {
             date = dateFormat.parse(traceBackgroundService.getTaskB());
-        } catch (ParseException e) {
+
+            if (dateFormat.format(todayDate).equals(dateFormat.format(date)) || date.before(todayDate)) {
+                list.add(onceAWeekWork);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (dateFormat.format(todayDate).equals(dateFormat.format(date))) {
-            list.add(onceAWeekWork);
-        }
 
         // Check for Date C Task
         try {
             date = dateFormat.parse(traceBackgroundService.getTaskC());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
-        if (dateFormat.format(todayDate).equals(dateFormat.format(date))) {
-            list.add(backgroundTask);
+            if (dateFormat.format(todayDate).equals(dateFormat.format(date)) || date.before(todayDate)) {
+                list.add(backgroundTask);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         WorkManager.getInstance(getApplicationContext())
