@@ -34,7 +34,7 @@ public class WorkMangerTaskManager extends Worker {
 
 
         OneTimeWorkRequest everyDayWork =
-                new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(5
+                new OneTimeWorkRequest.Builder(WorkMangerTaskA.class).addTag("Regular Data Size").setInitialDelay(20
                         , TimeUnit.MINUTES).build();
 
         OneTimeWorkRequest onceAWeekWork =

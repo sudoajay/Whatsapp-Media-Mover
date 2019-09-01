@@ -35,7 +35,7 @@ public class TraceBackgroundService {
             editor.putString(_context.getString(R.string.task_A_NextDate), NextDate(24));
 
         if (!pref.contains(_context.getString(R.string.task_B_NextDate)))
-            editor.putString(_context.getString(R.string.task_B_NextDate), NextDate(2 * 24));
+            editor.putString(_context.getString(R.string.task_B_NextDate), NextDate(5 * 24));
         editor.apply();
     }
 
@@ -50,7 +50,7 @@ public class TraceBackgroundService {
     }
 
     public String getTaskB() {
-        return pref.getString(_context.getString(R.string.task_B_NextDate), NextDate(2 * 24));
+        return pref.getString(_context.getString(R.string.task_B_NextDate), NextDate(5 * 24));
     }
 
     public void setTaskB() {
