@@ -480,8 +480,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         // delete from DataBase
         BackgroundTimerDataBase backgroundTimerDataBase = new BackgroundTimerDataBase(getContext());
         if (!backgroundTimerDataBase.check_For_Empty()) {
-            Cursor cursor = backgroundTimerDataBase.GetTheId();
-            backgroundTimerDataBase.deleteData(cursor.getString(0) );
+
+            backgroundTimerDataBase.deleteData();
         }
         // Clear from shared preference
         TraceBackgroundService traceBackgroundService = new TraceBackgroundService(Objects.requireNonNull(getContext()));

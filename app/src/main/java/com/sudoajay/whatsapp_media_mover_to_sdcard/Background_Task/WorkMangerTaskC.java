@@ -126,8 +126,8 @@ public class WorkMangerTaskC extends Worker {
                             break;
                         default:
                             // Delete The Database
-                            Cursor cursor1 = backgroundTimerDataBase.GetTheId();
-                            backgroundTimerDataBase.deleteData(cursor1.getString(0));
+
+                            backgroundTimerDataBase.deleteData();
                             break;
                     }
                     if (cursor.getInt(0) != 0) {
@@ -211,19 +211,17 @@ public class WorkMangerTaskC extends Worker {
                 // check for endlessly and delete the database
                 assert cursor != null;
                 if (!cursor.getString(2).equalsIgnoreCase("No Date Fixed")) {
-                    // current or today date
-                    Calendar calendars = Calendar.getInstance();
-                    Date curDate = calendars.getTime();
-
-                    // specific date from database
                     DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
-                    Date date = format.parse(cursor.getString(2));
 
-                    if (!format.format(curDate).equals(format.format(date))) {
-                        // Delete The Database
-                        Cursor cursor1 = backgroundTimerDataBase.GetTheId();
-                        backgroundTimerDataBase.deleteData(cursor1.getString(0));
-                        traceBackgroundService.setTaskC("");
+                    Date date = format.parse(cursor.getString(2));
+                    Calendar calendars = Calendar.getInstance();
+                    Date todayDate = calendars.getTime();
+
+                    if (date.before(todayDate) || format.format(todayDate).equals(format.format(date))) {
+                        if (!backgroundTimerDataBase.check_For_Empty()) {
+                            backgroundTimerDataBase.deleteData();
+                        }
+                        traceBackgroundService.setTaskC("Empty");
                     }
                 }
             } catch (Exception e) {
