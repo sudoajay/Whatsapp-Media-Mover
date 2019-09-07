@@ -161,4 +161,7 @@
 
     <!--Error Message-->
     <string name="errorMes">Please Select the Sd Card Root Directory</string>
+
+    <string name="nothing_text">Nothing!!</string>
+    <string name="noDuplicateFoundText">There is no File Found.</string>
 </resources>

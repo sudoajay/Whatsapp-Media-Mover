@@ -5,15 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.BuildConfig;
@@ -70,8 +71,8 @@ public class Voice_Fragment extends Fragment {
 
         prepareListData();
         if (make_changes.getSave_Data().isEmpty()) {
-            TextView textView = v.findViewById(R.id.text_View_Nothing);
-            textView.setVisibility(View.VISIBLE);
+            ConstraintLayout nothingToShow_ConstraintsLayout = v.findViewById(R.id.nothingToShow_ConstraintsLayout);
+            nothingToShow_ConstraintsLayout.setVisibility(View.VISIBLE);
         } else {
 
             final ExpandableListView expListView = v.findViewById(R.id.lvExp);
@@ -298,14 +299,14 @@ public class Voice_Fragment extends Fragment {
                     whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
 
         for (int i = 0 ; i < make_changes.getSave_Data().size();i++){
-            check_Array.add(false);
+            check_Array.add(true);
             for (int j = 0 ; j< selected_List.size();j++){
                 if(make_changes.getSave_Data().get(i).equals(selected_List.get(j))){
-                    check_Array.set(i,true);
+                    check_Array.set(i,false);
                     selected_File.add(selected_List.get(j));
                     break;
                 }else {
-                    check_Array.set(i,false);
+                    check_Array.set(i,true);
                 }
             }
         }

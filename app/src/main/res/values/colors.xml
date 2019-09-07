@@ -14,6 +14,9 @@
     <color name="Draw_On_Background">#70c2bebe</color>
     <color name="textColorOnCustomSpinner">#000000</color>
 
+    <color name="noDuplicateFound">#ffffff</color>
+    <color name="background_Color">#E6DFDF</color>
+
     <!--black color for font and vector images -->
     <color name="dim_Black_Color">#333333</color>
 

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -77,102 +78,62 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.activity_my_list_style, null);
         }
-        final TextView name_Text_View = convertView.findViewById(R.id.name_Text_View);
-        final TextView size_Text_View = convertView.findViewById(R.id.size_Text_View);
-        final ImageView thumbnail_Image_View = convertView.findViewById(R.id.thumbnail_Image_View);
-        final ImageView check_Image_View = convertView.findViewById(R.id.check_Image_View);
-        check_Image_View.setOnClickListener(new View.OnClickListener() {
+        final TextView nameTextView = convertView.findViewById(R.id.nameTextView);
+        final TextView sizeTextView = convertView.findViewById(R.id.sizeTextView);
+        final ImageView coverImageView = convertView.findViewById(R.id.coverImageView);
+        final CheckBox checkBoxView = convertView.findViewById(R.id.checkBoxView);
+
+
+        checkBoxView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(groupPosition != 0) {
-                    if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)) {
-                        check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition, false);
-                        check_Image_View.setImageResource(R.drawable.close_icon);
-                        check_Image_View.setAlpha(0.5f);
-                        thumbnail_Image_View.setAlpha(0.5f);
-                        name_Text_View.setAlpha(0.5f);
-                        size_Text_View.setAlpha(0.3f);
+                    if (checkBoxView.isChecked() && check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)) {
+                        check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition, true);
                         find_And_Remove(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition));
-                    }else {
-                        check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition,true);
-                        check_Image_View.setImageResource(R.drawable.check_icon);
-                        check_Image_View.setAlpha(1f);
-                        thumbnail_Image_View.setAlpha(1f);
-                        name_Text_View.setAlpha(0.8f);
-                        size_Text_View.setAlpha(0.5f);
+                    } else {
+                        check_Array.set(count_The_Size.get(groupPosition - 1) + childPosition, false);
                         selected_File.add(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition));
-
                     }
-
-                }else {
-                    if(check_Array.get( childPosition)) {
-                        check_Array.set(childPosition, false);
-                        check_Image_View.setImageResource(R.drawable.close_icon);
-                        check_Image_View.setAlpha(0.5f);
-                        thumbnail_Image_View.setAlpha(0.5f);
-                        name_Text_View.setAlpha(0.5f);
-                        size_Text_View.setAlpha(0.3f);
+                }else{
+                    if (checkBoxView.isChecked() && check_Array.get(childPosition)) {
+                        check_Array.set(childPosition, true);
                         find_And_Remove(file_Data.get(childPosition));
-                    }
-                    else {
-                        check_Array.set(childPosition,true);
-                        check_Image_View.setImageResource(R.drawable.check_icon);
-                        check_Image_View.setAlpha(1f);
-                        thumbnail_Image_View.setAlpha(1f);
-                        name_Text_View.setAlpha(0.8f);
-                        size_Text_View.setAlpha(0.5f);
-                        selected_File.add(file_Data.get(childPosition));
-                    }
+                    } else {
+                        check_Array.set(childPosition,false);
+                       selected_File.add(file_Data.get(childPosition));
 
+                    }
                 }
             }
         });
 
 
-
-
         if(groupPosition != 0) {
-            if(check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)){
-                check_Image_View.setImageResource(R.drawable.check_icon);
-                check_Image_View.setAlpha(1f);
-                thumbnail_Image_View.setAlpha(1f);
-                name_Text_View.setAlpha(0.8f);
-                size_Text_View.setAlpha(0.5f);
+            if (check_Array.get(count_The_Size.get(groupPosition - 1) + childPosition)) {
+                checkBoxView.setChecked(true);
 
-            }else {
-                check_Image_View.setImageResource(R.drawable.close_icon);
-                check_Image_View.setAlpha(0.5f);
-                thumbnail_Image_View.setAlpha(0.5f);
-                name_Text_View.setAlpha(0.5f);
-                size_Text_View.setAlpha(0.3f);
-
+            } else {
+                checkBoxView.setChecked(false);
             }
-            Check_For_Extension(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition).getAbsolutePath() , thumbnail_Image_View);
-            size_Text_View.setText(Convert_It(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition).length()));
-        }else {
-            if (check_Array.size() >  childPosition) {
+            Check_For_Extension(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition).getAbsolutePath(), coverImageView);
+            sizeTextView.setText(Convert_It(file_Data.get(count_The_Size.get(groupPosition - 1) + childPosition).length()));
+        } else {
+            if (check_Array.size() > childPosition) {
                 if (check_Array.get(childPosition)) {
-                    check_Image_View.setImageResource(R.drawable.check_icon);
-                    check_Image_View.setAlpha(1f);
-                    thumbnail_Image_View.setAlpha(1f);
-                    name_Text_View.setAlpha(0.8f);
-                    size_Text_View.setAlpha(0.5f);
+                    checkBoxView.setChecked(true);
 
                 } else {
-                    check_Image_View.setImageResource(R.drawable.close_icon);
-                    check_Image_View.setAlpha(0.5f);
-                    thumbnail_Image_View.setAlpha(0.5f);
-                    name_Text_View.setAlpha(0.5f);
-                    size_Text_View.setAlpha(0.3f);
+                    checkBoxView.setChecked(false);
 
                 }
-                Check_For_Extension(file_Data.get(childPosition).getAbsolutePath(), thumbnail_Image_View);
-                size_Text_View.setText(Convert_It(file_Data.get(childPosition).length()));
+                Check_For_Extension(file_Data.get(childPosition).getAbsolutePath(), coverImageView);
+                sizeTextView.setText(Convert_It(file_Data.get(childPosition).length()));
             }
-
         }
 
-        name_Text_View.setText(childText);
+
+        nameTextView.setText(childText);
         return convertView;
     }
 
@@ -256,6 +217,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         else if(extension.equals("opus")){
             imageView.setImageResource(R.drawable.voice_icon);
+        }else{
+            imageView.setImageResource(R.drawable.file_icon);
         }
 
     }

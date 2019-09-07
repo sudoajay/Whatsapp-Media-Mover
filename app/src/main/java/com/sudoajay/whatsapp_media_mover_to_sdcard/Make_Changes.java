@@ -38,10 +38,13 @@ public class Make_Changes  {
 
     }
     public void Get_FIle_Recursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory())
+        if (fileOrDirectory.isDirectory()) {
             for (File child : fileOrDirectory.listFiles())
                 Get_FIle_Recursive(child);
+        }else {
             save_Data.add(fileOrDirectory);
+        }
+
 
     }
 

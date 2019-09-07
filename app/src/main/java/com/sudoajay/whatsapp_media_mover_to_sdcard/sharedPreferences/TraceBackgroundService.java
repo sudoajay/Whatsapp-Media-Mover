@@ -109,7 +109,7 @@ public class TraceBackgroundService {
 
         try {
 
-            if (!getTaskC().equals("") || ! getTaskC().equals("Empty")) {
+            if (!getTaskB().equals("") || !getTaskB().equals("Empty") || getTaskB() != null) {
                 Date getDate = dateFormat.parse(getTaskC());
                 if (yesterday.after(getDate))
                     setBackgroundServiceWorking(false);
