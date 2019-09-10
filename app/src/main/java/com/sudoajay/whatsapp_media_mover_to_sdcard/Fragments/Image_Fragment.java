@@ -283,10 +283,10 @@ public class Image_Fragment extends Fragment {
 
         if(which_Option_To_Do.equals("restore"))
             make_changes = new Make_Changes(after_main_transferFIle.getSd_Card_Path_URL() + whats_App_Media_Path +
-                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images/");
         else
             make_changes = new Make_Changes(after_main_transferFIle.getExternal_Path_Url() +whats_App_Media_Path +
-                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images");
+                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Images/");
 
         for (int i = 0 ; i < make_changes.getSave_Data().size();i++){
             check_Array.add(true);

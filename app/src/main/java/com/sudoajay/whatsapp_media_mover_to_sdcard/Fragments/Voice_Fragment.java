@@ -184,16 +184,6 @@ public class Voice_Fragment extends Fragment {
             count_The_Size.add(counts);
         }
 
-//        for (int i = 0; i < make_changes.getSave_Data().size(); i++) {
-//            check_Close_Image_Resource.add(R.drawable.check);
-//            for (File data2 : after_main_transferFIle.getOnly_Selected_File()) {
-//                if (make_changes.getSave_Data().get(i).equals(data2)) {
-//                    check_Close_Image_Resource.set(i, R.drawable.close);
-//                    selected_File.add(data2);
-//                }
-//            }
-//        }
-
         for (String s : listDataHeader)
             arrow_Image_Resource.add(R.drawable.arrow_down_icon);
 
@@ -293,10 +283,10 @@ public class Voice_Fragment extends Fragment {
 
         if(which_Option_To_Do.equals("restore"))
             make_changes = new Make_Changes(after_main_transferFIle.getSd_Card_Path_URL() + whats_App_Media_Path +
-                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes/");
         else
             make_changes = new Make_Changes(after_main_transferFIle.getExternal_Path_Url() + whats_App_Media_Path +
-                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes");
+                    whatsapp_Path.substring(1, whatsapp_Path.length()-1)+" Voice Notes/");
 
         for (int i = 0 ; i < make_changes.getSave_Data().size();i++){
             check_Array.add(true);

@@ -1,5 +1,7 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
+import android.util.Log;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +29,7 @@ public class Make_Changes  {
     }
 
     public void Get_All_File(String path){
+
         Get_FIle_Recursive(new File(path));
 
         Find_Last_Modified();
@@ -38,14 +41,17 @@ public class Make_Changes  {
 
     }
     public void Get_FIle_Recursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory()) {
-            for (File child : fileOrDirectory.listFiles())
-                Get_FIle_Recursive(child);
-        }else {
-            save_Data.add(fileOrDirectory);
+        try {
+            for (final File fileEntry : fileOrDirectory.listFiles()) {
+                if (fileEntry.isDirectory()) {
+                    Get_FIle_Recursive(fileEntry);
+                } else {
+                    save_Data.add(fileEntry);
+                }
+            }
+        }catch (Exception e){
+            Log.e("Error", e.getLocalizedMessage()+"" );
         }
-
-
     }
 
 

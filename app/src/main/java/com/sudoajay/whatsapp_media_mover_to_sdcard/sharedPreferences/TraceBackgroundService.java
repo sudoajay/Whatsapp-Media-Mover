@@ -120,7 +120,7 @@ public class TraceBackgroundService {
                 setBackgroundServiceWorking(true);
             }
         } catch (ParseException e) {
-            setBackgroundServiceWorking(false);
+            setBackgroundServiceWorking(true);
         }
 
     }
