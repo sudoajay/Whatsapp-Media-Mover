@@ -30,13 +30,17 @@ public class Make_Changes  {
 
     public void Get_All_File(String path){
 
-        Get_FIle_Recursive(new File(path));
+        try {
+            Get_FIle_Recursive(new File(path));
 
-        Find_Last_Modified();
+            Find_Last_Modified();
 
-        Check_For_Commom_Date();
-        for(Long a : save) {
-            arrayList.add(a+"");
+            Check_For_Commom_Date();
+            for (Long a : save) {
+                arrayList.add(a + "");
+            }
+        } catch (Exception e) {
+
         }
 
     }
