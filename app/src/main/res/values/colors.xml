@@ -9,7 +9,6 @@
     <color name="backgroundColor">#ece5dd</color>
     <color name="notificationColor">#28b4ff</color>
     <color name="colorOldAccent">#FF4081</color>
-    <color name="drawer_selected_tab">#85454343</color>
     <color name="dot_color_other">#c74646</color>
     <color name="Draw_On_Background">#70c2bebe</color>
     <color name="textColorOnCustomSpinner">#000000</color>
@@ -60,5 +59,9 @@
     <color name="toastBackgroundColor">@android:color/black</color>
     <color name="toastTextColor">#D6D1D1</color>
 
+    <color name="selected_drawer_item_color">#187e73</color>
+    <color name="drawer_background_color">#ff303030</color>
+    <color name="drawer_selected_tab">#85454343</color>
+    <color name="separateColor">#504E4E</color>
 </resources>
 

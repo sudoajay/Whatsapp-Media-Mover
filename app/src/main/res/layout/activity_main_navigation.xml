@@ -20,6 +20,10 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header_main_navigation"
         app:itemBackground="@xml/drawer_item_bg"
+        app:itemTextColor="@drawable/nav_item_text"
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        android:background="@color/drawer_background_color"
+        app:itemIconTint="@drawable/nav_item_text"
         app:menu="@menu/activity_main__navigation_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
