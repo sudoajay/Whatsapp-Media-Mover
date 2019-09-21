@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.SplashScreen.WelcomeActivity"
+            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.IntroScreen.WelcomeActivity"
             android:configChanges="orientation"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
@@ -33,7 +33,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".SplashScreen.Splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="InnerclassSeparator" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

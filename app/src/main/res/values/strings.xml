@@ -164,4 +164,5 @@
 
     <string name="nothing_text">Nothing!!</string>
     <string name="noDuplicateFoundText">There is no File Found.</string>
+    <string name="shortAppName">Media Mover</string>
 </resources>
