@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +36,10 @@ import androidx.core.content.ContextCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.AdFolder.InterstitialAds;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File.Copy_The_File;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File.Delete_The_File;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File.Restore_The_Data;
@@ -92,10 +97,12 @@ public class After_MainTransferFIle extends AppCompatActivity {
     private boolean stop_The_Process;
     private Notification_Permission_Check notification_permission_check;
     private int normal_Changes = 0;
-    private String whatsapp_Path, string_URI;
+    private String whatsapp_Path;
     private Storage_Info storage_Info;
     private TickOnButtonSharedPreference tickOnButtonSharedPreference;
     private AndroidSdCardPermission android_sdCard_permission;
+    private InterstitialAds interstitialAds;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,11 +138,21 @@ public class After_MainTransferFIle extends AppCompatActivity {
         Checked_For_Check_The_Icon();
         File_Size_Checked_The_Main_Thing();
 
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        interstitialAds = new InterstitialAds(getApplicationContext(), 1);
     }
+
 
     public void Reference() {
         toolbar = findViewById(R.id.toolbar);
-        TextView toolbar_Title = toolbar.findViewById(R.id.toolbar_title);
+
 
         file_Size_TextView = findViewById(R.id.file_Size_TextView);
         refresh_Image_View = toolbar.findViewById(R.id.refresh_Image_View);
@@ -605,6 +622,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
 
+        super.onActivityResult(requestCode, resultCode, resultData);
         Uri sd_Card_URL;
         String sd_Card_Path_URL, string_URI = null;
 
@@ -619,8 +637,8 @@ public class After_MainTransferFIle extends AppCompatActivity {
             string_URI = sd_Card_URL.toString();
             sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
 
-            if(!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
-                CustomToast.ToastIt(getApplicationContext(),getResources().getString(R.string.errorMes));
+            if (!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
+                CustomToast.ToastIt(getApplicationContext(), getResources().getString(R.string.errorMes));
                 return;
             }
             android_sdCard_permission.setSd_Card_Path_URL(sd_Card_Path_URL);
@@ -788,7 +806,8 @@ public class After_MainTransferFIle extends AppCompatActivity {
                  else {
                     CustomToast.ToastIt(getApplicationContext(),"Restoring....");
                 }
-                Push_Back();
+                OpenAds();
+                onBackPressed();
                 multiThreading_task.execute();
 
 
@@ -1139,8 +1158,16 @@ public class After_MainTransferFIle extends AppCompatActivity {
         return sd_Card_Path_URL;
     }
 
-    public void Push_Back() {
-        onBackPressed();
+    public void OpenAds() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (interstitialAds.isLoaded())
+                    interstitialAds.getmInterstitialAd().show();
+            }
+        }, 3000);
     }
 
     public void Delete_Particular_Data(String path) {
@@ -1213,5 +1240,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public void setWhich_Option_To_Do(String which_Option_To_Do) {
         this.which_Option_To_Do = which_Option_To_Do;
     }
+
 }
 

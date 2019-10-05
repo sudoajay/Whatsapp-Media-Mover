@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,7 +22,7 @@ import java.io.File;
 
 @SuppressLint("Registered")
 public class AndroidSdCardPermission {
-    private Activity activity;
+    private Activity activity = null;
     private Context context;
     private String sd_Card_Path_URL = "",string_URI;
     private Duplication_Class duplication_class;
@@ -101,19 +102,18 @@ public class AndroidSdCardPermission {
         return (sd_Card_Path_URL.equals(Environment.getExternalStorageDirectory().getAbsolutePath())) || (!new File(sd_Card_Path_URL).exists());
     }
     public void Grab(){
-        if(activity == null ) {
-            // gran the data from shared preference
-            sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
-        }else{
-            sdCardPathSharedPreference = new SdCardPathSharedPreference(activity);
-        }
         try {
-
+            if(activity == null ) {
+                // gran the data from shared preference
+                sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
+            }else{
+                sdCardPathSharedPreference = new SdCardPathSharedPreference(activity);
+            }
             sd_Card_Path_URL = sdCardPathSharedPreference.getSdCardPath();
             string_URI = sdCardPathSharedPreference.getStringURI();
         }catch (Exception ignored){
 
-            
+
         }
     }
 

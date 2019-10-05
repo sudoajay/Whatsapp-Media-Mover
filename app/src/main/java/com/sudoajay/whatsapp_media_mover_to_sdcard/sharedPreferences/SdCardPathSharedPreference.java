@@ -12,7 +12,6 @@ public class SdCardPathSharedPreference {
 
     // global varibale
     private SharedPreferences.Editor editor;
-    private String sdCardPath, stringURI;
     private Context context;
     private SharedPreferences pref;
 
@@ -37,7 +36,6 @@ public class SdCardPathSharedPreference {
     }
 
     public void setSdCardPath(String sdCardPath) {
-        this.sdCardPath = sdCardPath;
 
         // send thd data to shared preferences
         editor.putString(context.getString(R.string.sdCardPath), sdCardPath);
@@ -49,7 +47,6 @@ public class SdCardPathSharedPreference {
     }
 
     public void setStringURI(String stringURI) {
-        this.stringURI = stringURI;
 
         editor.putString(context.getString(R.string.stringUri), stringURI);
         editor.apply();

@@ -149,7 +149,7 @@ public class Main_Navigation extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_navigation, menu);
+
         return true;
     }
 
@@ -399,4 +399,6 @@ public class Main_Navigation extends AppCompatActivity
         } while (temp != day);
         return 0;
     }
+
+
 }

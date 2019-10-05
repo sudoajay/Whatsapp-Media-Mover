@@ -85,10 +85,73 @@
     <string name="task_C_Done">Task C Done</string>
 
 
-     <!--first time check flash screen-->
+    <!--first time check flash screen-->
     <string name="isFirstTimeLaunch">Is First Time Launch</string>
 
     <!-- tick_icon on button array -->
+    <string name="sdCardPath">Sd Card Path</string>
+
+    <!--Sd Card Path-->
+    <string name="stringUri">String URI</string>
+    <string name="timer_icon">Timer icon</string>
+
+    <!--image Descrption-->
+    <string name="endlessly_Date">Endlessly</string>
+
+    <!--Background Timer-->
+    <string name="repeatedly_Text">Repeatedly Timer</string>
+    <string name="background_Timer_Heading">What You Like ?</string>
+    <string name="today_Date">Today</string>
+
+    <!--custom weekdays Setup-->
+    <string name="yesterday_Date">Yesterday</string>
+
+    <!--custom Chooser Setup-->
+    <string name="tomorrow_Date">Tomorrow</string>
+
+    <!--Default Date-->
+    <string name="setting_Updated">Setting Updated</string>
+    <string name="notify_Notification">Notify Notification</string>
+    <string name="size_Of_Whatsapp">Size Of Whatsapp</string>
+
+
+    <!--setting updated-->
+    <string name="fallBackError">Someting Went Wrong Please Contact Us !</string>
+
+
+    <!--Notification-->
+    <string name="stop_Foreground_Service">Stop Service</string>
+    <string name="why_This_Foreground_Service">Why This ? </string>
+
+    <!-- Fallback Error -->
+    <string name="custom_Foreground_Permission">Smart phone are more restrict about background Process from which our background task not working So if you want to us to run background task
+        follow the steps which is given on that Website .</string>
+
+    <!--setting Foreground Service-->
+    <string name="custom_Foreground_Permission_Follow">Follow It</string>
+    <string name="custom_Dialog_Box_Heading">Foreground Service</string>
+
+    <string name="custom_Dialog_Box_Text">Are you sure to stop all your background Task?</string>
+    <string name="errorMes">Please Select the Sd Card Root Directory</string>
+
+    <string name="nothing_text">Nothing!!</string>
+    <string name="noDuplicateFoundText">There is no File Found.</string>
+
+    <!--Error Message-->
+    <string name="shortAppName">Media Mover</string>
+
+    <string name="title_activity_interstitial_add">InterstitialAdd</string>
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="title_activity_interstitial_ad">InterstitialAd</string>
+    <string name="title_activity_interstitial_ads">InterstitialAds</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
     <string-array name="arrayTick">
         <item>Tick Audio ImageView</item>
         <item>Tick Video ImageView</item>
@@ -100,20 +163,6 @@
         <item>Tick Sticker ImageView</item>
         <item>Tick Database ImageView</item>
     </string-array>
-
-    <!--Sd Card Path-->
-    <string name="sdCardPath">Sd Card Path</string>
-    <string name="stringUri">String URI</string>
-
-    <!--image Descrption-->
-    <string name="timer_icon">Timer icon</string>
-
-   <!--Background Timer-->
-    <string name="endlessly_Date">Endlessly</string>
-    <string name="repeatedly_Text">Repeatedly Timer</string>
-    <string name="background_Timer_Heading">What You Like ?</string>
-
-    <!--custom weekdays Setup-->
     <string-array name="customWeekdaysSetup">
         <item tools:ignore="TypographyFractions">At Every 1/2 Day</item>
         <item>At Every 1 Day</item>
@@ -121,8 +170,6 @@
         <item>Custom WeekDay</item>
         <item>Once A Month(Same Date)</item>
     </string-array>
-
-    <!--custom Chooser Setup-->
     <string-array name="customChooserSetup">
         <item>No Process</item>
         <item>Move Data</item>
@@ -130,39 +177,4 @@
         <item>Remove Data</item>
         <item>Restore Data</item>
     </string-array>
-
-    <!--Default Date-->
-    <string name="today_Date">Today</string>
-    <string name="yesterday_Date">Yesterday</string>
-    <string name="tomorrow_Date">Tomorrow</string>
-
-
-    <!--setting updated-->
-    <string name="setting_Updated">Setting Updated</string>
-
-
-    <!--Notification-->
-    <string name="notify_Notification">Notify Notification</string>
-    <string name="size_Of_Whatsapp">Size Of Whatsapp</string>
-
-    <!-- Fallback Error -->
-    <string name="fallBackError">Someting Went Wrong Please Contact Us !</string>
-
-    <!--setting Foreground Service-->
-    <string name="stop_Foreground_Service">Stop Service</string>
-    <string name="why_This_Foreground_Service">Why This ? </string>
-
-    <string name="custom_Foreground_Permission">Smart phone are more restrict about background Process from which our background task not working So if you want to us to run background task
-        follow the steps which is given on that Website .</string>
-    <string name="custom_Foreground_Permission_Follow">Follow It</string>
-
-    <string name="custom_Dialog_Box_Heading">Foreground Service</string>
-    <string name="custom_Dialog_Box_Text">Are you sure to stop all your background Task?</string>
-
-    <!--Error Message-->
-    <string name="errorMes">Please Select the Sd Card Root Directory</string>
-
-    <string name="nothing_text">Nothing!!</string>
-    <string name="noDuplicateFoundText">There is no File Found.</string>
-    <string name="shortAppName">Media Mover</string>
 </resources>

@@ -4,14 +4,7 @@
     package="com.sudoajay.whatsapp_media_mover_to_sdcard"
     tools:ignore="ExtraText">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.REAL_GET_TASKS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
-
+    <!-- Include required permissions for Google Mobile Ads to run. -->
     <application
         android:allowBackup="true"
         android:allowTaskReparenting="true"
@@ -21,11 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <!-- Include the AdActivity configChanges and theme. -->
         <activity
-            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.IntroScreen.WelcomeActivity"
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name=".IntroScreen.WelcomeActivity"
             android:configChanges="orientation"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +36,24 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".After_MainTransferFIle"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Main_Navigation"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_main__navigation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Show_Duplicate_File" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -48,45 +64,40 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity
-            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <activity
-            android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation"
-            android:configChanges="orientation"
-            android:label="@string/title_activity_main__navigation"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Show_Duplicate_File" />
-
-        <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Firebase_Message_Config.MyFireBaseInstanceMessageService"
-            tools:ignore="InnerclassSeparator"
-            android:stopWithTask="false"
-            android:exported="false">
+        <receiver
+            android:name=".Receive_Boot_Completed.MyRebootReceiver"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
+        <service
+            android:name=".Firebase_Message_Config.MyFireBaseInstanceMessageService"
+            android:exported="false"
+            android:stopWithTask="false"
+            tools:ignore="InnerclassSeparator">
+            <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:enabled="true" android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.Foreground"
+        <service
+            android:name=".ForegroundService.Foreground"
+            android:enabled="true"
+            tools:ignore="InnerclassSeparator" /> <!-- Sample AdMob App ID: ca-app-pub-9530958250183062~9073221261 -->
+        <service
+            android:name=".Receive_Boot_Completed.ForegroundServiceBoot"
             tools:ignore="InnerclassSeparator" />
-
-
-        <service android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot"
-            tools:ignore="InnerclassSeparator" />
-
-        <receiver android:name="com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.MyRebootReceiver"
-            tools:ignore="InnerclassSeparator">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.REAL_GET_TASKS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

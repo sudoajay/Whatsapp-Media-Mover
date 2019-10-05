@@ -2,6 +2,8 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
+
 import androidx.documentfile.provider.DocumentFile;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
@@ -72,6 +74,7 @@ public class Delete_Duplicate_Data {
                 pathStore.addAll(Objects.requireNonNull(sdCardStore.get(parentPath)));
 
             pathStore.add(filePathName);
+
             sdCardStore.put(parentPath, new ArrayList<>(pathStore));
         }
     }
@@ -94,27 +97,34 @@ public class Delete_Duplicate_Data {
     }
 
     public void DeleteTheDataFromExternalStorage() {
-        for (String getKey : sdCardStore.keySet()) {
-            DocumentFile sdCardDocument = sd_Card_documentFile;
-            if (sdCardDocument != null) {
-                String[] spiltSdPath = getKey.split(sdCardPath + "/");
-                String[] spilt = spiltSdPath[1].split("/");
-                for (String part : spilt) {
-                    DocumentFile nextDocument = sdCardDocument.findFile(part);
-                    if (nextDocument != null) {
-                        sdCardDocument = nextDocument;
+        try {
+            for (String getKey : sdCardStore.keySet()) {
+                DocumentFile sdCardDocument = sd_Card_documentFile;
+                if (sdCardDocument != null) {
+                    String[] spiltSdPath = getKey.split(sdCardPath + "/");
+                    String[] spilt = spiltSdPath[1].split("/");
+
+                    Log.e("Delete", spiltSdPath[1] + " -- " + getKey);
+                    for (String part : spilt) {
+                        DocumentFile nextDocument = sdCardDocument.findFile(part);
+                        if (nextDocument != null) {
+                            sdCardDocument = nextDocument;
+                        }
+                    }
+
+                    for (String value : Objects.requireNonNull(sdCardStore.get(getKey))) {
+                        DocumentFile save = sdCardDocument.findFile(value);
+                        assert save != null;
+                        save.delete();
+
+                        show_duplicate_file.getMultiThreading_task().onProgressUpdate();
                     }
                 }
-
-                for (String value : Objects.requireNonNull(sdCardStore.get(getKey))) {
-                    DocumentFile save = sdCardDocument.findFile(value);
-                    save.delete();
-                    show_duplicate_file.getMultiThreading_task().onProgressUpdate();
-                }
             }
+        } catch (Exception ignored) {
+
         }
     }
-
 
 
 }

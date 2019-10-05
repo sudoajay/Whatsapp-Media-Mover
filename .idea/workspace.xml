@@ -11,9 +11,9 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="hello" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="ShowSomething" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AvailableLibraryUpdateStorage">
     <library-updates>
@@ -110,26 +110,45 @@
     </library-updates>
     <last-search-timestamp>1556084292443</last-search-timestamp>
   </component>
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" line="41" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9014043a-fd77-4845-8a13-cc934740f599" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_arcadefire_nice_spinner_1_3_7_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_arcadefire_nice_spinner_1_3_7_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_9_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_d_max_spots_dialog_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_d_max_spots_dialog_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_19_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_19_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/ic_launcher-web.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-web.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/WelcomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/IntroScreen/WelcomeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Make_Changes.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Make_Changes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Show_Duplicate_File.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Show_Duplicate_File.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Toast/CustomToast.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Toast/CustomToast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/SdCardPathSharedPreference.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/SdCardPathSharedPreference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/app_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/progress.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/main_navigation.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -144,7 +163,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="192.168.0.129:5555" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="New_Device_API_28" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -154,53 +173,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/Splash.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+            <state relative-caret-position="1718">
+              <caret line="123" column="15" selection-start-line="123" selection-start-column="10" selection-end-line="123" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/IntroScreen/WelcomeActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="133" column="65" selection-start-line="133" selection-start-column="65" selection-end-line="133" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
-              <folding>
-                <element signature="e#1083#1101#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/app_logo.png">
-          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -216,36 +198,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>UnneccesaryData</find>
-      <find>database_File</find>
-      <find>Convert_Into_Last_Modified</find>
-      <find>mDrawerLayout</find>
-      <find>navigationView</find>
-      <find>drawer</find>
-      <find>setBackgroundResource</find>
-      <find>ThemeOverlay</find>
-      <find>AppTheme</find>
-      <find>Rating</find>
-      <find>CallCustomDailogForeground</find>
-      <find>isServiceRunningInForeground</find>
-      <find>value</find>
-      <find>CheckingAndSetting</find>
-      <find>SaveToDatabase</find>
-      <find>chooseSpinner</find>
-      <find>Show_Size</find>
-      <find>coverImageView</find>
-      <find>name_Text_View</find>
-      <find>size_Text_View</find>
-      <find>sizeTextView</find>
-      <find>getSave_Data</find>
-      <find>save_Data</find>
-      <find>check_Array</find>
-      <find>find_And_Remove</find>
       <find>only_Selected_File</find>
       <find>selected_File</find>
       <find>selected_List</find>
       <find>getNextDate</find>
       <find>drawer_selected_tab</find>
+      <find>mNextLevelButton</find>
+      <find>Thread</find>
+      <find>Push_Back</find>
+      <find>showInterstitial</find>
+      <find>loadInterstitial</find>
+      <find>mInterstitialAd</find>
+      <find>newInterstitialAd</find>
+      <find>call_Thread</find>
+      <find>default_Notification</find>
+      <find>notificationIntent</find>
+      <find>back</find>
+      <find>MultiThreading_Task</find>
+      <find>execute</find>
+      <find>multiThreading_task</find>
+      <find>Delete_Duplicate_Data</find>
+      <find>sdCardStore</find>
+      <find>onBackPressed</find>
+      <find>OpenAds</find>
+      <find>ads</find>
+      <find>copy</find>
+      <find>sdCard</find>
+      <find>androidSdCardPermission</find>
+      <find>main_navigation</find>
+      <find>SdCardPathSharedPreference</find>
+      <find>Make_Changes</find>
     </findStrings>
     <replaceStrings>
       <replace>VISIBLE</replace>
@@ -265,22 +247,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_custom_notification.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Copy_delete_File/Copy_The_File.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Home.java" />
-        <option value="$PROJECT_DIR$/gradle.properties" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/BackgroundProcess.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/PrefManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/WelcomeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/MainTransferFIle.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/CustomAdapter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/CustomAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Copy_delete_File/Delete_The_File.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/ForegroundService/Foreground.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/CustomDialogForBackgroundTimer.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_background_timer.xml" />
@@ -289,7 +255,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Duplication_Class.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskC.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Database_Classes/BackgroundTimerDataBase.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_list_style.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_blank.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/viewasd.xml" />
@@ -297,7 +262,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_changes_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_duplication_under_list_view.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Document_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Gif_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Image_Fragment.java" />
@@ -305,21 +269,39 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Sticker_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Video_Fragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Voice_Fragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Make_Changes.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main_navigation.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/timer_icon.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/rate_us_icon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/Splash.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/IntroScreen/WelcomeActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_main__navigation_drawer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_interstitial_add.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/Interstitial.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/InterstitialAdd.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/InterstitialAd.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_interstitial_ads.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/InterstitialAds.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Show_Duplicate_File.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/SdCardPathSharedPreference.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/MainTransferFIle.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Make_Changes.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Toast/CustomToast.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="114" />
     <option name="width" value="1910" />
     <option name="height" value="789" />
@@ -333,63 +315,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="whatsapp_media_mover_to_sdcard" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="whatsapp_media_mover_to_sdcard" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="IntroScreen" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="whatsapp_media_mover_to_sdcard" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="SplashScreen" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="mipmap" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
             <path>
               <item name="Whatsapp_Storage_Transfer" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -409,10 +337,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$/app/release/app.aab" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="RQ300206V7" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2019-10-04T02:41:54.710Z" />
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
     <property name="ExportApk.BuildVariants" value="release" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -423,14 +355,14 @@
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="device.picker.selection" value="f5dc4e87cf40" />
     <property name="format" value="PNG" />
-    <property name="lastFolderRoot" value="$PROJECT_DIR$/app/src/main/res/drawable/copy.webp" />
+    <property name="lastFolderRoot" value="$PROJECT_DIR$/app/src/main/res/drawable/app_logo.webp" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable/app_logo.webp" />
     <property name="method" value="Automatic" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="resolutions" value="LDPI&#10;MDPI&#10;XXXHDPI&#10;XXHDPI&#10;XHDPI&#10;HDPI" />
+    <property name="resolutions" value="XXXHDPI&#10;MDPI&#10;XXHDPI&#10;HDPI&#10;XHDPI&#10;LDPI" />
     <property name="settings.editor.selected.configurable" value="experimental" />
     <property name="sourceResolution" value="XXXHDPI" />
   </component>
@@ -440,6 +372,13 @@
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi" />
+    </key>
+    <key name="android.template.packageName">
+      <recent name="com.sudoajay.whatsapp_media_mover_to_sdcard.AdFolder" />
+      <recent name="com.sudoajay.whatsapp_media_mover_to_sdcard" />
+    </key>
+    <key name="android.template.parentActivityClass">
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.sudoajay.whatsapp_media_mover_to_sdcard.SplashScreen" />
@@ -551,7 +490,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1920" height="1053" extended-state="7" />
+    <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.47655398" visible="true" weight="0.32977587" />
@@ -565,10 +505,10 @@
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32824427" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49893278" weight="0.4263904" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.4994664" weight="0.32824427" />
-      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.4967983" visible="true" weight="0.302072" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.4967983" weight="0.302072" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5032017" side_tool="true" weight="0.302072" />
       <window_info anchor="bottom" id="Build" order="5" sideWeight="0.49359658" weight="0.31515813" />
-      <window_info anchor="bottom" id="Android Profiler" order="6" weight="0.9672846" />
+      <window_info anchor="bottom" id="Android Profiler" order="6" show_stripe_button="false" weight="0.9672846" />
       <window_info anchor="bottom" id="Run" order="7" weight="0.3293348" />
       <window_info anchor="bottom" id="Debug" order="8" />
       <window_info anchor="bottom" id="Find" order="9" sideWeight="0.4994664" weight="0.3293348" />
@@ -608,136 +548,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/xiaomi-redmi_4-f5dc4e87cf40/data/data/com.sudoajay.whatapp_media_mover_to_sdcard/shared_prefs/WhatsApp Media Mover.xml" />
-    <entry file="file://$USER_HOME$/AndroidStudio/DeviceExplorer/xiaomi-redmi_4-f5dc4e87cf40/data/data/com.sudoajay.duplication_data/shared_prefs/Duplication Data.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Duplication_Class.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352">
-          <caret line="165" column="11" selection-start-line="165" selection-start-column="11" selection-end-line="165" selection-end-column="11" />
-          <folding>
-            <element signature="e#6830#6953#0" expanded="true" />
-            <element signature="e#6952#6953#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Home.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="829">
-          <caret line="218" selection-start-line="218" selection-end-line="218" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/nothing_to_show_icon.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_list_style.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_blank.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/viewasd.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="1133" column="43" selection-start-line="1133" selection-start-column="22" selection-end-line="1133" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#59360#59361#0" expanded="true" />
-            <element signature="e#59401#59402#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Custom_Dialog/Tabbed_Custom_Dialog_For_Deep.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="141" column="65" selection-start-line="141" selection-start-column="44" selection-end-line="141" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/file_icon.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_changes_layout.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="57" column="41" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Database_Classes/BackgroundTimerDataBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/TraceBackgroundService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="854">
-          <caret line="122" column="44" selection-start-line="122" selection-start-column="44" selection-end-line="122" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_duplication_under_list_view.xml">
-      <provider selected="true" editor-type-id="android-designer2" />
-      <provider editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/ExpandableListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Document_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="286" column="85" selection-start-line="286" selection-start-column="85" selection-end-line="286" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Gif_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="286" column="89" selection-start-line="286" selection-start-column="89" selection-end-line="286" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Image_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="285" column="82" selection-start-line="285" selection-start-column="82" selection-end-line="285" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Profile_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="299" column="100" selection-start-line="299" selection-start-column="100" selection-end-line="299" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Sticker_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="292" column="84" selection-start-line="292" selection-start-column="84" selection-end-line="292" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Video_Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -749,13 +559,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
           <caret line="285" column="87" selection-start-line="285" selection-start-column="87" selection-end-line="285" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4752">
-          <caret line="294" column="81" selection-start-line="294" selection-start-column="81" selection-end-line="294" selection-end-column="81" />
         </state>
       </provider>
     </entry>
@@ -777,33 +580,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="77" column="81" lean-forward="true" selection-start-line="77" selection-start-column="81" selection-end-line="77" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-192" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="35" column="58" lean-forward="true" selection-start-line="35" selection-start-column="58" selection-end-line="35" selection-end-column="58" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main_navigation.xml">
@@ -812,23 +591,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/xml/drawer_item_bg.xml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Make_Changes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="e#533#534#0" expanded="true" />
-            <element signature="e#567#568#0" expanded="true" />
-            <element signature="e#3634#3635#0" expanded="true" />
-            <element signature="e#3666#3667#0" expanded="true" />
-            <element signature="e#3706#3707#0" expanded="true" />
-            <element signature="e#3733#3734#0" expanded="true" />
-            <element signature="e#3785#3786#0" expanded="true" />
-            <element signature="e#3824#3825#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -876,30 +638,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_main__navigation_drawer.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="315" column="58" selection-start-line="315" selection-start-column="58" selection-end-line="315" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_navigation.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_main__navigation_drawer.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/SplashScreen/Splash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="401">
           <caret line="28" column="24" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -909,32 +665,183 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/IntroScreen/WelcomeActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
+        <state relative-caret-position="1908">
           <caret line="133" column="65" selection-start-line="133" selection-start-column="65" selection-end-line="133" selection-end-column="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_splash_screen.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
+        <state relative-caret-position="234">
           <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/Interstitial.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_interstitial_add.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/InterstitialAdd.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_interstitial_ad.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_interstitial_ads.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/MainActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Duplication_Data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/Duplication_Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="222" column="75" selection-start-line="222" selection-start-column="56" selection-end-line="222" selection-end-column="75" />
           <folding>
-            <element signature="e#1083#1101#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/app_logo.png">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Background_Task/WorkMangerTaskManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Navigation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="316" column="69" selection-start-line="316" selection-start-column="69" selection-end-line="316" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/AdFolder/InterstitialAds.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1093#1094#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Show_Duplicate_File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4158">
+          <caret line="275" column="32" selection-start-line="275" selection-start-column="32" selection-end-line="275" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="26" column="68" lean-forward="true" selection-start-line="26" selection-start-column="68" selection-end-line="26" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="54" column="69" lean-forward="true" selection-start-line="52" selection-start-column="8" selection-end-line="54" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="147" column="81" selection-start-line="147" selection-start-column="81" selection-end-line="147" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/app_logo.png" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/progress.gif" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/copy_intro_icon.png">
       <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Copy_delete_File/Copy_The_File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/After_MainTransferFIle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="833" column="32" selection-start-line="833" selection-start-column="28" selection-end-line="833" selection-end-column="32" />
+          <folding>
+            <element signature="e#62497#62498#0" expanded="true" />
+            <element signature="e#62549#62550#0" expanded="true" />
+            <element signature="e#62993#62994#0" expanded="true" />
+            <element signature="e#63028#63029#0" expanded="true" />
+            <element signature="e#63090#63091#0" expanded="true" />
+            <element signature="e#63138#63139#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/sharedPreferences/SdCardPathSharedPreference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="10" column="39" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Main_Fragments/MainTransferFIle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-648">
+          <caret line="52" column="46" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Permission/AndroidSdCardPermission.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="109" column="9" selection-start-line="109" selection-start-column="9" selection-end-line="109" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Make_Changes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="40" column="15" selection-start-line="40" selection-start-column="15" selection-end-line="40" selection-end-column="15" />
+          <folding>
+            <element signature="e#533#534#0" expanded="true" />
+            <element signature="e#567#568#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Toast/CustomToast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="27" column="14" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Fragments/Audio_Fragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="67" column="12" selection-start-line="67" selection-start-column="12" selection-end-line="67" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sudoajay/whatsapp_media_mover_to_sdcard/Delete_Duplicate_Data.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1718">
+          <caret line="123" column="15" selection-start-line="123" selection-start-column="10" selection-end-line="123" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

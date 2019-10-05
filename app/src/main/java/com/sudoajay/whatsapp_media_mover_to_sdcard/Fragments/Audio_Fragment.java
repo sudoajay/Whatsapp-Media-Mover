@@ -56,13 +56,17 @@ public class Audio_Fragment extends Fragment {
         this.which_Option_To_Do = which_Option_To_Do;
         this.selected_List = selected_List;
 
-        // configuration or setup the sharedPreferences
-        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
-        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
-        whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path();
+        try {
+            // configuration or setup the sharedPreferences
+            WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+            whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+            whats_App_Media_Path = whatsappPathSharedpreferences.getWhats_App_Media_Path();
 
-        run_Selected();
-        listAdapter = new ExpandableListAdapter(selected_File);
+            run_Selected();
+            listAdapter = new ExpandableListAdapter(selected_File);
+        }catch (Exception e){
+
+        }
         return this;
     }
 

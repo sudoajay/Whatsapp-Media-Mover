@@ -16,10 +16,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -28,6 +24,15 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.AdFolder.InterstitialAds;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
@@ -57,6 +62,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private Notification notification;
     private NotificationManager notificationManager;
     private Notification_Permission_Check notification_permission_check;
+    private InterstitialAds interstitialAds;
 
 
     @SuppressLint("SetTextI18n")
@@ -155,6 +161,15 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         });
         expandableListView.invalidate();
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        interstitialAds = new InterstitialAds(getApplicationContext(), 2);
 
     }
 
@@ -257,9 +272,12 @@ public class Show_Duplicate_File extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                OpenAds();
+                onBackPressed();
                 multiThreading_task.execute();
 
                 dialog.dismiss();
+
             }
         });
         button_No.setOnClickListener(new View.OnClickListener() {
@@ -271,49 +289,18 @@ public class Show_Duplicate_File extends AppCompatActivity {
         dialog.show();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public class MultiThreading_Task extends AsyncTask<String, String, String> {
-        int progress = 0;
+    public void OpenAds() {
 
-        @Override
-        protected void onPreExecute() {
-            AlertDialog alertDialog = new SpotsDialog.Builder()
-                    .setContext(Show_Duplicate_File.this)
-                    .setMessage("Deletion....")
-                    .setCancelable(false)
-                    .setTheme(R.style.Custom)
-                    .build();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-            alertDialog.show();
-            onBackPressed();
-            CustomToast.ToastIt(getApplicationContext(), "Deletion");
-            super.onPreExecute();
-        }
+                if (interstitialAds.isLoaded())
+                    interstitialAds.getmInterstitialAd().show();
 
-        @Override
-        protected void onPostExecute(String s) {
-            call_Thread();
-
-            super.onPostExecute(s);
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            progress++;
-            contentView.setTextViewText(R.id.size_Title, progress + "/" + list_Header.size());
-            contentView.setTextViewText(R.id.percent_Text, ((progress * 100) / list_Header.size()) + "%");
-            contentView.setTextViewText(R.id.time_Tittle, get_Current_Time());
-            contentView.setProgressBar(R.id.progressBar, list_Header.size(), progress, false);
-            notificationManager.notify(1, notification);
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            Notification();
-            new Delete_Duplicate_Data(list_Header, list_Header_Child, Show_Duplicate_File.this);
-            return null;
-        }
+            }
+        }, 3000);
     }
 
     public String Convert_It(long size) {
@@ -455,7 +442,48 @@ public class Show_Duplicate_File extends AppCompatActivity {
         return multiThreading_task;
     }
 
-    public void setMultiThreading_task(MultiThreading_Task multiThreading_task) {
-        this.multiThreading_task = multiThreading_task;
+    @SuppressLint("StaticFieldLeak")
+    public class MultiThreading_Task extends AsyncTask<String, String, String> {
+        int progress = 0;
+
+        @Override
+        protected void onPreExecute() {
+            AlertDialog alertDialog = new SpotsDialog.Builder()
+                    .setContext(Show_Duplicate_File.this)
+                    .setMessage("Deletion....")
+                    .setCancelable(false)
+                    .setTheme(R.style.Custom)
+                    .build();
+
+            alertDialog.show();
+
+            CustomToast.ToastIt(getApplicationContext(), "Deletion");
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            call_Thread();
+
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            progress++;
+            contentView.setTextViewText(R.id.size_Title, progress + "/" + list_Header.size());
+            contentView.setTextViewText(R.id.percent_Text, ((progress * 100) / list_Header.size()) + "%");
+            contentView.setTextViewText(R.id.time_Tittle, get_Current_Time());
+            contentView.setProgressBar(R.id.progressBar, list_Header.size(), progress, false);
+            notificationManager.notify(1, notification);
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            Notification();
+            new Delete_Duplicate_Data(list_Header, list_Header_Child, Show_Duplicate_File.this);
+            return null;
+        }
     }
 }
