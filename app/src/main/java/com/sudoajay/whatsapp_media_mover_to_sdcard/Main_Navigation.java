@@ -132,8 +132,6 @@ public class Main_Navigation extends AppCompatActivity
             }
         }
 
-
-
     }
 
     public void On_Click_Process(View view) {

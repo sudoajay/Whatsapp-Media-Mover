@@ -23,12 +23,15 @@ class Delete_Duplicate_Data {
     private DocumentFile sd_Card_documentFile;
     private String sdCardPath;
     private List<String> sdcard = new ArrayList<>(), pathStore = new ArrayList<>();
+    private HashMap<String, List<Boolean>> checkDeletedPath;
 
     Delete_Duplicate_Data(List<String> list_Header, HashMap<String, List<String>> list_Header_Child,
-                          Show_Duplicate_File show_duplicate_file, final String getExternalPath) {
+                          final HashMap<String, List<Boolean>> checkDeletedPath, Show_Duplicate_File show_duplicate_file,
+                          final String getExternalPath) {
         this.list_Header = list_Header;
         this.list_Header_Child = list_Header_Child;
         this.show_duplicate_file = show_duplicate_file;
+        this.checkDeletedPath = checkDeletedPath;
 
         // garb and store the data from shared preference
         AndroidSdCardPermission android_SdCard_Permission = new AndroidSdCardPermission(show_duplicate_file.getApplicationContext());
@@ -45,22 +48,38 @@ class Delete_Duplicate_Data {
 
     private void Main_Method() {
         for (int i = 0; i < list_Header.size(); i++) {
-            Seprate_The_Data(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))));
+            for (int j = 0; j < Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size(); j++) {
+                if (Objects.requireNonNull(checkDeletedPath.get(list_Header.get(i))).get(j)) {
+                    SeprateTheData(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j));
+                }
+            }
         }
-
         SeprateTheSDCardPath();
         DeleteTheDataFromExternalStorage();
     }
 
-    private void Seprate_The_Data(List<String> list) {
-        for (int i = 1; i < list.size(); i++) {
-            if (list.get(i).contains(externalPath)) {
-                DeleteTheDataFromInternal_Storage(list.get(i));
-                show_duplicate_file.getMultiThreading_task().onProgressUpdate();
-            } else {
-                sdcard.add(list.get(i));
+    private void SeprateTheData(String list) {
+        if (list.contains(externalPath)) {
+            DeleteTheDataFromInternal_Storage(list);
+        } else {
+            sdcard.add(list);
+        }
+    }
+
+    private void DeleteTheDataFromInternal_Storage(String path) {
+        File file = new File(path);
+        file.delete();
+        if (file.exists()) {
+            try {
+                file.getCanonicalFile().delete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (file.exists()) {
+                show_duplicate_file.getApplicationContext().deleteFile(file.getName());
             }
         }
+        show_duplicate_file.getMultiThreading_task().onProgressUpdate();
     }
 
     private void SeprateTheSDCardPath() {
@@ -79,21 +98,6 @@ class Delete_Duplicate_Data {
         }
     }
 
-    private void DeleteTheDataFromInternal_Storage(String path) {
-        File file = new File(path);
-        file.delete();
-        if (file.exists()) {
-            try {
-                file.getCanonicalFile().delete();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (file.exists()) {
-                show_duplicate_file.getApplicationContext().deleteFile(file.getName());
-            }
-        }
-
-    }
 
     private void DeleteTheDataFromExternalStorage() {
         try {

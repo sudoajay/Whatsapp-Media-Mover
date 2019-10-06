@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,13 +33,17 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
     private Context context;
     private List<String> list_Header;
     private HashMap<String, List<String>> list_Header_Child;
+    private HashMap<String, List<Boolean>> checkDeletedPath;
     private List<Integer> arrow_Image_Resource ;
 
-    Expandable_Duplicate_List_Adapter(Context context, List<String> list_Header, HashMap<String, List<String>> list_Header_Child, List<Integer> arrow_Image_Resource) {
+    Expandable_Duplicate_List_Adapter(final Context context, final List<String> list_Header, final HashMap<String, List<String>> list_Header_Child,
+                                      final HashMap<String, List<Boolean>> checkDeletedPath, final List<Integer> arrow_Image_Resource) {
         this.context = context;
         this.list_Header=list_Header;
         this.list_Header_Child=list_Header_Child;
         this.arrow_Image_Resource = arrow_Image_Resource;
+        this.checkDeletedPath = checkDeletedPath;
+
     }
     @Override
     public int getGroupCount() {
@@ -106,7 +112,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
 
     @SuppressLint("InflateParams")
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
 
         final String headerTitle = (String) getChild(groupPosition, childPosition);
@@ -116,15 +122,34 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = Objects.requireNonNull(infaltInflater).inflate(R.layout.activity_duplication_under_list_view, null);
         }
-        TextView name_Text_View = convertView.findViewById(R.id.name_Text_View);
-        ImageView cover_Image_View = convertView.findViewById(R.id.cover_Image_View);
-        TextView path_Text_View = convertView.findViewById(R.id.path_Text_View);
+        TextView nameTextView = convertView.findViewById(R.id.nameTextView);
+        ImageView coverImageView = convertView.findViewById(R.id.coverImageView);
+        TextView pathTextView = convertView.findViewById(R.id.pathTextView);
+        CheckBox checkBoxView = convertView.findViewById(R.id.checkBoxView);
 
 
         File file = new File(headerTitle);
-        path_Text_View.setText(headerTitle);
-        name_Text_View.setText(file.getName());
-        Check_For_Extension(headerTitle,cover_Image_View);
+        pathTextView.setText(headerTitle);
+        nameTextView.setText(file.getName());
+        Check_For_Extension(headerTitle, coverImageView);
+
+        if (Objects.requireNonNull(checkDeletedPath.get(list_Header.get(groupPosition))).get(childPosition)) {
+            checkBoxView.setChecked(true);
+        } else {
+            checkBoxView.setChecked(false);
+        }
+        checkBoxView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(((CompoundButton) view).isChecked()){
+                    Objects.requireNonNull(checkDeletedPath.get(list_Header.get(groupPosition))).set(childPosition, true);
+                } else {
+                    Objects.requireNonNull(checkDeletedPath.get(list_Header.get(groupPosition))).set(childPosition, false);
+                }
+            }
+        });
+
+
         return convertView;
 
     }
@@ -285,5 +310,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         return resizedBitmap;
     }
 
-
+    HashMap<String, List<Boolean>> getCheckDeletedPath() {
+        return checkDeletedPath;
+    }
 }

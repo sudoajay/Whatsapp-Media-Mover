@@ -8,6 +8,19 @@
     android:orientation="vertical"
     tools:context=".Show_Duplicate_File">
 
+    <ExpandableListView
+        android:id="@+id/duplicate_Expandable_List_View"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="50dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -34,18 +47,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="On_Click_Process"
-                android:paddingRight="6dp"
                 android:paddingTop="2dp"
+                android:paddingRight="6dp"
                 app:srcCompat="@drawable/back_arrow_icon" />
 
             <TextView
                 android:id="@+id/toolbar_title"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="left"
                 android:layout_marginRight="70dp"
                 android:fontFamily="serif"
+                android:paddingTop="4dp"
                 android:text="Duplicate Data"
                 android:textColor="#f5ffffff"
                 android:textSize="20sp" />
@@ -59,7 +73,7 @@
             <ImageView
                 android:id="@+id/refresh_Image_View"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:onClick="On_Click_Process"
                 app:srcCompat="@drawable/refresh_arrow_icon"
@@ -69,7 +83,7 @@
             <ImageView
                 android:id="@+id/share_ImageView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:onClick="On_Click_Process"
@@ -81,59 +95,100 @@
     </androidx.appcompat.widget.Toolbar>
 
 
-    <ExpandableListView
-        android:id="@+id/duplicate_Expandable_List_View"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="50dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/delete_Duplicate_Button"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/deleteDuplicate"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:alpha="1"
         android:background="#c45257"
-        android:drawableLeft="@drawable/restore_intro_icon"
-        android:fontFamily="sans-serif-smallcaps"
         android:onClick="On_Click_Process"
-        android:paddingLeft="75dp"
-        android:paddingRight="90dp"
-        android:text="Delete ( 45 mb)"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/text_View_Nothing"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="Nothing to Show :)"
-        android:textColor="#000"
-        android:textSize="24sp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0">
+
+        <Button
+            android:id="@+id/deleteDuplicateButton"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:alpha="1"
+            android:background="@null"
+            android:drawableStart="@drawable/remove_file_icon"
+            android:fontFamily="sans-serif-smallcaps"
+            android:onClick="On_Click_Process"
+            android:text="@string/delete_text"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nothingToShow_ConstraintsLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/noDuplicateFound"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <ImageView
+            android:id="@+id/nothingToShow_ImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:src="@drawable/nothing_to_show_icon"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.361" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/lato"
+            android:text="@string/nothing_text"
+            android:textAllCaps="true"
+            android:textColor="#989898"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
+            android:text="@string/noDuplicateFoundText"
+            android:textAllCaps="false"
+            android:textColor="#989898"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nothingToShow_ImageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

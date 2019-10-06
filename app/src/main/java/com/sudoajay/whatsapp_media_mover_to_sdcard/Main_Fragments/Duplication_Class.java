@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Duplication_Data;
@@ -100,7 +101,8 @@ public class Duplication_Class extends Fragment {
         external_Check = layout.findViewById(R.id.external_Check);
         ImageView internal_Image_View = layout.findViewById(R.id.internal_Image_View);
         ImageView external_Image_View = layout.findViewById(R.id.external_Image_View);
-        Button scan_Button = layout.findViewById(R.id.scan_Button);
+        ConstraintLayout scanDuplicate = layout.findViewById(R.id.scanDuplicate);
+        Button scanDuplicateButton = layout.findViewById(R.id.scanDuplicateButton);
         TextView internal_Text_View = layout.findViewById(R.id.internal_Text_View);
         TextView external_Text_View = layout.findViewById(R.id.external_Text_View);
         file_Size_text = layout.findViewById(R.id.file_Size_Text);
@@ -109,7 +111,8 @@ public class Duplication_Class extends Fragment {
         OnClick_Class onClick_class = new OnClick_Class();
         internal_Check.setOnClickListener(onClick_class);
         external_Check.setOnClickListener(onClick_class);
-        scan_Button.setOnClickListener(onClick_class);
+        scanDuplicate.setOnClickListener(onClick_class);
+        scanDuplicateButton.setOnClickListener(onClick_class);
         external_Image_View.setOnClickListener(onClick_class);
         internal_Image_View.setOnClickListener(onClick_class);
         internal_Text_View.setOnClickListener(onClick_class);
@@ -301,7 +304,8 @@ public class Duplication_Class extends Fragment {
                         }
                     }
                     break;
-                case R.id.scan_Button:
+                case R.id.scanDuplicate:
+                case R.id.scanDuplicateButton:
                     if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE) {
                         try {
                             multiThreading_task.execute();

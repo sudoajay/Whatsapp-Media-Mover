@@ -99,8 +99,12 @@ public class AndroidSdCardPermission {
         }
     }
     public boolean isGetting(){
-        String[] destPath = Objects.requireNonNull(context.getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
-
+        String[] destPath;
+        if(activity == null) {
+            destPath = Objects.requireNonNull(context.getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
+        }else {
+            destPath = Objects.requireNonNull(activity.getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
+        }
         return (sd_Card_Path_URL.equals(destPath[0]) || (!new File(sd_Card_Path_URL).exists()));
     }
     public void Grab(){

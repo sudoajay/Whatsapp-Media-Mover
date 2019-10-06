@@ -75,7 +75,7 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/sizeTextView"
+                    android:id="@+id/pathTextView"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_weight="1"

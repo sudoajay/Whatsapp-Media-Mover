@@ -7,7 +7,6 @@
     android:background="#ffffff"
     tools:context=".Main_Fragments.Duplication_Class">
 
-   
 
     <Button
         android:id="@+id/file_Size_Text"
@@ -15,12 +14,12 @@
         android:layout_width="219dp"
         android:layout_height="100dp"
         android:background="@drawable/activity_my_blank_button"
-        android:drawableLeft="@drawable/multiple_data"
+        android:drawableStart="@drawable/multiple_data"
         android:enabled="false"
-        android:fontFamily="sans-serif-smallcaps"
+        android:fontFamily="@font/lato"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Data Size - 0 mb"
+        android:text="Data Size - 0 Mb"
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="15sp"
@@ -35,39 +34,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.154" />
 
-    <Button
-        android:id="@+id/scan_Button"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:alpha="1"
-        android:background="@drawable/activity_my_scan_button"
-        android:drawableLeft="@drawable/scan_icon"
-        android:fontFamily="sans-serif-smallcaps"
-        android:paddingLeft="130dp"
-        android:paddingRight="90dp"
-        android:text="Scan"
-        android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="28sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <ImageView
         android:id="@+id/internal_Image_View"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
         android:paddingLeft="30dp"
-        android:paddingRight="20dp"
         android:paddingTop="5dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
@@ -85,6 +59,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sd_card_icon" />
+
+    <ImageView
+        android:id="@+id/internal_Check"
+        android:layout_width="31dp"
+        android:layout_height="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555"
+        app:srcCompat="@drawable/tick_icon" />
+
+    <ImageView
+        android:id="@+id/external_Check"
+        android:layout_width="31dp"
+        android:layout_height="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.555"
+        app:srcCompat="@drawable/tick_icon" />
 
     <TextView
         android:id="@+id/internal_Text_View"
@@ -115,29 +113,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.618" />
 
-    <ImageView
-        android:id="@+id/internal_Check"
-        android:layout_width="31dp"
-        android:layout_height="27dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scanDuplicate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/activity_my_scan_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555"
-        app:srcCompat="@drawable/tick_icon" />
+        app:layout_constraintVertical_bias="1.0">
 
-    <ImageView
-        android:id="@+id/external_Check"
-        android:layout_width="31dp"
-        android:layout_height="27dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.878"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555"
-        app:srcCompat="@drawable/tick_icon" />
+        <Button
+            android:id="@+id/scanDuplicateButton"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:alpha="1"
+            android:background="@null"
+            android:drawableStart="@drawable/scan_icon"
+            android:text="@string/scan_text"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="28sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <dmax.dialog.ProgressLayout
         android:id="@+id/dmax_spots_progress"

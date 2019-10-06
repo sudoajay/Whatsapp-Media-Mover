@@ -53,7 +53,8 @@ public class Make_Changes  {
                 if (fileEntry.isDirectory()) {
                     Get_FIle_Recursive(fileEntry);
                 } else {
-                    save_Data.add(fileEntry);
+                    if (!fileEntry.getName().equals(".nomedia"))
+                        save_Data.add(fileEntry);
                 }
             }
         } catch (Exception ignored) {

@@ -135,7 +135,8 @@
     <string name="errorMes">Please Select the Sd Card Root Directory</string>
 
     <string name="nothing_text">Nothing!!</string>
-    <string name="noDuplicateFoundText">There is no File Found.</string>
+    <string name="noFileFoundText">There is no File Found.</string>
+    <string name="noDuplicateFoundText">There is no Duplicate File Found.</string>
 
     <!--Error Message-->
     <string name="shortAppName">Media Mover</string>
@@ -148,6 +149,9 @@
     <string name="interstitial_ad_unit_id">ca-app-pub-9530958250183062/1224167747</string>
     <string name="title_activity_interstitial_ad">InterstitialAd</string>
     <string name="title_activity_interstitial_ads">InterstitialAds</string>
+    <string name="delete_text">\u0010 Delete</string>
+    <string name="scan_text">\u0010 Scan</string>
+
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638

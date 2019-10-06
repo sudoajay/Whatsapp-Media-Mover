@@ -83,7 +83,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.activity_my_list_style, null);
         }
         final TextView nameTextView = convertView.findViewById(R.id.nameTextView);
-        final TextView sizeTextView = convertView.findViewById(R.id.sizeTextView);
+        final TextView sizeTextView = convertView.findViewById(R.id.pathTextView);
         final ImageView coverImageView = convertView.findViewById(R.id.coverImageView);
         final CheckBox checkBoxView = convertView.findViewById(R.id.checkBoxView);
 

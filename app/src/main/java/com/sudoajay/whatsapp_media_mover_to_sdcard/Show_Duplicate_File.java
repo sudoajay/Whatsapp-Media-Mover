@@ -10,7 +10,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,8 +24,8 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.google.android.gms.ads.MobileAds;
@@ -51,13 +50,15 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private ImageView refresh_Image_View;
     private ExpandableListView expandableListView;
     private List<Integer> arrow_Image_Resource = new ArrayList<>();
-    private Expandable_Duplicate_List_Adapter expandable_duplicate_list_adapter;
+    private Expandable_Duplicate_List_Adapter expandableDuplicateListAdapter;
     private List<String> list_Header = new ArrayList<>(), save = new ArrayList<>();
+    private List<Boolean> checkPath = new ArrayList<>();
     private HashMap<String, List<String>> list_Header_Child = new LinkedHashMap<>();
+    private HashMap<String, List<Boolean>> checkDeletedPath = new LinkedHashMap<>();
     private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
-    private long total_Size;
-    private Button delete_Duplicate_Button;
-    private TextView text_View_Nothing;
+    private Button deleteDuplicateButton;
+    private ConstraintLayout deleteDuplicate;
+    private ConstraintLayout nothingToShow_ConstraintsLayout;
     private RemoteViews contentView;
     private Notification notification;
     private NotificationManager notificationManager;
@@ -80,8 +81,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         assert Data != null;
         if (Data.isEmpty()) {
-            delete_Duplicate_Button.setVisibility(View.INVISIBLE);
-            text_View_Nothing.setVisibility(View.VISIBLE);
+            deleteDuplicate.setVisibility(View.INVISIBLE);
+            deleteDuplicateButton.setVisibility(View.INVISIBLE);
+            nothingToShow_ConstraintsLayout.setVisibility(View.VISIBLE);
 
         }
         int i = 0;
@@ -96,26 +98,29 @@ public class Show_Duplicate_File extends AppCompatActivity {
         for (String get : Data) {
             if (get.equalsIgnoreCase("And")) {
                 list_Header_Child.put(list_Header.get(i), new ArrayList<>(save));
+                checkDeletedPath.put(list_Header.get(i), new ArrayList<>(checkPath));
                 i++;
                 save.clear();
+                checkPath.clear();
             } else {
                 save.add(get);
+                if (checkPath.size() == 0) {
+                    checkPath.add(false);
+                } else {
+                    checkPath.add(true);
+                }
+
             }
         }
 
 
-        expandable_duplicate_list_adapter = new Expandable_Duplicate_List_Adapter(this, list_Header, list_Header_Child, arrow_Image_Resource);
-        expandableListView.setAdapter(expandable_duplicate_list_adapter);
+        expandableDuplicateListAdapter = new Expandable_Duplicate_List_Adapter(this, list_Header, list_Header_Child, checkDeletedPath, arrow_Image_Resource);
+        expandableListView.setAdapter(expandableDuplicateListAdapter);
 
         for (i = 0; i < list_Header.size(); i++) {
-            expandableListView.expandGroup(i);
-            for (int j = 0; j < Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size(); j++) {
-                total_Size += new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j)).length();
-            }
-
+            expandableListView.collapseGroup(i);
         }
 
-        delete_Duplicate_Button.setText("Delete (" + Convert_It(total_Size) + ")");
         // Listview Group click listener
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
@@ -154,7 +159,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
                 open_With(new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition)));
-                expandable_duplicate_list_adapter.getChildView(groupPosition, childPosition, false, v, parent);
+                expandableDuplicateListAdapter.getChildView(groupPosition, childPosition, false, v, parent);
 
                 return false;
             }
@@ -176,17 +181,10 @@ public class Show_Duplicate_File extends AppCompatActivity {
     public void Reference() {
         refresh_Image_View = findViewById(R.id.refresh_Image_View);
         expandableListView = findViewById(R.id.duplicate_Expandable_List_View);
-        delete_Duplicate_Button = findViewById(R.id.delete_Duplicate_Button);
-        text_View_Nothing = findViewById(R.id.text_View_Nothing);
-
+        nothingToShow_ConstraintsLayout = findViewById(R.id.nothingToShow_ConstraintsLayout);
+        deleteDuplicateButton = findViewById(R.id.deleteDuplicateButton);
+        deleteDuplicate = findViewById(R.id.deleteDuplicate);
         notification_permission_check = new Notification_Permission_Check(this, this);
-
-        // fix or resize the drawable image
-        Drawable img = ContextCompat.getDrawable(Objects.requireNonNull(getApplicationContext()), R.drawable.remove_intro_icon);
-        assert img != null;
-        img.setBounds(0, 0, 80, 80);
-        delete_Duplicate_Button.setCompoundDrawables(img, null, null, null);
-
     }
 
     public void On_Click_Process(View view) {
@@ -206,7 +204,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
                 if (refresh_Image_View.getRotation() % 360 == 0)
                     refresh_Image_View.animate().rotationBy(360f).setDuration(1000);
                 break;
-            case R.id.delete_Duplicate_Button:
+            case R.id.deleteDuplicateButton:
+            case R.id.deleteDuplicate:
                 if (notification_permission_check.check_Notification_Permission()) {
                     notification_permission_check.Custom_AertDialog();
                 } else {
@@ -303,36 +302,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }, 3000);
     }
 
-    public String Convert_It(long size) {
-        if (size > (1024 * 1024 * 1024)) {
-            // GB
-            return Convert_To_Decimal((float) size / (1024 * 1024 * 1024)) + " GB";
-        } else if (size > (1024 * 1024)) {
-            // MB
-            return Convert_To_Decimal((float) size / (1024 * 1024)) + " MB";
 
-        } else {
-            // KB
-            return Convert_To_Decimal((float) size / (1024)) + " KB";
-        }
-
-    }
-
-    public String Convert_To_Decimal(float value) {
-        String size = value + "";
-        if (value >= 1000) {
-            return size.substring(0, 4);
-        } else if (value >= 100) {
-            return size.substring(0, 3);
-        } else {
-            if (size.length() == 2 || size.length() == 3) {
-                return size.substring(0, 1);
-            }
-            return size.substring(0, 4);
-
-        }
-
-    }
 
     public void call_Thread() {
         Handler handler = new Handler();
@@ -373,7 +343,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
                         .setAutoCancel(true)
                         .setOngoing(false)
                         .setLights(Color.parseColor("#075e54"), 3000, 3000);
-        builder.setContentText("You Have Saved " + Convert_It(total_Size) + " Of Data ");
+        builder.setContentText("Successfully Data Deleted ");
 
         Intent notificationIntent = new Intent(this, Main_Navigation.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
@@ -485,7 +455,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             String[] destPath = Objects.requireNonNull(getApplicationContext().getExternalCacheDir())
                             .getAbsolutePath().split("/Android/data/com");
 
-            new Delete_Duplicate_Data(list_Header, list_Header_Child, Show_Duplicate_File.this,destPath[0]);
+            new Delete_Duplicate_Data(list_Header, list_Header_Child, expandableDuplicateListAdapter.getCheckDeletedPath(), Show_Duplicate_File.this, destPath[0]);
             return null;
         }
     }
