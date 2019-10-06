@@ -25,13 +25,13 @@ import androidx.fragment.app.DialogFragment;
 import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.ForegroundDialog;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import org.angmarch.views.NiceSpinner;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -49,15 +49,8 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     private EditText endlesslyEditText;
     private String getSelectedEndlesslyDate = null;
     private BackgroundTimerDataBase backgroundTimerDataBase;
-    private Main_Navigation main_navigation;
 
     public CustomDialogForBackgroundTimer() {
-
-    }
-
-    @SuppressLint("ValidFragment")
-    public CustomDialogForBackgroundTimer(Main_Navigation main_navigation) {
-        this.main_navigation = main_navigation;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -344,7 +337,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
 
     }
 
-    public static int CountDay(int day, List<Integer> week_Days) {
+    private static int CountDay(int day, List<Integer> week_Days) {
         int temp = day, count = 0;
         do {
             count++;
@@ -391,7 +384,7 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
         weekdaysPicker.setSelectedDays(list);
     }
 
-    public String get_Repeat() {
+    private String get_Repeat() {
         if(repeatedlySpinner.getSelectedIndex() == 3) {
             List<Integer> weekday = weekdaysPicker.getSelectedDays();
             StringBuilder join = new StringBuilder();
@@ -444,12 +437,12 @@ public class CustomDialogForBackgroundTimer extends DialogFragment implements Ad
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss() {
+    private void Dissmiss() {
 
         this.dismiss();
     }

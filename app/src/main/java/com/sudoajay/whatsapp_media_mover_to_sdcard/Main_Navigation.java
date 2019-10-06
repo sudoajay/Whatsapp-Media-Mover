@@ -102,7 +102,7 @@ public class Main_Navigation extends AppCompatActivity
 
         traceBackgroundService = new TraceBackgroundService(getApplicationContext());
         PrefManager prefManager = new PrefManager(getApplicationContext());
-        if (!prefManager.isFirstTimeLaunch()) {
+        if (prefManager.isFirstTimeLaunch()) {
             if (traceBackgroundService.isBackgroundServiceWorking()) {
                 traceBackgroundService.isBackgroundWorking();
             }
@@ -133,6 +133,7 @@ public class Main_Navigation extends AppCompatActivity
         }
 
 
+
     }
 
     public void On_Click_Process(View view) {
@@ -158,14 +159,13 @@ public class Main_Navigation extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        item.getItemId();
 
         //noinspection SimplifiableIfStatement
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -214,7 +214,7 @@ public class Main_Navigation extends AppCompatActivity
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         CustomDialogForBackgroundTimer customDialogForBackgroundTimer
-                = new CustomDialogForBackgroundTimer(this);
+                = new CustomDialogForBackgroundTimer();
         customDialogForBackgroundTimer.show(ft, "dialog");
     }
 
@@ -308,11 +308,10 @@ public class Main_Navigation extends AppCompatActivity
     }
 
 
-
     public boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
         try {
             ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(Integer.MAX_VALUE)) {
                 if (serviceClass.getName().equals(service.service.getClassName())) {
                     if (service.foreground) {
                         return true;
@@ -321,8 +320,7 @@ public class Main_Navigation extends AppCompatActivity
             }
             return false;
         } catch (Exception e) {
-            if (!ServicesWorking()) return true;
-            return false;
+            return !ServicesWorking();
         }
     }
 
@@ -379,7 +377,7 @@ public class Main_Navigation extends AppCompatActivity
                             break;
                     }
 
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }

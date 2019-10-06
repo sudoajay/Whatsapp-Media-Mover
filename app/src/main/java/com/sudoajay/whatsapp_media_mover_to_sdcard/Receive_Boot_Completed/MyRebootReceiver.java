@@ -1,5 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgr
 
 public class MyRebootReceiver extends BroadcastReceiver {
 
+    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
 

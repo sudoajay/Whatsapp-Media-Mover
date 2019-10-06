@@ -12,11 +12,12 @@ import androidx.annotation.Nullable;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 @SuppressLint("NewApi")
 public final class SdCardPath {
 
-    static String TAG = "TAG";
+
     private static final String PRIMARY_VOLUME_NAME = "primary";
 
     @Nullable
@@ -62,13 +63,13 @@ public final class SdCardPath {
 
             Class<?> storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
 
-            Method getVolumeList = mStorageManager.getClass().getMethod("getVolumeList");
+            Method getVolumeList = Objects.requireNonNull(mStorageManager).getClass().getMethod("getVolumeList");
             Method getUuid = storageVolumeClazz.getMethod("getUuid");
             Method getPath = storageVolumeClazz.getMethod("getPath");
             Method isPrimary = storageVolumeClazz.getMethod("isPrimary");
             Object result = getVolumeList.invoke(mStorageManager);
 
-            final int length = Array.getLength(result);
+            final int length = Array.getLength(Objects.requireNonNull(result));
             for (int i = 0; i < length; i++) {
                 Object storageVolumeElement = Array.get(result, i);
                 String uuid = (String) getUuid.invoke(storageVolumeElement);

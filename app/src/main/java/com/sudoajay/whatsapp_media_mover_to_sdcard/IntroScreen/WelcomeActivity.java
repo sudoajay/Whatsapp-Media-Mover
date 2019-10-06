@@ -25,6 +25,8 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.SplashScreen.Splash;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 
+import org.jetbrains.annotations.NotNull;
+
 public class WelcomeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
@@ -32,15 +34,14 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private int[] layouts;
     private Button btnSkip, btnNext;
-    private PrefManager prefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Checking for first time launch - before calling setContentView()
-        prefManager = new PrefManager(this);
-        if (!prefManager.isFirstTimeLaunch()) {
+        PrefManager prefManager = new PrefManager(this);
+        if (prefManager.isFirstTimeLaunch()) {
             launchHomeScreen();
             finish();
         }
@@ -88,7 +89,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // checking for last page
                 // if last page home screen will be launched
-                int current = getItem(+1);
+                int current = getItem();
                 if (current < layouts.length) {
                     // move to next screen
                     viewPager.setCurrentItem(current);
@@ -118,8 +119,8 @@ public class WelcomeActivity extends AppCompatActivity {
             dots[currentPage].setTextColor(colorsActive[currentPage]);
     }
 
-    private int getItem(int i) {
-        return viewPager.getCurrentItem() + i;
+    private int getItem() {
+        return viewPager.getCurrentItem() + 1;
     }
 
     private void launchHomeScreen() {
@@ -181,15 +182,16 @@ public class WelcomeActivity extends AppCompatActivity {
      * View pager adapter
      */
     public class MyViewPagerAdapter extends PagerAdapter {
-        private LayoutInflater layoutInflater;
 
-        public MyViewPagerAdapter() {
+        MyViewPagerAdapter() {
         }
 
+        @NotNull
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        public Object instantiateItem(@NotNull ViewGroup container, int position) {
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            assert layoutInflater != null;
             View view = layoutInflater.inflate(layouts[position], container, false);
             container.addView(view);
 
@@ -202,13 +204,13 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object obj) {
+        public boolean isViewFromObject(@NotNull View view, @NotNull Object obj) {
             return view == obj;
         }
 
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(ViewGroup container, int position, @NotNull Object object) {
             View view = (View) object;
             container.removeView(view);
         }

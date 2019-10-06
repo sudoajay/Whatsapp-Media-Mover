@@ -31,10 +31,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class Voice_Fragment extends Fragment {
-    private static After_MainTransferFIle after_main_transferFIle;
-    private static Make_Changes make_changes =new Make_Changes();
+    private After_MainTransferFIle after_main_transferFIle;
+    private Make_Changes make_changes =new Make_Changes();
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
     private List<Integer> arrow_Image_Resource = new ArrayList<>(), count_The_Size = new ArrayList<>();
@@ -49,7 +50,7 @@ public class Voice_Fragment extends Fragment {
 
     public Voice_Fragment createInstance(After_MainTransferFIle after_main_transferFIle, String which_Option_To_Do, List<File> selected_List
     , Context context) {
-        Voice_Fragment.after_main_transferFIle = after_main_transferFIle;
+        this.after_main_transferFIle = after_main_transferFIle;
         this.which_Option_To_Do= which_Option_To_Do;
         this.selected_List=selected_List;
 
@@ -134,8 +135,6 @@ public class Voice_Fragment extends Fragment {
 
             });
             expListView.invalidate();
-
-
         }
         return v;
     }
@@ -184,12 +183,12 @@ public class Voice_Fragment extends Fragment {
             count_The_Size.add(counts);
         }
 
-        for (String s : listDataHeader)
+        for (String ignored : listDataHeader)
             arrow_Image_Resource.add(R.drawable.arrow_down_icon);
 
     }
 
-    public String check_For_Date(Calendar current_Time, Calendar last_Modified_calendar) {
+    private String check_For_Date(Calendar current_Time, Calendar last_Modified_calendar) {
         int current_Day = current_Time.get(Calendar.DAY_OF_MONTH);
         int current_Month = current_Time.get(Calendar.MONTH);
 
@@ -209,7 +208,7 @@ public class Voice_Fragment extends Fragment {
         return last_Modified_Day + " " + Get_Months(last_Modified_Months + 1);
     }
 
-    public String Get_Months(int no) {
+    private String Get_Months(int no) {
 
         switch (no) {
             case 1:
@@ -239,11 +238,11 @@ public class Voice_Fragment extends Fragment {
         }
     }
 
-    public void open_With(File file){
+    private void open_With(File file) {
         MimeTypeMap myMime = MimeTypeMap.getSingleton();
         Intent newIntent = new Intent(Intent.ACTION_VIEW);
 
-        String mimeType = myMime.getMimeTypeFromExtension(fileExt(file.getAbsolutePath()).substring(1));
+        String mimeType = myMime.getMimeTypeFromExtension(Objects.requireNonNull(fileExt(file.getAbsolutePath())).substring(1));
         Uri URI = FileProvider.getUriForFile(after_main_transferFIle,
                 BuildConfig.APPLICATION_ID + ".provider",
                 file);
@@ -278,7 +277,8 @@ public class Voice_Fragment extends Fragment {
     public ExpandableListAdapter getListAdapter() {
         return listAdapter;
     }
-    public void run_Selected(){
+
+    private void run_Selected() {
 
 
         if(which_Option_To_Do.equals("restore"))

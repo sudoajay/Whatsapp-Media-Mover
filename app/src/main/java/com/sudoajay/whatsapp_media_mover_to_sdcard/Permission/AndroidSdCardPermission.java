@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
 import android.os.Handler;
 
 import androidx.fragment.app.FragmentActivity;
@@ -19,6 +18,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 
 import java.io.File;
+import java.util.Objects;
 
 @SuppressLint("Registered")
 public class AndroidSdCardPermission {
@@ -89,7 +89,7 @@ public class AndroidSdCardPermission {
         }
     }
 
-    public void Call_Custom_Dailog_Changes() {
+    private void Call_Custom_Dailog_Changes() {
         try {
             FragmentTransaction ft = ((FragmentActivity) activity).getSupportFragmentManager().beginTransaction();
             Sd_Card_dialog sd_card_dialog = new Sd_Card_dialog(this);
@@ -99,7 +99,9 @@ public class AndroidSdCardPermission {
         }
     }
     public boolean isGetting(){
-        return (sd_Card_Path_URL.equals(Environment.getExternalStorageDirectory().getAbsolutePath())) || (!new File(sd_Card_Path_URL).exists());
+        String[] destPath = Objects.requireNonNull(context.getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
+
+        return (sd_Card_Path_URL.equals(destPath[0]) || (!new File(sd_Card_Path_URL).exists()));
     }
     public void Grab(){
         try {

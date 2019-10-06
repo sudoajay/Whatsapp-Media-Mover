@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
     private HashMap<String, List<String>> list_Header_Child;
     private List<Integer> arrow_Image_Resource ;
 
-    public Expandable_Duplicate_List_Adapter(Context context,  List<String> list_Header , HashMap<String, List<String>> list_Header_Child, List<Integer> arrow_Image_Resource ){
+    Expandable_Duplicate_List_Adapter(Context context, List<String> list_Header, HashMap<String, List<String>> list_Header_Child, List<Integer> arrow_Image_Resource) {
         this.context = context;
         this.list_Header=list_Header;
         this.list_Header_Child=list_Header_Child;
@@ -56,7 +57,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.list_Header_Child.get(this.list_Header.get(groupPosition)).get(childPosition);
+        return Objects.requireNonNull(this.list_Header_Child.get(this.list_Header.get(groupPosition))).get(childPosition);
     }
 
     @Override
@@ -74,13 +75,14 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         return false;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "InflateParams"})
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infaltInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert infaltInflater != null;
             convertView = infaltInflater.inflate(R.layout.activity_duplication_list_view, null);
         }
         ImageView arrow_Image_View = convertView.findViewById(R.id.arrow_Image_View);
@@ -102,27 +104,28 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         return convertView;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        
 
-         final String headerTitle = (String) getChild(groupPosition, childPosition);
+
+        final String headerTitle = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
-                LayoutInflater infaltInflater = (LayoutInflater) this.context
-                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = infaltInflater.inflate(R.layout.activity_duplication_under_list_view, null);
-            }
-            TextView name_Text_View = convertView.findViewById(R.id.name_Text_View);
-            ImageView cover_Image_View = convertView.findViewById(R.id.cover_Image_View);
-            TextView path_Text_View = convertView.findViewById(R.id.path_Text_View);
+            LayoutInflater infaltInflater = (LayoutInflater) this.context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = Objects.requireNonNull(infaltInflater).inflate(R.layout.activity_duplication_under_list_view, null);
+        }
+        TextView name_Text_View = convertView.findViewById(R.id.name_Text_View);
+        ImageView cover_Image_View = convertView.findViewById(R.id.cover_Image_View);
+        TextView path_Text_View = convertView.findViewById(R.id.path_Text_View);
 
 
-            File file = new File(headerTitle);
-            path_Text_View.setText(headerTitle);
-            name_Text_View.setText(file.getName());
-            Check_For_Extension(headerTitle,cover_Image_View);
-            return convertView;
+        File file = new File(headerTitle);
+        path_Text_View.setText(headerTitle);
+        name_Text_View.setText(file.getName());
+        Check_For_Extension(headerTitle,cover_Image_View);
+        return convertView;
 
     }
 
@@ -131,7 +134,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
         return true;
     }
 
-    public static long getFileSizeInBytes(String fileName) {
+    private static long getFileSizeInBytes(String fileName) {
         long ret = 0;
         File f = new File(fileName);
         if (f.exists()) {
@@ -139,20 +142,18 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
                 return f.length();
             } else if (f.isDirectory()) {
                 File[] contents = f.listFiles();
-                for (int i = 0; i < contents.length; i++) {
+                for (int i = 0; i < Objects.requireNonNull(contents).length; i++) {
                     if (contents[i].isFile()) {
                         ret += contents[i].length();
                     } else if (contents[i].isDirectory())
                         ret += getFileSizeInBytes(contents[i].getPath());
                 }
             }
-        } else {
-            ret = 0;
         }
         return ret;
     }
 
-    public String Convert_It(long size) {
+    private String Convert_It(long size) {
         if (size > (1024 * 1024 * 1024)) {
             // GB
             return Convert_To_Decimal((float) size / (1024 * 1024 * 1024)) + " GB";
@@ -167,7 +168,7 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
 
     }
 
-    public String Convert_To_Decimal(float value) {
+    private String Convert_To_Decimal(float value) {
         String size = value + "";
         if (value >= 1000) {
             return size.substring(0, 4);
@@ -183,61 +184,79 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
 
     }
 
-    public void Check_For_Extension(String path,ImageView imageView){
+    private void Check_For_Extension(String path, ImageView imageView) {
         int i = path.lastIndexOf('.');
         String extension="";
         if (i > 0) {
             extension = path.substring(i+1);
         }
-        if (extension.equals("jpg") || extension.equals("mp4") || extension.equals("jpeg") || extension.equals("webp"))
-            // Images || Videos
-            Glide.with(context)
-                    .asBitmap()
-                    .load(Uri.fromFile(new File(path)))
-                    .into(imageView);
-        else if (extension.equals("mp3") || extension.equals("m4a") || extension.equals("amr") || extension.equals("aac"))
-            // Audiio
-            getAudioAlbumImageContentUri(imageView,path);
-        else if (extension.equals("opus"))
-            imageView.setImageResource(R.drawable.voice_icon);
-        else {
-            imageView.setImageResource(R.drawable.document_icon);
+        switch (extension) {
+            case "jpg":
+            case "mp4":
+            case "jpeg":
+            case "webp":
+                // Images || Videos
+                Glide.with(context)
+                        .asBitmap()
+                        .load(Uri.fromFile(new File(path)))
+                        .into(imageView);
+                break;
+            case "mp3":
+            case "m4a":
+            case "amr":
+            case "aac":
+                // Audiio
+                getAudioAlbumImageContentUri(imageView, path);
+                break;
+            case "opus":
+                imageView.setImageResource(R.drawable.voice_icon);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.document_icon);
+                break;
         }
     }
-    public void getAudioAlbumImageContentUri(ImageView imageView ,String filePath) {
+
+    private void getAudioAlbumImageContentUri(ImageView imageView, String filePath) {
         try {
-            Uri audioUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            String selection = MediaStore.Audio.Media.DATA + "=? ";
-            String[] projection = new String[] { MediaStore.Audio.Media._ID , MediaStore.Audio.Media.ALBUM_ID};
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                Uri audioUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                String selection = MediaStore.Audio.Media.DATA + "=? ";
+                String[] projection = new String[]{MediaStore.Audio.Media._ID, MediaStore.Audio.Media.ALBUM_ID};
 
-            Cursor cursor = context.getContentResolver().query(
-                    audioUri,
-                    projection,
-                    selection,
-                    new String[] { filePath }, null);
+                Cursor cursor = context.getContentResolver().query(
+                        audioUri,
+                        projection,
+                        selection,
+                        new String[]{filePath}, null);
 
-            if (cursor != null && cursor.moveToFirst()) {
+                if (cursor != null && cursor.moveToFirst()) {
 
-                long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-                if(get_Cover(albumId) != null) {
-                    Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
-                    Uri imgUri = ContentUris.withAppendedId(sArtworkUri,
-                            albumId);
+                    long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+                    if (get_Cover(albumId) != null) {
+                        Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
+                        Uri imgUri = ContentUris.withAppendedId(sArtworkUri,
+                                albumId);
 
-                    Glide.with(context)
-                            .load(imgUri)
-                            .into(imageView);
+                        Glide.with(context)
+                                .load(imgUri)
+                                .into(imageView);
+                    } else {
+                        imageView.setImageResource(R.drawable.audio_icon);
+                    }
+                    cursor.close();
                 }
-                else {
-                    imageView.setImageResource(R.drawable.audio_icon);
-                }
-                cursor.close();
+            } else {
+                imageView.setImageResource(R.drawable.audio_icon);
+
             }
-        } catch (Exception e){
+        } catch (Exception e) {
+            imageView.setImageResource(R.drawable.audio_icon);
         }
     }
-    public Bitmap get_Cover(long album_id) {
-        Bitmap artwork = null;
+
+    private Bitmap get_Cover(long album_id) {
+        Bitmap artwork;
         Bitmap resizedBitmap = null;
         try {
             Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");

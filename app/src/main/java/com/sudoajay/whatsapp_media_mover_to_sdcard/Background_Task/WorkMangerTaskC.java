@@ -4,7 +4,6 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
@@ -34,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class WorkMangerTaskC extends Worker {
 
@@ -56,7 +56,7 @@ public class WorkMangerTaskC extends Worker {
     }
 
     private static void getWork(final Context context) {
-        int value = 5, hour = 0;
+        int value = 5;
         try {
             // create Object
             After_MainTransferFIle after_mainTransferFIle = new After_MainTransferFIle();
@@ -76,7 +76,9 @@ public class WorkMangerTaskC extends Worker {
                     after_mainTransferFIle.setStorage_Info(new Storage_Info(context));
 
                     // get data
-                    String external_Path_Url = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    String[] destPath = Objects.requireNonNull(context.getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
+
+                    String external_Path_Url =destPath[0];
                     String sd_Card_Path_URL = sdCardPathSharedPreference.getSdCardPath();
                     DocumentFile sd_Card_documentFile = DocumentFile.fromTreeUri(context,
                             Uri.parse(sdCardPathSharedPreference.getStringURI()));
@@ -217,6 +219,7 @@ public class WorkMangerTaskC extends Worker {
                     Calendar calendars = Calendar.getInstance();
                     Date todayDate = calendars.getTime();
 
+                    assert date != null;
                     if (date.before(todayDate) || format.format(todayDate).equals(format.format(date))) {
                         if (!backgroundTimerDataBase.check_For_Empty()) {
                             backgroundTimerDataBase.deleteData();
@@ -224,7 +227,7 @@ public class WorkMangerTaskC extends Worker {
                         traceBackgroundService.setTaskC("Empty");
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
         }
@@ -241,7 +244,7 @@ public class WorkMangerTaskC extends Worker {
                 }
             });
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
     }

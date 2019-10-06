@@ -5,9 +5,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
-import androidx.core.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.core.app.NotificationManagerCompat;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
@@ -38,7 +39,7 @@ public class Notification_Permission_Check {
     }
 
     public boolean check_Notification_Permission(){
-        return NotificationManagerCompat.from(activity.getApplicationContext()).areNotificationsEnabled();
+        return !NotificationManagerCompat.from(activity.getApplicationContext()).areNotificationsEnabled();
     }
 
     public void Custom_AertDialog(){

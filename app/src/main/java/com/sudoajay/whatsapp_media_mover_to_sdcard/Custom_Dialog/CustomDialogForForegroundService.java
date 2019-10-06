@@ -7,9 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.view.ContextThemeWrapper;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +17,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.fragment.app.DialogFragment;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.Foreground;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -73,7 +76,7 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
                     if (switchForeground.isChecked()) {
                         // shared Preference changes
 
-                        if(!isServiceRunningInForeground(activity, Foreground.class)) {
+                        if (!isServiceRunningInForeground(activity)) {
                             // push foreground service
                             Intent startIntent = new Intent(CustomDialogForForegroundService.this.getContext(), Foreground.class);
                             startIntent.putExtra("com.sudoajay.whatapp_media_mover_to_sdcard.ForegroundDialog"
@@ -85,12 +88,12 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
                         // dismiss or close the dialog
                         dismiss();
                     } else {
-                        if (isServiceRunningInForeground(activity, Foreground.class)) {
+                        if (isServiceRunningInForeground(activity)) {
 
                             int theme;
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                                 theme = R.style.AppTheme;
-                            } else {
+                            else {
                                 theme = android.R.style.Theme_Holo_Dialog;
                             }
                             new AlertDialog.Builder(new ContextThemeWrapper
@@ -183,31 +186,31 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss() {
+    private void Dissmiss() {
 
         this.dismiss();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int position1 = position;
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    public  boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+
+    private boolean isServiceRunningInForeground(Context context) {
         try {
             if(traceBackgroundService.isForegroundServiceWorking()){
             ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (serviceClass.getName().equals(service.service.getClassName())) {
+                for (ActivityManager.RunningServiceInfo service : Objects.requireNonNull(manager).getRunningServices(Integer.MAX_VALUE)) {
+                    if (Foreground.class.getName().equals(service.service.getClassName())) {
                     if (service.foreground) {
                         return true;
                     }
@@ -216,12 +219,11 @@ public class CustomDialogForForegroundService extends DialogFragment implements 
         }
             return false;
         }catch (Exception e){
-            if (!ServicesWorking()) return true;
-            return false;
+            return !ServicesWorking();
         }
     }
 
-    public  boolean ServicesWorking() {
+    private boolean ServicesWorking() {
         traceBackgroundService.isBackgroundWorking();
         return !traceBackgroundService.isBackgroundServiceWorking();
     }

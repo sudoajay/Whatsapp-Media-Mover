@@ -4,9 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 public class Draw_View_Canvas_Rectangle extends View  {
     private int background_Color;
@@ -14,7 +15,7 @@ public class Draw_View_Canvas_Rectangle extends View  {
     private int whatsApp_Color;
     private int dot_Color ;
     private Paint paint = new Paint();
-    private double whatsApp_Percentage , other_Percentage, multi;
+    private double whatsApp_Percentage, other_Percentage, multi = (getWidth() - 30 - 13) / 100;
 
     public Draw_View_Canvas_Rectangle(Context context, AttributeSet attribs) {
         super(context, attribs);
@@ -37,7 +38,7 @@ public class Draw_View_Canvas_Rectangle extends View  {
         super.onDraw(canvas);
         setWillNotDraw(false);
         if(multi == 1 ){
-            multi = (((getWidth()-30 ) - 13)/100);
+            multi = (getWidth() - 30 - 13) / 100;
             whatsApp_Percentage *=multi;
             other_Percentage *=multi;
         }
@@ -65,10 +66,6 @@ public class Draw_View_Canvas_Rectangle extends View  {
         int mWidth = MeasureSpec.getSize(widthMeasureSpec);
         int mHeight = MeasureSpec.getSize(heightMeasureSpec);
         setMeasuredDimension(mWidth, mHeight);
-    }
-
-    public double getMulti() {
-        return multi;
     }
 
     public void setMulti(double multi) {

@@ -52,7 +52,7 @@
             android:resource="@array/preloaded_fonts" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="ca-app-pub-9530958250183062~9073221261" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -84,7 +84,7 @@
         <service
             android:name=".ForegroundService.Foreground"
             android:enabled="true"
-            tools:ignore="InnerclassSeparator" /> <!-- Sample AdMob App ID: ca-app-pub-9530958250183062~9073221261 -->
+            tools:ignore="InnerclassSeparator" />
         <service
             android:name=".Receive_Boot_Completed.ForegroundServiceBoot"
             tools:ignore="InnerclassSeparator" />

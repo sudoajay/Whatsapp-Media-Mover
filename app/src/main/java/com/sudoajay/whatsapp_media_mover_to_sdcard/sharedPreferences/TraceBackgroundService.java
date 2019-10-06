@@ -17,15 +17,14 @@ import java.util.Date;
 public class TraceBackgroundService {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    private static Context _context;
-
-    // shared pref mode
-    private final int PRIVATE_MODE = 0;
+    private Context _context;
 
 
     @SuppressLint("CommitPrefEdits")
     public TraceBackgroundService(final Context _context) {
         this._context = _context;
+        // shared pref mode
+        int PRIVATE_MODE = 0;
         pref = _context.getSharedPreferences(_context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
         editor = pref.edit();
 

@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -51,6 +50,8 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.Notification_Permi
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TickOnButtonSharedPreference;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -112,8 +113,9 @@ public class After_MainTransferFIle extends AppCompatActivity {
         which_Option_To_Do = getIntent().getStringExtra("move_copy_remove_restore");
         sd_Card_Path_URL = getIntent().getStringExtra("sd_card_path");
         Reference();
-        File get_File_path = Environment.getExternalStorageDirectory();
-        external_Path_Url = get_File_path.getAbsolutePath();
+        String[] destPath = Objects.requireNonNull(getApplicationContext().getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
+
+        external_Path_Url = destPath[0];
 
         // setup and instalization of sharedprefernece
         tickOnButtonSharedPreference = new TickOnButtonSharedPreference(getApplicationContext());
@@ -146,7 +148,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
         });
 
-        interstitialAds = new InterstitialAds(getApplicationContext(), 1);
+        interstitialAds = new InterstitialAds(getApplicationContext());
     }
 
 
@@ -214,7 +216,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     Toast_It("You Supposed To Select Something");
                 else {
                     Save_In_Database();
-                    if (!notification_permission_check.check_Notification_Permission()) {
+                    if (notification_permission_check.check_Notification_Permission()) {
                         notification_permission_check.Custom_AertDialog();
                     } else {
                         Send_Permission_To_Transfer();
@@ -506,7 +508,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     // Activity's overrided method used to perform click events on menu items
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
@@ -550,7 +552,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void Save_In_Database() {
         int no = 0;
-        boolean get[] = new boolean[9];
+        boolean[] get = new boolean[9];
         while (no < 9) {
             get[no] = return_Id(no).getVisibility() == View.VISIBLE;
             no++;
@@ -624,7 +626,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, resultData);
         Uri sd_Card_URL;
-        String sd_Card_Path_URL, string_URI = null;
+        String sd_Card_Path_URL, string_URI;
 
         if (resultCode != Activity.RESULT_OK)
             return;
@@ -635,7 +637,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
         sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, this);
         if (!isSamePath()) {
             string_URI = sd_Card_URL.toString();
-            sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
+            sd_Card_Path_URL = Spilit_The_Path(string_URI, Objects.requireNonNull(sd_Card_Path_URL));
 
             if (!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
                 CustomToast.ToastIt(getApplicationContext(), getResources().getString(R.string.errorMes));
@@ -649,8 +651,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     }
 
     private boolean isSelectSdRootDirectory(String path){
-        if(path.substring(path.length()-3).equals("%3A"))return true;
-        return false;
+        return path.substring(path.length() - 3).equals("%3A");
 
     }
 
@@ -674,8 +675,9 @@ public class After_MainTransferFIle extends AppCompatActivity {
         try {
             sd_Card_documentFile = DocumentFile.fromTreeUri(this, sd_Card_URL);
             while (!Get_Path()) {
+
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
@@ -716,7 +718,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                     multiThreading_task.onProgressUpdate();
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return true;
@@ -744,7 +746,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             }
 
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         return true;
@@ -797,14 +799,19 @@ public class After_MainTransferFIle extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if (which_Option_To_Do.equals("remove"))
-                    CustomToast.ToastIt(getApplicationContext(),"Removing....");
-                 else if (which_Option_To_Do.equals("copy"))
-                    CustomToast.ToastIt(getApplicationContext(),"Copying....");
-                 else if (which_Option_To_Do.equals("move"))
-                    CustomToast.ToastIt(getApplicationContext(),"Moving....");
-                 else {
-                    CustomToast.ToastIt(getApplicationContext(),"Restoring....");
+                switch (which_Option_To_Do) {
+                    case "remove":
+                        CustomToast.ToastIt(getApplicationContext(), "Removing....");
+                        break;
+                    case "copy":
+                        CustomToast.ToastIt(getApplicationContext(), "Copying....");
+                        break;
+                    case "move":
+                        CustomToast.ToastIt(getApplicationContext(), "Moving....");
+                        break;
+                    default:
+                        CustomToast.ToastIt(getApplicationContext(), "Restoring....");
+                        break;
                 }
                 OpenAds();
                 onBackPressed();
@@ -884,17 +891,22 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            if (which_Option_To_Do.equals("remove")) {
-                Notification();
-                transFer_File_Changes();
-                Remove_The_File();
-            } else if (which_Option_To_Do.equals("copy")) {
-                Copy_The_File();
-            } else if (which_Option_To_Do.equals("move")) {
-                Copy_The_File();
-                Remove_The_File();
-            } else {
-                Restore_The_Data();
+            switch (which_Option_To_Do) {
+                case "remove":
+                    Notification();
+                    transFer_File_Changes();
+                    Remove_The_File();
+                    break;
+                case "copy":
+                    Copy_The_File();
+                    break;
+                case "move":
+                    Copy_The_File();
+                    Remove_The_File();
+                    break;
+                default:
+                    Restore_The_Data();
+                    break;
             }
 
             return null;
@@ -905,21 +917,26 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
             if (!checking_Folder) {
                 int exact_Data = 0;
-                int percentage = 00;
+                int percentage;
                 try {
-                    if (which_Option_To_Do.equals("remove")) {
-                        exact_Data = delete_the_fIle.getGet_Data_Count();
-                    } else if (which_Option_To_Do.equals("copy")) {
-                        exact_Data = copy_the_file.getGet_Data_Count();
-                    } else if (which_Option_To_Do.equals("move")) {
-                        exact_Data = copy_the_file.getGet_Data_Count();
-                        if (copy_the_file.isCopy_Done()) {
+                    switch (which_Option_To_Do) {
+                        case "remove":
                             exact_Data = delete_the_fIle.getGet_Data_Count();
-                        }
-                    } else {
-                        exact_Data = restore_the_data.getGet_Data_Count();
+                            break;
+                        case "copy":
+                            exact_Data = copy_the_file.getGet_Data_Count();
+                            break;
+                        case "move":
+                            exact_Data = copy_the_file.getGet_Data_Count();
+                            if (copy_the_file.isCopy_Done()) {
+                                exact_Data = delete_the_fIle.getGet_Data_Count();
+                            }
+                            break;
+                        default:
+                            exact_Data = restore_the_data.getGet_Data_Count();
+                            break;
                     }
-                } catch (Exception f) {
+                } catch (Exception ignored) {
                 }
                 contentView.setTextViewText(R.id.size_Title, exact_Data + "/" + count_Data);
                 contentView.setProgressBar(R.id.progressBar, count_Data, exact_Data, false);
@@ -1060,7 +1077,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
     public int Data_Count(File file) {
         int count = 0;
         if (file.isDirectory())
-            for (File child : file.listFiles())
+            for (File child : Objects.requireNonNull(file.listFiles()))
                 count += Data_Count(child);
             count++;
             return count;
@@ -1172,7 +1189,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
     public void Delete_Particular_Data(String path) {
         File[] files = new File(path).listFiles();
-        for (File data : files) {
+        for (File data : Objects.requireNonNull(files)) {
             if (!data.isDirectory()) {
                 data.delete();
             } else {
@@ -1237,9 +1254,6 @@ public class After_MainTransferFIle extends AppCompatActivity {
         this.storage_Info = storage_Info;
     }
 
-    public void setWhich_Option_To_Do(String which_Option_To_Do) {
-        this.which_Option_To_Do = which_Option_To_Do;
-    }
 
 }
 

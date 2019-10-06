@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -58,7 +60,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+        return Objects.requireNonNull(this._listDataChild.get(this._listDataHeader.get(groupPosition)))
                 .get(childPosititon);
     }
 
@@ -67,6 +69,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -76,6 +79,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert infalInflater != null;
             convertView = infalInflater.inflate(R.layout.activity_my_list_style, null);
         }
         final TextView nameTextView = convertView.findViewById(R.id.nameTextView);
@@ -101,7 +105,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                         find_And_Remove(file_Data.get(childPosition));
                     } else {
                         check_Array.set(childPosition,false);
-                       selected_File.add(file_Data.get(childPosition));
+                        selected_File.add(file_Data.get(childPosition));
 
                     }
                 }
@@ -139,7 +143,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
+        return Objects.requireNonNull(this._listDataChild.get(this._listDataHeader.get(groupPosition)))
                 .size();
     }
 
@@ -158,7 +162,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return groupPosition;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "InflateParams"})
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -183,7 +187,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-    public void find_And_Remove(File file) {
+    private void find_And_Remove(File file) {
         for (int i = selected_File.size() - 1; i >= 0; i--) {
             if (file.equals(selected_File.get(i)))
                 selected_File.remove(i);
@@ -195,49 +199,63 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public void Check_For_Extension(String path,ImageView imageView){
+    private void Check_For_Extension(String path, ImageView imageView) {
         int i = path.lastIndexOf('.');
         String extension="";
         if (i > 0) {
             extension = path.substring(i+1);
         }
-        if(extension.equals("jpg") || extension.equals("mp4") || extension.equals("jpeg")){
-            // Images || Videos
-            Glide.with(_context)
-                    .asBitmap()
-                    .load(Uri.fromFile(new File(path)))
-                    .into(imageView);
-        }else if(extension.equals("mp3") ||extension.equals("m4a") || extension.equals("amr") || extension.equals("aac")){
-            // Audiio
-            getAudioAlbumImageContentUri(imageView,path);
+        switch (extension) {
+            case "jpg":
+            case "mp4":
+            case "jpeg":
+                // Images || Videos
+                Glide.with(_context)
+                        .asBitmap()
+                        .load(Uri.fromFile(new File(path)))
+                        .into(imageView);
+                break;
+            case "mp3":
+            case "m4a":
+            case "amr":
+            case "aac":
+                // Audiio
+                getAudioAlbumImageContentUri(imageView, path);
 
-        }else if(extension.equals("pptx") ||extension.equals("pdf")
-                ||extension.equals("docx") || extension.equals("txt") )
-            imageView.setImageResource(R.drawable.document_icon);
-
-        else if(extension.equals("opus")){
-            imageView.setImageResource(R.drawable.voice_icon);
-        }else{
-            imageView.setImageResource(R.drawable.file_icon);
+                break;
+            case "pptx":
+            case "pdf":
+            case "docx":
+            case "txt":
+                imageView.setImageResource(R.drawable.document_icon);
+                break;
+            case "opus":
+                imageView.setImageResource(R.drawable.voice_icon);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.file_icon);
+                break;
         }
 
     }
-    public void getAudioAlbumImageContentUri(ImageView imageView ,String filePath) {
+
+    private void getAudioAlbumImageContentUri(ImageView imageView, String filePath) {
         try {
-            Uri audioUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        String selection = MediaStore.Audio.Media.DATA + "=? ";
-        String[] projection = new String[] { MediaStore.Audio.Media._ID , MediaStore.Audio.Media.ALBUM_ID};
+            if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                Uri audioUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                String selection = MediaStore.Audio.Media.DATA + "=? ";
+                String[] projection = new String[]{MediaStore.Audio.Media._ID, MediaStore.Audio.Media.ALBUM_ID};
 
-        Cursor cursor = _context.getContentResolver().query(
-                audioUri,
-                projection,
-                selection,
-                new String[] { filePath }, null);
+                Cursor cursor = _context.getContentResolver().query(
+                        audioUri,
+                        projection,
+                        selection,
+                        new String[]{filePath}, null);
 
-        if (cursor != null && cursor.moveToFirst()) {
+                if (cursor != null && cursor.moveToFirst()) {
 
-                long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-                    if(get_Cover(albumId) != null) {
+                    long albumId = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+                    if (get_Cover(albumId) != null) {
                         Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
                         Uri imgUri = ContentUris.withAppendedId(sArtworkUri,
                                 albumId);
@@ -245,18 +263,22 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                         Glide.with(_context)
                                 .load(imgUri)
                                 .into(imageView);
+                    } else {
+                        imageView.setImageResource(R.drawable.audio_icon);
                     }
-                else {
-                    imageView.setImageResource(R.drawable.audio_icon);
+                    cursor.close();
                 }
-            cursor.close();
-            }
-        } catch (Exception e){
+            } else {
+                imageView.setImageResource(R.drawable.audio_icon);
 
             }
+        } catch (Exception e) {
+            imageView.setImageResource(R.drawable.audio_icon);
         }
-    public Bitmap get_Cover(long album_id) {
-        Bitmap artwork = null;
+    }
+
+    private Bitmap get_Cover(long album_id) {
+        Bitmap artwork;
         Bitmap resizedBitmap = null;
         try {
             Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
@@ -285,7 +307,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return resizedBitmap;
     }
 
-    public String Convert_It(long size) {
+    private String Convert_It(long size) {
         if (size > (1024 * 1024 * 1024)) {
             // GB
             return Convert_To_Decimal((float) size / (1024 * 1024 * 1024)) + " GB";
@@ -304,11 +326,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return selected_File;
     }
 
-    public void setSelected_File(List<File> selected_File) {
-        this.selected_File = selected_File;
-    }
 
-    public String Convert_To_Decimal(float value) {
+    private String Convert_To_Decimal(float value) {
         String size = value + "";
         if (value >= 1000) {
             return size.substring(0, 4);

@@ -3,8 +3,6 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +11,15 @@ import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class Custom_Dialog_For_Changes_Options extends DialogFragment {
 
@@ -73,7 +78,7 @@ public class Custom_Dialog_For_Changes_Options extends DialogFragment {
         // Start with the provided view
         View current = v;
         DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         // Travel up the tree until fail, modifying the LayoutParams
@@ -102,12 +107,12 @@ public class Custom_Dialog_For_Changes_Options extends DialogFragment {
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss(){
+    private void Dissmiss(){
 
         this.dismiss();
     }

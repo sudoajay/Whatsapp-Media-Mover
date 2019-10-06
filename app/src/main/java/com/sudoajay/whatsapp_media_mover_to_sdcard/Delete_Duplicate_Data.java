@@ -1,7 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.documentfile.provider.DocumentFile;
@@ -15,17 +14,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class Delete_Duplicate_Data {
+class Delete_Duplicate_Data {
 
     private List<String> list_Header;
     private HashMap<String, List<String>> list_Header_Child, sdCardStore = new HashMap<>();
     private Show_Duplicate_File show_duplicate_file;
-    private String step_Into[], externalPath;
+    private String externalPath;
     private DocumentFile sd_Card_documentFile;
     private String sdCardPath;
     private List<String> sdcard = new ArrayList<>(), pathStore = new ArrayList<>();
 
-    public Delete_Duplicate_Data(List<String> list_Header, HashMap<String, List<String>> list_Header_Child, Show_Duplicate_File show_duplicate_file) {
+    Delete_Duplicate_Data(List<String> list_Header, HashMap<String, List<String>> list_Header_Child,
+                          Show_Duplicate_File show_duplicate_file, final String getExternalPath) {
         this.list_Header = list_Header;
         this.list_Header_Child = list_Header_Child;
         this.show_duplicate_file = show_duplicate_file;
@@ -35,7 +35,7 @@ public class Delete_Duplicate_Data {
         sdCardPath = android_SdCard_Permission.getSd_Card_Path_URL();
         String string_URI = android_SdCard_Permission.getString_URI();
 
-        externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        externalPath = getExternalPath;
 
         if (string_URI != null) {
             sd_Card_documentFile = DocumentFile.fromTreeUri(show_duplicate_file.getApplicationContext(), Uri.parse(string_URI));
@@ -43,16 +43,16 @@ public class Delete_Duplicate_Data {
         Main_Method();
     }
 
-    public void Main_Method() {
+    private void Main_Method() {
         for (int i = 0; i < list_Header.size(); i++) {
-            Seprate_The_Data(list_Header_Child.get(list_Header.get(i)));
+            Seprate_The_Data(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))));
         }
 
         SeprateTheSDCardPath();
         DeleteTheDataFromExternalStorage();
     }
 
-    public void Seprate_The_Data(List<String> list) {
+    private void Seprate_The_Data(List<String> list) {
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).contains(externalPath)) {
                 DeleteTheDataFromInternal_Storage(list.get(i));
@@ -67,7 +67,7 @@ public class Delete_Duplicate_Data {
         for (String path : sdcard) {
             pathStore.clear();
             File file = new File(path);
-            String parentPath = file.getParentFile().toString();
+            String parentPath = Objects.requireNonNull(file.getParentFile()).toString();
             String filePathName = file.getName();
 
             if (sdCardStore.get(parentPath) != null)
@@ -79,13 +79,12 @@ public class Delete_Duplicate_Data {
         }
     }
 
-    public void DeleteTheDataFromInternal_Storage(String path) {
-
+    private void DeleteTheDataFromInternal_Storage(String path) {
         File file = new File(path);
-        boolean wasSuccessful = file.delete();
+        file.delete();
         if (file.exists()) {
             try {
-                wasSuccessful = file.getCanonicalFile().delete();
+                file.getCanonicalFile().delete();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -96,7 +95,7 @@ public class Delete_Duplicate_Data {
 
     }
 
-    public void DeleteTheDataFromExternalStorage() {
+    private void DeleteTheDataFromExternalStorage() {
         try {
             for (String getKey : sdCardStore.keySet()) {
                 DocumentFile sdCardDocument = sd_Card_documentFile;

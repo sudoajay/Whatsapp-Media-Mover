@@ -73,7 +73,7 @@ public class MainTransferFIle extends Fragment {
 
     }
 
-    public void Reference() {
+    private void Reference() {
 
         move_Button = layout.findViewById(R.id.move_Button);
         copy_Button = layout.findViewById(R.id.copy_Button);
@@ -119,7 +119,7 @@ public class MainTransferFIle extends Fragment {
     }
 
 
-    public void checked_For_Not_Get_Error() {
+    private void checked_For_Not_Get_Error() {
         File file = new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path());
         if (!file.exists() || !androidExternalStorage_permission.isExternalStorageWritable()) {
             whats_App_File_Exist_Internal = false;
@@ -153,7 +153,7 @@ public class MainTransferFIle extends Fragment {
 
     //
     @SuppressLint("SetTextI18n")
-    public void Enter_Whats_App_Folder() {
+    private void Enter_Whats_App_Folder() {
 
         if (androidExternalStorage_permission.isExternalStorageWritable())
             file_Size_Text.setText("Data Size - " + storage_info.getWhatsAppInternalMemorySize());
@@ -161,24 +161,24 @@ public class MainTransferFIle extends Fragment {
 
     // Activity's overrided method used to perform click events on menu items
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri sd_Card_URL;
-        String sd_Card_Path_URL, string_URI = null;
+        String sd_Card_Path_URL, string_URI ;
 
         if (resultCode != Activity.RESULT_OK)
             return;
         sd_Card_URL = data.getData();
 
         main_navigation.grantUriPermission(main_navigation.getPackageName(), sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        main_navigation.getContentResolver().takePersistableUriPermission(sd_Card_URL, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        main_navigation.getContentResolver().takePersistableUriPermission(Objects.requireNonNull(sd_Card_URL), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, main_navigation);
 
         string_URI = sd_Card_URL.toString();
-        sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
+        sd_Card_Path_URL = Spilit_The_Path(string_URI, Objects.requireNonNull(sd_Card_Path_URL));
 
         if (!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
             CustomToast.ToastIt(getContext(), getResources().getString(R.string.errorMes));
@@ -190,11 +190,10 @@ public class MainTransferFIle extends Fragment {
     }
 
     private boolean isSelectSdRootDirectory(String path){
-        if(path.substring(path.length()-3).equals("%3A"))return true;
-        return false;
+        return path.substring(path.length() - 3).equals("%3A");
 
     }
-    public String Spilit_The_Path(final String url, final String path) {
+    private String Spilit_The_Path(final String url, final String path) {
         String[] spilt = url.split("%3A");
         String[] getPaths = spilt[0].split("/");
         String[] paths = path.split(getPaths[getPaths.length - 1]);
@@ -202,7 +201,7 @@ public class MainTransferFIle extends Fragment {
     }
 
 
-    public void Toast_It(String Message) {
+    private void Toast_It(String Message) {
         TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(main_navigation.getApplicationContext());
@@ -218,7 +217,7 @@ public class MainTransferFIle extends Fragment {
     }
 
 
-    public boolean isSamePath() {
+    private boolean isSamePath() {
         return androidExternalStorage_permission.getExternal_Path().equals(androidSdCardPermission.getSd_Card_Path_URL());
     }
 

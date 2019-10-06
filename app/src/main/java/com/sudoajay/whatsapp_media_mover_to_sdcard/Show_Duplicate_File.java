@@ -153,7 +153,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
 
-                open_With(new File(list_Header_Child.get(list_Header.get(groupPosition)).get(childPosition)));
+                open_With(new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition)));
                 expandable_duplicate_list_adapter.getChildView(groupPosition, childPosition, false, v, parent);
 
                 return false;
@@ -169,7 +169,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             }
         });
 
-        interstitialAds = new InterstitialAds(getApplicationContext(), 2);
+        interstitialAds = new InterstitialAds(getApplicationContext());
 
     }
 
@@ -207,7 +207,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
                     refresh_Image_View.animate().rotationBy(360f).setDuration(1000);
                 break;
             case R.id.delete_Duplicate_Button:
-                if (!notification_permission_check.check_Notification_Permission()) {
+                if (notification_permission_check.check_Notification_Permission()) {
                     notification_permission_check.Custom_AertDialog();
                 } else {
                     Call_Custom_Dailog("   Are You Sure To Delete ?");
@@ -482,7 +482,10 @@ public class Show_Duplicate_File extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             Notification();
-            new Delete_Duplicate_Data(list_Header, list_Header_Child, Show_Duplicate_File.this);
+            String[] destPath = Objects.requireNonNull(getApplicationContext().getExternalCacheDir())
+                            .getAbsolutePath().split("/Android/data/com");
+
+            new Delete_Duplicate_Data(list_Header, list_Header_Child, Show_Duplicate_File.this,destPath[0]);
             return null;
         }
     }

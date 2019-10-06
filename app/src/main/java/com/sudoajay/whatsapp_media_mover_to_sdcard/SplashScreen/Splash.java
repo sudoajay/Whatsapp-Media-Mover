@@ -17,7 +17,6 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 
 public class Splash extends AppCompatActivity {
 
-    private final int splashTimeOut =1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +28,14 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         changeStatusBarColor();
 
+        int splashTimeOut = 1500;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), Main_Navigation.class);
                 startActivity(intent);
             }
-        },splashTimeOut);
+        }, splashTimeOut);
 
 
     }

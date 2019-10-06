@@ -5,38 +5,38 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by sudoajay on 4/15/18.
  */
 
-public class Sd_Card_dialog extends DialogFragment
-{
+public class Sd_Card_dialog extends DialogFragment {
 
     private AndroidSdCardPermission android_sdCard_permission;
-    public Sd_Card_dialog(){
+
+    public Sd_Card_dialog() {
 
     }
 
     @SuppressLint("ValidFragment")
-    public Sd_Card_dialog(AndroidSdCardPermission android_sdCard_permission){
+    public Sd_Card_dialog(AndroidSdCardPermission android_sdCard_permission) {
         this.android_sdCard_permission = android_sdCard_permission;
     }
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         try {
             View rootview = inflater.inflate(R.layout.activity_custom_dialog_sd_select, container, false);
-
-            ImageView imageView = rootview.findViewById(R.id.step_Image_View);
 
             Button continue_Button = rootview.findViewById(R.id.ok_Button);
             Button learn_More_button = rootview.findViewById(R.id.see_More_button);
@@ -45,7 +45,7 @@ public class Sd_Card_dialog extends DialogFragment
                 @Override
                 public void onClick(View v) {
 
-                        android_sdCard_permission.Storage_Access_FrameWork();
+                    android_sdCard_permission.Storage_Access_FrameWork();
 
                     dismiss();
 
@@ -60,7 +60,7 @@ public class Sd_Card_dialog extends DialogFragment
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         startActivity(i);
-                    }catch (Exception ignored){
+                    } catch (Exception ignored) {
 
                     }
                 }
@@ -68,13 +68,14 @@ public class Sd_Card_dialog extends DialogFragment
 
             setCancelable(false);
             return rootview;
-        }catch(Exception e){
+        } catch (Exception e) {
             return null;
 
         }
 
 
     }
+
     public void onStart() {
         // This MUST be called first! Otherwise the view tweaking will not be present in the displayed Dialog (most likely overriden)
         super.onStart();
@@ -82,19 +83,10 @@ public class Sd_Card_dialog extends DialogFragment
     }
 
 
-    public void show_Tab(){
-
-
-
-    }
-
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss(){
-
-        this.dismiss();
-    }}
+}

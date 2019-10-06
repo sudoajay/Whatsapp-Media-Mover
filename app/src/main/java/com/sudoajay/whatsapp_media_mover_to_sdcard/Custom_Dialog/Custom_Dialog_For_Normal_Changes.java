@@ -3,8 +3,6 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +11,16 @@ import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
+
 import org.angmarch.views.NiceSpinner;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -138,12 +143,12 @@ public class Custom_Dialog_For_Normal_Changes extends DialogFragment implements 
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss(){
+    private void Dissmiss(){
         after_mainTransferFIle.Call_Custom_Dailog_Option_Changes();
         this.dismiss();
     }

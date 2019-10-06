@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by sudoajay on 2/22/18.
@@ -46,46 +47,46 @@ public class Delete_The_File {
             Remove_DataBase_Other_Files(new File(external_Path_URL+ whatsapp_Path+"Databases"));
         }
         if(audio == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Audio/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Audio/");
         }
         if(video == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Video/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Video/");
         }
         if(document == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Documents/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Documents/");
         }
         if(images == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Images/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Images/");
         }
         if(gif == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Animated Gifs/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Animated Gifs/");
         }
         if(voice == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Voice Notes/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Voice Notes/");
         }
         if(profile == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+  "/WallPaper/");
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Profile Photos/");
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ "/.Statuses/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+  "/WallPaper/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Profile Photos/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ "/.Statuses/");
         }
         if(sticker == View.VISIBLE){
-            Delete_The_File(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Stickers/");
+            DeleteFile(external_Path_URL+whats_App_Media_Path+ whatsapp_Path.substring(0,whatsapp_Path.length()-1)+" Stickers/");
         }
 
 
     }
-    public void Delete_The_File(String path){
+    private void DeleteFile(String path){
         File file = new File(path);
         deleteRecursive(file);
         }
-    public void deleteRecursive(File fileOrDirectory) {
+    private void deleteRecursive(File fileOrDirectory) {
         if (fileOrDirectory.isDirectory())
-            for (File child : fileOrDirectory.listFiles())
+            for (File child : Objects.requireNonNull(fileOrDirectory.listFiles()))
                 deleteRecursive(child);
 
         if(!Selected_The_File(fileOrDirectory) && Convert_The_LastMoified(fileOrDirectory.lastModified())) {
             get_Data_Count++;
-            fileOrDirectory.delete();
+             fileOrDirectory.delete();
         }
         if(!process.equals("Background"))
         after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
@@ -94,7 +95,7 @@ public class Delete_The_File {
     public int getGet_Data_Count() {
         return get_Data_Count;
     }
-    public boolean Selected_The_File(File file){
+    private boolean Selected_The_File(File file){
         for (File data: only_Selected_File)
             if(file.equals(data))
                 return true;
@@ -103,19 +104,19 @@ public class Delete_The_File {
 
     }
 
-    public void Remove_DataBase_Other_Files(File database_File){
+    private void Remove_DataBase_Other_Files(File database_File){
         try{
-            List<File> files = new ArrayList<>(Arrays.asList(database_File.listFiles()));
+            List<File> files = new ArrayList<>(Arrays.asList(Objects.requireNonNull(database_File.listFiles())));
             Convert_Into_Last_Modified(files);
             for (int i = files.size()-1 ; i >=1;i--){
                 get_Data_Count++;
                 new File(files.get(i).getAbsolutePath()).delete();
             }
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }
-    public void Convert_Into_Last_Modified(List<File> files){
+    private void Convert_Into_Last_Modified(List<File> files){
         File temp_File;
         for (int i = 0 ; i < files.size();i++){
             for (int j = i ; j < files.size()-1;j++){
@@ -129,7 +130,7 @@ public class Delete_The_File {
             }
         }
     }
-    public boolean Convert_The_LastMoified(long last_Modified){
+    private boolean Convert_The_LastMoified(long last_Modified){
 
         int days =0;
 

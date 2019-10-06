@@ -3,10 +3,6 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.viewpager.widget.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,17 +10,24 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Audio_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.CustomAdapter;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Audio_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Document_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Gif_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Image_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Profile_Fragment;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Sticker_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Video_Fragment;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Fragments.Voice_Fragment;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -86,7 +89,7 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
             }
         });
 
-        adapter = new CustomAdapter(getChildFragmentManager(), after_main_transferFIle);
+        adapter = new CustomAdapter(getChildFragmentManager());
         show_Tab();
 
         this.setCancelable(true);
@@ -104,7 +107,7 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
         forceWrapContent(this.getView());
     }
 
-    protected void forceWrapContent(View v) {
+    private void forceWrapContent(View v) {
         // Start with the provided view
         View current = v;
         DisplayMetrics  dm = new DisplayMetrics();
@@ -135,7 +138,8 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
         // Request a layout to be re-done
         current.requestLayout();
     }
-    public void show_Tab(){
+
+    private void show_Tab() {
 
         if(tick_Audio_ImageView)
             adapter.addFragment("Audio",audio_fragment.createInstance(after_main_transferFIle,which_Option_To_Do,
@@ -171,7 +175,7 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         after_main_transferFIle.getOnly_Selected_File().clear();
 
@@ -194,8 +198,4 @@ public class Tabbed_Custom_Dialog_For_Deep extends DialogFragment {
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss(){
-
-        this.dismiss();
-    }
 }

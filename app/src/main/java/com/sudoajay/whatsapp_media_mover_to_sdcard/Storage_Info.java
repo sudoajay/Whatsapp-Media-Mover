@@ -7,6 +7,7 @@ import android.os.StatFs;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Storage_Info {
 
@@ -32,7 +33,7 @@ public class Storage_Info {
     }
 
 
-    public  boolean externalMemoryAvailable() {
+    private boolean externalMemoryAvailable() {
 
         return new File(sd_Card_Path_URL).exists();
     }
@@ -124,7 +125,7 @@ public class Storage_Info {
 
     }
 
-    public  String Convert_To_Decimal(float value) {
+    private String Convert_To_Decimal(float value) {
         String size = value + "";
         if (value >= 1000) {
             return size.substring(0, 4);
@@ -150,7 +151,7 @@ public class Storage_Info {
                     return f.length();
                 } else if (f.isDirectory()) {
                     File[] contents = f.listFiles();
-                    for (int i = 0; i < contents.length; i++) {
+                    for (int i = 0; i < Objects.requireNonNull(contents).length; i++) {
                         if (contents[i].exists()) {
                             if (contents[i].isFile()) {
                                 ret += contents[i].length();
@@ -159,8 +160,6 @@ public class Storage_Info {
                         }
                     }
                 }
-            } else {
-                ret = 0;
             }
         }catch (Exception ignored){
         }

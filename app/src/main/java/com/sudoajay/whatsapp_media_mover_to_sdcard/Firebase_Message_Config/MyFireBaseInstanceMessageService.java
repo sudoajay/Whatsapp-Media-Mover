@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+
 import androidx.core.app.NotificationCompat;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -21,7 +25,7 @@ public class MyFireBaseInstanceMessageService extends FirebaseMessagingService {
     private NotificationManager notificationManager;
 
     @Override
-    public void onNewToken(String s) {
+    public void onNewToken(@NotNull String s) {
         super.onNewToken(s);
 
     }
@@ -39,10 +43,7 @@ public class MyFireBaseInstanceMessageService extends FirebaseMessagingService {
         }
     }
 
-    /**
-     * Dispay the notification
-     * @param body
-     */
+
     private void sendNotification(String body,String url) {
 
         String channel_id = "Information";

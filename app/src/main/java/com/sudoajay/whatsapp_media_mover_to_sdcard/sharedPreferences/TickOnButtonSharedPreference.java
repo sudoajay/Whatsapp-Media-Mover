@@ -13,7 +13,7 @@ public class TickOnButtonSharedPreference {
     // globally variable
     private SharedPreferences.Editor editor;
     private Context context;
-    private boolean tickArray[]=new boolean[9];
+    private boolean[] tickArray = new boolean[9];
 
     // constructor
     @SuppressLint("CommitPrefEdits")

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +13,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import org.angmarch.views.NiceSpinner;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -161,33 +163,32 @@ public class Custom_Dialog_For_Choose_Your_Whatsapp_Options extends DialogFragme
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(@NotNull DialogInterface dialog) {
 
         super.onDismiss(dialog);
     }
 
-    public void Dissmiss(){
+    private void Dissmiss(){
 
         this.dismiss();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        int position1 = position;
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    public int setType_Selection(){
+    private int setType_Selection(){
         if(whatsapp_Path.equals(whats_App_Path.get(0))) return 0;
         else if(whatsapp_Path.equals(whats_App_Path.get(1))) return 1;
         else{
             return 2;
         }
     }
-    public void Restart_The_Application(){
+    private void Restart_The_Application(){
         Intent i = main_navigation.getBaseContext().getPackageManager()
                 .getLaunchIntentForPackage(main_navigation.getBaseContext().getPackageName() );
         assert i != null;

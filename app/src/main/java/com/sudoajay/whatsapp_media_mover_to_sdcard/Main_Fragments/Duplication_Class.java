@@ -30,6 +30,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Storage_Info;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
 import java.io.File;
+import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
@@ -40,7 +41,6 @@ public class Duplication_Class extends Fragment {
     private AndroidExternalStoragePermission androidExternalStorage_permission;
     private AndroidSdCardPermission android_sdCard_permission;
     private Button file_Size_text;
-    private String string_URI;
     private long size;
     private View layout,layouts;
     private Toast toast;
@@ -93,7 +93,8 @@ public class Duplication_Class extends Fragment {
         return  layout;
 
     }
-    public void references(){
+
+    private void references() {
 
         internal_Check = layout.findViewById(R.id.internal_Check);
         external_Check = layout.findViewById(R.id.external_Check);
@@ -122,7 +123,7 @@ public class Duplication_Class extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri sd_Card_URL;
-        String sd_Card_Path_URL, string_URI = null;
+        String sd_Card_Path_URL, string_URI;
 
         if (resultCode != Activity.RESULT_OK)
             return;
@@ -133,7 +134,7 @@ public class Duplication_Class extends Fragment {
         sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, main_navigation);
 
         string_URI = sd_Card_URL.toString();
-        sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
+        sd_Card_Path_URL = Spilit_The_Path(string_URI, Objects.requireNonNull(sd_Card_Path_URL));
 
         if (!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
             CustomToast.ToastIt(getContext(), getResources().getString(R.string.errorMes));
@@ -145,11 +146,10 @@ public class Duplication_Class extends Fragment {
     }
 
     private boolean isSelectSdRootDirectory(String path) {
-        if (path.substring(path.length() - 3).equals("%3A")) return true;
-        return false;
+        return path.substring(path.length() - 3).equals("%3A");
     }
 
-    public String Spilit_The_Path(final String url, final String path) {
+    private String Spilit_The_Path(final String url, final String path) {
         String[] spilt = url.split("%3A");
         String[] getPaths = spilt[0].split("/");
         String[] paths = path.split(getPaths[getPaths.length - 1]);
@@ -168,7 +168,7 @@ public class Duplication_Class extends Fragment {
 
     }
     @SuppressLint("SetTextI18n")
-    public void Show_Size(){
+    private void Show_Size() {
         size=0;
         if(internal_Check.getVisibility() == View.VISIBLE && external_Check.getVisibility() == View.VISIBLE) {
             size +=storage_info.getFileSizeInBytes(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path()+"/");
@@ -204,12 +204,14 @@ public class Duplication_Class extends Fragment {
             alertDialog.show();
             super.onPreExecute();
         }
+
+        @SuppressLint("WrongThread")
         @Override
         protected String doInBackground(String... strings) {
-                duplication_data.Duplication(getContext(),new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"+""),
-                        new File(android_sdCard_permission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
-                        internal_Check.getVisibility(), external_Check.getVisibility());
-    return null;
+            duplication_data.Duplication(getContext(),new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"+""),
+                    new File(android_sdCard_permission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
+                    internal_Check.getVisibility(), external_Check.getVisibility());
+            return null;
         }
         @Override
         protected void onProgressUpdate(String... values) {
@@ -229,7 +231,8 @@ public class Duplication_Class extends Fragment {
         }
 
     }
-    public void Toast_It(String Message) {
+
+    private void Toast_It(String Message) {
         TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(main_navigation.getApplicationContext());

@@ -31,7 +31,7 @@ public class Make_Changes  {
         }
     }
 
-    public void Get_All_File(String path){
+    private void Get_All_File(String path){
 
         try {
             Get_FIle_Recursive(new File(path));
@@ -47,7 +47,7 @@ public class Make_Changes  {
         }
 
     }
-    public void Get_FIle_Recursive(File fileOrDirectory) {
+    private void Get_FIle_Recursive(File fileOrDirectory) {
         try {
             for (final File fileEntry : Objects.requireNonNull(fileOrDirectory.listFiles())) {
                 if (fileEntry.isDirectory()) {
@@ -62,7 +62,7 @@ public class Make_Changes  {
     }
 
 
-    public void Find_Last_Modified(){
+    private void Find_Last_Modified(){
                     long replace;
                     File rep;
 
@@ -87,7 +87,7 @@ public class Make_Changes  {
     }
 
 
-    public void Check_For_Commom_Date(){
+    private void Check_For_Commom_Date(){
         int  count = 1;
         for (int i = 0 ; i <save.size() ; i++) {
             for (int j = i; j < save.size() - 1; j++) {

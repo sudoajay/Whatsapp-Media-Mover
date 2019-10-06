@@ -20,7 +20,6 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTas
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Background_Task.WorkMangerTaskC;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Receive_Boot_Completed.ForegroundServiceBoot;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
 import java.text.DateFormat;
@@ -165,7 +164,7 @@ public class Foreground extends Service {
             );
 
             NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(serviceChannel);
+            Objects.requireNonNull(manager).createNotificationChannel(serviceChannel);
         }
     }
 
@@ -179,11 +178,6 @@ public class Foreground extends Service {
         super.onTaskRemoved(rootIntent);
     }
 
-    private void startForeground() {
-        Intent serviceIntent = new Intent(getApplicationContext(), ForegroundServiceBoot.class);
-        serviceIntent.setAction("RebootReceiver");
-        getApplication().startService(serviceIntent);
-    }
 
     @Nullable
     @Override
@@ -203,7 +197,7 @@ public class Foreground extends Service {
 
             Date curDate = format.parse(date);
             if (todayDate.after(curDate)) {
-                if (!format.format(todayDate).equals(format.format(curDate))) {
+                if (!format.format(todayDate).equals(format.format(Objects.requireNonNull(curDate)))) {
                     if (type == 1) {
                         traceBackgroundService.setTaskA();
                     } else if (type == 2) {
@@ -215,9 +209,7 @@ public class Foreground extends Service {
                     }
                 }
             }
-            if (format.format(todayDate).equals(format.format(curDate)))
-                return true;
-            return false;
+            return format.format(todayDate).equals(format.format(Objects.requireNonNull(curDate)));
         } catch (ParseException e) {
             return false;
         }

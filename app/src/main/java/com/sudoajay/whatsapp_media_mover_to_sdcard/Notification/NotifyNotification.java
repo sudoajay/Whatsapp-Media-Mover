@@ -7,14 +7,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
+import android.view.View;
+
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import android.view.View;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
@@ -25,6 +24,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.SdCardPathS
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Helper class for showing and canceling alert
@@ -56,7 +56,6 @@ public class NotifyNotification {
      * <a href="https://developer.android.com/design/patterns/notifications.html">
      * Notification design guidelines</a> when doing so.
      *
-     * @see #cancel(Context)
      */
 
     // Constructor
@@ -67,8 +66,8 @@ public class NotifyNotification {
     public void notify(final String notification_Hint) {
 
         // local variable
-        String text = "", channel_id;
-        final Resources res = context.getResources();
+        String text, channel_id;
+
         Intent intent;
 
         // Grab The Size From Database
@@ -168,26 +167,15 @@ public class NotifyNotification {
 
         // check if there ia data with empty
         // more and view button classification
-        notify(context, builder.build());
+        notify(builder.build());
     }
 
     @TargetApi(Build.VERSION_CODES.ECLAIR)
-    private void notify(final Context context, final Notification notification) {
+    private void notify(final Notification notification) {
 
         notificationManager.notify(NOTIFICATION_TAG, 0, notification);
     }
 
-
-    /**
-     * Cancels any notifications of this type previously shown using
-     * {@link #notify(String)}.
-     */
-    @TargetApi(Build.VERSION_CODES.ECLAIR)
-    private static void cancel(final Context context) {
-        final NotificationManager nm = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        nm.cancel(NOTIFICATION_TAG, 0);
-    }
 
     private void GrabTheSize(final String hint) {
         // local size
@@ -207,7 +195,9 @@ public class NotifyNotification {
                 SdCardPathSharedPreference sdCardPathSharedPreference = new SdCardPathSharedPreference(context);
                 sdCardPath = sdCardPathSharedPreference.getSdCardPath();
                 // get the external sd card path
-                externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                String[] destPath = Objects.requireNonNull(context.getExternalCacheDir()).getAbsolutePath().split("/Android/data/com");
+
+                externalPath = destPath[0];
 
                 Storage_Info storage_info = new Storage_Info(context);
 

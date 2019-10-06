@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +14,12 @@ import java.util.List;
  */
 
 public class CustomAdapter extends FragmentPagerAdapter {
-    List<Fragment> mFragmentCollection = new ArrayList<>();
-    List<String> mTitleCollection = new ArrayList<>();
+    private List<Fragment> mFragmentCollection = new ArrayList<>();
+    private List<String> mTitleCollection = new ArrayList<>();
 
-    public CustomAdapter(FragmentManager fm,After_MainTransferFIle after_main_transferFIle) {
-        super(fm);
-        After_MainTransferFIle after_main_transferFIle1 = after_main_transferFIle;
+    public CustomAdapter(FragmentManager fm) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
     }
 
     public void addFragment(String title, Fragment fragment)
@@ -32,6 +34,7 @@ public class CustomAdapter extends FragmentPagerAdapter {
         return mTitleCollection.get(position);
     }
 
+    @NotNull
     @Override
     public Fragment getItem(int position) {
         return mFragmentCollection.get(position);

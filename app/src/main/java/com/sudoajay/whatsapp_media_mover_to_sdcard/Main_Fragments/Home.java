@@ -7,13 +7,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.fragment.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Draw_View_Canvas_Rectangle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
@@ -26,6 +27,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
 import java.io.File;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 
 /**
@@ -40,7 +42,6 @@ public class Home extends Fragment {
     private TextView internal_Storage_Available, internal_Storage_Total, internal_Storage_WhatsApp_Size, internal_Storage_Other_Size, external_Storage_Available, external_Storage_Total,
             external_Storage_WhatsApp_Size, external_Storage_Other_Size;
     private Draw_View_Canvas_Rectangle external_Draw_Bar, internal_Draw_Bar;
-    private String string_URI;
     private AndroidExternalStoragePermission androidExternalStoragepermission;
     private AndroidSdCardPermission android_sdCard_permission;
     public Home() {
@@ -73,7 +74,7 @@ public class Home extends Fragment {
         return layout;
     }
 
-    public void Reference() {
+    private void Reference() {
         internal_Storage_Available = layout.findViewById(R.id.internal_Storage_Available);
         internal_Storage_Total = layout.findViewById(R.id.internal_Storage_Total);
         internal_Storage_WhatsApp_Size = layout.findViewById(R.id.internal_Storage_WhatsApp_Size);
@@ -106,7 +107,7 @@ public class Home extends Fragment {
 
     }
 
-    public void Toast_It(String Message) {
+    private void Toast_It(String Message) {
         TextView toast_TextView = layouts.findViewById(R.id.text);
         if (toast == null || toast.getView().getWindowVisibility() != View.VISIBLE) {
             toast = new Toast(main_navigation.getApplicationContext());
@@ -123,7 +124,7 @@ public class Home extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Uri sd_Card_URL;
-        String sd_Card_Path_URL, string_URI = null;
+        String sd_Card_Path_URL, string_URI;
 
         if (resultCode != Activity.RESULT_OK)
             return;
@@ -134,7 +135,7 @@ public class Home extends Fragment {
         sd_Card_Path_URL = SdCardPath.getFullPathFromTreeUri(sd_Card_URL, main_navigation);
 
         string_URI = sd_Card_URL.toString();
-        sd_Card_Path_URL = Spilit_The_Path(string_URI, sd_Card_Path_URL);
+        sd_Card_Path_URL = Spilit_The_Path(string_URI, Objects.requireNonNull(sd_Card_Path_URL));
 
         if (!isSelectSdRootDirectory(sd_Card_URL.toString()) || !new File(sd_Card_Path_URL).exists()) {
             CustomToast.ToastIt(getContext(), getResources().getString(R.string.errorMes));
@@ -146,23 +147,22 @@ public class Home extends Fragment {
     }
 
     private boolean isSelectSdRootDirectory(String path) {
-        if (path.substring(path.length() - 3).equals("%3A")) return true;
-        return false;
+        return path.substring(path.length() - 3).equals("%3A");
     }
 
 
-    public String Spilit_The_Path(final String url, final String path) {
+    private String Spilit_The_Path(final String url, final String path) {
         String[] spilt = url.split("%3A");
         String[] getPaths = spilt[0].split("/");
         String[] paths = path.split(getPaths[getPaths.length - 1]);
         return paths[0] + getPaths[getPaths.length - 1];
     }
 
-    public boolean isSamePath(){
+    private boolean isSamePath() {
         return androidExternalStoragepermission.getExternal_Path().equals(android_sdCard_permission.getSd_Card_Path_URL());
     }
 
-    public void Find_External_Info(){
+    private void Find_External_Info() {
         if(androidExternalStoragepermission.isExternalStorageWritable()){
 
             internal_Storage_WhatsApp_Size.setText(storage_info.getWhatsAppInternalMemorySize());
@@ -171,13 +171,15 @@ public class Home extends Fragment {
         }
 
     }
-    public void Find_SDCard_Info(){
+
+    private void Find_SDCard_Info() {
         if(!sd_card_permission()) {
             external_Storage_WhatsApp_Size.setText(storage_info.getWhatsAppExternalMemorySize());
             external_Storage_Other_Size.setText(storage_info.getOtherExternalMemorySize());
         }
     }
-    public void Find_The_Actual_Percentage_of_Size(){
+
+    private void Find_The_Actual_Percentage_of_Size() {
         internal_WhatsApp_Percentage = (storage_info.getInternal_WhatsApp_Size()*100);
         internal_WhatsApp_Percentage =  convert(internal_WhatsApp_Percentage/storage_info.getInternal_Total_Size());
 
@@ -193,7 +195,8 @@ public class Home extends Fragment {
             external_Other_Percentage = convert(external_Other_Percentage / storage_info.getExternal_Total_Size());
         }
     }
-    public double convert(double angle) {
+
+    private double convert(double angle) {
         double error= 00.0;
         try {
             DecimalFormat df = new DecimalFormat("#.00");
@@ -245,7 +248,7 @@ public class Home extends Fragment {
         },1000);
     }
     @SuppressLint("SetTextI18n")
-    public void Call_After_Get_Sd_Card_Selected(){
+    private void Call_After_Get_Sd_Card_Selected() {
         storage_info = new Storage_Info(android_sdCard_permission.getSd_Card_Path_URL(),main_navigation);
 
         internal_Storage_Available.setText("Available : "+storage_info.getAvailableInternalMemorySize());

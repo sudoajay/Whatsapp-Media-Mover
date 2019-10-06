@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class WorkMangerTaskManager extends Worker {
@@ -56,41 +57,35 @@ public class WorkMangerTaskManager extends Worker {
 
 
         // Check for Date A Task
-        Date date = null;
         try {
+            Date date;
+
             date = dateFormat.parse(traceBackgroundService.getTaskA());
 
-            if (dateFormat.format(todayDate).equals(dateFormat.format(date)) || date.before(todayDate)) {
+
+            if (dateFormat.format(todayDate).equals(dateFormat.format(Objects.requireNonNull(date))) || date.before(todayDate)) {
                 list.add(everyDayWork);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
-        // Check for Date B Task
-        try {
             date = dateFormat.parse(traceBackgroundService.getTaskB());
 
-            if (dateFormat.format(todayDate).equals(dateFormat.format(date)) || date.before(todayDate)) {
+            if (dateFormat.format(todayDate).equals(dateFormat.format(Objects.requireNonNull(date))) || date.before(todayDate)) {
                 list.add(onceAWeekWork);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
-        // Check for Date C Task
-        try {
+            // Check for Date C Task
+
             date = dateFormat.parse(traceBackgroundService.getTaskC());
 
-            if (dateFormat.format(todayDate).equals(dateFormat.format(date)) || date.before(todayDate)) {
+            if (dateFormat.format(todayDate).equals(dateFormat.format(Objects.requireNonNull(date))) || date.before(todayDate)) {
                 list.add(backgroundTask);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         WorkManager.getInstance(getApplicationContext())
                 .beginWith(list)
                 .enqueue();

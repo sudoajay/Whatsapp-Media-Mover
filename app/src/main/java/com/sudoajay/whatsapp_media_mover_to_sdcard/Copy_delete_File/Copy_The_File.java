@@ -2,9 +2,10 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Copy_delete_File;
 
 import android.content.Context;
 import android.provider.DocumentsContract;
-import androidx.documentfile.provider.DocumentFile;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import com.sudoajay.whatsapp_media_mover_to_sdcard.After_MainTransferFIle;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
@@ -33,11 +34,12 @@ public class Copy_The_File {
     private After_MainTransferFIle after_main_transferFIle;
     private int get_Data_Count,normal_Changes;
     private boolean copy_Done;
-    private boolean stop;
     private List<File> only_Selected_File ;
     private String whatsapp_Path,process;
     private Context context;
     private static final int BUFFER = 2048;
+    private boolean stop;
+
 
     public Copy_The_File(String external_Path_Url, String whats_App_Media_Path, DocumentFile sd_Card_documentFile,
                          After_MainTransferFIle after_main_transferFIle, List<File> only_Selected_File , int normal_Changes,String process, Context context){
@@ -91,7 +93,8 @@ public class Copy_The_File {
 
         copy_Done = true;
     }
-    public void Copy_Folder(int folder_No){
+
+    private void Copy_Folder(int folder_No) {
         try{
             File folder_File;
             DocumentFile exact_Path;
@@ -107,6 +110,7 @@ public class Copy_The_File {
                 Remove_DataBase_Other_Files(folder_File);
                 Delete_Database_File(exact_Path);
                 File[] file = folder_File.listFiles();
+                assert file != null;
                 copyDocument(context, file[0], exact_Path);
             }
 
@@ -118,25 +122,30 @@ public class Copy_The_File {
                 whatsapp_Path.substring(1,whatsapp_Path.length()-1)));
         return Objects.requireNonNull(whatsApp_dir).findFile(check_For_Duplicate(whatsApp_dir ,"Media"));
     }
-    public DocumentFile Return_Absolute_Path(String folder_Name){
+
+    private DocumentFile Return_Absolute_Path(String folder_Name) {
         return  Objects.requireNonNull(media_dir).findFile(check_For_Duplicate(media_dir ,folder_Name));
     }
-    public DocumentFile Return_Database_Path(String folder_Name){
+
+    private DocumentFile Return_Database_Path(String folder_Name) {
         DocumentFile whatsApp_dir =sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile ,
                 whatsapp_Path.substring(1,whatsapp_Path.length()-1)));
         assert whatsApp_dir != null;
         return  whatsApp_dir.findFile(check_For_Duplicate(whatsApp_dir ,folder_Name));
     }
-    public void Delete_Database_File(DocumentFile documentFile){
+
+    private void Delete_Database_File(DocumentFile documentFile) {
         DocumentFile[] documentFile1 = documentFile.listFiles();
         for(DocumentFile f : documentFile1) {
             Objects.requireNonNull(documentFile.findFile(Objects.requireNonNull(f.getName()))).delete();
         }
     }
-    public void Get_List(DocumentFile exact_Path,File folder_File){
+
+    private void Get_List(DocumentFile exact_Path, File folder_File) {
         try{
             if(folder_File.exists() ) {
                 File[] files = folder_File.listFiles();
+                assert files != null;
                 for (File file : files) {
                     if (!file.isDirectory()) {
                         if (!Selected_The_File(file) &&
@@ -149,11 +158,11 @@ public class Copy_The_File {
 
                 }
             }
-        }catch (Exception e){
+        } catch (Exception ignored) {
         }
     }
 
-    public String check_For_Duplicate(DocumentFile file , String name){
+    private String check_For_Duplicate(DocumentFile file, String name) {
         DocumentFile[] Files = file.listFiles();
         for(DocumentFile files :Files){
             if(Objects.requireNonNull(files.getName()).equalsIgnoreCase(name)){
@@ -163,7 +172,7 @@ public class Copy_The_File {
         return name;
     }
 
-    public boolean isDuplicate(DocumentFile file, String name) {
+    private boolean isDuplicate(DocumentFile file, String name) {
         DocumentFile[] Files = file.listFiles();
         for (DocumentFile files : Files) {
             if (Objects.requireNonNull(files.getName()).equalsIgnoreCase(name)) {
@@ -172,7 +181,8 @@ public class Copy_The_File {
         }
         return false;
     }
-    public String Return_Path(int no){
+
+    private String Return_Path(int no) {
         switch (no){
             case 1: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Audio";
             case 2: return whatsapp_Path.substring(1,whatsapp_Path.length()-1)+" Video";
@@ -188,7 +198,7 @@ public class Copy_The_File {
         }
     }
 
-    public boolean copyDocument(Context context, File file, DocumentFile dest) throws IOException {
+    private void copyDocument(Context context, File file, DocumentFile dest) throws IOException {
 
         if (file.exists() && !file.isDirectory() && !isDuplicate(dest, file.getName())) {
 
@@ -209,7 +219,7 @@ public class Copy_The_File {
                 }
 
                 if (destFile == null) {
-                    return false;
+                    return;
                 }
 
                 bos = new BufferedOutputStream(getOutputStream(context, destFile));
@@ -218,7 +228,7 @@ public class Copy_The_File {
                     bos.write(data, 0, read);
                 }
 
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             } finally {
                 //flush and close
                 assert bos != null;
@@ -230,14 +240,13 @@ public class Copy_The_File {
         get_Data_Count++;
         if (!process.equals("Background"))
             after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
-        return true;
     }
 
-    public static OutputStream getOutputStream(Context context, DocumentFile documentFile) throws FileNotFoundException {
+    private static OutputStream getOutputStream(Context context, DocumentFile documentFile) throws FileNotFoundException {
         return context.getContentResolver().openOutputStream(documentFile.getUri());
     }
 
-    public static String getTypeForFile(File file) {
+    private static String getTypeForFile(File file) {
         if (file.isDirectory()) {
             return DocumentsContract.Document.MIME_TYPE_DIR;
         } else {
@@ -245,7 +254,7 @@ public class Copy_The_File {
         }
     }
 
-    public static String getTypeForName(String name) {
+    private static String getTypeForName(String name) {
         final int lastDot = name.lastIndexOf('.');
         if (lastDot >= 0) {
             final String extension = name.substring(lastDot + 1).toLowerCase();
@@ -268,7 +277,7 @@ public class Copy_The_File {
         return copy_Done;
     }
 
-    public boolean Selected_The_File(File file){
+    private boolean Selected_The_File(File file) {
         for (File data: only_Selected_File) {
             if (file.equals(data))
                 return true;
@@ -277,17 +286,18 @@ public class Copy_The_File {
         return false;
 
     }
-    public void Remove_DataBase_Other_Files(File database_File){
+
+    private void Remove_DataBase_Other_Files(File database_File) {
         try{
-            List<File> files = new ArrayList<>(Arrays.asList(database_File.listFiles()));
+            List<File> files = new ArrayList<>(Arrays.asList(Objects.requireNonNull(database_File.listFiles())));
             Convert_Into_Last_Modified(files);
-            for (int i = files.size()-1 ; i >=1;i--){
-                 new File(files.get(i).getAbsolutePath()).delete();
-            }
-        }catch (Exception e){
+            for (int i = files.size() - 1; i >= 1; i--)
+                new File(files.get(i).getAbsolutePath()).delete();
+        } catch (Exception ignored) {
         }
     }
-    public void Convert_Into_Last_Modified(List<File> files){
+
+    private void Convert_Into_Last_Modified(List<File> files) {
         File temp_File;
         for (int i = 0 ; i < files.size();i++){
             for (int j = i ; j < files.size()-1;j++){
@@ -303,11 +313,7 @@ public class Copy_The_File {
     }
 
 
-    public boolean isStop() {
-        return stop;
-    }
-
-    public boolean Convert_The_LastMoified(long last_Modified){
+    private boolean Convert_The_LastMoified(long last_Modified) {
 
         int days =0;
 
@@ -331,4 +337,9 @@ public class Copy_The_File {
 
         return days >= normal_Changes;
     }
+
+    public boolean isStop() {
+        return stop;
+    }
+
 }

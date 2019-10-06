@@ -1,5 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -19,10 +20,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Duplication_Data {
     private List<File> getAllData = new LinkedList<>();
     private ArrayList<String> dataStore = new ArrayList<>();
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
 
 
@@ -104,9 +107,9 @@ public class Duplication_Data {
     }
 
 
-    public String getMimeType(Uri uri) {
-        String mimeType = null;
-        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+    private String getMimeType(Uri uri) {
+        String mimeType;
+        if (Objects.equals(uri.getScheme(), ContentResolver.SCHEME_CONTENT)) {
             ContentResolver cr = context.getContentResolver();
             mimeType = cr.getType(uri);
         } else {
@@ -117,7 +120,8 @@ public class Duplication_Data {
         }
         return mimeType;
     }
-    public void DuplicatedFilesUsingHashTable(Map<String, List<String>> lists) {
+
+    private void DuplicatedFilesUsingHashTable(Map<String, List<String>> lists) {
         for (File child : getAllData) {
             try {
                 FileInputStream fileInput = new FileInputStream(child);
@@ -137,8 +141,9 @@ public class Duplication_Data {
             }
         }
     }
-    public void Get_All_Path(File directory  ){
-        for (File child : directory.listFiles()) {
+
+    private void Get_All_Path(File directory) {
+        for (File child : Objects.requireNonNull(directory.listFiles())) {
             if (child.isDirectory()) {
                 Get_All_Path(child);
             }else {

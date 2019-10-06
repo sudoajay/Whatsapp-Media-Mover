@@ -14,13 +14,12 @@ public class PrefManager {
     private SharedPreferences.Editor editor;
     private Context _context;
 
-    // shared pref mode
-    int PRIVATE_MODE = 0;
-
 
     @SuppressLint("CommitPrefEdits")
     public PrefManager(Context context) {
         this._context = context;
+        // shared pref mode
+        int PRIVATE_MODE = 0;
         pref = _context.getSharedPreferences(context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
         editor = pref.edit();
     }
@@ -31,7 +30,7 @@ public class PrefManager {
     }
 
     public boolean isFirstTimeLaunch() {
-        return pref.getBoolean(_context.getString(R.string.isFirstTimeLaunch), true);
+        return !pref.getBoolean(_context.getString(R.string.isFirstTimeLaunch), true);
     }
 
 }

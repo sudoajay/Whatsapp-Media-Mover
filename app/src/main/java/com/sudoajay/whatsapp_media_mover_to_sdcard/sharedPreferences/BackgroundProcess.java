@@ -10,17 +10,16 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
  * Created by Lincoln on 05/05/16.
  */
 public class BackgroundProcess {
-    private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private Context _context;
-    // shared pref mode
-    private final int PRIVATE_MODE = 0;
 
 
     @SuppressLint("CommitPrefEdits")
     public BackgroundProcess(final Context context) {
         this._context = context;
-        pref = _context.getSharedPreferences(context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
+        // shared pref mode
+        int PRIVATE_MODE = 0;
+        SharedPreferences pref = _context.getSharedPreferences(context.getString(R.string.MY_PREFS_NAME), PRIVATE_MODE);
         editor = pref.edit();
     }
 
