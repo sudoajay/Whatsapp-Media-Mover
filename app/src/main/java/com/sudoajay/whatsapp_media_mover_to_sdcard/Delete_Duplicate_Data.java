@@ -1,7 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.documentfile.provider.DocumentFile;
 
@@ -100,21 +99,20 @@ class Delete_Duplicate_Data {
 
 
     private void DeleteTheDataFromExternalStorage() {
-        try {
+
             for (String getKey : sdCardStore.keySet()) {
                 DocumentFile sdCardDocument = sd_Card_documentFile;
                 if (sdCardDocument != null) {
                     String[] spiltSdPath = getKey.split(sdCardPath + "/");
                     String[] spilt = spiltSdPath[1].split("/");
 
-                    Log.e("Delete", spiltSdPath[1] + " -- " + getKey);
                     for (String part : spilt) {
                         DocumentFile nextDocument = sdCardDocument.findFile(part);
+
                         if (nextDocument != null) {
                             sdCardDocument = nextDocument;
                         }
                     }
-
                     for (String value : Objects.requireNonNull(sdCardStore.get(getKey))) {
                         DocumentFile save = sdCardDocument.findFile(value);
                         assert save != null;
@@ -124,9 +122,7 @@ class Delete_Duplicate_Data {
                     }
                 }
             }
-        } catch (Exception ignored) {
 
-        }
     }
 
 

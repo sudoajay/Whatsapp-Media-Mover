@@ -22,6 +22,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -271,6 +272,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Toast.makeText(getApplicationContext(),"Gets Here",Toast.LENGTH_LONG).show();
                 OpenAds();
                 onBackPressed();
                 multiThreading_task.execute();

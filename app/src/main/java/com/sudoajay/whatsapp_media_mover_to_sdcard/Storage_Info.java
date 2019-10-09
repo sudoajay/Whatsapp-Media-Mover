@@ -18,7 +18,7 @@ public class Storage_Info {
     private String whatsapp_Path;
 
     //  2 constructor
-    public Storage_Info(String sd_Card_Path_URL , Context context){
+    public Storage_Info(final String sd_Card_Path_URL , final Context context){
         this.sd_Card_Path_URL = sd_Card_Path_URL;
 
         // Shared preferences use to grab the data

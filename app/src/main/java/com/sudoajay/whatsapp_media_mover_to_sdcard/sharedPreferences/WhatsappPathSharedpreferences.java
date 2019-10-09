@@ -16,7 +16,7 @@ public class WhatsappPathSharedpreferences {
 
     // constructor
     @SuppressLint("CommitPrefEdits")
-    public WhatsappPathSharedpreferences(Context context){
+    public WhatsappPathSharedpreferences(final Context context){
 
         this.context =context;
         SharedPreferences pref =Objects.requireNonNull(context.getSharedPreferences(context.
