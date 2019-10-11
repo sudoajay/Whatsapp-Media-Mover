@@ -798,21 +798,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                switch (which_Option_To_Do) {
-                    case "remove":
-                        CustomToast.ToastIt(getApplicationContext(), "Removing....");
-                        break;
-                    case "copy":
-                        CustomToast.ToastIt(getApplicationContext(), "Copying....");
-                        break;
-                    case "move":
-                        CustomToast.ToastIt(getApplicationContext(), "Moving....");
-                        break;
-                    default:
-                        CustomToast.ToastIt(getApplicationContext(), "Restoring....");
-                        break;
-                }
+                CustomToast.ToastIt(getApplicationContext(), "Progress Shown In Notification Bar");
                 OpenAds();
                 onBackPressed();
                 multiThreading_task.execute();

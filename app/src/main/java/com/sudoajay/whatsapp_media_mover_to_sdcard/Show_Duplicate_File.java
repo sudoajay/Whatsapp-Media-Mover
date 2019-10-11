@@ -313,7 +313,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             public void run() {
                 notificationManager.cancel(1);
                 default_Notification();
-                CustomToast.ToastIt(getApplicationContext(), "Successfully Data Deleted");
+                CustomToast.ToastIt(getApplicationContext(), "Process Done");
 
             }
         }, 2000);
@@ -345,7 +345,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
                         .setAutoCancel(true)
                         .setOngoing(false)
                         .setLights(Color.parseColor("#075e54"), 3000, 3000);
-        builder.setContentText("Successfully Data Deleted ");
+        builder.setContentText("Successfully Duplicate Data Deleted ");
 
         Intent notificationIntent = new Intent(this, Main_Navigation.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
@@ -429,7 +429,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
             alertDialog.show();
 
-            CustomToast.ToastIt(getApplicationContext(), "Deletion");
+            CustomToast.ToastIt(getApplicationContext(), "Progress Shown In Notification Bar");
             super.onPreExecute();
         }
 
