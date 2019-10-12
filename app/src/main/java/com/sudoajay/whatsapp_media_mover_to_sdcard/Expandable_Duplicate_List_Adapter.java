@@ -35,10 +35,12 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
     private HashMap<String, List<String>> list_Header_Child;
     private HashMap<String, List<Boolean>> checkDeletedPath;
     private List<Integer> arrow_Image_Resource ;
+    private Show_Duplicate_File show_duplicate_file;
 
-    Expandable_Duplicate_List_Adapter(final Context context, final List<String> list_Header, final HashMap<String, List<String>> list_Header_Child,
+    Expandable_Duplicate_List_Adapter(final Show_Duplicate_File show_duplicate_file, final List<String> list_Header, final HashMap<String, List<String>> list_Header_Child,
                                       final HashMap<String, List<Boolean>> checkDeletedPath, final List<Integer> arrow_Image_Resource) {
-        this.context = context;
+        this.show_duplicate_file = show_duplicate_file;
+        this.context = show_duplicate_file.getApplicationContext();
         this.list_Header=list_Header;
         this.list_Header_Child=list_Header_Child;
         this.arrow_Image_Resource = arrow_Image_Resource;
@@ -142,9 +144,12 @@ public class Expandable_Duplicate_List_Adapter extends BaseExpandableListAdapter
             @Override
             public void onClick(View view) {
                 if(((CompoundButton) view).isChecked()){
+
                     Objects.requireNonNull(checkDeletedPath.get(list_Header.get(groupPosition))).set(childPosition, true);
+                    show_duplicate_file.setTotal_Size("add", new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition)).length());
                 } else {
                     Objects.requireNonNull(checkDeletedPath.get(list_Header.get(groupPosition))).set(childPosition, false);
+                    show_duplicate_file.setTotal_Size("sub", new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition)).length());
                 }
             }
         });

@@ -58,6 +58,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private HashMap<String, List<Boolean>> checkDeletedPath = new LinkedHashMap<>();
     private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
     private Button deleteDuplicateButton;
+    private long total_Size;
     private ConstraintLayout deleteDuplicate;
     private ConstraintLayout nothingToShow_ConstraintsLayout;
     private RemoteViews contentView;
@@ -120,6 +121,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
 
         for (i = 0; i < list_Header.size(); i++) {
             expandableListView.collapseGroup(i);
+            for (int j = 0; j < Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).size(); j++) {
+                total_Size += new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(i))).get(j)).length();
+            }
         }
 
         // Listview Group click listener
@@ -168,6 +172,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
         });
         expandableListView.invalidate();
 
+        deleteDuplicateButton.setText("Delete (" + Convert_It(total_Size) + ")");
+
         // Initialize the Mobile Ads SDK.
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -175,7 +181,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
             }
         });
 
+
         interstitialAds = new InterstitialAds(getApplicationContext());
+
 
     }
 
@@ -345,7 +353,8 @@ public class Show_Duplicate_File extends AppCompatActivity {
                         .setAutoCancel(true)
                         .setOngoing(false)
                         .setLights(Color.parseColor("#075e54"), 3000, 3000);
-        builder.setContentText("Successfully Duplicate Data Deleted ");
+        builder.setContentText("You Have Saved " + Convert_It(total_Size) + " Of Data ");
+        CustomToast.ToastIt(getApplicationContext(), "Successfully Duplicate Data Deleted");
 
         Intent notificationIntent = new Intent(this, Main_Navigation.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
@@ -460,5 +469,46 @@ public class Show_Duplicate_File extends AppCompatActivity {
             new Delete_Duplicate_Data(list_Header, list_Header_Child, expandableDuplicateListAdapter.getCheckDeletedPath(), Show_Duplicate_File.this, destPath[0]);
             return null;
         }
+
+
+    }
+    public static String Convert_It(long size) {
+        if (size > (1024 * 1024 * 1024)) {
+            // GB
+            return Convert_To_Decimal((float) size / (1024 * 1024 * 1024)) + " GB";
+        } else if (size > (1024 * 1024)) {
+            // MB
+            return Convert_To_Decimal((float) size / (1024 * 1024)) + " MB";
+
+        } else {
+            // KB
+            return Convert_To_Decimal((float) size / (1024)) + " KB";
+        }
+
+    }
+
+    public static String Convert_To_Decimal(float value) {
+        String size = value + "";
+        if (value >= 1000) {
+            return size.substring(0, 4);
+        } else if (value >= 100) {
+            return size.substring(0, 3);
+        } else {
+            if (size.length() == 2 || size.length() == 3) {
+                return size.substring(0, 1);
+            }
+            return size.substring(0, 4);
+
+        }
+
+    }
+    @SuppressLint("SetTextI18n")
+    public void setTotal_Size(final String type, final long size) {
+        if (type.equals("add")) {
+            total_Size += size;
+        } else {
+            total_Size -= size;
+        }
+        deleteDuplicateButton.setText("Delete (" + Convert_It(total_Size) + ")");
     }
 }
