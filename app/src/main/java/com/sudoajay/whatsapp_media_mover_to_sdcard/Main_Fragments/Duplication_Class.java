@@ -226,7 +226,9 @@ public class Duplication_Class extends Fragment {
             alertDialog.dismiss();
 
             Intent intent = new Intent(main_navigation, Show_Duplicate_File.class);
-            intent.putExtra("Duplication_Class_Data" , duplication_data.getList());
+            // To speed things up :)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            Show_Duplicate_File.DataHolder.setData(duplication_data.getList());
             startActivity(intent);
             super.onPostExecute(s);
 

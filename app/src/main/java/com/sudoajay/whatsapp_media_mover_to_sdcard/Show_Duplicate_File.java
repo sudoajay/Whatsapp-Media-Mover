@@ -68,6 +68,28 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private InterstitialAds interstitialAds;
 
 
+    public enum DataHolder {
+        INSTANCE;
+
+        private ArrayList<String> mObjectList;
+
+        public static boolean hasData() {
+            return INSTANCE.mObjectList != null;
+        }
+
+        public static void setData(final ArrayList<String> objectList) {
+            INSTANCE.mObjectList = objectList;
+        }
+
+        public static ArrayList<String> getData() {
+            final ArrayList<String> retList = INSTANCE.mObjectList;
+            INSTANCE.mObjectList = null;
+            return retList;
+        }
+    }
+
+
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +97,10 @@ public class Show_Duplicate_File extends AppCompatActivity {
         setContentView(R.layout.activity_show_duplicate_file);
 
         Reference();
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        assert bundle != null;
-        ArrayList<String> Data = bundle.getStringArrayList("Duplication_Class_Data");
-
+        ArrayList<String> Data = new ArrayList<>();
+        if (DataHolder.hasData()) {
+            Data = DataHolder.getData();
+        }
         assert Data != null;
         if (Data.isEmpty()) {
             deleteDuplicate.setVisibility(View.INVISIBLE);
@@ -338,7 +358,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             assert notificationManager != null;
             NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
             if (mChannel == null) {
@@ -372,7 +392,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         String title = this.getString(R.string.duplicate_title); // Default Channel
         NotificationCompat.Builder mBuilder;
 
-        contentView = new RemoteViews(getPackageName(), R.layout.activity_custom_notification);
+       contentView = new RemoteViews(getPackageName(), R.layout.activity_custom_notification);
         contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
         contentView.setTextViewText(R.id.title, "Deletion...");
         contentView.setTextViewText(R.id.time_Tittle, get_Current_Time());
@@ -384,7 +404,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
             notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_LOW;
             assert notificationManager != null;
             NotificationChannel mChannel = notificationManager.getNotificationChannel(id);
             if (mChannel == null) {
@@ -398,6 +418,11 @@ public class Show_Duplicate_File extends AppCompatActivity {
                 .setAutoCancel(false)
                 .setOngoing(true)
                 .setLights(Color.parseColor("#075e54"), 3000, 3000);
+
+        Intent notificationIntent = new Intent(this, Main_Navigation.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(contentIntent);
 
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
