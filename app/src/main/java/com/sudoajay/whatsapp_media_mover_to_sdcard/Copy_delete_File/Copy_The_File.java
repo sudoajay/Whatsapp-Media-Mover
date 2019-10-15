@@ -128,10 +128,15 @@ public class Copy_The_File {
     }
 
     private DocumentFile Return_Database_Path(String folder_Name) {
-        DocumentFile whatsApp_dir =sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile ,
-                whatsapp_Path.substring(1,whatsapp_Path.length()-1)));
-        assert whatsApp_dir != null;
-        return  whatsApp_dir.findFile(check_For_Duplicate(whatsApp_dir ,folder_Name));
+        try {
+            DocumentFile whatsApp_dir = sd_Card_documentFile.findFile(check_For_Duplicate(sd_Card_documentFile,
+                    whatsapp_Path.substring(1, whatsapp_Path.length() - 1)));
+            assert whatsApp_dir != null;
+            return whatsApp_dir.findFile(check_For_Duplicate(whatsApp_dir, folder_Name));
+        } catch (Exception ignored) {
+            return null;
+
+        }
     }
 
     private void Delete_Database_File(DocumentFile documentFile) {

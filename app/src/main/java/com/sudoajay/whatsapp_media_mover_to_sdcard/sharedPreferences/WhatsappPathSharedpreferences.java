@@ -3,8 +3,11 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
+
 import java.util.Objects;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class WhatsappPathSharedpreferences {
@@ -32,6 +35,9 @@ public class WhatsappPathSharedpreferences {
     }
 
     public String getWhatsapp_Path() {
+        if (whatsapp_Path == null) {
+            whatsapp_Path = "/WhatsApp/";
+        }
         return whatsapp_Path ;
     }
 
