@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.SudoAjay:LoadingAnimation-Android:v3.5@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/082df3ab528d50f52006da1f43ed1d32/LoadingAnimation-Android-v3.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/082df3ab528d50f52006da1f43ed1d32/LoadingAnimation-Android-v3.5/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.SudoAjay/LoadingAnimation-Android/v3.5/de5e3a2b7042a407e9deed210daf6939ed476e81/LoadingAnimation-Android-v3.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

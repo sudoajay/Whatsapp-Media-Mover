@@ -2,10 +2,8 @@ package com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -20,7 +18,6 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
@@ -33,7 +30,6 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 import java.io.File;
 import java.util.Objects;
 
-import dmax.dialog.SpotsDialog;
 
 
 public class Duplication_Class extends Fragment {
@@ -45,9 +41,7 @@ public class Duplication_Class extends Fragment {
     private long size;
     private View layout,layouts;
     private Toast toast;
-    private Duplication_Data duplication_data = new Duplication_Data();
-    private AlertDialog alertDialog ;
-    private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
+
     private Main_Navigation main_navigation ;
     private Storage_Info storage_info;
 
@@ -192,50 +186,45 @@ public class Duplication_Class extends Fragment {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public class MultiThreading_Task extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            alertDialog = new SpotsDialog.Builder()
-                    .setContext(main_navigation)
-                    .setMessage("Scanning...")
-                    .setCancelable(false)
-                    .setTheme(R.style.Custom)
-                    .build();
-
-            alertDialog.show();
-            super.onPreExecute();
-        }
-
-        @SuppressLint("WrongThread")
-        @Override
-        protected String doInBackground(String... strings) {
-            duplication_data.Duplication(getContext(),new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"+""),
-                    new File(android_sdCard_permission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
-                    internal_Check.getVisibility(), external_Check.getVisibility());
-            return null;
-        }
-        @Override
-        protected void onProgressUpdate(String... values) {
-
-            super.onProgressUpdate(values);
-        }
-        @Override
-        protected void onPostExecute(String s) {
-            alertDialog.dismiss();
-
-            Intent intent = new Intent(main_navigation, Show_Duplicate_File.class);
-            // To speed things up :)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            Show_Duplicate_File.DataHolder.setData(duplication_data.getList());
-            startActivity(intent);
-            super.onPostExecute(s);
-
-
-        }
-
-    }
+//    @SuppressLint("StaticFieldLeak")
+//    public class MultiThreading_Task extends AsyncTask<String, String, String> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//
+//
+//
+//            super.onPreExecute();
+//        }
+//
+//        @SuppressLint("WrongThread")
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            duplication_data.Duplication(getContext(),new File(androidExternalStorage_permission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/"+""),
+//                    new File(android_sdCard_permission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
+//                    internal_Check.getVisibility(), external_Check.getVisibility());
+//            return null;
+//        }
+//        @Override
+//        protected void onProgressUpdate(String... values) {
+//
+//            super.onProgressUpdate(values);
+//        }
+//        @Override
+//        protected void onPostExecute(String s) {
+//
+//
+//            Intent intent = new Intent(main_navigation, Show_Duplicate_File.class);
+//            // To speed things up :)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//            Show_Duplicate_File.DataHolder.setData(duplication_data.getList());
+//            startActivity(intent);
+//            super.onPostExecute(s);
+//
+//
+//        }
+//
+//    }
 
     private void Toast_It(String Message) {
         TextView toast_TextView = layouts.findViewById(R.id.text);
@@ -310,8 +299,8 @@ public class Duplication_Class extends Fragment {
                 case R.id.scanDuplicateButton:
                     if(internal_Check.getVisibility() == View.VISIBLE || external_Check.getVisibility() == View.VISIBLE) {
                         try {
-                            multiThreading_task.execute();
-                        }catch (Exception ignored){
+                            SendForward();
+                        } catch (Exception ignored) {
                         }
                     }
                     else{
@@ -323,6 +312,14 @@ public class Duplication_Class extends Fragment {
             file_Size_text.setText("Data Size - " + storage_info.Convert_It(size));
 
         }
+
+    }
+
+    private void SendForward() {
+        Intent intent = new Intent(main_navigation, Show_Duplicate_File.class);
+        intent.putExtra("internalCheck", internal_Check.getVisibility());
+        intent.putExtra("externalCheck", external_Check.getVisibility());
+        startActivity(intent);
 
     }
 }

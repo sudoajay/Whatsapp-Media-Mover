@@ -1,7 +1,6 @@
 package com.sudoajay.whatsapp_media_mover_to_sdcard;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
@@ -32,7 +32,10 @@ import androidx.core.content.FileProvider;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.sudoajay.lodinganimation.LoadingAnimation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.AdFolder.InterstitialAds;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
@@ -44,8 +47,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
-import dmax.dialog.SpotsDialog;
-
 
 public class Show_Duplicate_File extends AppCompatActivity {
     private ImageView refresh_Image_View;
@@ -56,7 +57,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private List<Boolean> checkPath = new ArrayList<>();
     private HashMap<String, List<String>> list_Header_Child = new LinkedHashMap<>();
     private HashMap<String, List<Boolean>> checkDeletedPath = new LinkedHashMap<>();
-    private MultiThreading_Task multiThreading_task = new MultiThreading_Task();
+    private MultiThreading_Task2 multiThreadingtask2;
     private Button deleteDuplicateButton;
     private long total_Size;
     private ConstraintLayout deleteDuplicate;
@@ -66,28 +67,30 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private NotificationManager notificationManager;
     private Notification_Permission_Check notification_permission_check;
     private InterstitialAds interstitialAds;
+    private int internalCheck, externalCheck;
+    private ArrayList<String> Data = new ArrayList<>();
 
 
-    public enum DataHolder {
-        INSTANCE;
-
-        private ArrayList<String> mObjectList;
-
-        public static boolean hasData() {
-            return INSTANCE.mObjectList != null;
-        }
-
-        public static void setData(final ArrayList<String> objectList) {
-            INSTANCE.mObjectList = objectList;
-        }
-
-        public static ArrayList<String> getData() {
-            final ArrayList<String> retList = INSTANCE.mObjectList;
-            INSTANCE.mObjectList = null;
-            return retList;
-        }
-    }
-
+//    public enum DataHolder {
+//        INSTANCE;
+//
+//        private ArrayList<String> mObjectList;
+//
+//        public static boolean hasData() {
+//            return INSTANCE.mObjectList != null;
+//        }
+//
+//        public static void setData(final ArrayList<String> objectList) {
+//            INSTANCE.mObjectList = objectList;
+//        }
+//
+//        public static ArrayList<String> getData() {
+//            final ArrayList<String> retList = INSTANCE.mObjectList;
+//            INSTANCE.mObjectList = null;
+//            return retList;
+//        }
+//    }
+//
 
 
     @SuppressLint("SetTextI18n")
@@ -96,16 +99,88 @@ public class Show_Duplicate_File extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_duplicate_file);
 
-        Reference();
-        ArrayList<String> Data = new ArrayList<>();
-        if (DataHolder.hasData()) {
-            Data = DataHolder.getData();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (Objects.requireNonNull(getIntent().getExtras()).get("internalCheck") != null
+                    && Objects.requireNonNull(getIntent().getExtras()).get("externalCheck") != null) {
+                internalCheck = getIntent().getExtras().getInt("internalCheck");
+                externalCheck = getIntent().getExtras().getInt("externalCheck");
+            }
         }
+
+        MultiThreadingTask1 multiThreadingTask1 = new MultiThreadingTask1();
+        multiThreadingTask1.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class MultiThreadingTask1 extends AsyncTask<String, String, String> {
+
+
+        private Duplication_Data duplication_data;
+        private AndroidExternalStoragePermission androidExternalStoragePermission;
+        private AndroidSdCardPermission androidSdCardPermission;
+        private LoadingAnimation loadingAnimation;
+        private Storage_Info storage_info;
+
+        @Override
+        protected void onPreExecute() {
+
+            loadingAnimation = findViewById(R.id.loadingAnimation);
+            loadingAnimation.start();
+            duplication_data = new Duplication_Data();
+            androidExternalStoragePermission = new
+                    AndroidExternalStoragePermission(getApplicationContext(), Show_Duplicate_File.this);
+
+            androidSdCardPermission = new AndroidSdCardPermission(getApplicationContext());
+            storage_info = new Storage_Info(getApplicationContext());
+
+            super.onPreExecute();
+        }
+
+        @SuppressLint("WrongThread")
+        @Override
+        protected String doInBackground(String... strings) {
+            duplication_data.Duplication(getApplicationContext(), new File(androidExternalStoragePermission.getExternal_Path() + storage_info.getWhatsapp_Path() + "/" + ""),
+                    new File(androidSdCardPermission.getSd_Card_Path_URL() + storage_info.getWhatsapp_Path() + "/"),
+                    internalCheck, externalCheck);
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            loadingAnimation.stop();
+            Data = duplication_data.getList();
+            AfterLoading();
+            super.onPostExecute(s);
+
+
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void AfterLoading() {
+
+        Reference();
+
         assert Data != null;
         if (Data.isEmpty()) {
-            deleteDuplicate.setVisibility(View.INVISIBLE);
-            deleteDuplicateButton.setVisibility(View.INVISIBLE);
             nothingToShow_ConstraintsLayout.setVisibility(View.VISIBLE);
+
+        } else {
+            deleteDuplicateButton.setVisibility(View.VISIBLE);
+            deleteDuplicate.setVisibility(View.VISIBLE);
 
         }
         int i = 0;
@@ -213,6 +288,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
         nothingToShow_ConstraintsLayout = findViewById(R.id.nothingToShow_ConstraintsLayout);
         deleteDuplicateButton = findViewById(R.id.deleteDuplicateButton);
         deleteDuplicate = findViewById(R.id.deleteDuplicate);
+
+        // create object
+        multiThreadingtask2 = new MultiThreading_Task2();
         notification_permission_check = new Notification_Permission_Check(this, this);
     }
 
@@ -303,7 +381,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Gets Here",Toast.LENGTH_LONG).show();
                 OpenAds();
                 onBackPressed();
-                multiThreading_task.execute();
+                multiThreadingtask2.execute();
 
                 dialog.dismiss();
 
@@ -390,6 +468,10 @@ public class Show_Duplicate_File extends AppCompatActivity {
     public void Notification() {
         String id = this.getString(R.string.duplicate_Id); // default_channel_id
         String title = this.getString(R.string.duplicate_title); // Default Channel
+
+        Intent closeButton = new Intent();
+        closeButton.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
         NotificationCompat.Builder mBuilder;
 
        contentView = new RemoteViews(getPackageName(), R.layout.activity_custom_notification);
@@ -419,10 +501,13 @@ public class Show_Duplicate_File extends AppCompatActivity {
                 .setOngoing(true)
                 .setLights(Color.parseColor("#075e54"), 3000, 3000);
 
-        Intent notificationIntent = new Intent(this, Main_Navigation.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(contentIntent);
+        mBuilder.setContentIntent(
+                PendingIntent.getActivity(
+                        getApplicationContext(),
+                        0,
+                        closeButton,
+                        PendingIntent.FLAG_UPDATE_CURRENT));
+
 
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
@@ -444,24 +529,16 @@ public class Show_Duplicate_File extends AppCompatActivity {
         }
     }
 
-    public MultiThreading_Task getMultiThreading_task() {
-        return multiThreading_task;
+    public MultiThreading_Task2 getMultiThreading_task() {
+        return multiThreadingtask2;
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class MultiThreading_Task extends AsyncTask<String, String, String> {
+    public class MultiThreading_Task2 extends AsyncTask<String, String, String> {
         int progress = 0;
 
         @Override
         protected void onPreExecute() {
-            AlertDialog alertDialog = new SpotsDialog.Builder()
-                    .setContext(Show_Duplicate_File.this)
-                    .setMessage("Deletion....")
-                    .setCancelable(false)
-                    .setTheme(R.style.Custom)
-                    .build();
-
-            alertDialog.show();
 
             CustomToast.ToastIt(getApplicationContext(), "Progress Shown In Notification Bar");
             super.onPreExecute();

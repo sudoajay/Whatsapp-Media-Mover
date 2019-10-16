@@ -29,7 +29,6 @@ public class Duplication_Data {
     private static Context context;
 
 
-
     private static MessageDigest messageDigest;
     static {
         try {
