@@ -147,12 +147,16 @@ public class Duplication_Class extends Fragment {
     }
 
     private String Spilit_The_Path(final String url, final String path) {
-        String[] spilt = url.split("%3A");
-        String[] getPaths = spilt[0].split("/");
-        String[] paths = path.split(getPaths[getPaths.length - 1]);
-        return paths[0] + getPaths[getPaths.length - 1];
-    }
+        try {
+            String[] spilt = url.split("%3A");
+            String[] getPaths = spilt[0].split("/");
+            String[] paths = path.split(getPaths[getPaths.length - 1]);
+            return paths[0] + getPaths[getPaths.length - 1];
 
+        }catch (Exception ignored){
+            return "";
+        }
+    }
     private void runThread(){
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

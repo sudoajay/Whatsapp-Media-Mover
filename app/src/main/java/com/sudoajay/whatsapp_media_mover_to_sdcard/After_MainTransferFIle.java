@@ -176,7 +176,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
 
         // create class object
         notification_permission_check = new Notification_Permission_Check(this, this);
-        storage_Info = new Storage_Info(sd_Card_Path_URL, this);
+        storage_Info = new Storage_Info(sd_Card_Path_URL, getApplicationContext());
 
         // create and instalization of sd card permission
         android_sdCard_permission = new AndroidSdCardPermission(After_MainTransferFIle.this, this);
@@ -830,7 +830,7 @@ public class After_MainTransferFIle extends AppCompatActivity {
                 tick_Document_ImageView.getVisibility(), tick_Image_ImageView.getVisibility(),
                 tick_Gif_ImageView.getVisibility(), tick_Voice_ImageView.getVisibility(),
                 tick_Profile_ImageView.getVisibility(), tick_Sticker_ImageView.getVisibility());
-        stop_The_Process = copy_the_file.isStop();
+        stop_The_Process = false;
 
     }
 

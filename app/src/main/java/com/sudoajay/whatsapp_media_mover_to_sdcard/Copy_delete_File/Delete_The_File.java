@@ -80,18 +80,22 @@ public class Delete_The_File {
         deleteRecursive(file);
         }
     private void deleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory())
-            for (File child : Objects.requireNonNull(fileOrDirectory.listFiles()))
-                deleteRecursive(child);
+        try {
+            if (fileOrDirectory.isDirectory())
+                for (File child : Objects.requireNonNull(fileOrDirectory.listFiles()))
+                    deleteRecursive(child);
 
-        if(!Selected_The_File(fileOrDirectory) && Convert_The_LastMoified(fileOrDirectory.lastModified())) {
-            get_Data_Count++;
-             fileOrDirectory.delete();
+            if (!Selected_The_File(fileOrDirectory) && Convert_The_LastMoified(fileOrDirectory.lastModified())) {
+                get_Data_Count++;
+                fileOrDirectory.delete();
+            }
+            if (!process.equals("Background"))
+                after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
+
+        } catch (Exception ignored) {
+
         }
-        if(!process.equals("Background"))
-        after_main_transferFIle.getMultiThreading_task().onProgressUpdate();
     }
-
     public int getGet_Data_Count() {
         return get_Data_Count;
     }

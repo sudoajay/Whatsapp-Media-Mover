@@ -6,10 +6,11 @@ android {
         applicationId "com.sudoajay.whatapp_media_mover_to_sdcard"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 24
-        versionName "6.1"
+        versionCode 26
+        versionName "6.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        vectorDrawables.useSupportLibrary = true
         renderscriptTargetApi 21
         renderscriptSupportModeEnabled true
     }

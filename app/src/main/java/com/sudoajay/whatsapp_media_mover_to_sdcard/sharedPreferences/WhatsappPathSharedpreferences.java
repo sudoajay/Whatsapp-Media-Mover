@@ -20,18 +20,21 @@ public class WhatsappPathSharedpreferences {
     // constructor
     @SuppressLint("CommitPrefEdits")
     public WhatsappPathSharedpreferences(final Context context){
+        try {
 
-        this.context =context;
-        SharedPreferences pref =Objects.requireNonNull(context.getSharedPreferences(context.
-                getString(R.string.MY_PREFS_NAME), MODE_PRIVATE));
-        editor = pref.edit();
+            this.context = context;
+            SharedPreferences pref = Objects.requireNonNull(context.getSharedPreferences(context.
+                    getString(R.string.MY_PREFS_NAME), MODE_PRIVATE));
+            editor = pref.edit();
 
-        whatsapp_Path = pref.getString(context.getString(R.string.keyValue), null);
-       if (whatsapp_Path == null) {
-            whatsapp_Path="/WhatsApp/";
+            whatsapp_Path = pref.getString(context.getString(R.string.keyValue), null);
+            if (whatsapp_Path == null) {
+                whatsapp_Path = "/WhatsApp/";
+            }
+            whats_App_Media_Path = whatsapp_Path + "Media/";
+        }catch (Exception ignored){
+
         }
-        whats_App_Media_Path = whatsapp_Path + "Media/";
-
     }
 
     public String getWhatsapp_Path() {

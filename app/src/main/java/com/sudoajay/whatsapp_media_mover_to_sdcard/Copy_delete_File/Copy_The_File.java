@@ -38,25 +38,30 @@ public class Copy_The_File {
     private String whatsapp_Path,process;
     private Context context;
     private static final int BUFFER = 2048;
-    private boolean stop;
+
 
 
     public Copy_The_File(String external_Path_Url, String whats_App_Media_Path, DocumentFile sd_Card_documentFile,
                          After_MainTransferFIle after_main_transferFIle, List<File> only_Selected_File , int normal_Changes,String process, Context context){
-        this.external_Path_Url = external_Path_Url;
-        this.whats_App_Media_Path = whats_App_Media_Path;
-        this.sd_Card_documentFile=sd_Card_documentFile;
-        this.after_main_transferFIle = after_main_transferFIle;
-        this.only_Selected_File= only_Selected_File;
-        this.normal_Changes = normal_Changes;
-        this.process=process;
-        this.context=context;
+
+        try {
+            this.external_Path_Url = external_Path_Url;
+            this.whats_App_Media_Path = whats_App_Media_Path;
+            this.sd_Card_documentFile = sd_Card_documentFile;
+            this.after_main_transferFIle = after_main_transferFIle;
+            this.only_Selected_File = only_Selected_File;
+            this.normal_Changes = normal_Changes;
+            this.process = process;
+            this.context = context;
 
 
-        // shared preferences use to grab the data
-        WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
-        whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
-        media_dir =ReturnMediaDir();
+            // shared preferences use to grab the data
+            WhatsappPathSharedpreferences whatsappPathSharedpreferences = new WhatsappPathSharedpreferences(context);
+            whatsapp_Path = whatsappPathSharedpreferences.getWhatsapp_Path();
+            media_dir = ReturnMediaDir();
+        } catch (Exception ignored) {
+
+        }
     }
     public void Copy_Folder_As_Per_Tick(int database, int audio , int video ,int document ,int images , int gif ,int voice
             ,int profile , int sticker  ){
@@ -108,6 +113,7 @@ public class Copy_The_File {
                 folder_File = new File(external_Path_Url +whatsapp_Path + Return_Path(folder_No));
                  exact_Path = Return_Database_Path(Return_Path(folder_No));
                 Remove_DataBase_Other_Files(folder_File);
+                assert exact_Path != null;
                 Delete_Database_File(exact_Path);
                 File[] file = folder_File.listFiles();
                 assert file != null;
@@ -343,8 +349,5 @@ public class Copy_The_File {
         return days >= normal_Changes;
     }
 
-    public boolean isStop() {
-        return stop;
-    }
 
 }

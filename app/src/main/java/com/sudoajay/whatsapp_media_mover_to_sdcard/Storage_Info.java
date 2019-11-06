@@ -65,11 +65,15 @@ public class Storage_Info {
     }
 
     public  String getWhatsAppInternalMemorySize() {
-        File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+whatsapp_Path);
-        if(path.exists()) {
-            return Convert_It((internal_WhatsApp_Size = getFileSizeInBytes(path.getAbsolutePath())));
+        try {
+            File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + whatsapp_Path);
+            if (path.exists()) {
+                return Convert_It((internal_WhatsApp_Size = getFileSizeInBytes(path.getAbsolutePath())));
 
-        }  else {
+            } else {
+                return "0.00 MB";
+            }
+        } catch (Exception ignore) {
             return "0.00 MB";
         }
     }
