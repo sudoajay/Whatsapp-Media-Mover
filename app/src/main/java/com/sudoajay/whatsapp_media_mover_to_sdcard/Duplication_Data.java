@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 
 import java.io.File;
 import java.io.FileInputStream;

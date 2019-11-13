@@ -47,7 +47,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Custom_Dialog_F
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Tabbed_Custom_Dialog_For_Deep;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TickOnButtonSharedPreference;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 

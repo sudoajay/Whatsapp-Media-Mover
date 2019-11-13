@@ -26,7 +26,7 @@ import com.dpro.widgets.WeekdaysPicker;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Database_Classes.BackgroundTimerDataBase;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.ForegroundDialog;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.BackgroundProcess;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 

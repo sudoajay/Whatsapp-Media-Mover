@@ -23,7 +23,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermi
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.SdCardPath;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Storage_Info;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 
 import java.io.File;
 import java.text.DecimalFormat;

@@ -63,5 +63,9 @@
     <color name="drawer_background_color">#ff303030</color>
     <color name="drawer_selected_tab">#85454343</color>
     <color name="separateColor">#504E4E</color>
+
+    <!--Info Layout -->
+    <color name="infoLayout_BackColor">#2546ABEB</color>
+    <color name="tabBackgroundColor">#ffffff</color>
 </resources>
 

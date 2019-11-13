@@ -21,7 +21,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.BuildConfig;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.ExpandableListAdapter;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Make_Changes;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.WhatsappPathSharedpreferences;
 
 import java.io.File;

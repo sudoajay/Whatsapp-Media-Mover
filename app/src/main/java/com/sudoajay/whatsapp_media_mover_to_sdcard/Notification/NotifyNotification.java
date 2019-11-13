@@ -19,7 +19,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.Duplication_Data;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Navigation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.R;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Storage_Info;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.SdCardPathSharedPreference;
 
 import java.io.File;

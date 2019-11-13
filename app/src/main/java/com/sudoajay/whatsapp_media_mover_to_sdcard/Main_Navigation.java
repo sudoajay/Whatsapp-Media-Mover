@@ -34,7 +34,7 @@ import com.sudoajay.whatsapp_media_mover_to_sdcard.ForegroundService.ForegroundD
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments.Duplication_Class;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments.Home;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Main_Fragments.MainTransferFIle;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.PrefManager;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.sharedPreferences.TraceBackgroundService;
 
@@ -270,7 +270,6 @@ public class Main_Navigation extends AppCompatActivity
         homeIntent.addCategory(Intent.CATEGORY_HOME);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homeIntent);
-
     }
 
     public void Share() {

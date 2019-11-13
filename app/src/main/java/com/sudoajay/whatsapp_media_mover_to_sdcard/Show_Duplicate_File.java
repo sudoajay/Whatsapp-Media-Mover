@@ -19,6 +19,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,16 +29,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.sudoajay.lodinganimation.LoadingAnimation;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.AdFolder.InterstitialAds;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.Custom_Dialog.Dialog_InformationData;
+import com.sudoajay.whatsapp_media_mover_to_sdcard.HelperClass.CustomToast;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidExternalStoragePermission;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.AndroidSdCardPermission;
 import com.sudoajay.whatsapp_media_mover_to_sdcard.Permission.Notification_Permission_Check;
-import com.sudoajay.whatsapp_media_mover_to_sdcard.Toast.CustomToast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,7 +73,9 @@ public class Show_Duplicate_File extends AppCompatActivity {
     private InterstitialAds interstitialAds;
     private int internalCheck, externalCheck;
     private ArrayList<String> Data = new ArrayList<>();
-
+    private BottomSheetDialog mBottomSheetDialog;
+    private String onClickPath;
+    private LinearLayout fragment_history_bottom_sheet_openFile;
 
 //    public enum DataHolder {
 //        INSTANCE;
@@ -187,7 +193,7 @@ public class Show_Duplicate_File extends AppCompatActivity {
         for (String get : Data) {
             if (get.equalsIgnoreCase("And")) {
                 i++;
-                list_Header.add("Group " + i);
+                list_Header.add("Duplicate " + i);
                 arrow_Image_Resource.add(R.drawable.arrow_up_icon);
             }
         }
@@ -259,8 +265,17 @@ public class Show_Duplicate_File extends AppCompatActivity {
                                         int groupPosition, int childPosition, long id) {
                 // TODO Auto-generated method stub
 
-                open_With(new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition)));
-                expandableDuplicateListAdapter.getChildView(groupPosition, childPosition, false, v, parent);
+//                open_With(new File(Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition)));
+//                expandableDuplicateListAdapter.getChildView(groupPosition, childPosition, false, v, parent);
+                onClickPath = Objects.requireNonNull(list_Header_Child.get(list_Header.get(groupPosition))).get(childPosition);
+                if (new File(onClickPath).isDirectory())
+                    fragment_history_bottom_sheet_openFile.setVisibility(View.GONE);
+                else {
+                    fragment_history_bottom_sheet_openFile.setVisibility(View.VISIBLE);
+
+                }
+                mBottomSheetDialog.show();
+
 
                 return false;
             }
@@ -293,6 +308,18 @@ public class Show_Duplicate_File extends AppCompatActivity {
         // create object
         multiThreadingtask2 = new MultiThreading_Task2();
         notification_permission_check = new Notification_Permission_Check(this, this);
+
+        mBottomSheetDialog = new BottomSheetDialog(Show_Duplicate_File.this);
+        @SuppressLint("InflateParams") View sheetView = getLayoutInflater().inflate(R.layout.layout_dialog_moreoption, null);
+        mBottomSheetDialog.setContentView(sheetView);
+
+        fragment_history_bottom_sheet_openFile = sheetView.findViewById(R.id.fragment_history_bottom_sheet_openFile);
+        fragment_history_bottom_sheet_openFile.setOnClickListener(new Onclick());
+        LinearLayout fragment_history_bottom_sheet_viewFolder = sheetView.findViewById(R.id.fragment_history_bottom_sheet_viewFolder);
+        fragment_history_bottom_sheet_viewFolder.setOnClickListener(new Onclick());
+        LinearLayout fragment_history_bottom_sheet_moreInfo = sheetView.findViewById(R.id.fragment_history_bottom_sheet_moreInfo);
+        fragment_history_bottom_sheet_moreInfo.setOnClickListener(new Onclick());
+
     }
 
     public void On_Click_Process(View view) {
@@ -613,5 +640,42 @@ public class Show_Duplicate_File extends AppCompatActivity {
             total_Size -= size;
         }
         deleteDuplicateButton.setText("Delete (" + Convert_It(total_Size) + ")");
+    }
+
+    public void Dialog_InformationData() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Dialog_InformationData information_data = new Dialog_InformationData(onClickPath, Show_Duplicate_File.this);
+        information_data.show(ft, "dialog");
+    }
+
+    private void SpecificFolder() {
+        String getPath = onClickPath.replace("/" + new File(onClickPath).getName(), "");
+        Uri selectedUri = Uri.parse(getPath);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(selectedUri, "resource/folder");
+
+        if (intent.resolveActivityInfo(getPackageManager(), 0) != null) {
+            startActivity(intent);
+        } else {
+            CustomToast.ToastIt(getApplicationContext(), "No file explorer found");
+        }
+    }
+    class Onclick implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.fragment_history_bottom_sheet_openFile:
+                    open_With(new File(onClickPath));
+                    break;
+                case R.id.fragment_history_bottom_sheet_viewFolder:
+                    SpecificFolder();
+                    break;
+                case R.id.fragment_history_bottom_sheet_moreInfo:
+                    Dialog_InformationData();
+                    mBottomSheetDialog.dismiss();
+                    break;
+            }
+        }
     }
 }
